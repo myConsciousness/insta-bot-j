@@ -37,7 +37,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public abstract class AbstractBot implements InstaBot, Serializable {
+abstract class AbstractInstaBot implements InstaBot, Serializable {
 
     /**
      * The serial version UID
@@ -63,7 +63,7 @@ public abstract class AbstractBot implements InstaBot, Serializable {
     @Getter(AccessLevel.PROTECTED)
     private WebDriver webDriver;
 
-    protected AbstractBot(@NonNull final String userName, @NonNull final String password) {
+    protected AbstractInstaBot(@NonNull final String userName, @NonNull final String password) {
         System.setProperty(SystemPropertyKey.WEB_DRIVER.getTag(), WebDriverPath.CHROME_DRIVER.getTag());
         this.webDriver = new ChromeDriver();
         webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

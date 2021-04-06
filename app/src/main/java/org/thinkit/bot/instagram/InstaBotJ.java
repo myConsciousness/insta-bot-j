@@ -14,11 +14,8 @@
 
 package org.thinkit.bot.instagram;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.thinkit.bot.instagram.catalog.ElementName;
-import org.thinkit.bot.instagram.catalog.ElementXPath;
-import org.thinkit.bot.instagram.catalog.InstagramUrl;
+import org.thinkit.bot.instagram.command.LoginCommand;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -26,7 +23,7 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public final class InstaBotJ extends AbstractBot {
+final class InstaBotJ extends AbstractInstaBot {
 
     /**
      * The serial version UID
@@ -63,10 +60,7 @@ public final class InstaBotJ extends AbstractBot {
 
         final WebDriver webDriver = super.getWebDriver();
 
-        webDriver.get(InstagramUrl.URL.getTag());
-        webDriver.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(super.getUserName());
-        webDriver.findElement(By.name(ElementName.PASSWORD.getTag())).sendKeys(super.getPassword());
-        webDriver.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
+        LoginCommand.from(super.getUserName(), super.getPassword()).execute(webDriver);
 
         return true;
     }
