@@ -3,27 +3,27 @@
 ![License](https://img.shields.io/badge/License-Apache_2.0-e74c3c.svg?style=for-the-badge)</br>
 ![Java CI with Gradle](https://github.com/myConsciousness/insta-bot-j/workflows/Java%20CI%20with%20Gradle/badge.svg)
 
-# Github API Gateway
+# 1. InstaBotJ
 
 **Table of Contents**
 
-- [Github API Gateway](#github-api-gateway)
-  - [What is it?](#what-is-it)
-  - [Benefits](#benefits)
-  - [How To Use](#how-to-use)
-    - [1. Add the dependencies](#1-add-the-dependencies)
-  - [License](#license)
-  - [More Information](#more-information)
+- [1. InstaBotJ](#1-instabotj)
+  - [1.1. What is it?](#11-what-is-it)
+  - [1.2. Benefits](#12-benefits)
+  - [1.3. How To Use](#13-how-to-use)
+    - [1.3.1. Add the dependencies](#131-add-the-dependencies)
+  - [1.4. License](#14-license)
+  - [1.5. More Information](#15-more-information)
 
-## What is it?
+## 1.1. What is it?
 
 Preparing...
 
-## Benefits
+## 1.2. Benefits
 
-## How To Use
+## 1.3. How To Use
 
-### 1. Add the dependencies
+### 1.3.1. Add the dependencies
 
 > **_Note:_**</br>
 > Replace version you want to use. Check the latest [Packages](https://github.com/myConsciousness/insta-bot-j/packages).</br>
@@ -66,7 +66,7 @@ dependencies {
 }
 ```
 
-## License
+## 1.4. License
 
 ```license
 Copyright 2021 Kato Shinya.
@@ -82,7 +82,7 @@ or implied. See the License for the specific language governing permissions and 
 the License.
 ```
 
-## More Information
+## 1.5. More Information
 
 `InstaBotJ` was designed and implemented by Kato Shinya, who works as a freelance developer.
 
