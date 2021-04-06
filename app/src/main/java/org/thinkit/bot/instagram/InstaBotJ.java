@@ -14,6 +14,60 @@
 
 package org.thinkit.bot.instagram;
 
-public class InstaBotJ {
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.thinkit.bot.instagram.catalog.ElementName;
+import org.thinkit.bot.instagram.catalog.ElementXPath;
+import org.thinkit.bot.instagram.catalog.InstagramUrl;
 
+import lombok.EqualsAndHashCode;
+import lombok.NonNull;
+import lombok.ToString;
+
+@ToString
+@EqualsAndHashCode(callSuper = false)
+public final class InstaBotJ extends AbstractBot {
+
+    /**
+     * The serial version UID
+     */
+    private static final long serialVersionUID = -7380913294460202882L;
+
+    /**
+     * The constructor.
+     *
+     * @param userName The user name
+     * @param password The password
+     *
+     * @exception NullPointerException If {@code null} is passed as an argument
+     */
+    private InstaBotJ(@NonNull final String userName, @NonNull final String password) {
+        super(userName, password);
+    }
+
+    /**
+     * Returns the new instance of {@link InstaBotJ} based on the arguments.
+     *
+     * @param userName The user name
+     * @param password The password
+     * @return The new instance of {@link InstaBotJ}
+     *
+     * @exception NullPointerException If {@code null} is passed as an argument
+     */
+    public static InstaBot from(@NonNull final String userName, @NonNull final String password) {
+        return new InstaBotJ(userName, password);
+    }
+
+    @Override
+    public boolean executeAutoLikes() {
+
+        final WebDriver webDriver = super.getWebDriver();
+
+        webDriver.get(InstagramUrl.URL.getTag());
+        webDriver.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(super.getUserName());
+        webDriver.findElement(By.name(ElementName.PASSWORD.getTag())).sendKeys(super.getPassword());
+        webDriver.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
+
+        return true;
+    }
 }

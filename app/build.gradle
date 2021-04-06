@@ -69,6 +69,7 @@ dependencies {
 	testImplementation 'org.projectlombok:lombok:1.18.16'
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
+    implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 
     implementation 'org.thinkit.api.catalog:catalog-api:v1.0.2'
