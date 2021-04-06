@@ -29,9 +29,14 @@ import lombok.RequiredArgsConstructor;
 public enum InstagramUrl implements BiCatalog<InstagramUrl, String> {
 
     /**
-     * The url
+     * The login url
      */
-    URL(0, "https://www.instagram.com/");
+    LOGIN(0, "https://www.instagram.com/"),
+
+    /**
+     * The tags url
+     */
+    TAGS(1, "https://www.instagram.com/explorer/tags/%s");
 
     /**
      * The code
