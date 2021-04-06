@@ -20,33 +20,18 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages element XPath.
+ * The catalog that manages css selector of the element.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum ElementXPath implements BiCatalog<ElementXPath, String> {
+public enum ElementCssSelector implements BiCatalog<ElementCssSelector, String> {
 
     /**
-     * The login
+     * The next arrow
      */
-    LOGIN(0, "//*[@id=\"loginForm\"]/div/div[3]/button/div"),
-
-    /**
-     * The login completed
-     */
-    LOGIN_COMPLETED(1, "//*[@id=\"react-root\"]/section/main/div/div/div/section/div/button"),
-
-    /**
-     * The first element of tags
-     */
-    TAGS_FIRST_ELEMENT(2, "//*[@id=\"react-root\"]/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]"),
-
-    /**
-     * The like button
-     */
-    LIKE_BUTTON(3, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button");
+    NEXT_ARROW(0, "a.coreSpriteRightPaginationArrow");
 
     /**
      * The code

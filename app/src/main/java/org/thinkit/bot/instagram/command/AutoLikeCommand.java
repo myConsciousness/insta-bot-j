@@ -14,7 +14,13 @@
 
 package org.thinkit.bot.instagram.command;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.thinkit.bot.instagram.catalog.ElementAttribute;
+import org.thinkit.bot.instagram.catalog.ElementCssSelector;
+import org.thinkit.bot.instagram.catalog.ElementTag;
+import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.tag.HashTag;
 
@@ -44,8 +50,37 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     @Override
     public boolean execute(@NonNull final WebDriver webDriver) {
 
+        super.wait(webDriver, 50000);
+
         webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
+        super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
+        super.click(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
+
+        int countLikes = 0;
+        while (countLikes < 11) {
+
+            if (countLikes != 0 && countLikes % 10 == 0) {
+                super.wait(webDriver, 50000);
+            }
+
+            final WebElement likeButton = webDriver.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
+            final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
+                    .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
+
+            if (likeState.contains("取り消す")) {
+                this.clickNextArrorw(webDriver);
+                continue;
+            }
+
+            likeButton.click();
+            this.clickNextArrorw(webDriver);
+            countLikes++;
+        }
 
         return true;
+    }
+
+    private void clickNextArrorw(@NonNull final WebDriver webDriver) {
+        super.click(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
     }
 }

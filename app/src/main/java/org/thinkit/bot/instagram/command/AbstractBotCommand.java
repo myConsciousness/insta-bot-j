@@ -16,7 +16,13 @@ package org.thinkit.bot.instagram.command;
 
 import java.io.Serializable;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
@@ -28,4 +34,15 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
      */
     private static final long serialVersionUID = -1990878890028788690L;
 
+    protected final void click(@NonNull final WebDriver webDriver, @NonNull final By by) {
+        webDriver.findElement(by).click();
+    }
+
+    protected final void wait(@NonNull final WebDriver webDriver, final long sleepInMillis) {
+        new WebDriverWait(webDriver, 10, sleepInMillis);
+    }
+
+    protected final void waitUntilElementLocated(@NonNull final WebDriver webDriver, @NonNull final By by) {
+        new WebDriverWait(webDriver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
+    }
 }
