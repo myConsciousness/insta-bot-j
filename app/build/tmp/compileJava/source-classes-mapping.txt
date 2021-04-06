@@ -1,0 +1,2 @@
+org/thinkit/bot/instagram/InstaBotJ.java
+ org.thinkit.bot.instagram.InstaBotJ
