@@ -22,6 +22,7 @@ import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementTag;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
+import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.tag.HashTag;
 
 import lombok.AccessLevel;
@@ -57,17 +58,21 @@ public final class AutoLikeCommand extends AbstractBotCommand {
         super.click(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
 
         int countLikes = 0;
-        while (countLikes < 11) {
+        final String completedLikeState = this.getCompletedLikeState();
 
-            if (countLikes != 0 && countLikes % 10 == 0) {
+        while (countLikes < 100) {
+
+            if (countLikes != 0 && countLikes % 25 == 0) {
                 super.wait(webDriver, 50000);
             }
+
+            super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
 
             final WebElement likeButton = webDriver.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
             final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
                     .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
 
-            if (likeState.contains("取り消す")) {
+            if (likeState.contains(completedLikeState)) {
                 this.clickNextArrorw(webDriver);
                 continue;
             }
@@ -78,6 +83,10 @@ public final class AutoLikeCommand extends AbstractBotCommand {
         }
 
         return true;
+    }
+
+    private String getCompletedLikeState() {
+        return CompletedLikeStateMapper.newInstance().scan().get(0).getCompletedLikeState();
     }
 
     private void clickNextArrorw(@NonNull final WebDriver webDriver) {

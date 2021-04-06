@@ -39,10 +39,14 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
     }
 
     protected final void wait(@NonNull final WebDriver webDriver, final long sleepInMillis) {
-        new WebDriverWait(webDriver, 10, sleepInMillis);
+        try {
+            Thread.sleep(sleepInMillis);
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e);
+        }
     }
 
     protected final void waitUntilElementLocated(@NonNull final WebDriver webDriver, @NonNull final By by) {
-        new WebDriverWait(webDriver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
+        new WebDriverWait(webDriver, 100).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }

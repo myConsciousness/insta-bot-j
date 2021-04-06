@@ -42,9 +42,10 @@ public final class InstaBotJTest {
     void test() {
 
         List<HashTag> hashTags = new ArrayList<>();
-        hashTags.add(HashTag.from("test"));
         hashTags.add(HashTag.from("love"));
-        hashTags.add(HashTag.from("nature"));
+        hashTags.add(HashTag.from("follow"));
+        hashTags.add(HashTag.from("followme"));
+        hashTags.add(HashTag.from("travel"));
 
         InstaBotJ.from(USER_NAME, PASSWORD).executeAutoLikes(hashTags);
     }

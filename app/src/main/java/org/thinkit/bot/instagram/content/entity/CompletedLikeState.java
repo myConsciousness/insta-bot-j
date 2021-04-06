@@ -12,23 +12,34 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.entity;
 
-import org.thinkit.bot.instagram.content.entity.DefaultBotConfig;
-import org.thinkit.zenna.mapper.ContentMapper;
+import java.io.Serializable;
+
+import org.thinkit.zenna.entity.ContentEntity;
 
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "DefaultBotConfig"} .
+ * The entity that manages the content {@code "CompletedLikeState"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
-@EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
-public final class DefaultBotConfigMapper extends ContentMapper<DefaultBotConfig> {
+@EqualsAndHashCode
+public final class CompletedLikeState implements ContentEntity, Serializable {
+
+    /**
+     * The serial version UID
+     */
+    private static final long serialVersionUID = -778755327586077350L;
+
+    /**
+     * The completed like state
+     */
+    @Getter
+    private String completedLikeState;
 }

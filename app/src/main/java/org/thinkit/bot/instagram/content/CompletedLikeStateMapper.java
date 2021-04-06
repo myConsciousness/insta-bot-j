@@ -14,7 +14,7 @@
 
 package org.thinkit.bot.instagram.content;
 
-import org.thinkit.bot.instagram.content.entity.DefaultBotConfig;
+import org.thinkit.bot.instagram.content.entity.CompletedLikeState;
 import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.EqualsAndHashCode;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "DefaultBotConfig"} .
+ * The mapper class that manages the content {@code CompletedLikeState} .
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -30,5 +30,5 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(staticName = "newInstance")
-public final class DefaultBotConfigMapper extends ContentMapper<DefaultBotConfig> {
+public final class CompletedLikeStateMapper extends ContentMapper<CompletedLikeState> {
 }
