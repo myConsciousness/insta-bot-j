@@ -36,7 +36,7 @@ public enum InstagramUrl implements BiCatalog<InstagramUrl, String> {
     /**
      * The tags url
      */
-    TAGS(1, "https://www.instagram.com/explorer/tags/%s");
+    TAGS(1, "https://www.instagram.com/explore/tags/%s/");
 
     /**
      * The code

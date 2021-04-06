@@ -20,23 +20,18 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages element XPath.
+ * The catalog that manages tag symbol.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum ElementXPath implements BiCatalog<ElementXPath, String> {
+public enum TagSymbol implements BiCatalog<TagSymbol, String> {
 
     /**
-     * The login
+     * The hash symbol
      */
-    LOGIN(0, "//*[@id=\"loginForm\"]/div/div[3]/button/div"),
-
-    /**
-     * The login completed
-     */
-    LOGIN_COMPLETED(1, "//*[@id=\"react-root\"]/section/main/div/div/div/section/div/button");
+    HASH(0, "#");
 
     /**
      * The code

@@ -15,13 +15,20 @@
 package org.thinkit.bot.instagram.command;
 
 import org.openqa.selenium.WebDriver;
+import org.thinkit.bot.instagram.catalog.InstagramUrl;
+import org.thinkit.bot.instagram.tag.HashTag;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class AutoLikeCommand extends AbstractBotCommand {
 
     /**
@@ -29,8 +36,16 @@ public final class AutoLikeCommand extends AbstractBotCommand {
      */
     private static final long serialVersionUID = 6084564883236221860L;
 
+    /**
+     * The hash tag
+     */
+    private HashTag hashTag;
+
     @Override
     public boolean execute(@NonNull final WebDriver webDriver) {
+
+        webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
+
         return true;
     }
 }

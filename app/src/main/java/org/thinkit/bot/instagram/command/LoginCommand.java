@@ -16,6 +16,8 @@ package org.thinkit.bot.instagram.command;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.thinkit.bot.instagram.catalog.ElementName;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
@@ -81,6 +83,20 @@ public final class LoginCommand extends AbstractBotCommand {
         webDriver.findElement(By.name(ElementName.PASSWORD.getTag())).sendKeys(this.password);
         webDriver.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
 
+        this.waitUntilLoginCompleted(webDriver);
+
         return true;
+    }
+
+    /**
+     * Waits next step until the login process is completed.
+     *
+     * @param webDriver The web driver
+     *
+     * @exception NullPointerException If {@code null} is passed as an argument
+     */
+    private void waitUntilLoginCompleted(@NonNull final WebDriver webDriver) {
+        new WebDriverWait(webDriver, 10)
+                .until(ExpectedConditions.presenceOfElementLocated(By.xpath(ElementXPath.LOGIN_COMPLETED.getTag())));
     }
 }

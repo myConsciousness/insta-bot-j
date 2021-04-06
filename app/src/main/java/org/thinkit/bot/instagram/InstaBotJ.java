@@ -15,7 +15,9 @@
 package org.thinkit.bot.instagram;
 
 import org.openqa.selenium.WebDriver;
+import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
+import org.thinkit.bot.instagram.tag.HashTag;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -61,6 +63,7 @@ final class InstaBotJ extends AbstractInstaBot {
         final WebDriver webDriver = super.getWebDriver();
 
         LoginCommand.from(super.getUserName(), super.getPassword()).execute(webDriver);
+        AutoLikeCommand.from(HashTag.from("love")).execute(webDriver);
 
         return true;
     }
