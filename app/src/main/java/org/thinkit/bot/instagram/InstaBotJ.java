@@ -14,9 +14,9 @@
 
 package org.thinkit.bot.instagram;
 
-import org.openqa.selenium.WebDriver;
+import java.util.List;
+
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
-import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.tag.HashTag;
 
 import lombok.EqualsAndHashCode;
@@ -58,12 +58,17 @@ final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public boolean executeAutoLikes() {
+    public boolean executeAutoLikes(@NonNull final List<HashTag> hashTags) {
 
-        final WebDriver webDriver = super.getWebDriver();
+        if (hashTags.isEmpty()) {
+            throw new IllegalArgumentException("The hash tag is required to execute auto likes.");
+        }
 
-        LoginCommand.from(super.getUserName(), super.getPassword()).execute(webDriver);
-        AutoLikeCommand.from(HashTag.from("love")).execute(webDriver);
+        for (final HashTag hashTag : hashTags) {
+            if (!AutoLikeCommand.from(hashTag).execute(super.getWebDriver())) {
+                return false;
+            }
+        }
 
         return true;
     }

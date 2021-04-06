@@ -12,15 +12,21 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram;
+package org.thinkit.bot.instagram.content;
 
-import java.util.List;
+import org.thinkit.bot.instagram.content.entity.DefaultBotConfig;
+import org.thinkit.zenna.mapper.ContentMapper;
 
-import org.thinkit.bot.instagram.tag.HashTag;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-import lombok.NonNull;
-
-public interface InstaBot {
-
-    public boolean executeAutoLikes(@NonNull final List<HashTag> hashTags);
+/**
+ * The mapper class that manages the content {@code "DefaultBotConfig"} .
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@ToString
+@EqualsAndHashCode(callSuper = false)
+public final class DefaultBotConfigMapper extends ContentMapper<DefaultBotConfig> {
 }

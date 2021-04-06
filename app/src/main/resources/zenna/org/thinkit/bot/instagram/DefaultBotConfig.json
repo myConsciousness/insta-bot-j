@@ -1,0 +1,17 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the default query parameter.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.DefaultBotConfig"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "",
+                "maxLikes": 200
+            }
+        }
+    ],
+    "conditionNodes": []
+}
