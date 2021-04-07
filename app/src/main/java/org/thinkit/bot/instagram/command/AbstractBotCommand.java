@@ -20,6 +20,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.thinkit.bot.instagram.util.RandomUtil;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -34,8 +35,16 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
      */
     private static final long serialVersionUID = -1990878890028788690L;
 
+    protected abstract int executeBotProcess(@NonNull final WebDriver webDriver);
+
     protected final void click(@NonNull final WebDriver webDriver, @NonNull final By by) {
         webDriver.findElement(by).click();
+    }
+
+    @Override
+    public int execute(@NonNull final WebDriver webDriver) {
+        this.wait(webDriver, RandomUtil.createWaitTime());
+        return this.executeBotProcess(webDriver);
     }
 
     protected final void wait(@NonNull final WebDriver webDriver, final long sleepInMillis) {

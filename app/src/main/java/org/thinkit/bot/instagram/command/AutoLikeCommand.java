@@ -24,6 +24,7 @@ import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.tag.HashTag;
+import org.thinkit.bot.instagram.util.RandomUtil;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -49,9 +50,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     private HashTag hashTag;
 
     @Override
-    public int execute(@NonNull final WebDriver webDriver) {
-
-        super.wait(webDriver, 40000);
+    public int executeBotProcess(@NonNull final WebDriver webDriver) {
 
         webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
         super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
@@ -63,8 +62,8 @@ public final class AutoLikeCommand extends AbstractBotCommand {
 
         while (countLikes < 50) {
 
-            if (countLikes != 0 && countLikes % 25 == 0) {
-                super.wait(webDriver, 50000);
+            if (countLikes != 0 && countLikes % 15 == 0) {
+                super.wait(webDriver, RandomUtil.createWaitTime());
             }
 
             super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));

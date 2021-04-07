@@ -74,7 +74,7 @@ public final class LoginCommand extends AbstractBotCommand {
     }
 
     @Override
-    public int execute(@NonNull final WebDriver webDriver) {
+    public int executeBotProcess(@NonNull final WebDriver webDriver) {
 
         webDriver.get(InstagramUrl.LOGIN.getTag());
         webDriver.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(this.userName);

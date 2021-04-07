@@ -47,9 +47,7 @@ public final class AutoCommentCommand extends AbstractBotCommand {
     private HashTag hashTag;
 
     @Override
-    public int execute(@NonNull final WebDriver webDriver) {
-
-        // super.wait(webDriver, 40000);
+    public int executeBotProcess(@NonNull final WebDriver webDriver) {
 
         webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
         super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
