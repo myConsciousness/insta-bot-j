@@ -22,6 +22,7 @@ import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementTag;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
+import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.tag.HashTag;
 import org.thinkit.bot.instagram.util.RandomUtil;
@@ -63,7 +64,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
         while (countLikes < 50) {
 
             if (countLikes != 0 && countLikes % 15 == 0) {
-                super.wait(webDriver, RandomUtil.createWaitTime());
+                super.wait(webDriver, RandomUtil.createWaitTime(WaitType.LIKE));
             }
 
             super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));

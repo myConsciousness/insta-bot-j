@@ -17,8 +17,11 @@ package org.thinkit.bot.instagram.util;
 import java.io.Serializable;
 import java.util.Random;
 
+import org.thinkit.bot.instagram.catalog.WaitType;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 /**
  * The class that resolve process to generate random number.
@@ -39,7 +42,10 @@ public final class RandomUtil implements Serializable {
      */
     private static final Random RANDOM = new Random();
 
-    public static int createWaitTime() {
-        return RANDOM.nextInt(10000) + 50000;
+    public static int createWaitTime(@NonNull final WaitType waitType) {
+        return switch (waitType) {
+        case DEFAULT -> RANDOM.nextInt(10000) + 40000;
+        case LIKE -> RANDOM.nextInt(10000) + 50000;
+        };
     }
 }
