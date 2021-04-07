@@ -67,25 +67,28 @@ public final class AutoLikeCommand extends AbstractBotCommand {
         final String completedLikeState = this.getCompletedLikeState();
 
         while (countLikes < maxLikes) {
+            try {
+                if (countLikes != 0 && countLikes % 15 == 0) {
+                    super.wait(webDriver, RandomUtil.createWaitTime(WaitType.LIKE));
+                }
 
-            if (countLikes != 0 && countLikes % 15 == 0) {
-                super.wait(webDriver, RandomUtil.createWaitTime(WaitType.LIKE));
-            }
+                super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
 
-            super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
+                final WebElement likeButton = webDriver.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
+                final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
+                        .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
 
-            final WebElement likeButton = webDriver.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
-            final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
-                    .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
+                if (likeState.contains(completedLikeState)) {
+                    this.clickNextArrorw(webDriver);
+                    continue;
+                }
 
-            if (likeState.contains(completedLikeState)) {
+                likeButton.click();
                 this.clickNextArrorw(webDriver);
-                continue;
+                countLikes++;
+            } catch (Exception e) {
+                this.clickNextArrorw(webDriver);
             }
-
-            likeButton.click();
-            this.clickNextArrorw(webDriver);
-            countLikes++;
         }
 
         return countLikes;
@@ -96,6 +99,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     }
 
     private void clickNextArrorw(@NonNull final WebDriver webDriver) {
+        super.waitUntilElementLocated(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
         super.click(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
     }
 }
