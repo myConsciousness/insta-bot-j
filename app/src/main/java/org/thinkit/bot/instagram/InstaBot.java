@@ -23,6 +23,4 @@ import lombok.NonNull;
 public interface InstaBot {
 
     public boolean executeAutoLikes(@NonNull final List<HashTag> hashTags);
-
-    public boolean executeAutoComments(@NonNull final List<HashTag> hashTags);
 }

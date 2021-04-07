@@ -33,6 +33,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
+@Deprecated
 public final class AutoCommentCommand extends AbstractBotCommand {
 
     /**

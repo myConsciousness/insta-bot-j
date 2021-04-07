@@ -48,6 +48,6 @@ public final class InstaBotJTest {
         hashTags.add(HashTag.from("followme"));
         hashTags.add(HashTag.from("travel"));
 
-        InstaBotJ.from(InstagramUser.from(USER_NAME, PASSWORD)).executeAutoComments(hashTags);
+        InstaBotJ.from(InstagramUser.from(USER_NAME, PASSWORD)).executeAutoLikes(hashTags);
     }
 }

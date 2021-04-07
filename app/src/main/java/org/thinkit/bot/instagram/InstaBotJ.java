@@ -16,7 +16,6 @@ package org.thinkit.bot.instagram;
 
 import java.util.List;
 
-import org.thinkit.bot.instagram.command.AutoCommentCommand;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.tag.HashTag;
 import org.thinkit.bot.instagram.user.InstagramUser;
@@ -69,25 +68,6 @@ final class InstaBotJ extends AbstractInstaBot {
             countLikes += AutoLikeCommand.from(hashTag).execute(super.getWebDriver());
 
             if (countLikes >= 850) {
-                return true;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean executeAutoComments(@NonNull final List<HashTag> hashTags) {
-
-        if (hashTags.isEmpty()) {
-            throw new IllegalArgumentException("The hash tag is required to execute auto comments.");
-        }
-
-        int countComments = 0;
-        for (final HashTag hashTag : hashTags) {
-            countComments += AutoCommentCommand.from(hashTag).execute(super.getWebDriver());
-
-            if (countComments >= 10) {
                 return true;
             }
         }
