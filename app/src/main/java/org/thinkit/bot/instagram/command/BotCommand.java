@@ -20,5 +20,5 @@ import lombok.NonNull;
 
 public interface BotCommand {
 
-    public boolean execute(@NonNull final WebDriver webDriver);
+    public int execute(@NonNull final WebDriver webDriver);
 }

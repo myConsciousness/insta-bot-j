@@ -22,6 +22,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.thinkit.bot.instagram.catalog.SystemPropertyKey;
 import org.thinkit.bot.instagram.catalog.WebDriverPath;
 import org.thinkit.bot.instagram.command.LoginCommand;
+import org.thinkit.bot.instagram.user.InstagramUser;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -51,10 +52,10 @@ abstract class AbstractInstaBot implements InstaBot, Serializable {
     @Getter(AccessLevel.PROTECTED)
     private WebDriver webDriver;
 
-    protected AbstractInstaBot(@NonNull final String userName, @NonNull final String password) {
+    protected AbstractInstaBot(@NonNull final InstagramUser instagramUser) {
         System.setProperty(SystemPropertyKey.WEB_DRIVER.getTag(), WebDriverPath.CHROME_DRIVER.getTag());
         this.webDriver = new ChromeDriver();
         this.webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        LoginCommand.from(userName, password).execute(this.webDriver);
+        LoginCommand.from(instagramUser.getUserName(), instagramUser.getPassword()).execute(this.webDriver);
     }
 }

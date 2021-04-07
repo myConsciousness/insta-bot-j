@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.thinkit.bot.instagram.tag.HashTag;
+import org.thinkit.bot.instagram.user.InstagramUser;
 
 /**
  * The class that manages test case of {@link InstaBotJ} .
@@ -47,6 +48,6 @@ public final class InstaBotJTest {
         hashTags.add(HashTag.from("followme"));
         hashTags.add(HashTag.from("travel"));
 
-        InstaBotJ.from(USER_NAME, PASSWORD).executeAutoLikes(hashTags);
+        InstaBotJ.from(InstagramUser.from(USER_NAME, PASSWORD)).executeAutoComments(hashTags);
     }
 }

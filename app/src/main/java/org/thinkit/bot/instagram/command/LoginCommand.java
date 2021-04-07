@@ -74,7 +74,7 @@ public final class LoginCommand extends AbstractBotCommand {
     }
 
     @Override
-    public boolean execute(@NonNull final WebDriver webDriver) {
+    public int execute(@NonNull final WebDriver webDriver) {
 
         webDriver.get(InstagramUrl.LOGIN.getTag());
         webDriver.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(this.userName);
@@ -83,6 +83,6 @@ public final class LoginCommand extends AbstractBotCommand {
 
         super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LOGIN_COMPLETED.getTag()));
 
-        return true;
+        return 1;
     }
 }

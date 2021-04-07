@@ -46,7 +46,12 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The like button
      */
-    LIKE_BUTTON(3, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button");
+    LIKE_BUTTON(3, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
+
+    /**
+     * The comment button
+     */
+    COMMENT_BUTTON(4, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button");
 
     /**
      * The code

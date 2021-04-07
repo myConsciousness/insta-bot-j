@@ -17,12 +17,9 @@ package org.thinkit.bot.instagram.command;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.thinkit.bot.instagram.catalog.ElementAttribute;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
-import org.thinkit.bot.instagram.catalog.ElementTag;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
-import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.tag.HashTag;
 
 import lombok.AccessLevel;
@@ -36,12 +33,12 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class AutoLikeCommand extends AbstractBotCommand {
+public final class AutoCommentCommand extends AbstractBotCommand {
 
     /**
      * The serial version UID
      */
-    private static final long serialVersionUID = 6084564883236221860L;
+    private static final long serialVersionUID = -1758807819257637600L;
 
     /**
      * The hash tag
@@ -51,43 +48,29 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     @Override
     public int execute(@NonNull final WebDriver webDriver) {
 
-        super.wait(webDriver, 40000);
+        // super.wait(webDriver, 40000);
 
         webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
         super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
-
         super.click(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
 
-        int countLikes = 0;
-        final String completedLikeState = this.getCompletedLikeState();
+        int countComments = 0;
+        while (countComments < 1) {
 
-        while (countLikes < 50) {
+            super.waitUntilElementLocated(webDriver,
+                    By.xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea"));
+            final WebElement commentArea = webDriver
+                    .findElement(By.xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea"));
+            commentArea.click();
+            commentArea.sendKeys("cool!");
+            // webDriver.findElement(By.xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/button[2]"))
+            // .click();
 
-            if (countLikes != 0 && countLikes % 25 == 0) {
-                super.wait(webDriver, 50000);
-            }
-
-            super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
-
-            final WebElement likeButton = webDriver.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
-            final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
-                    .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
-
-            if (likeState.contains(completedLikeState)) {
-                this.clickNextArrorw(webDriver);
-                continue;
-            }
-
-            likeButton.click();
             this.clickNextArrorw(webDriver);
-            countLikes++;
+            countComments++;
         }
 
-        return countLikes;
-    }
-
-    private String getCompletedLikeState() {
-        return CompletedLikeStateMapper.newInstance().scan().get(0).getCompletedLikeState();
+        return countComments;
     }
 
     private void clickNextArrorw(@NonNull final WebDriver webDriver) {

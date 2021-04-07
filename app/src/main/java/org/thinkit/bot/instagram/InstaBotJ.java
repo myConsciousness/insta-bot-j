@@ -16,8 +16,10 @@ package org.thinkit.bot.instagram;
 
 import java.util.List;
 
+import org.thinkit.bot.instagram.command.AutoCommentCommand;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.tag.HashTag;
+import org.thinkit.bot.instagram.user.InstagramUser;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -35,26 +37,24 @@ final class InstaBotJ extends AbstractInstaBot {
     /**
      * The constructor.
      *
-     * @param userName The user name
-     * @param password The password
+     * @param instagramUser The user of Instagram
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final String userName, @NonNull final String password) {
-        super(userName, password);
+    private InstaBotJ(@NonNull final InstagramUser instagramUser) {
+        super(instagramUser);
     }
 
     /**
      * Returns the new instance of {@link InstaBotJ} based on the arguments.
      *
-     * @param userName The user name
-     * @param password The password
+     * @param instagramUser The user of Instagram
      * @return The new instance of {@link InstaBotJ}
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final String userName, @NonNull final String password) {
-        return new InstaBotJ(userName, password);
+    public static InstaBot from(@NonNull final InstagramUser instagramUser) {
+        return new InstaBotJ(instagramUser);
     }
 
     @Override
@@ -64,9 +64,31 @@ final class InstaBotJ extends AbstractInstaBot {
             throw new IllegalArgumentException("The hash tag is required to execute auto likes.");
         }
 
+        int countLikes = 0;
         for (final HashTag hashTag : hashTags) {
-            if (!AutoLikeCommand.from(hashTag).execute(super.getWebDriver())) {
-                return false;
+            countLikes += AutoLikeCommand.from(hashTag).execute(super.getWebDriver());
+
+            if (countLikes >= 850) {
+                return true;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean executeAutoComments(@NonNull final List<HashTag> hashTags) {
+
+        if (hashTags.isEmpty()) {
+            throw new IllegalArgumentException("The hash tag is required to execute auto comments.");
+        }
+
+        int countComments = 0;
+        for (final HashTag hashTag : hashTags) {
+            countComments += AutoCommentCommand.from(hashTag).execute(super.getWebDriver());
+
+            if (countComments >= 10) {
+                return true;
             }
         }
 
