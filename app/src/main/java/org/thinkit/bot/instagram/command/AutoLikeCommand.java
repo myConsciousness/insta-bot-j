@@ -50,6 +50,11 @@ public final class AutoLikeCommand extends AbstractBotCommand {
      */
     private HashTag hashTag;
 
+    /**
+     * The count of max like
+     */
+    private int maxLikes;
+
     @Override
     public int executeBotProcess(@NonNull final WebDriver webDriver) {
 
@@ -61,7 +66,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
         int countLikes = 0;
         final String completedLikeState = this.getCompletedLikeState();
 
-        while (countLikes < 50) {
+        while (countLikes < maxLikes) {
 
             if (countLikes != 0 && countLikes % 15 == 0) {
                 super.wait(webDriver, RandomUtil.createWaitTime(WaitType.LIKE));

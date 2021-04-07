@@ -16,11 +16,12 @@ package org.thinkit.bot.instagram;
 
 import java.util.List;
 
+import org.thinkit.bot.instagram.result.BotResult;
 import org.thinkit.bot.instagram.tag.HashTag;
 
 import lombok.NonNull;
 
 public interface InstaBot {
 
-    public boolean executeAutoLikes(@NonNull final List<HashTag> hashTags);
+    public BotResult executeAutoLikes(@NonNull final List<HashTag> hashTags);
 }

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.config;
+package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
 
@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages bot configuration.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -35,16 +34,16 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class BotConfig implements Serializable {
+public final class BotResult implements Serializable {
 
     /**
      * The serial version UID
      */
-    private static final long serialVersionUID = 7181719801365111285L;
+    private static final long serialVersionUID = -1463858541297073499L;
 
     /**
-     * The maximum number of likes per attempt
+     * The count of attempt
      */
     @Getter
-    private int maxLikes;
+    private int countAttempt;
 }

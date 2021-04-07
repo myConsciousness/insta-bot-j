@@ -17,6 +17,8 @@ package org.thinkit.bot.instagram;
 import java.util.List;
 
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
+import org.thinkit.bot.instagram.config.BotConfig;
+import org.thinkit.bot.instagram.result.BotResult;
 import org.thinkit.bot.instagram.tag.HashTag;
 import org.thinkit.bot.instagram.user.InstagramUser;
 
@@ -56,22 +58,47 @@ final class InstaBotJ extends AbstractInstaBot {
         return new InstaBotJ(instagramUser);
     }
 
+    /**
+     * The constructor.
+     *
+     * @param instagramUser The user of Instagram
+     * @param botConfig     The bot config
+     *
+     * @exception NullPointerException If {@code null} is passed as an argument
+     */
+    private InstaBotJ(@NonNull final InstagramUser instagramUser, @NonNull final BotConfig botConfig) {
+        super(instagramUser, botConfig);
+    }
+
+    /**
+     * Returns the new instance of {@link InstaBotJ} based on the arguments.
+     *
+     * @param instagramUser The user of Instagram
+     * @param botConfig     The bot config
+     * @return The new instance of {@link InstaBotJ}
+     *
+     * @exception NullPointerException If {@code null} is passed as an argument
+     */
+    public static InstaBot from(@NonNull final InstagramUser instagramUser, @NonNull final BotConfig botConfig) {
+        return new InstaBotJ(instagramUser, botConfig);
+    }
+
     @Override
-    public boolean executeAutoLikes(@NonNull final List<HashTag> hashTags) {
+    public BotResult executeAutoLikes(@NonNull final List<HashTag> hashTags) {
 
         if (hashTags.isEmpty()) {
             throw new IllegalArgumentException("The hash tag is required to execute auto likes.");
         }
 
-        int countLikes = 0;
-        for (final HashTag hashTag : hashTags) {
-            countLikes += AutoLikeCommand.from(hashTag).execute(super.getWebDriver());
+        final BotResult.BotResultBuilder resultBuilder = BotResult.builder();
 
-            if (countLikes >= 850) {
-                return true;
-            }
+        int countLikes = 0;
+        final int maxLikesPerTag = super.getBotConfig().getMaxLikes() / hashTags.size();
+
+        for (final HashTag hashTag : hashTags) {
+            countLikes += AutoLikeCommand.from(hashTag, maxLikesPerTag).execute(super.getWebDriver());
         }
 
-        return true;
+        return resultBuilder.countAttempt(countLikes).build();
     }
 }
