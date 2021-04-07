@@ -25,6 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
+ * The class that manages the results of BOT execution.
  *
  * @author Kato Shinya
  * @since 1.0.0

@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages bot configuration.
+ * The class that manages the meta configuration values for executing BOT.
  *
  * @author Kato Shinya
  * @since 1.0.0
