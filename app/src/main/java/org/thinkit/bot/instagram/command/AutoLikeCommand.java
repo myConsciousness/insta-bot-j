@@ -59,9 +59,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     public int executeBotProcess(@NonNull final WebDriver webDriver) {
 
         webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
-        super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
-
-        super.click(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
+        super.findElement(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
 
         int countLikes = 0;
         final String completedLikeState = this.getCompletedLikeState();
@@ -72,9 +70,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
                     super.wait(webDriver, RandomUtil.createWaitTime(WaitType.LIKE));
                 }
 
-                super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
-
-                final WebElement likeButton = webDriver.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
+                final WebElement likeButton = super.findElement(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
                 final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
                         .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
 
@@ -99,7 +95,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     }
 
     private void clickNextArrorw(@NonNull final WebDriver webDriver) {
-        super.waitUntilElementLocated(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
-        super.click(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
+        super.findElement(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag())).click();
+        ;
     }
 }

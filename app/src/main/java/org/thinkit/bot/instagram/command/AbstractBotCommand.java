@@ -18,6 +18,7 @@ import java.io.Serializable;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.thinkit.bot.instagram.catalog.WaitType;
@@ -38,8 +39,9 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
 
     protected abstract int executeBotProcess(@NonNull final WebDriver webDriver);
 
-    protected final void click(@NonNull final WebDriver webDriver, @NonNull final By by) {
-        webDriver.findElement(by).click();
+    protected final WebElement findElement(@NonNull final WebDriver webDriver, @NonNull final By by) {
+        this.waitUntilElementLocated(webDriver, by);
+        return webDriver.findElement(by);
     }
 
     @Override
