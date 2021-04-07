@@ -9,7 +9,7 @@
         {
             "node": {
                 "conditionId": "",
-                "maxLikes": 200
+                "maxAttempt": 800
             }
         }
     ],

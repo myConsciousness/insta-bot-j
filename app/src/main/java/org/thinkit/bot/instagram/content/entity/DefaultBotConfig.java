@@ -38,8 +38,8 @@ public final class DefaultBotConfig implements ContentEntity, Serializable {
     private static final long serialVersionUID = 5472503019861564956L;
 
     /**
-     * The max likes
+     * The max attempt
      */
     @Getter
-    private int maxLikes;
+    private int maxAttempt;
 }

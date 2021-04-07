@@ -93,7 +93,7 @@ final class InstaBotJ extends AbstractInstaBot {
         final BotResult.BotResultBuilder resultBuilder = BotResult.builder();
 
         int countLikes = 0;
-        final int maxLikesPerTag = super.getBotConfig().getMaxLikes() / hashTags.size();
+        final int maxLikesPerTag = super.getMaxAttempt() / hashTags.size();
 
         for (final HashTag hashTag : hashTags) {
             countLikes += AutoLikeCommand.from(hashTag, maxLikesPerTag).execute(super.getWebDriver());

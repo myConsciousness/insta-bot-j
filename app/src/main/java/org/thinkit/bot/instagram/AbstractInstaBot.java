@@ -23,6 +23,7 @@ import org.thinkit.bot.instagram.catalog.SystemPropertyKey;
 import org.thinkit.bot.instagram.catalog.WebDriverPath;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.BotConfig;
+import org.thinkit.bot.instagram.content.DefaultBotConfigMapper;
 import org.thinkit.bot.instagram.user.InstagramUser;
 
 import lombok.AccessLevel;
@@ -54,20 +55,21 @@ abstract class AbstractInstaBot implements InstaBot, Serializable {
     private WebDriver webDriver;
 
     /**
-     * The bot config
+     * The maxAttempt
      */
     @Getter(AccessLevel.PROTECTED)
-    private BotConfig botConfig;
+    private int maxAttempt;
 
     protected AbstractInstaBot(@NonNull final InstagramUser instagramUser) {
         this.initializeWebDriver();
+        this.maxAttempt = DefaultBotConfigMapper.newInstance().scan().get(0).getMaxAttempt();
 
         LoginCommand.from(instagramUser.getUserName(), instagramUser.getPassword()).execute(this.webDriver);
     }
 
     protected AbstractInstaBot(@NonNull final InstagramUser instagramUser, @NonNull final BotConfig botConfig) {
         this.initializeWebDriver();
-        this.botConfig = botConfig;
+        this.maxAttempt = botConfig.getMaxAttempt();
 
         LoginCommand.from(instagramUser.getUserName(), instagramUser.getPassword()).execute(this.webDriver);
     }

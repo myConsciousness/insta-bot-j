@@ -43,8 +43,8 @@ public final class BotConfig implements Serializable {
     private static final long serialVersionUID = 7181719801365111285L;
 
     /**
-     * The maximum number of likes per attempt
+     * The maximum number of attempt
      */
     @Getter
-    private int maxLikes;
+    private int maxAttempt;
 }
