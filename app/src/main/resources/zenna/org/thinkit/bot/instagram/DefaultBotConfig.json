@@ -9,7 +9,7 @@
         {
             "node": {
                 "conditionId": "",
-                "maxAttempt": 650
+                "maxAttempt": 350
             }
         }
     ],

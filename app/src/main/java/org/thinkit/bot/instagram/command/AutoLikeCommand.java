@@ -68,7 +68,7 @@ public final class AutoLikeCommand extends AbstractBotCommand {
 
         while (countLikes < maxLikes) {
             try {
-                if (countLikes != 0 && countLikes % 15 == 0) {
+                if (countLikes != 0 && countLikes % 25 == 0) {
                     super.wait(webDriver, RandomUtil.createWaitTime(WaitType.LIKE));
                 }
 
