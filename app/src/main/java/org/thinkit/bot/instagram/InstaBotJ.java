@@ -20,7 +20,7 @@ import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.config.BotConfig;
 import org.thinkit.bot.instagram.result.BotResult;
 import org.thinkit.bot.instagram.tag.HashTag;
-import org.thinkit.bot.instagram.user.InstagramUser;
+import org.thinkit.bot.instagram.user.BotUser;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -42,7 +42,7 @@ final class InstaBotJ extends AbstractInstaBot {
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final InstagramUser instagramUser) {
+    private InstaBotJ(@NonNull final BotUser instagramUser) {
         super(instagramUser);
     }
 
@@ -54,33 +54,33 @@ final class InstaBotJ extends AbstractInstaBot {
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final InstagramUser instagramUser) {
+    public static InstaBot from(@NonNull final BotUser instagramUser) {
         return new InstaBotJ(instagramUser);
     }
 
     /**
      * The constructor.
      *
-     * @param instagramUser The user of Instagram
-     * @param botConfig     The bot config
+     * @param botUser   The bot user
+     * @param botConfig The bot config
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final InstagramUser instagramUser, @NonNull final BotConfig botConfig) {
-        super(instagramUser, botConfig);
+    private InstaBotJ(@NonNull final BotUser botUser, @NonNull final BotConfig botConfig) {
+        super(botUser, botConfig);
     }
 
     /**
      * Returns the new instance of {@link InstaBotJ} based on the arguments.
      *
-     * @param instagramUser The user of Instagram
-     * @param botConfig     The bot config
+     * @param botUser   The bot user
+     * @param botConfig The bot config
      * @return The new instance of {@link InstaBotJ}
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final InstagramUser instagramUser, @NonNull final BotConfig botConfig) {
-        return new InstaBotJ(instagramUser, botConfig);
+    public static InstaBot from(@NonNull final BotUser botUser, @NonNull final BotConfig botConfig) {
+        return new InstaBotJ(botUser, botConfig);
     }
 
     @Override

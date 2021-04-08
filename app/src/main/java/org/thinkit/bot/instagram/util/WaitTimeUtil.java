@@ -24,13 +24,13 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 /**
- * The class that resolve process to generate random number.
+ * The class that resolve process to generate wait time.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class RandomUtil implements Serializable {
+public final class WaitTimeUtil implements Serializable {
 
     /**
      * The serial version UID
@@ -42,7 +42,7 @@ public final class RandomUtil implements Serializable {
      */
     private static final Random RANDOM = new Random();
 
-    public static int createWaitTime(@NonNull final WaitType waitType) {
+    public static int create(@NonNull final WaitType waitType) {
         return switch (waitType) {
         case DEFAULT -> RANDOM.nextInt(10000) + 40000;
         case LIKE -> RANDOM.nextInt(10000) + 50000;

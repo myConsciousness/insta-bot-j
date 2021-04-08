@@ -22,7 +22,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.thinkit.bot.instagram.catalog.WaitType;
-import org.thinkit.bot.instagram.util.RandomUtil;
+import org.thinkit.bot.instagram.util.WaitTimeUtil;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -46,7 +46,7 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
 
     @Override
     public int execute(@NonNull final WebDriver webDriver) {
-        this.wait(webDriver, RandomUtil.createWaitTime(WaitType.DEFAULT));
+        this.wait(webDriver, WaitTimeUtil.create(WaitType.DEFAULT));
         return this.executeBotProcess(webDriver);
     }
 
