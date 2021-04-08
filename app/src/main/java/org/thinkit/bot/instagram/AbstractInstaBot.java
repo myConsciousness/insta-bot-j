@@ -19,13 +19,12 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.thinkit.bot.instagram.catalog.SystemPropertyKey;
-import org.thinkit.bot.instagram.catalog.WebDriverPath;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.BotConfig;
 import org.thinkit.bot.instagram.content.DefaultBotConfigMapper;
 import org.thinkit.bot.instagram.user.BotUser;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -61,21 +60,21 @@ abstract class AbstractInstaBot implements InstaBot, Serializable {
     private int maxAttempt;
 
     protected AbstractInstaBot(@NonNull final BotUser botUser) {
-        this.initializeWebDriver();
+        this.setupWebDriver();
         this.maxAttempt = DefaultBotConfigMapper.newInstance().scan().get(0).getMaxAttempt();
 
         LoginCommand.from(botUser.getUserName(), botUser.getPassword()).execute(this.webDriver);
     }
 
     protected AbstractInstaBot(@NonNull final BotUser botUser, @NonNull final BotConfig botConfig) {
-        this.initializeWebDriver();
+        this.setupWebDriver();
         this.maxAttempt = botConfig.getMaxAttempt();
 
         LoginCommand.from(botUser.getUserName(), botUser.getPassword()).execute(this.webDriver);
     }
 
-    private void initializeWebDriver() {
-        System.setProperty(SystemPropertyKey.WEB_DRIVER.getTag(), WebDriverPath.CHROME_DRIVER.getTag());
+    private void setupWebDriver() {
+        WebDriverManager.chromedriver().setup();
         this.webDriver = new ChromeDriver();
         this.webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
