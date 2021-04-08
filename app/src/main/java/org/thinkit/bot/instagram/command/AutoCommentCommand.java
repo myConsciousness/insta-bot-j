@@ -17,7 +17,6 @@ package org.thinkit.bot.instagram.command;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.tag.HashTag;
@@ -51,7 +50,7 @@ public final class AutoCommentCommand extends AbstractBotCommand {
 
         webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
         super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
-        super.click(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
+        // super.click(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
 
         int countComments = 0;
         while (countComments < 1) {
@@ -73,6 +72,7 @@ public final class AutoCommentCommand extends AbstractBotCommand {
     }
 
     private void clickNextArrorw(@NonNull final WebDriver webDriver) {
-        super.click(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
+        // super.click(webDriver,
+        // By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
     }
 }

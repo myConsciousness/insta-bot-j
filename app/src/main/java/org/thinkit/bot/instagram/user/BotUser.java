@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The entity that manages user information of Instagram.
+ * The entity that manages bot user information.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -33,7 +33,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class InstagramUser implements Serializable {
+public final class BotUser implements Serializable {
 
     /**
      * The serial version UID
