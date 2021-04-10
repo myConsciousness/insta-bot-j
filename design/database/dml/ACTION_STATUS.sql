@@ -12,9 +12,9 @@
  * the License.
  */
 INSERT INTO
-  CAT_RECORD_TYPE (
-    TYPE,
-    TYPE_NAME,
+  CAT_ACTION_STATUS (
+    STATUS,
+    STATUS_NAME,
     CREATED_BY,
     CREATED_AT,
     UPDATED_BY,
@@ -23,16 +23,16 @@ INSERT INTO
 VALUES
   (
     0,
-    'LIKE',
+    'PREPARING',
     'INSTA_BOT',
     NOW(),
     'INSTA_BOT',
     NOW()
   );
 INSERT INTO
-  CAT_RECORD_TYPE (
-    TYPE,
-    TYPE_NAME,
+  CAT_ACTION_STATUS (
+    STATUS,
+    STATUS_NAME,
     CREATED_BY,
     CREATED_AT,
     UPDATED_BY,
@@ -41,16 +41,16 @@ INSERT INTO
 VALUES
   (
     1,
-    'FOLLOW',
+    'RUNNING',
     'INSTA_BOT',
     NOW(),
     'INSTA_BOT',
     NOW()
   );
 INSERT INTO
-  CAT_RECORD_TYPE (
-    TYPE,
-    TYPE_NAME,
+  CAT_ACTION_STATUS (
+    STATUS,
+    STATUS_NAME,
     CREATED_BY,
     CREATED_AT,
     UPDATED_BY,
@@ -59,16 +59,16 @@ INSERT INTO
 VALUES
   (
     2,
-    'UNFOLLOW',
+    'INTERRUPTED',
     'INSTA_BOT',
     NOW(),
     'INSTA_BOT',
     NOW()
   );
 INSERT INTO
-  CAT_RECORD_TYPE (
-    TYPE,
-    TYPE_NAME,
+  CAT_ACTION_STATUS (
+    STATUS,
+    STATUS_NAME,
     CREATED_BY,
     CREATED_AT,
     UPDATED_BY,
@@ -77,7 +77,7 @@ INSERT INTO
 VALUES
   (
     3,
-    'COMMNET',
+    'COMPLETED',
     'INSTA_BOT',
     NOW(),
     'INSTA_BOT',
