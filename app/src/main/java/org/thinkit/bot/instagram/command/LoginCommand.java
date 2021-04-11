@@ -15,20 +15,20 @@
 package org.thinkit.bot.instagram.command;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.thinkit.bot.instagram.catalog.ElementName;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class LoginCommand extends AbstractBotCommand {
 
     /**
@@ -47,41 +47,15 @@ public final class LoginCommand extends AbstractBotCommand {
     @ToString.Exclude
     private String password;
 
-    /**
-     * The constructor.
-     *
-     * @param userName The user name
-     * @param password The password
-     *
-     * @exception NullPointerException If {@code null} is passed as an argument
-     */
-    private LoginCommand(@NonNull final String userName, @NonNull final String password) {
-        this.userName = userName;
-        this.password = password;
-    }
-
-    /**
-     * Returns the new instance of {@link LoginCommand} based on arguments.
-     *
-     * @param userName The user name
-     * @param password The password
-     * @return The new instance of {@link LoginCommand}
-     *
-     * @exception NullPointerException If {@code null} is passed as an argument
-     */
-    public static BotCommand from(@NonNull final String userName, @NonNull final String password) {
-        return new LoginCommand(userName, password);
-    }
-
     @Override
-    public int executeBotProcess(@NonNull final WebDriver webDriver) {
+    public int executeBotProcess() {
 
-        webDriver.get(InstagramUrl.LOGIN.getTag());
-        webDriver.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(this.userName);
-        webDriver.findElement(By.name(ElementName.PASSWORD.getTag())).sendKeys(this.password);
-        webDriver.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
+        super.getWebPage(InstagramUrl.LOGIN.getTag());
+        super.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(this.userName);
+        super.findElement(By.name(ElementName.PASSWORD.getTag())).sendKeys(this.password);
+        super.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
 
-        super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.LOGIN_COMPLETED.getTag()));
+        super.waitUntilElementLocated(By.xpath(ElementXPath.LOGIN_COMPLETED.getTag()));
 
         return 1;
     }

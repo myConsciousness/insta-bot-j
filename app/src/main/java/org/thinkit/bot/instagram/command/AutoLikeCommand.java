@@ -15,7 +15,6 @@
 package org.thinkit.bot.instagram.command;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ElementAttribute;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
@@ -25,13 +24,11 @@ import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.tag.HashTag;
-import org.thinkit.bot.instagram.util.WaitTimeUtil;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
@@ -56,10 +53,10 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     private int maxLikes;
 
     @Override
-    public int executeBotProcess(@NonNull final WebDriver webDriver) {
+    public int executeBotProcess() {
 
-        webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
-        super.findElement(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
+        super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
+        super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
 
         int countLikes = 0;
         final String completedLikeState = this.getCompletedLikeState();
@@ -67,23 +64,25 @@ public final class AutoLikeCommand extends AbstractBotCommand {
         while (countLikes < maxLikes) {
             try {
                 if (countLikes != 0 && countLikes % 25 == 0) {
-                    super.wait(webDriver, WaitTimeUtil.create(WaitType.LIKE));
+                    super.wait(WaitType.LIKE);
                 }
 
-                final WebElement likeButton = super.findElement(webDriver, By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
+                final WebElement likeButton = this.findLikeButton();
                 final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
                         .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
 
                 if (likeState.contains(completedLikeState)) {
-                    this.clickNextArrorw(webDriver);
+                    this.clickNextArrorw();
                     continue;
                 }
 
                 likeButton.click();
-                this.clickNextArrorw(webDriver);
+                this.clickNextArrorw();
                 countLikes++;
             } catch (Exception e) {
-                this.clickNextArrorw(webDriver);
+                // The possibility exists that a timeout may occur due to delays during
+                // communication, etc. Anyway, let's move on to the next post.
+                this.clickNextArrorw();
             }
         }
 
@@ -94,8 +93,18 @@ public final class AutoLikeCommand extends AbstractBotCommand {
         return CompletedLikeStateMapper.newInstance().scan().get(0).getCompletedLikeState();
     }
 
-    private void clickNextArrorw(@NonNull final WebDriver webDriver) {
-        super.findElement(webDriver, By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag())).click();
+    private WebElement findLikeButton() {
+        try {
+            return super.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
+        } catch (Exception e) {
+            // The condition for this to occur is unknown, but there are two types of XPaths
+            // for the Like button.
+            return super.findElement(By.xpath(ElementXPath.LIKE_BUTTON_2.getTag()));
+        }
+    }
+
+    private void clickNextArrorw() {
+        super.findElement(By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag())).click();
         ;
     }
 }

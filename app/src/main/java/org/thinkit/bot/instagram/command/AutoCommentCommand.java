@@ -15,7 +15,6 @@
 package org.thinkit.bot.instagram.command;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
@@ -25,7 +24,6 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
@@ -46,32 +44,32 @@ public final class AutoCommentCommand extends AbstractBotCommand {
     private HashTag hashTag;
 
     @Override
-    public int executeBotProcess(@NonNull final WebDriver webDriver) {
+    public int executeBotProcess() {
 
-        webDriver.get(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
-        super.waitUntilElementLocated(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
+        super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
+        super.waitUntilElementLocated(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
         // super.click(webDriver, By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
 
         int countComments = 0;
         while (countComments < 1) {
 
-            super.waitUntilElementLocated(webDriver,
+            super.waitUntilElementLocated(
                     By.xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea"));
-            final WebElement commentArea = webDriver
-                    .findElement(By.xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea"));
+            final WebElement commentArea = super.findElement(
+                    By.xpath("/html/body/div[4]/div[2]/div/article/div[3]/section[3]/div/form/textarea"));
             commentArea.click();
             commentArea.sendKeys("cool!");
             // webDriver.findElement(By.xpath("/html/body/div[5]/div[2]/div/article/div[3]/section[3]/div/form/button[2]"))
             // .click();
 
-            this.clickNextArrorw(webDriver);
+            this.clickNextArrorw();
             countComments++;
         }
 
         return countComments;
     }
 
-    private void clickNextArrorw(@NonNull final WebDriver webDriver) {
+    private void clickNextArrorw() {
         // super.click(webDriver,
         // By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag()));
     }

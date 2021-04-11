@@ -37,28 +37,35 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
      */
     private static final long serialVersionUID = -1990878890028788690L;
 
-    protected abstract int executeBotProcess(@NonNull final WebDriver webDriver);
+    private WebDriver webDriver;
 
-    protected final WebElement findElement(@NonNull final WebDriver webDriver, @NonNull final By by) {
-        this.waitUntilElementLocated(webDriver, by);
+    protected abstract int executeBotProcess();
+
+    protected final WebElement findElement(@NonNull final By by) {
+        this.waitUntilElementLocated(by);
         return webDriver.findElement(by);
     }
 
     @Override
     public int execute(@NonNull final WebDriver webDriver) {
-        this.wait(webDriver, WaitTimeUtil.create(WaitType.DEFAULT));
-        return this.executeBotProcess(webDriver);
+        this.webDriver = webDriver;
+        this.wait(WaitType.DEFAULT);
+        return this.executeBotProcess();
     }
 
-    protected final void wait(@NonNull final WebDriver webDriver, final long sleepInMillis) {
+    protected final void getWebPage(@NonNull final String url) {
+        this.webDriver.get(url);
+    }
+
+    protected final void wait(@NonNull final WaitType waitType) {
         try {
-            Thread.sleep(sleepInMillis);
+            Thread.sleep(WaitTimeUtil.create(waitType));
         } catch (InterruptedException e) {
             throw new IllegalStateException(e);
         }
     }
 
-    protected final void waitUntilElementLocated(@NonNull final WebDriver webDriver, @NonNull final By by) {
-        new WebDriverWait(webDriver, 50).until(ExpectedConditions.presenceOfElementLocated(by));
+    protected final void waitUntilElementLocated(@NonNull final By by) {
+        new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 }
