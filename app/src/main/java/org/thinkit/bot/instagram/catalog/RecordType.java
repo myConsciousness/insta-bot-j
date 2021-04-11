@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum RECORD_TYPE implements Catalog<RECORD_TYPE> {
+public enum RecordType implements Catalog<RecordType> {
 
     /**
      * The like

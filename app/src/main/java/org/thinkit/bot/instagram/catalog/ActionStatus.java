@@ -26,7 +26,7 @@ import lombok.RequiredArgsConstructor;
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum ACTION_STATUS implements Catalog<ACTION_STATUS> {
+public enum ActionStatus implements Catalog<ActionStatus> {
 
     /**
      * The preparing
