@@ -17,7 +17,7 @@ package org.thinkit.bot.instagram;
 import java.util.List;
 
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
-import org.thinkit.bot.instagram.config.BotConfig;
+import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.result.BotResult;
 import org.thinkit.bot.instagram.tag.HashTag;
 import org.thinkit.bot.instagram.user.BotUser;
@@ -61,13 +61,13 @@ final class InstaBotJ extends AbstractInstaBot {
     /**
      * The constructor.
      *
-     * @param botUser   The bot user
-     * @param botConfig The bot config
+     * @param botUser      The bot user
+     * @param actionConfig The action config
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final BotUser botUser, @NonNull final BotConfig botConfig) {
-        super(botUser, botConfig);
+    private InstaBotJ(@NonNull final BotUser botUser, @NonNull final ActionConfig actionConfig) {
+        super(botUser, actionConfig);
     }
 
     /**
@@ -79,7 +79,7 @@ final class InstaBotJ extends AbstractInstaBot {
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final BotUser botUser, @NonNull final BotConfig botConfig) {
+    public static InstaBot from(@NonNull final BotUser botUser, @NonNull final ActionConfig botConfig) {
         return new InstaBotJ(botUser, botConfig);
     }
 

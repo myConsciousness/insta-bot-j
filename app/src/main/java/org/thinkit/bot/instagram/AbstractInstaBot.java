@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.thinkit.bot.instagram.command.LoginCommand;
-import org.thinkit.bot.instagram.config.BotConfig;
+import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.content.DefaultBotConfigMapper;
 import org.thinkit.bot.instagram.user.BotUser;
 
@@ -66,9 +66,9 @@ abstract class AbstractInstaBot implements InstaBot, Serializable {
         LoginCommand.from(botUser.getUserName(), botUser.getPassword()).execute(this.webDriver);
     }
 
-    protected AbstractInstaBot(@NonNull final BotUser botUser, @NonNull final BotConfig botConfig) {
+    protected AbstractInstaBot(@NonNull final BotUser botUser, @NonNull final ActionConfig actionConfig) {
         this.setupWebDriver();
-        this.maxAttempt = botConfig.getMaxAttempt();
+        this.maxAttempt = actionConfig.getMaxAttempt();
 
         LoginCommand.from(botUser.getUserName(), botUser.getPassword()).execute(this.webDriver);
     }

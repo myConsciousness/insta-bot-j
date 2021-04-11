@@ -16,6 +16,8 @@ package org.thinkit.bot.instagram.config;
 
 import java.io.Serializable;
 
+import org.thinkit.bot.instagram.catalog.Language;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,7 +37,7 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class BotConfig implements Serializable {
+public final class ActionConfig implements Serializable {
 
     /**
      * The serial version UID
@@ -47,4 +49,11 @@ public final class BotConfig implements Serializable {
      */
     @Getter
     private int maxAttempt;
+
+    /**
+     * The language
+     */
+    @Getter
+    @Builder.Default
+    private Language language = Language.JAPANESE;
 }
