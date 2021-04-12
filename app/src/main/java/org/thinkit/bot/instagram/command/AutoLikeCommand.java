@@ -26,15 +26,14 @@ import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.tag.HashTag;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
 public final class AutoLikeCommand extends AbstractBotCommand {
 
     /**
@@ -51,6 +50,15 @@ public final class AutoLikeCommand extends AbstractBotCommand {
      * The count of max like
      */
     private int maxLikes;
+
+    private AutoLikeCommand(@NonNull final HashTag hashTag, final int maxLikes) {
+        this.hashTag = hashTag;
+        this.maxLikes = maxLikes;
+    }
+
+    public static BotCommand from(@NonNull final HashTag hashTag, final int maxLikes) {
+        return new AutoLikeCommand(hashTag, maxLikes);
+    }
 
     @Override
     public int executeBotProcess() {

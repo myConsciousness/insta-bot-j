@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.thinkit.bot.instagram.repository.LikedPhotoRepository">
+    <select id="findById" resultType="org.thinkit.bot.instagram.repository.entity.LikedPhotoRepository">
+        SELECT
+            ID,
+            USER_NAME,
+            URL,
+            CREATED_BY,
+            CREATED_AT,
+            UPDATED_BY,
+            UPDATED_AT
+         FROM
+            LIKED_PHOTO
+         WHERE
+            1 = 1
+        <![CDATA[
+            AND ID = #{id}
+            ]]>
+    </select>
+    <select id="findByUserName" resultType="org.thinkit.bot.instagram.repository.entity.LikedPhotoRepository">
+        SELECT
+        ID,
+        USER_NAME,
+        URL,
+        CREATED_BY,
+        CREATED_AT,
+        UPDATED_BY,
+        UPDATED_AT
+     FROM
+        LIKED_PHOTO
+     WHERE
+        1 = 1
+        <![CDATA[
+        AND USER_NAME = #{userName}
+        ]]>
+    </select>
+    <insert id="insert">
+        INSERT INTO LIKED_PHOTO (
+            USER_NAME,
+            URL,
+            CREATED_BY,
+            CREATED_AT,
+            UPDATED_BY,
+            UPDATED_AT
+        ) VALUES(
+        <![CDATA[
+            #{likedPhoto.userName},
+            #{likedPhoto.url},
+            #{likedPhoto.createdBy},
+            #{likedPhoto.createdAt},
+            #{likedPhoto.updatedBy},
+            #{likedPhoto.updatedAt}
+            ]]>
+        )
+    </insert>
+</mapper>
