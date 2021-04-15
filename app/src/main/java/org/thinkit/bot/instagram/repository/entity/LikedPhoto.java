@@ -17,12 +17,9 @@ package org.thinkit.bot.instagram.repository.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
+
+import lombok.Data;
 
 /**
  * The entity that manages liked photo.
@@ -30,10 +27,7 @@ import lombok.ToString;
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
+@Data
 public final class LikedPhoto implements Serializable {
 
     /**
@@ -42,38 +36,38 @@ public final class LikedPhoto implements Serializable {
     private static final long serialVersionUID = 239353027201994251L;
 
     /**
+     * The id
+     */
+    @Id
+    private int id;
+
+    /**
      * The user name
      */
-    @Getter
     private String userName;
 
     /**
      * The url
      */
-    @Getter
     private String url;
 
     /**
      * The created by
      */
-    @Getter
     private String createdBy;
 
     /**
      * The created at
      */
-    @Getter
     private Timestamp createdAt;
 
     /**
      * The updated by
      */
-    @Getter
     private String updatedBy;
 
     /**
      * The updated by
      */
-    @Getter
     private Timestamp updatedAt;
 }

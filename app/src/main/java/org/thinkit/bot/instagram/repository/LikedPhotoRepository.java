@@ -14,26 +14,12 @@
 
 package org.thinkit.bot.instagram.repository;
 
-import java.util.Collection;
-import java.util.Optional;
-
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.thinkit.bot.instagram.repository.entity.LikedPhoto;
 
 import lombok.NonNull;
 
-public interface LikedPhotoRepository {
+public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, Integer> {
 
-    public Optional<LikedPhoto> findById(int id);
-
-    public Optional<LikedPhoto> findByUserName(@NonNull String userName);
-
-    public Collection<LikedPhoto> findAll();
-
-    public long count(LikedPhoto likedPhoto);
-
-    public void insert(LikedPhoto likedPhoto);
-
-    public boolean update(LikedPhoto likedPhoto);
-
-    public void delete(LikedPhoto likedPhoto);
+    public LikedPhoto findByUserName(@NonNull String userName);
 }

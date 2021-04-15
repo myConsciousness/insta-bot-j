@@ -87,7 +87,7 @@ final class InstaBotJ extends AbstractInstaBot {
     public BotResult executeAutoLikes(@NonNull final List<HashTag> hashTags) {
 
         if (hashTags.isEmpty()) {
-            throw new IllegalArgumentException("The hash tag is required to execute auto likes.");
+            throw new IllegalArgumentException("The hash tag is required to execute autolikes.");
         }
 
         final BotResult.BotResultBuilder resultBuilder = BotResult.builder();
