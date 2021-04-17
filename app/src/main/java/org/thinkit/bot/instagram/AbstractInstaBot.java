@@ -21,8 +21,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
+import org.thinkit.bot.instagram.config.ActionUser;
 import org.thinkit.bot.instagram.content.DefaultBotConfigMapper;
-import org.thinkit.bot.instagram.user.BotUser;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.AccessLevel;
@@ -59,14 +59,14 @@ abstract class AbstractInstaBot implements InstaBot, Serializable {
     @Getter(AccessLevel.PROTECTED)
     private int maxAttempt;
 
-    protected AbstractInstaBot(@NonNull final BotUser botUser) {
+    protected AbstractInstaBot(@NonNull final ActionUser botUser) {
         this.setupWebDriver();
         this.maxAttempt = DefaultBotConfigMapper.newInstance().scan().get(0).getMaxAttempt();
 
         LoginCommand.from(botUser.getUserName(), botUser.getPassword()).execute(this.webDriver);
     }
 
-    protected AbstractInstaBot(@NonNull final BotUser botUser, @NonNull final ActionConfig actionConfig) {
+    protected AbstractInstaBot(@NonNull final ActionUser botUser, @NonNull final ActionConfig actionConfig) {
         this.setupWebDriver();
         this.maxAttempt = actionConfig.getMaxAttempt();
 

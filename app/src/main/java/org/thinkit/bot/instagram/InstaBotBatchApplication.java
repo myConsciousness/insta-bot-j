@@ -18,7 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.thinkit.bot.instagram.repository.LikedPhotoRepository;
+import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 
 @SpringBootApplication
 public class InstaBotBatchApplication implements CommandLineRunner {

@@ -12,44 +12,38 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.user;
+package org.thinkit.bot.instagram.mongo.entity;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
 
 /**
- * The entity that manages bot user information.
+ * The entity that manages liked photo.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class BotUser implements Serializable {
+@Data
+@Document("liked_photo")
+public final class LikedPhoto implements Serializable {
 
     /**
      * The serial version UID
      */
-    private static final long serialVersionUID = 3781614652799493819L;
+    private static final long serialVersionUID = 239353027201994251L;
+
+    /**
+     * The id
+     */
+    @Id
+    private String id;
 
     /**
      * The user name
      */
-    @Getter
     private String userName;
-
-    /**
-     * The password
-     */
-    @Getter
-    @ToString.Exclude
-    private String password;
 }

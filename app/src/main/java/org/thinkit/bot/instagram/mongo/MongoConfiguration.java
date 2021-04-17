@@ -12,16 +12,23 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.repository;
+package org.thinkit.bot.instagram.mongo;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.repository.entity.LikedPhoto;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.thinkit.bot.instagram.catalog.MongoDatabase;
 
-import lombok.NonNull;
+/**
+ * The configuration class for MongoDB.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@Configuration
+public class MongoConfiguration extends AbstractMongoClientConfiguration {
 
-@Repository
-public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, Integer> {
-
-    public LikedPhoto findByUserName(@NonNull String userName);
+    @Override
+    protected String getDatabaseName() {
+        return MongoDatabase.INSTAGRAM.getTag();
+    }
 }

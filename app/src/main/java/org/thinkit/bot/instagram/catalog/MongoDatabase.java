@@ -12,38 +12,36 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.repository.entity;
+package org.thinkit.bot.instagram.catalog;
 
-import java.io.Serializable;
+import org.thinkit.api.catalog.BiCatalog;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
- * The entity that manages liked photo.
+ * The catalog that manages mongo database.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Data
-@Document("liked_photo")
-public final class LikedPhoto implements Serializable {
+@RequiredArgsConstructor
+public enum MongoDatabase implements BiCatalog<MongoDatabase, String> {
 
     /**
-     * The serial version UID
+     * {@code "instagram"}
      */
-    private static final long serialVersionUID = 239353027201994251L;
+    INSTAGRAM(0, "instagram");
 
     /**
-     * The id
+     * The code
      */
-    @Id
-    private int id;
+    @Getter
+    private final int code;
 
     /**
-     * The user name
+     * The tag
      */
-    private String userName;
+    @Getter
+    private final String tag;
 }

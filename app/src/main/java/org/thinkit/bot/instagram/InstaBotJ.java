@@ -18,9 +18,9 @@ import java.util.List;
 
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
+import org.thinkit.bot.instagram.config.ActionUser;
 import org.thinkit.bot.instagram.result.BotResult;
 import org.thinkit.bot.instagram.tag.HashTag;
-import org.thinkit.bot.instagram.user.BotUser;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -42,7 +42,7 @@ final class InstaBotJ extends AbstractInstaBot {
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final BotUser instagramUser) {
+    private InstaBotJ(@NonNull final ActionUser instagramUser) {
         super(instagramUser);
     }
 
@@ -54,7 +54,7 @@ final class InstaBotJ extends AbstractInstaBot {
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final BotUser instagramUser) {
+    public static InstaBot from(@NonNull final ActionUser instagramUser) {
         return new InstaBotJ(instagramUser);
     }
 
@@ -66,7 +66,7 @@ final class InstaBotJ extends AbstractInstaBot {
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final BotUser botUser, @NonNull final ActionConfig actionConfig) {
+    private InstaBotJ(@NonNull final ActionUser botUser, @NonNull final ActionConfig actionConfig) {
         super(botUser, actionConfig);
     }
 
@@ -79,7 +79,7 @@ final class InstaBotJ extends AbstractInstaBot {
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final BotUser botUser, @NonNull final ActionConfig botConfig) {
+    public static InstaBot from(@NonNull final ActionUser botUser, @NonNull final ActionConfig botConfig) {
         return new InstaBotJ(botUser, botConfig);
     }
 
