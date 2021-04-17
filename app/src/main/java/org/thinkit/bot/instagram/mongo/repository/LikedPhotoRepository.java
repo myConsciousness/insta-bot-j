@@ -18,10 +18,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 
-import lombok.NonNull;
-
 @Repository
 public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, String> {
-
-    public LikedPhoto findByUserName(@NonNull String userName);
 }

@@ -18,37 +18,12 @@ plugins {
     id 'java'
 	id 'org.springframework.boot' version '2.4.3'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'maven-publish'
-    id 'com.palantir.git-version' version '0.12.3'
     id 'io.franzbecker.gradle-lombok' version '4.0.0'
 }
 
 group = 'org.thinkit.bot.instagram'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '15'
-
-publishing {
-   publications {
-        group 'org.thinkit.bot.instagram'
-        version = gitVersion()
-
-        gpr(MavenPublication) {
-            artifactId = 'insta-bot-j'
-            from(components.java)
-        }
-    }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/myConsciousness/insta-bot-j")
-            credentials {
-                username = System.getenv("GITHUB_USER")
-                password = System.getenv("GITHUB_PUBLISH_TOKEN")
-            }
-        }
-    }
-}
 
 repositories {
     maven {
@@ -71,7 +46,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
     testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
 
-    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: '2.4.4'
+	implementation 'org.springframework.boot:spring-boot-starter-batch'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
 	implementation 'org.projectlombok:lombok:1.18.18'
 	annotationProcessor 'org.projectlombok:lombok:1.18.18'

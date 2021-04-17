@@ -14,25 +14,17 @@
 
 package org.thinkit.bot.instagram;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 
-@SpringBootApplication
-public class InstaBotBatchApplication implements CommandLineRunner {
-
-    @Autowired
-    private LikedPhotoRepository likedPhotoRepository;
+@EnableMongoAuditing
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
+public class InstaBotBatchApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(InstaBotBatchApplication.class, args);
-    }
-
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println(likedPhotoRepository.findAll());
     }
 
 }

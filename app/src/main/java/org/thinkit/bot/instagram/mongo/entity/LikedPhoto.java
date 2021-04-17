@@ -29,7 +29,7 @@ import lombok.Data;
  */
 @Data
 @Document("liked_photo")
-public final class LikedPhoto implements Serializable {
+public class LikedPhoto implements Serializable {
 
     /**
      * The serial version UID
