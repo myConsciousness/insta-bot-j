@@ -15,10 +15,12 @@
 package org.thinkit.bot.instagram.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.repository.entity.LikedPhoto;
 
 import lombok.NonNull;
 
+@Repository
 public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, Integer> {
 
     public LikedPhoto findByUserName(@NonNull String userName);

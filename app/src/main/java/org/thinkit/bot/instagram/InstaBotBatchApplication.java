@@ -14,14 +14,25 @@
 
 package org.thinkit.bot.instagram;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.thinkit.bot.instagram.repository.LikedPhotoRepository;
 
 @SpringBootApplication
-public class InstaBotBatchApplication {
+public class InstaBotBatchApplication implements CommandLineRunner {
+
+    @Autowired
+    private LikedPhotoRepository likedPhotoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(InstaBotBatchApplication.class, args);
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        System.out.println(likedPhotoRepository.findAll());
     }
 
 }

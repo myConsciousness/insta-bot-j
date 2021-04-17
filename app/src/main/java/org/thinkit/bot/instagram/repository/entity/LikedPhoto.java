@@ -15,9 +15,9 @@
 package org.thinkit.bot.instagram.repository.entity;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
@@ -28,6 +28,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
+@Document("liked_photo")
 public final class LikedPhoto implements Serializable {
 
     /**
@@ -45,29 +46,4 @@ public final class LikedPhoto implements Serializable {
      * The user name
      */
     private String userName;
-
-    /**
-     * The url
-     */
-    private String url;
-
-    /**
-     * The created by
-     */
-    private String createdBy;
-
-    /**
-     * The created at
-     */
-    private Timestamp createdAt;
-
-    /**
-     * The updated by
-     */
-    private String updatedBy;
-
-    /**
-     * The updated by
-     */
-    private Timestamp updatedAt;
 }
