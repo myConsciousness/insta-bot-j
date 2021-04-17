@@ -1,8 +1,0 @@
-server:
-  port: 8084
-spring:
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: instagram
