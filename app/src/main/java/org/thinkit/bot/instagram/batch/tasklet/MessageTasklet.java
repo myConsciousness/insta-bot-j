@@ -8,7 +8,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class MessageTasklet implements Tasklet {
+public final class MessageTasklet implements Tasklet {
 
     private final String message;
 

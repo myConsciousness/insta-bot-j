@@ -28,7 +28,7 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
-final class InstaBotJ extends AbstractInstaBot {
+public final class InstaBotJ extends AbstractInstaBot {
 
     /**
      * The serial version UID

@@ -14,6 +14,9 @@
 
 package org.thinkit.bot.instagram.batch;
 
+import static org.thinkit.bot.instagram.util.EnvironmentVariableUtil.getPassword;
+import static org.thinkit.bot.instagram.util.EnvironmentVariableUtil.getUserName;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -22,22 +25,39 @@ import org.springframework.batch.core.configuration.annotation.StepBuilderFactor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thinkit.bot.instagram.InstaBot;
+import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.MessageTasklet;
+import org.thinkit.bot.instagram.config.ActionUser;
+import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 
 @Configuration
 @EnableBatchProcessing
 public class BatchConfiguration {
 
+    /**
+     * The job builder factory
+     */
     @Autowired
     private JobBuilderFactory jobBuilderFactory;
 
+    /**
+     * The step builder factory
+     */
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
 
+    private InstaBot instaBot = InstaBotJ.from(ActionUser.from(getUserName(), getPassword()));
+
+    /**
+     * The liked photo repository
+     */
+    @Autowired
+    private LikedPhotoRepository likedPhotoRepository;
+
     @Bean
     public Job fooJob() {
-        System.out.println("fooJob メソッドを実行");
-        return jobBuilderFactory.get("myFooJob").flow(helloStep()).end().build();
+        return jobBuilderFactory.get("AutoLikesJob").flow(helloStep()).end().build();
     }
 
     @Bean
