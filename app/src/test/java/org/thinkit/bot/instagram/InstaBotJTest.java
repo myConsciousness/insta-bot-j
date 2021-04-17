@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.thinkit.bot.instagram.tag.HashTag;
-import org.thinkit.bot.instagram.user.InstagramUser;
+import org.thinkit.bot.instagram.user.BotUser;
 
 /**
  * The class that manages test case of {@link InstaBotJ} .
@@ -43,9 +43,10 @@ public final class InstaBotJTest {
     void test() {
 
         List<HashTag> hashTags = new ArrayList<>();
-        hashTags.add(HashTag.from("love"));
-        hashTags.add(HashTag.from("travel"));
+        hashTags.add(HashTag.from("nature"));
+        hashTags.add(HashTag.from("naturephotography"));
+        hashTags.add(HashTag.from("life"));
 
-        InstaBotJ.from(InstagramUser.from(USER_NAME, PASSWORD)).executeAutoLikes(hashTags);
+        InstaBotJ.from(BotUser.from(USER_NAME, PASSWORD)).executeAutoLikes(hashTags);
     }
 }
