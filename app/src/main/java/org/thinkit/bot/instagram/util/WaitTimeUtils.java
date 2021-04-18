@@ -1,3 +1,5 @@
+package org.thinkit.bot.instagram.util;
+
 /*
  * Copyright 2021 Kato Shinya.
  *
@@ -12,37 +14,38 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.util;
+import java.io.Serializable;
+import java.util.Random;
 
-import org.thinkit.bot.instagram.catalog.EnvironmentKey;
+import org.thinkit.bot.instagram.catalog.WaitType;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 /**
- * The util class that provides the way to get environment variables easily.
+ * The class that resolve process to generate wait time.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class EnvironmentVariableUtil {
+public final class WaitTimeUtils implements Serializable {
 
     /**
-     * Returns the user name from system environment.
-     *
-     * @return The user name
+     * The serial version UID
      */
-    public static String getUserName() {
-        return System.getenv(EnvironmentKey.USER_NAME.getTag());
-    }
+    private static final long serialVersionUID = 3291150816726238730L;
 
     /**
-     * Returns the password from system environment.
-     *
-     * @return The password
+     * The random
      */
-    public static String getPassword() {
-        return System.getenv(EnvironmentKey.PASSWORD.getTag());
+    private static final Random RANDOM = new Random();
+
+    public static int create(@NonNull final WaitType waitType) {
+        return switch (waitType) {
+        case DEFAULT -> RANDOM.nextInt(10000) + 40000;
+        case LIKE -> RANDOM.nextInt(10000) + 50000;
+        };
     }
 }

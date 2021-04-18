@@ -17,6 +17,7 @@ package org.thinkit.bot.instagram;
 import java.util.List;
 
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
+import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.config.ActionUser;
 import org.thinkit.bot.instagram.result.BotResult;
@@ -38,49 +39,52 @@ public final class InstaBotJ extends AbstractInstaBot {
     /**
      * The constructor.
      *
-     * @param instagramUser The user of Instagram
-     *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final ActionUser instagramUser) {
-        super(instagramUser);
+    private InstaBotJ() {
+        super();
     }
 
     /**
      * Returns the new instance of {@link InstaBotJ} based on the arguments.
      *
-     * @param instagramUser The user of Instagram
      * @return The new instance of {@link InstaBotJ}
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final ActionUser instagramUser) {
-        return new InstaBotJ(instagramUser);
+    public static InstaBot newInstance() {
+        return new InstaBotJ();
     }
 
     /**
      * The constructor.
      *
-     * @param botUser      The bot user
      * @param actionConfig The action config
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    private InstaBotJ(@NonNull final ActionUser botUser, @NonNull final ActionConfig actionConfig) {
-        super(botUser, actionConfig);
+    private InstaBotJ(@NonNull final ActionConfig actionConfig) {
+        super(actionConfig);
     }
 
     /**
      * Returns the new instance of {@link InstaBotJ} based on the arguments.
      *
-     * @param botUser   The bot user
      * @param botConfig The bot config
      * @return The new instance of {@link InstaBotJ}
      *
      * @exception NullPointerException If {@code null} is passed as an argument
      */
-    public static InstaBot from(@NonNull final ActionUser botUser, @NonNull final ActionConfig botConfig) {
-        return new InstaBotJ(botUser, botConfig);
+    public static InstaBot from(@NonNull final ActionConfig botConfig) {
+        return new InstaBotJ(botConfig);
+    }
+
+    @Override
+    public BotResult executeLogin(@NonNull final ActionUser actionUser) {
+
+        LoginCommand.from(actionUser.getUserName(), actionUser.getPassword()).execute(super.getWebDriver());
+
+        return null;
     }
 
     @Override

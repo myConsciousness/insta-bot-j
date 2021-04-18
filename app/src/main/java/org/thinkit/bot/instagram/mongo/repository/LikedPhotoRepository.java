@@ -18,6 +18,12 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 
+/**
+ * The class that manages liked photo repository.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
 @Repository
 public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, String> {
 }

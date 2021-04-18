@@ -12,19 +12,18 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram;
+package org.thinkit.bot.instagram.mongo.repository;
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 
-@EnableMongoAuditing
-@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-public class InstaBotBatchApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(InstaBotBatchApplication.class, args);
-    }
-
+/**
+ * The class that manages hashtag repository.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@Repository
+public interface HashtagRepository extends MongoRepository<Hashtag, String> {
 }

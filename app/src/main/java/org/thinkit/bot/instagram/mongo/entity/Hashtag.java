@@ -12,19 +12,33 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram;
+package org.thinkit.bot.instagram.mongo.entity;
 
-import java.util.List;
+import java.io.Serializable;
 
-import org.thinkit.bot.instagram.config.ActionUser;
-import org.thinkit.bot.instagram.result.BotResult;
-import org.thinkit.bot.instagram.tag.HashTag;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import lombok.NonNull;
+import lombok.Data;
 
-public interface InstaBot {
+/**
+ * The entity that manages hashtag.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@Data
+@Document("hashtag")
+public final class Hashtag implements Serializable {
 
-    public BotResult executeLogin(@NonNull final ActionUser actionUser);
+    /**
+     * The id
+     */
+    @Id
+    private String id;
 
-    public BotResult executeAutoLikes(@NonNull final List<HashTag> hashTags);
+    /**
+     * The tag
+     */
+    private String tag;
 }
