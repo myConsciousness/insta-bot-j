@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 
 /**
- * The class that manages liked photo repository.
+ * The interface that manages liked photo repository.
  *
  * @author Kato Shinya
  * @since 1.0.0

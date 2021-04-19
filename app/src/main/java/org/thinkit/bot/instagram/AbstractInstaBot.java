@@ -36,7 +36,7 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode
-abstract class AbstractInstaBot implements InstaBot, Serializable {
+public abstract class AbstractInstaBot implements InstaBot, Serializable {
 
     /**
      * The serial version UID
@@ -69,5 +69,10 @@ abstract class AbstractInstaBot implements InstaBot, Serializable {
         WebDriverManager.chromedriver().setup();
         this.webDriver = new ChromeDriver();
         this.webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+
+    @Override
+    public void closeWebBrowser() {
+        this.webDriver.close();
     }
 }

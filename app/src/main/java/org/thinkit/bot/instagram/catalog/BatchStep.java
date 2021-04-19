@@ -12,43 +12,46 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.entity;
+package org.thinkit.bot.instagram.catalog;
 
-import java.io.Serializable;
+import org.thinkit.api.catalog.BiCatalog;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
- * The entity that manages liked photo.
+ * The catalog that manages batch step.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Data
-@Document("liked_photo")
-public final class LikedPhoto implements Serializable {
+@RequiredArgsConstructor
+public enum BatchStep implements BiCatalog<BatchStep, String> {
 
     /**
-     * The serial version UID
+     * The login step
      */
-    private static final long serialVersionUID = 239353027201994251L;
+    LOGIN(0, "LoginStep"),
 
     /**
-     * The id
+     * The autolike step
      */
-    @Id
-    private String id;
+    AUTOLIKE(1, "AutolikeStep"),
 
     /**
-     * The user name
+     * The close web browser step
      */
-    private String userName;
+    CLOSE_WEB_BROWSER(1, "CloseWebBrowserStep");
 
     /**
-     * The url
+     * The code
      */
-    private String url;
+    @Getter
+    private final int code;
+
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }

@@ -12,22 +12,19 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram;
+package org.thinkit.bot.instagram.mongo.repository;
 
-import java.util.List;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+import org.thinkit.bot.instagram.mongo.entity.FollowingUser;
 
-import org.thinkit.bot.instagram.config.ActionHashtag;
-import org.thinkit.bot.instagram.config.ActionUser;
-import org.thinkit.bot.instagram.result.AutolikeResult;
-import org.thinkit.bot.instagram.result.BotResult;
+/**
+ * The interface that manages following user repository.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@Repository
+public interface FollowingUserRepository extends MongoRepository<FollowingUser, String> {
 
-import lombok.NonNull;
-
-public interface InstaBot {
-
-    public BotResult executeLogin(@NonNull final ActionUser actionUser);
-
-    public List<AutolikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags);
-
-    public void closeWebBrowser();
 }

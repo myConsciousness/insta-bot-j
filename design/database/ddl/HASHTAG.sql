@@ -11,23 +11,13 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
-package org.thinkit.bot.instagram;
-
-import java.util.List;
-
-import org.thinkit.bot.instagram.config.ActionHashtag;
-import org.thinkit.bot.instagram.config.ActionUser;
-import org.thinkit.bot.instagram.result.AutolikeResult;
-import org.thinkit.bot.instagram.result.BotResult;
-
-import lombok.NonNull;
-
-public interface InstaBot {
-
-    public BotResult executeLogin(@NonNull final ActionUser actionUser);
-
-    public List<AutolikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags);
-
-    public void closeWebBrowser();
-}
+DROP TABLE IF EXISTS HASHTAG;
+CREATE TABLE IF NOT EXISTS HASHTAG(
+  ID INT AUTO_INCREMENT,
+  TAG VARCHAR(1024) NOT NULL,
+  CREATED_BY VARCHAR(50) NOT NULL,
+  CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UPDATED_BY VARCHAR(50) NOT NULL,
+  UPDATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY(ID, TAG)
+);

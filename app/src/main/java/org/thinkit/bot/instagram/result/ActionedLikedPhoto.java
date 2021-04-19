@@ -12,43 +12,45 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.entity;
+package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
- * The entity that manages liked photo.
+ * The class that manages actioned liked photo
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Data
-@Document("liked_photo")
-public final class LikedPhoto implements Serializable {
+@ToString
+@EqualsAndHashCode
+@Builder(toBuilder = false)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ActionedLikedPhoto implements ActionedResult, Serializable {
 
     /**
      * The serial version UID
      */
-    private static final long serialVersionUID = 239353027201994251L;
-
-    /**
-     * The id
-     */
-    @Id
-    private String id;
+    private static final long serialVersionUID = 6617558067675416752L;
 
     /**
      * The user name
      */
+    @Getter
     private String userName;
 
     /**
      * The url
      */
+    @Getter
     private String url;
 }

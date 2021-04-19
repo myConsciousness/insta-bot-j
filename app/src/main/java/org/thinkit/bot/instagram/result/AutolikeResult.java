@@ -12,34 +12,47 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.tasklet;
+package org.thinkit.bot.instagram.result;
 
-import org.springframework.batch.core.StepContribution;
-import org.springframework.batch.core.scope.context.ChunkContext;
-import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
-import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
+import java.io.Serializable;
+import java.util.List;
+
+import com.mongodb.lang.NonNull;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * The class that manages result of autolike command.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
 @ToString
 @EqualsAndHashCode
+@Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class AutoLikeTasklet implements Tasklet {
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public final class AutolikeResult implements Serializable {
+
+    @Getter
+    private String hashtag;
 
     /**
-     * The liked photo repository
+     * The count likes
      */
-    private LikedPhotoRepository likedPhotoRepository;
+    @Getter
+    private int countLikes;
 
-    @Override
-    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-        System.out.println(likedPhotoRepository.findAll());
-        return RepeatStatus.FINISHED;
-    }
+    /**
+     * The actioned liked photos
+     */
+    @Getter
+    @NonNull
+    private List<ActionedLikedPhoto> actionedLikedPhotos;
 }

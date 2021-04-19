@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 
 /**
- * The class that manages hashtag repository.
+ * The interface that manages hashtag repository.
  *
  * @author Kato Shinya
  * @since 1.0.0

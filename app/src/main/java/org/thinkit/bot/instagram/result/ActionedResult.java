@@ -12,22 +12,8 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram;
+package org.thinkit.bot.instagram.result;
 
-import java.util.List;
+public interface ActionedResult {
 
-import org.thinkit.bot.instagram.config.ActionHashtag;
-import org.thinkit.bot.instagram.config.ActionUser;
-import org.thinkit.bot.instagram.result.AutolikeResult;
-import org.thinkit.bot.instagram.result.BotResult;
-
-import lombok.NonNull;
-
-public interface InstaBot {
-
-    public BotResult executeLogin(@NonNull final ActionUser actionUser);
-
-    public List<AutolikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags);
-
-    public void closeWebBrowser();
 }

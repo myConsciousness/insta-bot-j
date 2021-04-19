@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.tag;
+package org.thinkit.bot.instagram.config;
 
 import java.io.Serializable;
 
@@ -34,7 +34,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class HashTag implements Serializable {
+public final class ActionHashtag implements Serializable {
 
     /**
      * The serial version ID
@@ -60,20 +60,20 @@ public final class HashTag implements Serializable {
      *
      * @exception NullPointerException If {@code null} is passed as an argument.
      */
-    private HashTag(@NonNull final String tag) {
+    private ActionHashtag(@NonNull final String tag) {
         this.tag = tag;
         this.hashTag = new StringBuilder(TagSymbol.HASH.getTag()).append(tag).toString();
     }
 
     /**
-     * Returns the new instance of {@link HashTag} based on the argument.
+     * Returns the new instance of {@link ActionHashtag} based on the argument.
      *
      * @param tag The tag
-     * @return The new instance of {@link HashTag}
+     * @return The new instance of {@link ActionHashtag}
      *
      * @exception NullPointerException If {@code null} is passed as an argument.
      */
-    public static HashTag from(@NonNull final String tag) {
-        return new HashTag(tag);
+    public static ActionHashtag from(@NonNull final String tag) {
+        return new ActionHashtag(tag);
     }
 }

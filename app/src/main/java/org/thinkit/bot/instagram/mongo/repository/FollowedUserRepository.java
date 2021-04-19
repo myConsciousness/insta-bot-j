@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.FollowedUser;
 
 /**
- * The class that manages followed user repository.
+ * The interface that manages followed user repository.
  *
  * @author Kato Shinya
  * @since 1.0.0

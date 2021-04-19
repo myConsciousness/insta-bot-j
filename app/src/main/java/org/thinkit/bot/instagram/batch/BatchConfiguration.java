@@ -24,8 +24,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
-import org.thinkit.bot.instagram.batch.tasklet.AutoLikeTasklet;
-import org.thinkit.bot.instagram.batch.tasklet.LoginTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.CloseBrowserTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
+import org.thinkit.bot.instagram.catalog.BatchJob;
+import org.thinkit.bot.instagram.catalog.BatchStep;
+import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 
 @Configuration
@@ -45,6 +49,12 @@ public class BatchConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     /**
+     * The hashtag repository
+     */
+    @Autowired
+    private HashtagRepository hashtagRepository;
+
+    /**
      * The liked photo repository
      */
     @Autowired
@@ -55,36 +65,45 @@ public class BatchConfiguration {
      */
     private InstaBot instaBot = InstaBotJ.newInstance();
 
-    @Bean
-    public Job loginJob() {
-        return jobBuilderFactory.get("LoginJob").flow(this.loginStep()).end().build();
-    }
+    /**
+     * The mongo collection
+     */
+    private MongoCollection mongoCollection;
 
     @Bean
-    public Job fooJob() {
-        return jobBuilderFactory.get("AutoLikeJob").flow(helloStep()).end().build();
-    }
-
-    @Bean
-    public Job barJob() {
-        System.out.println("barJob メソッドを実行");
-        return jobBuilderFactory.get("myBarJob").flow(helloStep()).next(worldStep()).end().build();
+    public Job InstaBotJob() {
+        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag()).flow(this.loginStep()).next(this.autolikeStep())
+                .next(this.closeWebBrowserStep()).end().build();
     }
 
     @Bean
     public Step loginStep() {
-        return stepBuilderFactory.get("loginStep").tasklet(LoginTasklet.from(this.instaBot)).build();
+        return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag()).tasklet(ExecuteLoginTasklet.from(this.instaBot))
+                .build();
     }
 
     @Bean
-    public Step helloStep() {
-        System.out.println("helloStep メソッドを実行");
-        return stepBuilderFactory.get("myHelloStep").tasklet(AutoLikeTasklet.from(likedPhotoRepository)).build();
+    public Step autolikeStep() {
+        return this.stepBuilderFactory.get(BatchStep.AUTOLIKE.getTag())
+                .tasklet(ExecuteAutoLikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     @Bean
-    public Step worldStep() {
-        System.out.println("worldStep メソッドを実行");
-        return stepBuilderFactory.get("myWorldStep").tasklet(AutoLikeTasklet.from(likedPhotoRepository)).build();
+    public Step closeWebBrowserStep() {
+        return this.stepBuilderFactory.get(BatchStep.CLOSE_WEB_BROWSER.getTag())
+                .tasklet(CloseBrowserTasklet.from(this.instaBot)).build();
+    }
+
+    private MongoCollection getMongoCollection() {
+
+        if (this.mongoCollection != null) {
+            return this.mongoCollection;
+        }
+
+        final MongoCollection.MongoCollectionBuilder mongoCollectionBuilder = MongoCollection.builder();
+        mongoCollectionBuilder.hashtagRepository(this.hashtagRepository);
+        mongoCollectionBuilder.likedPhotoRepository(this.likedPhotoRepository);
+
+        return mongoCollectionBuilder.build();
     }
 }

@@ -12,39 +12,43 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.mongo.entity;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
 
 /**
- * The class that manages Instagram user.
+ * The entity that manages following user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode
-@Builder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class InstagramUser implements Serializable {
+@Data
+@Document("following_user")
+public final class FollowingUser implements Serializable {
 
     /**
-     * The serial version UID
+     * The id
      */
-    private static final long serialVersionUID = 6617558067675416752L;
+    @Id
+    private String id;
 
     /**
      * The user name
      */
-    @Getter
     private String userName;
+
+    /**
+     * The url
+     */
+    private String url;
+
+    /**
+     * The mutual
+     */
+    private boolean mutual;
 }

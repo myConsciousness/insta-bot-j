@@ -30,7 +30,7 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-public abstract class AbstractBotCommand implements BotCommand, Serializable {
+public abstract class AbstractBotCommand<R> implements BotCommand<R>, Serializable {
 
     /**
      * The serial version UID
@@ -39,7 +39,7 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
 
     private WebDriver webDriver;
 
-    protected abstract int executeBotProcess();
+    protected abstract R executeBotProcess();
 
     protected final WebElement findElement(@NonNull final By by) {
         this.waitUntilElementLocated(by);
@@ -47,7 +47,7 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
     }
 
     @Override
-    public int execute(@NonNull final WebDriver webDriver) {
+    public R execute(@NonNull final WebDriver webDriver) {
         this.webDriver = webDriver;
         this.wait(WaitType.DEFAULT);
         return this.executeBotProcess();
@@ -55,6 +55,10 @@ public abstract class AbstractBotCommand implements BotCommand, Serializable {
 
     protected final void getWebPage(@NonNull final String url) {
         this.webDriver.get(url);
+    }
+
+    protected final String getCurrentUrl() {
+        return this.webDriver.getCurrentUrl();
     }
 
     protected final void wait(@NonNull final WaitType waitType) {

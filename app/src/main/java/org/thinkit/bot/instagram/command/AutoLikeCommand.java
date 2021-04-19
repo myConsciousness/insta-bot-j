@@ -14,6 +14,9 @@
 
 package org.thinkit.bot.instagram.command;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ElementAttribute;
@@ -22,8 +25,10 @@ import org.thinkit.bot.instagram.catalog.ElementTag;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.WaitType;
+import org.thinkit.bot.instagram.config.ActionHashtag;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
-import org.thinkit.bot.instagram.tag.HashTag;
+import org.thinkit.bot.instagram.result.ActionedLikedPhoto;
+import org.thinkit.bot.instagram.result.AutolikeResult;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -34,7 +39,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoLikeCommand extends AbstractBotCommand {
+public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
 
     /**
      * The serial version UID
@@ -44,29 +49,32 @@ public final class AutoLikeCommand extends AbstractBotCommand {
     /**
      * The hash tag
      */
-    private HashTag hashTag;
+    private ActionHashtag actionHashtag;
 
     /**
      * The count of max like
      */
     private int maxLikes;
 
-    private AutoLikeCommand(@NonNull final HashTag hashTag, final int maxLikes) {
-        this.hashTag = hashTag;
+    private AutoLikeCommand(@NonNull final ActionHashtag actionHashtag, final int maxLikes) {
+        this.actionHashtag = actionHashtag;
         this.maxLikes = maxLikes;
     }
 
-    public static BotCommand from(@NonNull final HashTag hashTag, final int maxLikes) {
-        return new AutoLikeCommand(hashTag, maxLikes);
+    public static BotCommand<AutolikeResult> from(@NonNull final ActionHashtag actionHashtag, final int maxLikes) {
+        return new AutoLikeCommand(actionHashtag, maxLikes);
     }
 
     @Override
-    public int executeBotProcess() {
+    public AutolikeResult executeBotProcess() {
 
-        super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
+        final AutolikeResult.AutolikeResultBuilder autolikeResultBuilder = AutolikeResult.builder();
+
+        super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), this.actionHashtag.getTag()));
         super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
 
         int countLikes = 0;
+        final List<ActionedLikedPhoto> actionedLikedPhotos = new ArrayList<>();
         final String completedLikeState = this.getCompletedLikeState();
 
         while (countLikes < maxLikes) {
@@ -84,17 +92,33 @@ public final class AutoLikeCommand extends AbstractBotCommand {
                     continue;
                 }
 
+                final ActionedLikedPhoto.ActionedLikedPhotoBuilder actionedLikedPhotoBuilder = ActionedLikedPhoto
+                        .builder();
+                final WebElement userProfileLink = super.findElement(
+                        By.cssSelector(ElementCssSelector.USER_NAME_ON_EXPLORE.getTag()));
+
+                actionedLikedPhotoBuilder.userName(userProfileLink.getText());
+                actionedLikedPhotoBuilder.url(super.getCurrentUrl());
+                actionedLikedPhotos.add(actionedLikedPhotoBuilder.build());
+
+                System.out.println(actionedLikedPhotos);
+
                 likeButton.click();
                 this.clickNextArrorw();
                 countLikes++;
             } catch (Exception e) {
                 // The possibility exists that a timeout may occur due to delays during
                 // communication, etc. Anyway, let's move on to the next post.
+                e.printStackTrace();
                 this.clickNextArrorw();
             }
         }
 
-        return countLikes;
+        autolikeResultBuilder.hashtag(this.actionHashtag.getTag());
+        autolikeResultBuilder.countLikes(countLikes);
+        autolikeResultBuilder.actionedLikedPhotos(actionedLikedPhotos);
+
+        return autolikeResultBuilder.build();
     }
 
     private String getCompletedLikeState() {

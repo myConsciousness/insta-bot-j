@@ -12,22 +12,36 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram;
+package org.thinkit.bot.instagram.catalog;
 
-import java.util.List;
+import org.thinkit.api.catalog.BiCatalog;
 
-import org.thinkit.bot.instagram.config.ActionHashtag;
-import org.thinkit.bot.instagram.config.ActionUser;
-import org.thinkit.bot.instagram.result.AutolikeResult;
-import org.thinkit.bot.instagram.result.BotResult;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-import lombok.NonNull;
+/**
+ * The catalog that manages batch job.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@RequiredArgsConstructor
+public enum BatchJob implements BiCatalog<BatchJob, String> {
 
-public interface InstaBot {
+    /**
+     * The insta bot
+     */
+    INSTA_BOT(0, "InstaBotJob");
 
-    public BotResult executeLogin(@NonNull final ActionUser actionUser);
+    /**
+     * The code
+     */
+    @Getter
+    private final int code;
 
-    public List<AutolikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags);
-
-    public void closeWebBrowser();
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }

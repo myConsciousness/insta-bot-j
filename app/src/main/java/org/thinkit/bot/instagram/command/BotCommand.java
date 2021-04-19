@@ -18,7 +18,7 @@ import org.openqa.selenium.WebDriver;
 
 import lombok.NonNull;
 
-public interface BotCommand {
+public interface BotCommand<R> {
 
-    public int execute(@NonNull final WebDriver webDriver);
+    public R execute(@NonNull final WebDriver webDriver);
 }
