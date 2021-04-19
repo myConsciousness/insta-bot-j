@@ -61,7 +61,7 @@ public final class AutolikeResult implements Serializable {
      */
     @Getter
     @NonNull
-    private List<ActionedLikedPhoto> actionedLikedPhotos;
+    private List<ActionLikedPhoto> actionLikedPhotos;
 
     /**
      * The action errors

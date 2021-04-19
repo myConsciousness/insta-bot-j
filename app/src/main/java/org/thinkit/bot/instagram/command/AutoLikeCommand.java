@@ -30,7 +30,7 @@ import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.config.ActionHashtag;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.result.ActionError;
-import org.thinkit.bot.instagram.result.ActionedLikedPhoto;
+import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutolikeResult;
 
 import lombok.AccessLevel;
@@ -78,7 +78,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
 
         int countLikes = 0;
         final String completedLikeState = this.getCompletedLikeState();
-        final List<ActionedLikedPhoto> actionedLikedPhotos = new ArrayList<>();
+        final List<ActionLikedPhoto> actionedLikedPhotos = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
         while (countLikes < maxLikes) {
@@ -96,8 +96,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
                     continue;
                 }
 
-                final ActionedLikedPhoto.ActionedLikedPhotoBuilder actionedLikedPhotoBuilder = ActionedLikedPhoto
-                        .builder();
+                final ActionLikedPhoto.ActionLikedPhotoBuilder actionedLikedPhotoBuilder = ActionLikedPhoto.builder();
                 final WebElement userProfileLink = super.findElement(
                         By.cssSelector(ElementCssSelector.USER_NAME_ON_EXPLORE.getTag()));
 
@@ -121,7 +120,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
         autolikeResultBuilder.ActionStatus(ActionStatus.COMPLETED);
         autolikeResultBuilder.hashtag(this.actionHashtag.getTag());
         autolikeResultBuilder.countLikes(countLikes);
-        autolikeResultBuilder.actionedLikedPhotos(actionedLikedPhotos);
+        autolikeResultBuilder.actionLikedPhotos(actionedLikedPhotos);
         autolikeResultBuilder.actionErrors(actionErrors);
 
         return autolikeResultBuilder.build();

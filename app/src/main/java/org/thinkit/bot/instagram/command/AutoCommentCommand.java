@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.config.ActionHashtag;
-import org.thinkit.bot.instagram.result.ActionedLikedPhoto;
+import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,7 +32,7 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
 @Deprecated
-public final class AutoCommentCommand extends AbstractBotCommand<ActionedLikedPhoto> {
+public final class AutoCommentCommand extends AbstractBotCommand<ActionLikedPhoto> {
 
     /**
      * The serial version UID
@@ -45,7 +45,7 @@ public final class AutoCommentCommand extends AbstractBotCommand<ActionedLikedPh
     private ActionHashtag hashTag;
 
     @Override
-    public ActionedLikedPhoto executeBotProcess() {
+    public ActionLikedPhoto executeBotProcess() {
 
         super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), hashTag.getTag()));
         super.waitUntilElementLocated(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
@@ -67,7 +67,7 @@ public final class AutoCommentCommand extends AbstractBotCommand<ActionedLikedPh
             countComments++;
         }
 
-        return ActionedLikedPhoto.builder().build();
+        return ActionLikedPhoto.builder().build();
     }
 
     private void clickNextArrorw() {

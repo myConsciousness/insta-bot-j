@@ -35,7 +35,7 @@ import lombok.ToString;
 @Builder(toBuilder = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionedLikedPhoto implements Serializable {
+public final class ActionLikedPhoto implements Serializable {
 
     /**
      * The serial version UID
