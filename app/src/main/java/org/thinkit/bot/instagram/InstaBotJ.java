@@ -17,6 +17,7 @@ package org.thinkit.bot.instagram;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
@@ -103,6 +104,10 @@ public final class InstaBotJ extends AbstractInstaBot {
             final AutolikeResult autolikeResult = AutoLikeCommand.from(hashTag, maxLikesPerTag)
                     .execute(super.getWebDriver());
             autolikeResults.add(autolikeResult);
+
+            if (autolikeResult.getActionStatus() == ActionStatus.INTERRUPTED) {
+                return autolikeResults;
+            }
         }
 
         return autolikeResults;

@@ -107,16 +107,28 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
                 actionedLikedPhotoBuilder.url(super.getCurrentUrl());
                 actionedLikedPhotos.add(actionedLikedPhotoBuilder.build());
 
-                System.out.println(actionedLikedPhotos);
-
                 likeButton.click();
                 this.clickNextArrorw();
                 countLikes++;
-            } catch (Exception e) {
+            } catch (Exception recoverableException) {
                 // The possibility exists that a timeout may occur due to delays during
                 // communication, etc. Anyway, let's move on to the next post.
-                actionErrors.add(super.getActionError(e, CommandType.AUTO_LIKE));
-                this.clickNextArrorw();
+                actionErrors.add(super.getActionError(recoverableException, CommandType.AUTO_LIKE));
+
+                try {
+                    this.clickNextArrorw();
+                } catch (Exception unrecoverableException) {
+                    // Errors that reach here may be due to restricted actions by Instagram.
+                    actionErrors.add(super.getActionError(unrecoverableException, CommandType.AUTO_LIKE));
+
+                    autolikeResultBuilder.ActionStatus(ActionStatus.INTERRUPTED);
+                    autolikeResultBuilder.hashtag(this.actionHashtag.getTag());
+                    autolikeResultBuilder.countLikes(countLikes);
+                    autolikeResultBuilder.actionLikedPhotos(actionedLikedPhotos);
+                    autolikeResultBuilder.actionErrors(actionErrors);
+
+                    return autolikeResultBuilder.build();
+                }
             }
         }
 
