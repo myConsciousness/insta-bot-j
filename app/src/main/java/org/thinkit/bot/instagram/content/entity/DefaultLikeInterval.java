@@ -12,46 +12,29 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.entity;
+package org.thinkit.bot.instagram.content.entity;
 
 import java.io.Serializable;
 
-import org.springframework.data.annotation.Id;
+import org.thinkit.zenna.entity.ContentEntity;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The entity that manages error.
+ * The entity that manages the content {@code "DefaultLikeInterval"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Data
-public final class Error implements Serializable {
+@ToString
+@EqualsAndHashCode
+public final class DefaultLikeInterval implements ContentEntity, Serializable {
 
     /**
-     * The id
+     * The interval
      */
-    @Id
-    private String id;
-
-    /**
-     * The command type code
-     */
-    private int commandTypeCode;
-
-    /**
-     * The message
-     */
-    private String message;
-
-    /**
-     * The localized message
-     */
-    private String localizedMessage;
-
-    /**
-     * The stack trace
-     */
-    private String stackTrace;
+    @Getter
+    private int interval;
 }

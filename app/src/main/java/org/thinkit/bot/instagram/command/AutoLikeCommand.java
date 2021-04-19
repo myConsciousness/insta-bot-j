@@ -29,6 +29,7 @@ import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.config.ActionHashtag;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
+import org.thinkit.bot.instagram.content.DefaultLikeIntervalMapper;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutolikeResult;
@@ -76,14 +77,16 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
         super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), this.actionHashtag.getTag()));
         super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
 
-        int countLikes = 0;
-        final String completedLikeState = this.getCompletedLikeState();
         final List<ActionLikedPhoto> actionedLikedPhotos = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
+        int countLikes = 0;
+        final int likeInterval = this.getLikeInterval();
+        final String completedLikeState = this.getCompletedLikeState();
+
         while (countLikes < maxLikes) {
             try {
-                if (countLikes != 0 && countLikes % 25 == 0) {
+                if (countLikes != 0 && countLikes % likeInterval == 0) {
                     super.wait(WaitType.LIKE);
                 }
 
@@ -121,9 +124,16 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
         autolikeResultBuilder.hashtag(this.actionHashtag.getTag());
         autolikeResultBuilder.countLikes(countLikes);
         autolikeResultBuilder.actionLikedPhotos(actionedLikedPhotos);
-        autolikeResultBuilder.actionErrors(actionErrors);
+
+        if (!actionErrors.isEmpty()) {
+            autolikeResultBuilder.actionErrors(actionErrors);
+        }
 
         return autolikeResultBuilder.build();
+    }
+
+    private int getLikeInterval() {
+        return DefaultLikeIntervalMapper.newInstance().scan().get(0).getInterval();
     }
 
     private String getCompletedLikeState() {

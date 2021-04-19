@@ -22,6 +22,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
@@ -35,20 +36,24 @@ public final class ActionError implements Serializable {
     /**
      * The command type
      */
+    @Getter
     private CommandType commandType;
 
     /**
      * The message
      */
+    @Getter
     private String message;
 
     /**
      * The localized message
      */
+    @Getter
     private String localizedMessage;
 
     /**
      * The stack trace
      */
+    @Getter
     private String stackTrace;
 }

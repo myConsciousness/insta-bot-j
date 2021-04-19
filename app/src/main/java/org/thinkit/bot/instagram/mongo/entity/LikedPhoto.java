@@ -51,4 +51,9 @@ public final class LikedPhoto implements Serializable {
      * The url
      */
     private String url;
+
+    /**
+     * The hashtag
+     */
+    private String hashtag;
 }

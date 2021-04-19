@@ -24,7 +24,10 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.config.ActionHashtag;
+import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
+import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.bot.instagram.result.AutolikeResult;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -54,8 +57,37 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        this.instaBot.executeAutoLikes(this.getActionHashtags());
+        final List<AutolikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getActionHashtags());
         log.info("The autolike has completed the process successfully.");
+
+        autolikeResults.forEach(autolikeResult -> {
+            final String hashtag = autolikeResult.getHashtag();
+
+            autolikeResult.getActionLikedPhotos().forEach(actionLikedPhoto -> {
+                final LikedPhoto likedPhoto = new LikedPhoto();
+                likedPhoto.setUserName(actionLikedPhoto.getUserName());
+                likedPhoto.setUrl(actionLikedPhoto.getUrl());
+                likedPhoto.setHashtag(hashtag);
+
+                final LikedPhoto insertedLikedPhoto = this.mongoCollection.getLikedPhotoRepository().insert(likedPhoto);
+                log.debug("Inserted liked photo: (%s)", insertedLikedPhoto);
+            });
+
+            if (autolikeResult.getActionErrors() != null) {
+                log.debug("Autolike runtime error detected.");
+
+                autolikeResult.getActionErrors().forEach(actionError -> {
+                    final Error error = new Error();
+                    error.setCommandTypeCode(actionError.getCommandType().getCode());
+                    error.setMessage(actionError.getMessage());
+                    error.setLocalizedMessage(actionError.getLocalizedMessage());
+                    error.setStackTrace(actionError.getStackTrace());
+
+                    final Error insertedError = this.mongoCollection.getErrorRepository().insert(error);
+                    log.debug("Inserted error: (%s)", insertedError);
+                });
+            }
+        });
 
         log.debug("END");
         return RepeatStatus.FINISHED;

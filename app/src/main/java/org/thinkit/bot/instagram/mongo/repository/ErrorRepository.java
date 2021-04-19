@@ -16,6 +16,7 @@ package org.thinkit.bot.instagram.mongo.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
+import org.thinkit.bot.instagram.mongo.entity.Error;
 
 /**
  * The interface that manages error repository.
