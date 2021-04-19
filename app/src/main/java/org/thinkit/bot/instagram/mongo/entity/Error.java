@@ -12,45 +12,41 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.mongo.entity;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
+
+import lombok.Data;
 
 /**
- * The class that manages actioned liked photo
+ * The entity that manages error.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode
-@Builder(toBuilder = false)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionedLikedPhoto implements Serializable {
+@Data
+public final class Error implements Serializable {
 
     /**
-     * The serial version UID
+     * The id
      */
-    private static final long serialVersionUID = 6617558067675416752L;
+    @Id
+    private String id;
 
     /**
-     * The user name
+     * The command type code
      */
-    @Getter
-    private String userName;
+    private int commandTypeCode;
 
     /**
-     * The url
+     * The message
      */
-    @Getter
-    private String url;
+    private String message;
+
+    /**
+     * The stack trace
+     */
+    private String stackTrace;
 }

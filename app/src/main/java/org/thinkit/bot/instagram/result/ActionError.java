@@ -12,50 +12,43 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch;
+package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
-import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
-import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
+import org.thinkit.bot.instagram.catalog.CommandType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-/**
- * The class that manages collection on MongoDB.
- *
- * @author Kato Shinya
- * @since 1.0.0
- */
 @ToString
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class MongoCollection implements Serializable {
+public final class ActionError implements Serializable {
 
     /**
-     * The hashtag repository
+     * The command type
      */
-    @Getter
-    private HashtagRepository hashtagRepository;
+    private CommandType commandType;
 
     /**
-     * The liked photo repository
+     * The message
      */
-    @Getter
-    private LikedPhotoRepository likedPhotoRepository;
+    private String message;
 
     /**
-     * The error repository
+     * The localized message
      */
-    @Getter
-    private ErrorRepository errorRepository;
+    private String localizedMessage;
+
+    /**
+     * The stack trace
+     */
+    private String stackTrace;
 }

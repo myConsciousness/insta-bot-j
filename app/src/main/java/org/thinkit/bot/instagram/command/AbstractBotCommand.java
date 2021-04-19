@@ -21,7 +21,10 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.thinkit.bot.instagram.catalog.CommandType;
 import org.thinkit.bot.instagram.catalog.WaitType;
+import org.thinkit.bot.instagram.result.ActionError;
+import org.thinkit.bot.instagram.util.StackTraceUtils;
 import org.thinkit.bot.instagram.util.WaitTimeUtils;
 
 import lombok.EqualsAndHashCode;
@@ -71,5 +74,16 @@ public abstract class AbstractBotCommand<R> implements BotCommand<R>, Serializab
 
     protected final void waitUntilElementLocated(@NonNull final By by) {
         new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
+    }
+
+    protected ActionError getActionError(@NonNull final Exception exception, @NonNull final CommandType commandType) {
+
+        final ActionError.ActionErrorBuilder actionErrorBuilder = ActionError.builder();
+        actionErrorBuilder.commandType(commandType);
+        actionErrorBuilder.message(exception.getMessage());
+        actionErrorBuilder.localizedMessage(exception.getLocalizedMessage());
+        actionErrorBuilder.stackTrace(StackTraceUtils.toString(exception));
+
+        return actionErrorBuilder.build();
     }
 }

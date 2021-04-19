@@ -19,6 +19,8 @@ import java.util.List;
 
 import com.mongodb.lang.NonNull;
 
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,6 +43,11 @@ import lombok.ToString;
 public final class AutolikeResult implements Serializable {
 
     @Getter
+    @NonNull
+    private ActionStatus ActionStatus;
+
+    @Getter
+    @NonNull
     private String hashtag;
 
     /**
@@ -55,4 +62,10 @@ public final class AutolikeResult implements Serializable {
     @Getter
     @NonNull
     private List<ActionedLikedPhoto> actionedLikedPhotos;
+
+    /**
+     * The action errors
+     */
+    @Getter
+    private List<ActionError> actionErrors;
 }

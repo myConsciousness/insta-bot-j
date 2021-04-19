@@ -19,6 +19,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.CommandType;
 import org.thinkit.bot.instagram.catalog.ElementAttribute;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementTag;
@@ -27,6 +29,7 @@ import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.config.ActionHashtag;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
+import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionedLikedPhoto;
 import org.thinkit.bot.instagram.result.AutolikeResult;
 
@@ -74,8 +77,9 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
         super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
 
         int countLikes = 0;
-        final List<ActionedLikedPhoto> actionedLikedPhotos = new ArrayList<>();
         final String completedLikeState = this.getCompletedLikeState();
+        final List<ActionedLikedPhoto> actionedLikedPhotos = new ArrayList<>();
+        final List<ActionError> actionErrors = new ArrayList<>();
 
         while (countLikes < maxLikes) {
             try {
@@ -109,14 +113,16 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
             } catch (Exception e) {
                 // The possibility exists that a timeout may occur due to delays during
                 // communication, etc. Anyway, let's move on to the next post.
-                e.printStackTrace();
+                actionErrors.add(super.getActionError(e, CommandType.AUTO_LIKE));
                 this.clickNextArrorw();
             }
         }
 
+        autolikeResultBuilder.ActionStatus(ActionStatus.COMPLETED);
         autolikeResultBuilder.hashtag(this.actionHashtag.getTag());
         autolikeResultBuilder.countLikes(countLikes);
         autolikeResultBuilder.actionedLikedPhotos(actionedLikedPhotos);
+        autolikeResultBuilder.actionErrors(actionErrors);
 
         return autolikeResultBuilder.build();
     }

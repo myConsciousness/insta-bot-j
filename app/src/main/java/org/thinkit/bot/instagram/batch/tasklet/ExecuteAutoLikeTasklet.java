@@ -38,7 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class ExecuteAutoLikeTasklet implements Tasklet {
+public final class ExecuteAutolikeTasklet implements Tasklet {
 
     /**
      * The insta bot

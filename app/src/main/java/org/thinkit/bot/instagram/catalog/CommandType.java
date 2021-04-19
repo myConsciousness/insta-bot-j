@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public enum CommandType implements Catalog<CommandType> {
 
     /**
-     * The auto likes command
+     * The auto like command
      */
-    AUTO_LIKES(0);
+    AUTO_LIKE(0);
 
     /**
      * The code

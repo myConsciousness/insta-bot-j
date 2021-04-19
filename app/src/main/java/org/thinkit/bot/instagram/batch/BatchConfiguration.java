@@ -25,10 +25,11 @@ import org.springframework.context.annotation.Configuration;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.CloseBrowserTasklet;
-import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.BatchStep;
+import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 
@@ -61,6 +62,12 @@ public class BatchConfiguration {
     private LikedPhotoRepository likedPhotoRepository;
 
     /**
+     * The error repository
+     */
+    @Autowired
+    private ErrorRepository errorRepository;
+
+    /**
      * The insta bot
      */
     private InstaBot instaBot = InstaBotJ.newInstance();
@@ -85,7 +92,7 @@ public class BatchConfiguration {
     @Bean
     public Step autolikeStep() {
         return this.stepBuilderFactory.get(BatchStep.AUTOLIKE.getTag())
-                .tasklet(ExecuteAutoLikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
+                .tasklet(ExecuteAutolikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     @Bean
@@ -103,6 +110,7 @@ public class BatchConfiguration {
         final MongoCollection.MongoCollectionBuilder mongoCollectionBuilder = MongoCollection.builder();
         mongoCollectionBuilder.hashtagRepository(this.hashtagRepository);
         mongoCollectionBuilder.likedPhotoRepository(this.likedPhotoRepository);
+        mongoCollectionBuilder.errorRepository(this.errorRepository);
 
         return mongoCollectionBuilder.build();
     }

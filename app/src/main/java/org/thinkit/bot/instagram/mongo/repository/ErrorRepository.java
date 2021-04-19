@@ -12,8 +12,17 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.mongo.repository;
 
-public interface ActionedResult {
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
+/**
+ * The interface that manages error repository.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@Repository
+public interface ErrorRepository extends MongoRepository<Error, String> {
 }

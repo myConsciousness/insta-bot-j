@@ -15,10 +15,11 @@
 package org.thinkit.bot.instagram.command;
 
 import org.openqa.selenium.By;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.ElementName;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
-import org.thinkit.bot.instagram.result.ActionedLikedPhoto;
+import org.thinkit.bot.instagram.result.LoginResult;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,7 +31,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class LoginCommand extends AbstractBotCommand<ActionedLikedPhoto> {
+public final class LoginCommand extends AbstractBotCommand<LoginResult> {
 
     /**
      * The serial version UID
@@ -49,7 +50,7 @@ public final class LoginCommand extends AbstractBotCommand<ActionedLikedPhoto> {
     private String password;
 
     @Override
-    public ActionedLikedPhoto executeBotProcess() {
+    public LoginResult executeBotProcess() {
 
         super.getWebPage(InstagramUrl.LOGIN.getTag());
         super.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(this.userName);
@@ -58,6 +59,6 @@ public final class LoginCommand extends AbstractBotCommand<ActionedLikedPhoto> {
 
         super.waitUntilElementLocated(By.xpath(ElementXPath.LOGIN_COMPLETED.getTag()));
 
-        return ActionedLikedPhoto.builder().build();
+        return LoginResult.builder().actionStatus(ActionStatus.COMPLETED).build();
     }
 }
