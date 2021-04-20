@@ -14,25 +14,27 @@
 
 package org.thinkit.bot.instagram.mongo.repository;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.LastAction;
+import org.thinkit.bot.instagram.mongo.entity.Variable;
 
 /**
- * The interface that manages last action repository.
+ * The interface that manages variable repository.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @Repository
-public interface LastActionRepository extends MongoRepository<LastAction, String> {
+public interface VariableRepository extends MongoRepository<Variable, String> {
 
     /**
-     * Returns the {@link LastAction} document based on the command type code passed
-     * as an argument.
+     * Returns the {@link Variable} document based on the variable name passed as an
+     * argument.
      *
-     * @param commandTypeCode The command type code
-     * @return The {@link LastAction} document
+     * @param name The variable name
+     * @return The {@link Variable} document
      */
-    public LastAction findByCommandTypeCode(int commandTypeCode);
+    public Variable findByName(@NonNull String name);
 }

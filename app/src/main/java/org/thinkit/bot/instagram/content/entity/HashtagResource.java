@@ -12,27 +12,35 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.repository;
+package org.thinkit.bot.instagram.content.entity;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.LastAction;
+import java.io.Serializable;
+
+import org.thinkit.zenna.entity.ContentEntity;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The interface that manages last action repository.
+ * The entity that manages the content {@code "HashtagResource"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Repository
-public interface LastActionRepository extends MongoRepository<LastAction, String> {
+@ToString
+@EqualsAndHashCode
+public final class HashtagResource implements ContentEntity, Serializable {
 
     /**
-     * Returns the {@link LastAction} document based on the command type code passed
-     * as an argument.
-     *
-     * @param commandTypeCode The command type code
-     * @return The {@link LastAction} document
+     * The tag
      */
-    public LastAction findByCommandTypeCode(int commandTypeCode);
+    @Getter
+    private String tag;
+
+    /**
+     * The group code
+     */
+    @Getter
+    private int groupCode;
 }

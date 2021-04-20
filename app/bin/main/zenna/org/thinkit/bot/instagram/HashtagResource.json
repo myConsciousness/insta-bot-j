@@ -1,0 +1,32 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the hashtag resource.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.HashtagResource"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "nature",
+                "groupCode": 1
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "naturephotography",
+                "groupCode": 1
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "life",
+                "groupCode": 1
+            }
+        }
+    ],
+    "conditionNodes": []
+}

@@ -12,27 +12,47 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.repository;
+package org.thinkit.bot.instagram.mongo.entity;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.LastAction;
+import java.io.Serializable;
+import java.util.Date;
+
+import org.springframework.data.annotation.Id;
+
+import lombok.Data;
 
 /**
- * The interface that manages last action repository.
+ * The entity that manages variable.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Repository
-public interface LastActionRepository extends MongoRepository<LastAction, String> {
+@Data
+public final class Variable implements Serializable {
 
     /**
-     * Returns the {@link LastAction} document based on the command type code passed
-     * as an argument.
-     *
-     * @param commandTypeCode The command type code
-     * @return The {@link LastAction} document
+     * The id
      */
-    public LastAction findByCommandTypeCode(int commandTypeCode);
+    @Id
+    private String id;
+
+    /**
+     * The name
+     */
+    private String name;
+
+    /**
+     * The value
+     */
+    private String value;
+
+    /**
+     * The created datetime
+     */
+    private Date createdAt = new Date();
+
+    /**
+     * The updated datetime
+     */
+    private Date updatedAt = new Date();
 }

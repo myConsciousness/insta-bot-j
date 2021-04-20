@@ -12,44 +12,23 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.entity;
+package org.thinkit.bot.instagram.content;
 
-import java.io.Serializable;
-import java.util.Date;
+import org.thinkit.bot.instagram.content.entity.HashtagResource;
+import org.thinkit.zenna.mapper.ContentMapper;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
- * The entity that manages hashtag.
+ * The mapper class that manages the content {@code "HashtagResource"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Data
-@Document("hashtag")
-public final class Hashtag implements Serializable {
-
-    /**
-     * The id
-     */
-    @Id
-    private String id;
-
-    /**
-     * The tag
-     */
-    private String tag;
-
-    /**
-     * The created datetime
-     */
-    private Date createdAt = new Date();
-
-    /**
-     * The updated datetime
-     */
-    private Date updatedAt = new Date();
+@ToString
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(staticName = "newInstance")
+public final class HashtagResourceRepository extends ContentMapper<HashtagResource> {
 }
