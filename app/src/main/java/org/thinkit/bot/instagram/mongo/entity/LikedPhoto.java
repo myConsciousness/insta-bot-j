@@ -15,6 +15,7 @@
 package org.thinkit.bot.instagram.mongo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -56,4 +57,14 @@ public final class LikedPhoto implements Serializable {
      * The hashtag
      */
     private String hashtag;
+
+    /**
+     * The created datetime
+     */
+    private Date createdAt = new Date();
+
+    /**
+     * The updated datetime
+     */
+    private Date updatedAt = new Date();
 }
