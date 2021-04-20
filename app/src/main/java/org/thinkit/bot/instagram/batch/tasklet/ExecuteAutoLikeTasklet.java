@@ -23,10 +23,15 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.CommandType;
 import org.thinkit.bot.instagram.config.ActionHashtag;
+import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.bot.instagram.result.ActionError;
+import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutolikeResult;
 
 import lombok.AccessLevel;
@@ -60,10 +65,13 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
         final List<AutolikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getActionHashtags());
         log.info("The autolike has completed the process successfully.");
 
-        autolikeResults.forEach(autolikeResult -> {
-            final String hashtag = autolikeResult.getHashtag();
+        int sumLikes = 0;
 
-            autolikeResult.getActionLikedPhotos().forEach(actionLikedPhoto -> {
+        for (final AutolikeResult autolikeResult : autolikeResults) {
+            final String hashtag = autolikeResult.getHashtag();
+            sumLikes += autolikeResult.getCountLikes();
+
+            for (final ActionLikedPhoto actionLikedPhoto : autolikeResult.getActionLikedPhotos()) {
                 final LikedPhoto likedPhoto = new LikedPhoto();
                 likedPhoto.setUserName(actionLikedPhoto.getUserName());
                 likedPhoto.setUrl(actionLikedPhoto.getUrl());
@@ -71,12 +79,12 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
 
                 final LikedPhoto insertedLikedPhoto = this.mongoCollection.getLikedPhotoRepository().insert(likedPhoto);
                 log.debug("Inserted liked photo: (%s)", insertedLikedPhoto);
-            });
+            }
 
             if (autolikeResult.getActionErrors() != null) {
                 log.debug("Autolike runtime error detected.");
 
-                autolikeResult.getActionErrors().forEach(actionError -> {
+                for (final ActionError actionError : autolikeResult.getActionErrors()) {
                     final Error error = new Error();
                     error.setCommandTypeCode(actionError.getCommandType().getCode());
                     error.setMessage(actionError.getMessage());
@@ -85,9 +93,17 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
 
                     final Error insertedError = this.mongoCollection.getErrorRepository().insert(error);
                     log.debug("Inserted error: (%s)", insertedError);
-                });
+                }
             }
-        });
+        }
+
+        final ActionRecord actionRecord = new ActionRecord();
+        actionRecord.setCommandTypeCode(CommandType.AUTO_LIKE.getCode());
+        actionRecord.setCountAttempt(sumLikes);
+        actionRecord.setActionStatusCode(ActionStatus.COMPLETED.getCode());
+
+        this.mongoCollection.getActionRecordRepository().insert(actionRecord);
+        log.debug("Inserted action record: (%s)", actionRecord);
 
         log.debug("END");
         return RepeatStatus.FINISHED;

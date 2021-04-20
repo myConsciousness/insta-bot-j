@@ -29,6 +29,7 @@ import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.BatchStep;
+import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
@@ -66,6 +67,12 @@ public class BatchConfiguration {
      */
     @Autowired
     private ErrorRepository errorRepository;
+
+    /**
+     * The action record repository
+     */
+    @Autowired
+    private ActionRecordRepository actionRecordRepository;
 
     /**
      * The insta bot
@@ -111,6 +118,7 @@ public class BatchConfiguration {
         mongoCollectionBuilder.hashtagRepository(this.hashtagRepository);
         mongoCollectionBuilder.likedPhotoRepository(this.likedPhotoRepository);
         mongoCollectionBuilder.errorRepository(this.errorRepository);
+        mongoCollectionBuilder.actionRecordRepository(this.actionRecordRepository);
 
         return mongoCollectionBuilder.build();
     }
