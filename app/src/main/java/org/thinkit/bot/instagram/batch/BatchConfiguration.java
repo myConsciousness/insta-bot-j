@@ -32,6 +32,7 @@ import org.thinkit.bot.instagram.catalog.BatchStep;
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
+import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 
 @Configuration
@@ -73,6 +74,12 @@ public class BatchConfiguration {
      */
     @Autowired
     private ActionRecordRepository actionRecordRepository;
+
+    /**
+     * The last action repository
+     */
+    @Autowired
+    private LastActionRepository lastActionRepository;
 
     /**
      * The insta bot
@@ -119,6 +126,7 @@ public class BatchConfiguration {
         mongoCollectionBuilder.likedPhotoRepository(this.likedPhotoRepository);
         mongoCollectionBuilder.errorRepository(this.errorRepository);
         mongoCollectionBuilder.actionRecordRepository(this.actionRecordRepository);
+        mongoCollectionBuilder.lastActionRepository(this.lastActionRepository);
 
         return mongoCollectionBuilder.build();
     }

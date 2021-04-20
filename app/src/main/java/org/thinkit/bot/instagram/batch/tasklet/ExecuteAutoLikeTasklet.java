@@ -78,7 +78,7 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
                 likedPhoto.setHashtag(hashtag);
 
                 final LikedPhoto insertedLikedPhoto = this.mongoCollection.getLikedPhotoRepository().insert(likedPhoto);
-                log.debug("Inserted liked photo: (%s)", insertedLikedPhoto);
+                log.debug("Inserted liked photo: {}", insertedLikedPhoto);
             }
 
             if (autolikeResult.getActionErrors() != null) {
@@ -92,7 +92,7 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
                     error.setStackTrace(actionError.getStackTrace());
 
                     final Error insertedError = this.mongoCollection.getErrorRepository().insert(error);
-                    log.debug("Inserted error: (%s)", insertedError);
+                    log.debug("Inserted error: {}", insertedError);
                 }
             }
         }
@@ -103,7 +103,7 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
         actionRecord.setActionStatusCode(ActionStatus.COMPLETED.getCode());
 
         this.mongoCollection.getActionRecordRepository().insert(actionRecord);
-        log.debug("Inserted action record: (%s)", actionRecord);
+        log.debug("Inserted action record: {}", actionRecord);
 
         log.debug("END");
         return RepeatStatus.FINISHED;
@@ -116,7 +116,7 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
         final List<ActionHashtag> actionHashtags = new ArrayList<>(hashtags.size());
 
         hashtags.forEach(hashtag -> {
-            log.debug("The hashtags from MongoDB: (%s)", hashtag);
+            log.debug("The using hashtags: {}", hashtag);
             actionHashtags.add(ActionHashtag.from(hashtag.getTag()));
         });
 

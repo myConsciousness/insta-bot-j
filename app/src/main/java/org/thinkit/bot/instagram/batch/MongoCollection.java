@@ -19,6 +19,7 @@ import java.io.Serializable;
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
+import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 
 import lombok.AccessLevel;
@@ -65,4 +66,10 @@ public final class MongoCollection implements Serializable {
      */
     @Getter
     private ActionRecordRepository actionRecordRepository;
+
+    /**
+     * The last action
+     */
+    @Getter
+    private LastActionRepository lastActionRepository;
 }
