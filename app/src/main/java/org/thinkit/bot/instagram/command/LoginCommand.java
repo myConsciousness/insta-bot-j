@@ -55,8 +55,9 @@ public final class LoginCommand extends AbstractBotCommand<LoginResult> {
         super.getWebPage(InstagramUrl.LOGIN.getTag());
         super.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(this.userName);
         super.findElement(By.name(ElementName.PASSWORD.getTag())).sendKeys(this.password);
-        super.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
 
+        super.waitUntilElementClickable(By.xpath(ElementXPath.LOGIN.getTag()));
+        super.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
         super.waitUntilElementLocated(By.xpath(ElementXPath.LOGIN_COMPLETED.getTag()));
 
         return LoginResult.builder().actionStatus(ActionStatus.COMPLETED).build();

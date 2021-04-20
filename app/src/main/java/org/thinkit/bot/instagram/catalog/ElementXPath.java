@@ -56,7 +56,12 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The comment button
      */
-    COMMENT_BUTTON(5, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button");
+    COMMENT_BUTTON(5, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button"),
+
+    /**
+     * The accept cookie button
+     */
+    ACCEPT_COOKIE_USE_BUTTON(6, "/html/body/div[2]/div/div/div/div[2]/button[1]");
 
     /**
      * The code

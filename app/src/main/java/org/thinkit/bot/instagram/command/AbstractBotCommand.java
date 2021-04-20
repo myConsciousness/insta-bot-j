@@ -76,6 +76,10 @@ public abstract class AbstractBotCommand<R> implements BotCommand<R>, Serializab
         new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
+    protected final void waitUntilElementClickable(@NonNull final By by) {
+        new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(by));
+    }
+
     protected ActionError getActionError(@NonNull final Exception exception, @NonNull final CommandType commandType) {
 
         final ActionError.ActionErrorBuilder actionErrorBuilder = ActionError.builder();
