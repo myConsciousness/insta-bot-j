@@ -44,6 +44,12 @@ public final class ActionFollowedUser implements Serializable {
     private String userName;
 
     /**
+     * The nickname
+     */
+    @Getter
+    private String nickname;
+
+    /**
      * The url
      */
     @Getter

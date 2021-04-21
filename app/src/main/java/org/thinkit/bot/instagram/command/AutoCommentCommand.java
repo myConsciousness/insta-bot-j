@@ -18,7 +18,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
-import org.thinkit.bot.instagram.config.ActionHashtag;
+import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 
 import lombok.AccessLevel;
@@ -42,7 +42,7 @@ public final class AutoCommentCommand extends AbstractBotCommand<ActionLikedPhot
     /**
      * The hash tag
      */
-    private ActionHashtag hashTag;
+    private TargetHashtag hashTag;
 
     @Override
     public ActionLikedPhoto executeBotProcess() {

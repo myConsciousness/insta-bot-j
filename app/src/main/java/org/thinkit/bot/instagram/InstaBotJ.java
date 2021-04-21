@@ -20,9 +20,11 @@ import java.util.List;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
-import org.thinkit.bot.instagram.config.ActionConfig;
-import org.thinkit.bot.instagram.config.ActionHashtag;
-import org.thinkit.bot.instagram.config.ActionUser;
+import org.thinkit.bot.instagram.param.ActionConfig;
+import org.thinkit.bot.instagram.param.ActionUser;
+import org.thinkit.bot.instagram.param.FollowUser;
+import org.thinkit.bot.instagram.param.TargetHashtag;
+import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.BotResult;
 
@@ -91,17 +93,17 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags) {
+    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags) {
 
-        if (hashTags.isEmpty()) {
+        if (targetHashtags.isEmpty()) {
             throw new IllegalArgumentException("The hash tag is required to execute autolikes.");
         }
 
         final List<AutoLikeResult> autolikeResults = new ArrayList<>();
-        final int maxLikesPerTag = super.getMaxAttempt() / hashTags.size();
+        final int maxLikesPerTag = super.getMaxAttempt() / targetHashtags.size();
 
-        for (final ActionHashtag hashTag : hashTags) {
-            final AutoLikeResult autolikeResult = AutoLikeCommand.from(hashTag, maxLikesPerTag)
+        for (final TargetHashtag targetHashtag : targetHashtags) {
+            final AutoLikeResult autolikeResult = AutoLikeCommand.from(targetHashtag, maxLikesPerTag)
                     .execute(super.getWebDriver());
             autolikeResults.add(autolikeResult);
 
@@ -111,5 +113,10 @@ public final class InstaBotJ extends AbstractInstaBot {
         }
 
         return autolikeResults;
+    }
+
+    @Override
+    public List<AutoFollowResult> executeAutoFollow(@NonNull List<FollowUser> followUsers) {
+        return null;
     }
 }

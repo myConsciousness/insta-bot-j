@@ -12,48 +12,44 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.config;
+package org.thinkit.bot.instagram.param;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.catalog.Language;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the meta configuration values for executing BOT.
+ * The entity that manages action user information.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionConfig implements Serializable {
+@AllArgsConstructor(staticName = "from")
+public final class ActionUser implements Serializable {
 
     /**
      * The serial version UID
      */
-    private static final long serialVersionUID = 7181719801365111285L;
+    private static final long serialVersionUID = 3781614652799493819L;
 
     /**
-     * The maximum number of attempt
+     * The user name
      */
     @Getter
-    private int maxAttempt;
+    private String userName;
 
     /**
-     * The language
+     * The password
      */
     @Getter
-    @Builder.Default
-    private Language language = Language.JAPANESE;
+    @ToString.Exclude
+    private String password;
 }

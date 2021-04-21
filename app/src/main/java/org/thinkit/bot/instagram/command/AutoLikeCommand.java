@@ -27,9 +27,9 @@ import org.thinkit.bot.instagram.catalog.ElementTag;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.WaitType;
-import org.thinkit.bot.instagram.config.ActionHashtag;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.content.DefaultLikeIntervalMapper;
+import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
@@ -51,22 +51,22 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
     private static final long serialVersionUID = 6084564883236221860L;
 
     /**
-     * The hash tag
+     * The target hashtag
      */
-    private ActionHashtag actionHashtag;
+    private TargetHashtag targetHashtag;
 
     /**
      * The count of max like
      */
     private int maxLikes;
 
-    private AutoLikeCommand(@NonNull final ActionHashtag actionHashtag, final int maxLikes) {
-        this.actionHashtag = actionHashtag;
+    private AutoLikeCommand(@NonNull final TargetHashtag targetHashtag, final int maxLikes) {
+        this.targetHashtag = targetHashtag;
         this.maxLikes = maxLikes;
     }
 
-    public static BotCommand<AutoLikeResult> from(@NonNull final ActionHashtag actionHashtag, final int maxLikes) {
-        return new AutoLikeCommand(actionHashtag, maxLikes);
+    public static BotCommand<AutoLikeResult> from(@NonNull final TargetHashtag targetHashtag, final int maxLikes) {
+        return new AutoLikeCommand(targetHashtag, maxLikes);
     }
 
     @Override
@@ -74,7 +74,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
         final AutoLikeResult.AutoLikeResultBuilder autolikeResultBuilder = AutoLikeResult.builder();
 
-        super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), this.actionHashtag.getTag()));
+        super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), this.targetHashtag.getTag()));
         super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
 
         final List<ActionLikedPhoto> actionedLikedPhotos = new ArrayList<>();
@@ -122,7 +122,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
                     actionErrors.add(super.getActionError(unrecoverableException, CommandType.AUTO_LIKE));
 
                     autolikeResultBuilder.ActionStatus(ActionStatus.INTERRUPTED);
-                    autolikeResultBuilder.hashtag(this.actionHashtag.getTag());
+                    autolikeResultBuilder.hashtag(this.targetHashtag.getTag());
                     autolikeResultBuilder.countLikes(countLikes);
                     autolikeResultBuilder.actionLikedPhotos(actionedLikedPhotos);
                     autolikeResultBuilder.actionErrors(actionErrors);
@@ -133,7 +133,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         }
 
         autolikeResultBuilder.ActionStatus(ActionStatus.COMPLETED);
-        autolikeResultBuilder.hashtag(this.actionHashtag.getTag());
+        autolikeResultBuilder.hashtag(this.targetHashtag.getTag());
         autolikeResultBuilder.countLikes(countLikes);
         autolikeResultBuilder.actionLikedPhotos(actionedLikedPhotos);
 

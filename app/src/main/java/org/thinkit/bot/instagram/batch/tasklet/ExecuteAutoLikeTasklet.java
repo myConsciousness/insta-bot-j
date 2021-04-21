@@ -25,11 +25,11 @@ import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.CommandType;
-import org.thinkit.bot.instagram.config.ActionHashtag;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
@@ -62,7 +62,7 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getActionHashtags());
+        final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getTargetHashtags());
         log.info("The autolike has completed the process successfully.");
 
         int sumLikes = 0;
@@ -109,18 +109,18 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
         return RepeatStatus.FINISHED;
     }
 
-    private List<ActionHashtag> getActionHashtags() {
+    private List<TargetHashtag> getTargetHashtags() {
         log.debug("START");
 
         final List<Hashtag> hashtags = this.mongoCollection.getHashtagRepository().findAll();
-        final List<ActionHashtag> actionHashtags = new ArrayList<>(hashtags.size());
+        final List<TargetHashtag> targetHashtags = new ArrayList<>(hashtags.size());
 
         hashtags.forEach(hashtag -> {
             log.debug("The using hashtags: {}", hashtag);
-            actionHashtags.add(ActionHashtag.from(hashtag.getTag()));
+            targetHashtags.add(TargetHashtag.from(hashtag.getTag()));
         });
 
         log.debug("END");
-        return actionHashtags;
+        return targetHashtags;
     }
 }

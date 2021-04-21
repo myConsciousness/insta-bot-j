@@ -12,44 +12,44 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.config;
+package org.thinkit.bot.instagram.mongo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
 
 /**
- * The entity that manages action user information.
+ * The entity that manages excluded user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class ActionUser implements Serializable {
+@Data
+@Document("excluded_user")
+public final class ExcludedUser implements Serializable {
 
     /**
-     * The serial version UID
+     * The id
      */
-    private static final long serialVersionUID = 3781614652799493819L;
+    @Id
+    private String id;
 
     /**
      * The user name
      */
-    @Getter
     private String userName;
 
     /**
-     * The password
+     * The created datetime
      */
-    @Getter
-    @ToString.Exclude
-    private String password;
+    private Date createdAt = new Date();
+
+    /**
+     * The updated datetime
+     */
+    private Date updatedAt = new Date();
 }

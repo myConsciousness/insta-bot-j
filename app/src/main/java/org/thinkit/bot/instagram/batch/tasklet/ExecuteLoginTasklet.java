@@ -22,7 +22,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
-import org.thinkit.bot.instagram.config.ActionUser;
+import org.thinkit.bot.instagram.param.ActionUser;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

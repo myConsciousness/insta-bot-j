@@ -12,64 +12,32 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.param;
 
 import java.io.Serializable;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages action unfollowed user.
+ * The entity that manages hash tag.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionUnfollowedUser implements Serializable {
+@AllArgsConstructor(staticName = "from")
+public final class FollowUser implements Serializable {
 
     /**
-     * The user name
+     * The username
      */
     @Getter
     private String userName;
-
-    /**
-     * The nickname
-     */
-    @Getter
-    private String nickname;
-
-    /**
-     * The url
-     */
-    @Getter
-    private String url;
-
-    /**
-     * The post
-     */
-    @Getter
-    private int post;
-
-    /**
-     * The follower
-     */
-    @Getter
-    private int follower;
-
-    /**
-     * The following
-     */
-    @Getter
-    private int following;
 }
