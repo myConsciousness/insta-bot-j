@@ -54,14 +54,17 @@ loadScripts(document, 'script');</script>
 <span class="package-hierarchy-label">パッケージ階層:</span>
 <ul class="horizontal">
 <li><a href="org/thinkit/bot/instagram/package-tree.html">org.thinkit.bot.instagram</a>, </li>
+<li><a href="org/thinkit/bot/instagram/batch/package-tree.html">org.thinkit.bot.instagram.batch</a>, </li>
+<li><a href="org/thinkit/bot/instagram/batch/tasklet/package-tree.html">org.thinkit.bot.instagram.batch.tasklet</a>, </li>
 <li><a href="org/thinkit/bot/instagram/catalog/package-tree.html">org.thinkit.bot.instagram.catalog</a>, </li>
 <li><a href="org/thinkit/bot/instagram/command/package-tree.html">org.thinkit.bot.instagram.command</a>, </li>
 <li><a href="org/thinkit/bot/instagram/config/package-tree.html">org.thinkit.bot.instagram.config</a>, </li>
 <li><a href="org/thinkit/bot/instagram/content/package-tree.html">org.thinkit.bot.instagram.content</a>, </li>
 <li><a href="org/thinkit/bot/instagram/content/entity/package-tree.html">org.thinkit.bot.instagram.content.entity</a>, </li>
+<li><a href="org/thinkit/bot/instagram/mongo/package-tree.html">org.thinkit.bot.instagram.mongo</a>, </li>
+<li><a href="org/thinkit/bot/instagram/mongo/entity/package-tree.html">org.thinkit.bot.instagram.mongo.entity</a>, </li>
+<li><a href="org/thinkit/bot/instagram/mongo/repository/package-tree.html">org.thinkit.bot.instagram.mongo.repository</a>, </li>
 <li><a href="org/thinkit/bot/instagram/result/package-tree.html">org.thinkit.bot.instagram.result</a>, </li>
-<li><a href="org/thinkit/bot/instagram/tag/package-tree.html">org.thinkit.bot.instagram.tag</a>, </li>
-<li><a href="org/thinkit/bot/instagram/user/package-tree.html">org.thinkit.bot.instagram.user</a>, </li>
 <li><a href="org/thinkit/bot/instagram/util/package-tree.html">org.thinkit.bot.instagram.util</a></li>
 </ul>
 </div>
@@ -70,28 +73,83 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link"><span class="type-name-link">Object</span></a>
 <ul>
-<li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><span class="type-name-link">AbstractBotCommand</span></a> (implements org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)
+<li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><span class="type-name-link">AbstractBotCommand</span></a>&lt;R&gt; (implements org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;R&gt;, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)
 <ul>
 <li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/AutoCommentCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><span class="type-name-link">AutoCommentCommand</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/AutoFollowCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><span class="type-name-link">AutoFollowCommand</span></a></li>
 <li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/AutoLikeCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><span class="type-name-link">AutoLikeCommand</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/AutoUnfollowCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><span class="type-name-link">AutoUnfollowCommand</span></a></li>
 <li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><span class="type-name-link">LoginCommand</span></a></li>
 </ul>
 </li>
-<li class="circle">org.thinkit.bot.instagram.config.<a href="org/thinkit/bot/instagram/config/BotConfig.html" title="org.thinkit.bot.instagram.config内のクラス"><span class="type-name-link">BotConfig</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
-<li class="circle">org.thinkit.bot.instagram.config.<a href="org/thinkit/bot/instagram/config/BotConfig.BotConfigBuilder.html" title="org.thinkit.bot.instagram.config内のクラス"><span class="type-name-link">BotConfig.BotConfigBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.<a href="org/thinkit/bot/instagram/AbstractInstaBot.html" title="org.thinkit.bot.instagram内のクラス"><span class="type-name-link">AbstractInstaBot</span></a> (implements org.thinkit.bot.instagram.<a href="org/thinkit/bot/instagram/InstaBot.html" title="org.thinkit.bot.instagram内のインタフェース">InstaBot</a>, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)
+<ul>
+<li class="circle">org.thinkit.bot.instagram.<a href="org/thinkit/bot/instagram/InstaBotJ.html" title="org.thinkit.bot.instagram内のクラス"><span class="type-name-link">InstaBotJ</span></a></li>
+</ul>
+</li>
+<li class="circle">org.thinkit.bot.instagram.config.<a href="org/thinkit/bot/instagram/config/ActionConfig.html" title="org.thinkit.bot.instagram.config内のクラス"><span class="type-name-link">ActionConfig</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.config.<a href="org/thinkit/bot/instagram/config/ActionConfig.ActionConfigBuilder.html" title="org.thinkit.bot.instagram.config内のクラス"><span class="type-name-link">ActionConfig.ActionConfigBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionError.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionError</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionError.ActionErrorBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionError.ActionErrorBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionFollowedUser.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionFollowedUser</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionFollowedUser.ActionFollowedUserBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionFollowedUser.ActionFollowedUserBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.config.<a href="org/thinkit/bot/instagram/config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス"><span class="type-name-link">ActionHashtag</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionLikedPhoto</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionLikedPhoto.ActionLikedPhotoBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionLikedPhoto.ActionLikedPhotoBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.entity.<a href="org/thinkit/bot/instagram/mongo/entity/ActionRecord.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">ActionRecord</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionUnfollowedUser.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionUnfollowedUser</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionUnfollowedUser.ActionUnfollowedUserBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">ActionUnfollowedUser.ActionUnfollowedUserBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.config.<a href="org/thinkit/bot/instagram/config/ActionUser.html" title="org.thinkit.bot.instagram.config内のクラス"><span class="type-name-link">ActionUser</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/AutoFollowResult.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">AutoFollowResult</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/AutoFollowResult.AutoFollowResultBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">AutoFollowResult.AutoFollowResultBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">AutoLikeResult</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/AutoLikeResult.AutoLikeResultBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">AutoLikeResult.AutoLikeResultBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/AutoUnfollowResult.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">AutoUnfollowResult</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/AutoUnfollowResult.AutoUnfollowResultBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">AutoUnfollowResult.AutoUnfollowResultBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.batch.<a href="org/thinkit/bot/instagram/batch/BatchConfiguration.html" title="org.thinkit.bot.instagram.batch内のクラス"><span class="type-name-link">BatchConfiguration</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/BotCommandResult.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">BotCommandResult</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
 <li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/BotResult.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">BotResult</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
 <li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/BotResult.BotResultBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">BotResult.BotResultBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/CloseBrowserTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス"><span class="type-name-link">CloseBrowserTasklet</span></a> (implements org.springframework.batch.core.step.tasklet.Tasklet)</li>
+<li class="circle">org.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/CompleteAutolikeTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス"><span class="type-name-link">CompleteAutolikeTasklet</span></a> (implements org.springframework.batch.core.step.tasklet.Tasklet)</li>
 <li class="circle">org.thinkit.bot.instagram.content.entity.<a href="org/thinkit/bot/instagram/content/entity/CompletedLikeState.html" title="org.thinkit.bot.instagram.content.entity内のクラス"><span class="type-name-link">CompletedLikeState</span></a> (implements org.thinkit.zenna.entity.ContentEntity, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
 <li class="circle">org.thinkit.zenna.mapper.ContentMapper&lt;R&gt; (implements org.thinkit.zenna.mapper.Mapper&lt;R&gt;)
 <ul>
 <li class="circle">org.thinkit.bot.instagram.content.<a href="org/thinkit/bot/instagram/content/CompletedLikeStateMapper.html" title="org.thinkit.bot.instagram.content内のクラス"><span class="type-name-link">CompletedLikeStateMapper</span></a></li>
 <li class="circle">org.thinkit.bot.instagram.content.<a href="org/thinkit/bot/instagram/content/DefaultBotConfigMapper.html" title="org.thinkit.bot.instagram.content内のクラス"><span class="type-name-link">DefaultBotConfigMapper</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.content.<a href="org/thinkit/bot/instagram/content/DefaultLikeIntervalMapper.html" title="org.thinkit.bot.instagram.content内のクラス"><span class="type-name-link">DefaultLikeIntervalMapper</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.content.<a href="org/thinkit/bot/instagram/content/HashtagResourceMapper.html" title="org.thinkit.bot.instagram.content内のクラス"><span class="type-name-link">HashtagResourceMapper</span></a></li>
 </ul>
 </li>
 <li class="circle">org.thinkit.bot.instagram.content.entity.<a href="org/thinkit/bot/instagram/content/entity/DefaultBotConfig.html" title="org.thinkit.bot.instagram.content.entity内のクラス"><span class="type-name-link">DefaultBotConfig</span></a> (implements org.thinkit.zenna.entity.ContentEntity, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
-<li class="circle">org.thinkit.bot.instagram.tag.<a href="org/thinkit/bot/instagram/tag/HashTag.html" title="org.thinkit.bot.instagram.tag内のクラス"><span class="type-name-link">HashTag</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
-<li class="circle">org.thinkit.bot.instagram.user.<a href="org/thinkit/bot/instagram/user/InstagramUser.html" title="org.thinkit.bot.instagram.user内のクラス"><span class="type-name-link">InstagramUser</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
-<li class="circle">org.thinkit.bot.instagram.util.<a href="org/thinkit/bot/instagram/util/RandomUtil.html" title="org.thinkit.bot.instagram.util内のクラス"><span class="type-name-link">RandomUtil</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.content.entity.<a href="org/thinkit/bot/instagram/content/entity/DefaultLikeInterval.html" title="org.thinkit.bot.instagram.content.entity内のクラス"><span class="type-name-link">DefaultLikeInterval</span></a> (implements org.thinkit.zenna.entity.ContentEntity, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.util.<a href="org/thinkit/bot/instagram/util/EnvironmentVariableUtils.html" title="org.thinkit.bot.instagram.util内のクラス"><span class="type-name-link">EnvironmentVariableUtils</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.entity.<a href="org/thinkit/bot/instagram/mongo/entity/Error.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">Error</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/ExecuteAutolikeTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス"><span class="type-name-link">ExecuteAutolikeTasklet</span></a> (implements org.springframework.batch.core.step.tasklet.Tasklet)</li>
+<li class="circle">org.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/ExecuteLoginTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス"><span class="type-name-link">ExecuteLoginTasklet</span></a> (implements org.springframework.batch.core.step.tasklet.Tasklet)</li>
+<li class="circle">org.thinkit.bot.instagram.mongo.entity.<a href="org/thinkit/bot/instagram/mongo/entity/FollowedUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">FollowedUser</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.mongo.entity.<a href="org/thinkit/bot/instagram/mongo/entity/FollowingUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">FollowingUser</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.mongo.entity.<a href="org/thinkit/bot/instagram/mongo/entity/Hashtag.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">Hashtag</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.content.entity.<a href="org/thinkit/bot/instagram/content/entity/HashtagResource.html" title="org.thinkit.bot.instagram.content.entity内のクラス"><span class="type-name-link">HashtagResource</span></a> (implements org.thinkit.zenna.entity.ContentEntity, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.<a href="org/thinkit/bot/instagram/InstaBotJBatchApplication.html" title="org.thinkit.bot.instagram内のクラス"><span class="type-name-link">InstaBotJBatchApplication</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.entity.<a href="org/thinkit/bot/instagram/mongo/entity/LastAction.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">LastAction</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.mongo.entity.<a href="org/thinkit/bot/instagram/mongo/entity/LikedPhoto.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">LikedPhoto</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">LoginResult</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/LoginResult.LoginResultBuilder.html" title="org.thinkit.bot.instagram.result内のクラス"><span class="type-name-link">LoginResult.LoginResultBuilder</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.batch.<a href="org/thinkit/bot/instagram/batch/MongoCollection.html" title="org.thinkit.bot.instagram.batch内のクラス"><span class="type-name-link">MongoCollection</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
+<li class="circle">org.thinkit.bot.instagram.batch.<a href="org/thinkit/bot/instagram/batch/MongoCollection.MongoCollectionBuilder.html" title="org.thinkit.bot.instagram.batch内のクラス"><span class="type-name-link">MongoCollection.MongoCollectionBuilder</span></a></li>
+<li class="circle">org.springframework.data.mongodb.config.MongoConfigurationSupport
+<ul>
+<li class="circle">org.springframework.data.mongodb.config.AbstractMongoClientConfiguration
+<ul>
+<li class="circle">org.thinkit.bot.instagram.mongo.<a href="org/thinkit/bot/instagram/mongo/MongoConfiguration.html" title="org.thinkit.bot.instagram.mongo内のクラス"><span class="type-name-link">MongoConfiguration</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="circle">org.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/PrepareAutolikeTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス"><span class="type-name-link">PrepareAutolikeTasklet</span></a> (implements org.springframework.batch.core.step.tasklet.Tasklet)</li>
+<li class="circle">org.thinkit.bot.instagram.util.<a href="org/thinkit/bot/instagram/util/StackTraceUtils.html" title="org.thinkit.bot.instagram.util内のクラス"><span class="type-name-link">StackTraceUtils</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.util.<a href="org/thinkit/bot/instagram/util/WaitTimeUtils.html" title="org.thinkit.bot.instagram.util内のクラス"><span class="type-name-link">WaitTimeUtils</span></a> (implements java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)</li>
 </ul>
 </li>
 </ul>
@@ -99,8 +157,46 @@ loadScripts(document, 'script');</script>
 <section class="hierarchy">
 <h2 title="インタフェース階層">インタフェース階層</h2>
 <ul>
-<li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース"><span class="type-name-link">BotCommand</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース"><span class="type-name-link">BotCommand</span></a>&lt;R&gt;</li>
 <li class="circle">org.thinkit.bot.instagram.<a href="org/thinkit/bot/instagram/InstaBot.html" title="org.thinkit.bot.instagram内のインタフェース"><span class="type-name-link">InstaBot</span></a></li>
+<li class="circle">org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;
+<ul>
+<li class="circle">org.springframework.data.mongodb.repository.MongoRepository&lt;T,&#8203;ID&gt; (同様に extends org.springframework.data.repository.PagingAndSortingRepository&lt;T,&#8203;ID&gt;)
+<ul>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/ActionRecordRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">ActionRecordRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/ErrorRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">ErrorRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/FollowedUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">FollowedUserRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/FollowingUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">FollowingUserRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/HashtagRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">HashtagRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/LastActionRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">LastActionRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/LikedPhotoRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">LikedPhotoRepository</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="circle">org.springframework.data.repository.Repository&lt;T,&#8203;ID&gt;
+<ul>
+<li class="circle">org.springframework.data.repository.CrudRepository&lt;T,&#8203;ID&gt;
+<ul>
+<li class="circle">org.springframework.data.repository.PagingAndSortingRepository&lt;T,&#8203;ID&gt;
+<ul>
+<li class="circle">org.springframework.data.mongodb.repository.MongoRepository&lt;T,&#8203;ID&gt; (同様に extends org.springframework.data.repository.query.QueryByExampleExecutor&lt;T&gt;)
+<ul>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/ActionRecordRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">ActionRecordRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/ErrorRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">ErrorRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/FollowedUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">FollowedUserRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/FollowingUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">FollowingUserRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/HashtagRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">HashtagRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/LastActionRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">LastActionRepository</span></a></li>
+<li class="circle">org.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/LikedPhotoRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース"><span class="type-name-link">LikedPhotoRepository</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </section>
 <section class="hierarchy">
@@ -110,16 +206,22 @@ loadScripts(document, 'script');</script>
 <ul>
 <li class="circle">java.lang.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Enum.html" title="java.lang内のクラスまたはインタフェース" class="external-link"><span class="type-name-link">Enum</span></a>&lt;E&gt; (implements java.lang.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Comparable.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Comparable</a>&lt;T&gt;, java.lang.constant.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/constant/Constable.html" title="java.lang.constant内のクラスまたはインタフェース" class="external-link">Constable</a>, java.io.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a>)
 <ul>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/ActionStatus.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">ActionStatus</span></a> (implements org.thinkit.api.catalog.Catalog&lt;E&gt;)</li>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchJob.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">BatchJob</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchStep.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">BatchStep</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/CommandType.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">CommandType</span></a> (implements org.thinkit.api.catalog.Catalog&lt;E&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/ElementAttribute.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">ElementAttribute</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/ElementCssSelector.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">ElementCssSelector</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/ElementName.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">ElementName</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/ElementTag.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">ElementTag</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/ElementXPath.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">ElementXPath</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/EnvironmentKey.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">EnvironmentKey</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/InstagramUrl.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">InstagramUrl</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
-<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/SystemPropertyKey.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">SystemPropertyKey</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/Language.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">Language</span></a> (implements org.thinkit.api.catalog.Catalog&lt;E&gt;)</li>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/MongoDatabase.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">MongoDatabase</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
+<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/RecordType.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">RecordType</span></a> (implements org.thinkit.api.catalog.Catalog&lt;E&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/TagSymbol.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">TagSymbol</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
 <li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/WaitType.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">WaitType</span></a> (implements org.thinkit.api.catalog.Catalog&lt;E&gt;)</li>
-<li class="circle">org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/WebDriverPath.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">WebDriverPath</span></a> (implements org.thinkit.api.catalog.BiCatalog&lt;E,&#8203;T&gt;)</li>
 </ul>
 </li>
 </ul>

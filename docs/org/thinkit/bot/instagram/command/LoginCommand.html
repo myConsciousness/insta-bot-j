@@ -76,18 +76,18 @@ loadScripts(document, 'script');</script>
 <h1 title="クラス LoginCommand" class="title">クラス LoginCommand</h1>
 </div>
 <div class="inheritance" title="継承ツリー"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.AbstractBotCommand</a>
+<div class="inheritance"><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.AbstractBotCommand</a>&lt;<a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a>&gt;
 <div class="inheritance">org.thinkit.bot.instagram.command.LoginCommand</div>
 </div>
 </div>
 <section class="description">
 <dl class="notes">
 <dt>すべての実装されたインタフェース:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></code>, <code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></code>, <code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;<a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre>public final class <span class="type-name-label">LoginCommand</span>
-extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></pre>
+extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a>&gt;</pre>
 <dl class="notes">
 <dt>関連項目:</dt>
 <dd><a href="../../../../../serialized-form.html#org.thinkit.bot.instagram.command.LoginCommand">直列化された形式</a></dd>
@@ -117,17 +117,15 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>int</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeBotProcess(org.openqa.selenium.WebDriver)">executeBotProcess</a></span>&#8203;(@NonNull org.openqa.selenium.WebDriver&nbsp;webDriver)</code></th>
+<td class="col-first"><code><a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeBotProcess()">executeBotProcess</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
-<td class="col-first"><code>static <a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(java.lang.String,java.lang.String)">from</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;userName,
-@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;password)</code></th>
-<td class="col-last">
-<div class="block">Returns the new instance of <a href="LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><code>LoginCommand</code></a> based on arguments.</div>
-</td>
+<td class="col-first"><code>static <a href="LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス">LoginCommand</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(java.lang.String,java.lang.String)">from</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;userName,
+<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;password)</code></th>
+<td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i3">
 <td class="col-first"><code>int</code></td>
@@ -161,29 +159,9 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="from(java.lang.String,java.lang.String)">
-<h3>from</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters">@NonNull
-@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;userName,
-@NonNull
-@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;password)</span></div>
-<div class="block">Returns the new instance of <a href="LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><code>LoginCommand</code></a> based on arguments.</div>
-<dl class="notes">
-<dt>パラメータ:</dt>
-<dd><code>userName</code> - The user name</dd>
-<dd><code>password</code> - The password</dd>
-<dt>戻り値:</dt>
-<dd>The new instance of <a href="LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス"><code>LoginCommand</code></a></dd>
-<dt>例外:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/NullPointerException.html" title="java.lang内のクラスまたはインタフェース" class="external-link">NullPointerException</a></code> - If <code>null</code> is passed as an argument</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="executeBotProcess(org.openqa.selenium.WebDriver)">
+<section class="detail" id="executeBotProcess()">
 <h3>executeBotProcess</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">executeBotProcess</span>&#8203;(<span class="parameters">@NonNull
-@NonNull org.openqa.selenium.WebDriver&nbsp;webDriver)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a></span>&nbsp;<span class="member-name">executeBotProcess</span>()</div>
 </section>
 </li>
 <li>
@@ -192,7 +170,7 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a></span>&nbsp;<span class="member-name">toString</span>()</div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="AbstractBotCommand.html#toString()">toString</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></code></dd>
+<dd><code><a href="AbstractBotCommand.html#toString()">toString</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -202,7 +180,7 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">equals</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a>&nbsp;o)</span></div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="AbstractBotCommand.html#equals(java.lang.Object)">equals</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></code></dd>
+<dd><code><a href="AbstractBotCommand.html#equals(java.lang.Object)">equals</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -212,8 +190,15 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">hashCode</span>()</div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="AbstractBotCommand.html#hashCode()">hashCode</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></code></dd>
+<dd><code><a href="AbstractBotCommand.html#hashCode()">hashCode</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a>&gt;</code></dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="from(java.lang.String,java.lang.String)">
+<h3>from</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス">LoginCommand</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;userName,
+<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;password)</span></div>
 </section>
 </li>
 </ul>

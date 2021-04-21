@@ -73,24 +73,24 @@ loadScripts(document, 'script');</script>
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="sub-title"><span class="package-label-in-type">パッケージ</span>&nbsp;<a href="package-summary.html">org.thinkit.bot.instagram.command</a></div>
-<h1 title="クラス AbstractBotCommand" class="title">クラス AbstractBotCommand</h1>
+<h1 title="クラス AbstractBotCommand" class="title">クラス AbstractBotCommand&lt;R&gt;</h1>
 </div>
 <div class="inheritance" title="継承ツリー"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">java.lang.Object</a>
-<div class="inheritance">org.thinkit.bot.instagram.command.AbstractBotCommand</div>
+<div class="inheritance">org.thinkit.bot.instagram.command.AbstractBotCommand&lt;R&gt;</div>
 </div>
 <section class="description">
 <dl class="notes">
 <dt>すべての実装されたインタフェース:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></code>, <code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></code>, <code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;R&gt;</code></dd>
 </dl>
 <dl class="notes">
 <dt>直系の既知のサブクラス:</dt>
-<dd><code><a href="AutoCommentCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoCommentCommand</a></code>, <code><a href="AutoLikeCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoLikeCommand</a></code>, <code><a href="LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス">LoginCommand</a></code></dd>
+<dd><code><a href="AutoCommentCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoCommentCommand</a></code>, <code><a href="AutoFollowCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoFollowCommand</a></code>, <code><a href="AutoLikeCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoLikeCommand</a></code>, <code><a href="AutoUnfollowCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoUnfollowCommand</a></code>, <code><a href="LoginCommand.html" title="org.thinkit.bot.instagram.command内のクラス">LoginCommand</a></code></dd>
 </dl>
 <hr>
-<pre>public abstract class <span class="type-name-label">AbstractBotCommand</span>
+<pre>public abstract class <span class="type-name-label">AbstractBotCommand&lt;R&gt;</span>
 extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a>
-implements <a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></pre>
+implements <a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;R&gt;, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></pre>
 <dl class="notes">
 <dt>関連項目:</dt>
 <dd><a href="../../../../../serialized-form.html#org.thinkit.bot.instagram.command.AbstractBotCommand">直列化された形式</a></dd>
@@ -143,7 +143,7 @@ implements <a href="BotCommand.html" title="org.thinkit.bot.instagram.command内
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>int</code></td>
+<td class="col-first"><code><a href="AbstractBotCommand.html" title="AbstractBotCommand内の型パラメータ">R</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#execute(org.openqa.selenium.WebDriver)">execute</a></span>&#8203;(@NonNull org.openqa.selenium.WebDriver&nbsp;webDriver)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
@@ -192,11 +192,11 @@ implements <a href="BotCommand.html" title="org.thinkit.bot.instagram.command内
 <li>
 <section class="detail" id="execute(org.openqa.selenium.WebDriver)">
 <h3>execute</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">execute</span>&#8203;(<span class="parameters">@NonNull
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="AbstractBotCommand.html" title="AbstractBotCommand内の型パラメータ">R</a></span>&nbsp;<span class="member-name">execute</span>&#8203;(<span class="parameters">@NonNull
 @NonNull org.openqa.selenium.WebDriver&nbsp;webDriver)</span></div>
 <dl class="notes">
 <dt>定義:</dt>
-<dd><code><a href="BotCommand.html#execute(org.openqa.selenium.WebDriver)">execute</a></code>&nbsp;インタフェース内&nbsp;<code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a></code></dd>
+<dd><code><a href="BotCommand.html#execute(org.openqa.selenium.WebDriver)">execute</a></code>&nbsp;インタフェース内&nbsp;<code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;<a href="AbstractBotCommand.html" title="AbstractBotCommand内の型パラメータ">R</a>&gt;</code></dd>
 </dl>
 </section>
 </li>

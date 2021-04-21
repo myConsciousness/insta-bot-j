@@ -76,19 +76,19 @@ loadScripts(document, 'script');</script>
 <h1 title="クラス AutoCommentCommand" class="title">クラス AutoCommentCommand</h1>
 </div>
 <div class="inheritance" title="継承ツリー"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">java.lang.Object</a>
-<div class="inheritance"><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.AbstractBotCommand</a>
+<div class="inheritance"><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.AbstractBotCommand</a>&lt;<a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a>&gt;
 <div class="inheritance">org.thinkit.bot.instagram.command.AutoCommentCommand</div>
 </div>
 </div>
 <section class="description">
 <dl class="notes">
 <dt>すべての実装されたインタフェース:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></code>, <code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a></code></dd>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/io/Serializable.html" title="java.io内のクラスまたはインタフェース" class="external-link">Serializable</a></code>, <code><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;<a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Deprecated.html" title="java.lang内のクラスまたはインタフェース" class="external-link">@Deprecated</a>
 public final class <span class="type-name-label">AutoCommentCommand</span>
-extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></pre>
+extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a>&gt;</pre>
 <div class="deprecation-block"><span class="deprecated-label">推奨されていません。</span></div>
 <dl class="notes">
 <dt>関連項目:</dt>
@@ -121,15 +121,15 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 &nbsp;</td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>int</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeBotProcess(org.openqa.selenium.WebDriver)">executeBotProcess</a></span>&#8203;(@NonNull org.openqa.selenium.WebDriver&nbsp;webDriver)</code></th>
+<td class="col-first"><code><a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeBotProcess()">executeBotProcess</a></span>()</code></th>
 <td class="col-last">
 <div class="block"><span class="deprecated-label">推奨されていません。</span></div>
 &nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
 <td class="col-first"><code>static <a href="AutoCommentCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoCommentCommand</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(org.thinkit.bot.instagram.tag.HashTag)">from</a></span>&#8203;(<a href="../tag/HashTag.html" title="org.thinkit.bot.instagram.tag内のクラス">HashTag</a>&nbsp;hashTag)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(org.thinkit.bot.instagram.config.ActionHashtag)">from</a></span>&#8203;(<a href="../config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&nbsp;hashTag)</code></th>
 <td class="col-last">
 <div class="block"><span class="deprecated-label">推奨されていません。</span></div>
 &nbsp;</td>
@@ -170,10 +170,9 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="executeBotProcess(org.openqa.selenium.WebDriver)">
+<section class="detail" id="executeBotProcess()">
 <h3>executeBotProcess</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">executeBotProcess</span>&#8203;(<span class="parameters">@NonNull
-@NonNull org.openqa.selenium.WebDriver&nbsp;webDriver)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a></span>&nbsp;<span class="member-name">executeBotProcess</span>()</div>
 <div class="deprecation-block"><span class="deprecated-label">推奨されていません。</span></div>
 </section>
 </li>
@@ -184,7 +183,7 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <div class="deprecation-block"><span class="deprecated-label">推奨されていません。</span></div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="AbstractBotCommand.html#toString()">toString</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></code></dd>
+<dd><code><a href="AbstractBotCommand.html#toString()">toString</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -195,7 +194,7 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <div class="deprecation-block"><span class="deprecated-label">推奨されていません。</span></div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="AbstractBotCommand.html#equals(java.lang.Object)">equals</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></code></dd>
+<dd><code><a href="AbstractBotCommand.html#equals(java.lang.Object)">equals</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
@@ -206,14 +205,14 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <div class="deprecation-block"><span class="deprecated-label">推奨されていません。</span></div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="AbstractBotCommand.html#hashCode()">hashCode</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a></code></dd>
+<dd><code><a href="AbstractBotCommand.html#hashCode()">hashCode</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/ActionLikedPhoto.html" title="org.thinkit.bot.instagram.result内のクラス">ActionLikedPhoto</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="from(org.thinkit.bot.instagram.tag.HashTag)">
+<section class="detail" id="from(org.thinkit.bot.instagram.config.ActionHashtag)">
 <h3>from</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AutoCommentCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoCommentCommand</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../tag/HashTag.html" title="org.thinkit.bot.instagram.tag内のクラス">HashTag</a>&nbsp;hashTag)</span></div>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AutoCommentCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoCommentCommand</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&nbsp;hashTag)</span></div>
 <div class="deprecation-block"><span class="deprecated-label">推奨されていません。</span></div>
 </section>
 </li>

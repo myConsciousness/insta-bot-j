@@ -1,10 +1,13 @@
 org.thinkit.bot.instagram
+org.thinkit.bot.instagram.batch
+org.thinkit.bot.instagram.batch.tasklet
 org.thinkit.bot.instagram.catalog
 org.thinkit.bot.instagram.command
 org.thinkit.bot.instagram.config
 org.thinkit.bot.instagram.content
 org.thinkit.bot.instagram.content.entity
+org.thinkit.bot.instagram.mongo
+org.thinkit.bot.instagram.mongo.entity
+org.thinkit.bot.instagram.mongo.repository
 org.thinkit.bot.instagram.result
-org.thinkit.bot.instagram.tag
-org.thinkit.bot.instagram.user
 org.thinkit.bot.instagram.util

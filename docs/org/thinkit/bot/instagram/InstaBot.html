@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":6};
+<script type="text/javascript">var data = {"i0":6,"i1":6,"i2":6};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],4:["t3","abstract\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -76,6 +76,10 @@ loadScripts(document, 'script');</script>
 <h1 title="インタフェース InstaBot" class="title">インタフェース InstaBot</h1>
 </div>
 <section class="description">
+<dl class="notes">
+<dt>既知の実装クラスのリスト:</dt>
+<dd><code><a href="AbstractInstaBot.html" title="org.thinkit.bot.instagram内のクラス">AbstractInstaBot</a></code>, <code><a href="InstaBotJ.html" title="org.thinkit.bot.instagram内のクラス">InstaBotJ</a></code></dd>
+</dl>
 <hr>
 <pre>public interface <span class="type-name-label">InstaBot</span></pre>
 </section>
@@ -98,8 +102,18 @@ loadScripts(document, 'script');</script>
 </thead>
 <tbody>
 <tr class="alt-color" id="i0">
+<td class="col-first"><code>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#closeWebBrowser()">closeWebBrowser</a></span>()</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+<tr class="row-color" id="i1">
+<td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoLikes(java.util.List)">executeAutoLikes</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&gt;&nbsp;hashTags)</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+<tr class="alt-color" id="i2">
 <td class="col-first"><code><a href="result/BotResult.html" title="org.thinkit.bot.instagram.result内のクラス">BotResult</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoLikes(java.util.List)">executeAutoLikes</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="tag/HashTag.html" title="org.thinkit.bot.instagram.tag内のクラス">HashTag</a>&gt;&nbsp;hashTags)</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeLogin(org.thinkit.bot.instagram.config.ActionUser)">executeLogin</a></span>&#8203;(@NonNull <a href="config/ActionUser.html" title="org.thinkit.bot.instagram.config内のクラス">ActionUser</a>&nbsp;actionUser)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 </tbody>
@@ -118,10 +132,23 @@ loadScripts(document, 'script');</script>
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
 <li>
+<section class="detail" id="executeLogin(org.thinkit.bot.instagram.config.ActionUser)">
+<h3>executeLogin</h3>
+<div class="member-signature"><span class="return-type"><a href="result/BotResult.html" title="org.thinkit.bot.instagram.result内のクラス">BotResult</a></span>&nbsp;<span class="member-name">executeLogin</span>&#8203;(<span class="parameters">@NonNull
+@NonNull <a href="config/ActionUser.html" title="org.thinkit.bot.instagram.config内のクラス">ActionUser</a>&nbsp;actionUser)</span></div>
+</section>
+</li>
+<li>
 <section class="detail" id="executeAutoLikes(java.util.List)">
 <h3>executeAutoLikes</h3>
-<div class="member-signature"><span class="return-type"><a href="result/BotResult.html" title="org.thinkit.bot.instagram.result内のクラス">BotResult</a></span>&nbsp;<span class="member-name">executeAutoLikes</span>&#8203;(<span class="parameters">@NonNull
-@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="tag/HashTag.html" title="org.thinkit.bot.instagram.tag内のクラス">HashTag</a>&gt;&nbsp;hashTags)</span></div>
+<div class="member-signature"><span class="return-type"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</span>&nbsp;<span class="member-name">executeAutoLikes</span>&#8203;(<span class="parameters">@NonNull
+@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&gt;&nbsp;hashTags)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="closeWebBrowser()">
+<h3>closeWebBrowser</h3>
+<div class="member-signature"><span class="return-type">void</span>&nbsp;<span class="member-name">closeWebBrowser</span>()</div>
 </section>
 </li>
 </ul>
