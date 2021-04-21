@@ -19,8 +19,10 @@ import java.util.List;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
+import org.thinkit.bot.instagram.param.UnfollowUser;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
+import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 import org.thinkit.bot.instagram.result.BotResult;
 
 import lombok.NonNull;
@@ -29,9 +31,11 @@ public interface InstaBot {
 
     public BotResult executeLogin(@NonNull final ActionUser actionUser);
 
-    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> hashTags);
+    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags);
 
     public List<AutoFollowResult> executeAutoFollow(@NonNull final List<FollowUser> followUsers);
+
+    public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers);
 
     public void closeWebBrowser();
 }

@@ -54,6 +54,11 @@ public enum CommandType implements Catalog<CommandType> {
     AUTO_UNFOLLOW(4),
 
     /**
+     * The close web browser
+     */
+    CLOSE_WEB_BROWSER(800),
+
+    /**
      * The reversal entry hashtag command
      */
     REVERSAL_ENTRY_HASHTAG(900);

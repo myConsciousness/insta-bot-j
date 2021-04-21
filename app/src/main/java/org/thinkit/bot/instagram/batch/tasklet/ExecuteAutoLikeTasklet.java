@@ -34,19 +34,15 @@ import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ToString
-@EqualsAndHashCode
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class ExecuteAutolikeTasklet implements Tasklet {
+@EqualsAndHashCode(callSuper = false)
+public final class ExecuteAutolikeTasklet extends AbstractTasklet {
 
     /**
      * The insta bot
@@ -58,8 +54,18 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
      */
     private MongoCollection mongoCollection;
 
+    private ExecuteAutolikeTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
+        super(CommandType.AUTO_LIKE, mongoCollection.getLastActionRepository());
+        this.instaBot = instaBot;
+        this.mongoCollection = mongoCollection;
+    }
+
+    public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
+        return new ExecuteAutolikeTasklet(instaBot, mongoCollection);
+    }
+
     @Override
-    public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+    public RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
         final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getTargetHashtags());

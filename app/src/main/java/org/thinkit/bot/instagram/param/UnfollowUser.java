@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The entity that manages follow user.
+ * The entity that manages unfollow user.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -33,7 +33,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class FollowUser implements Serializable {
+public final class UnfollowUser implements Serializable {
 
     /**
      * The username

@@ -20,7 +20,6 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.CommandType;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
@@ -36,20 +35,59 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class CompleteAutolikeTasklet implements Tasklet {
+@AllArgsConstructor
+public abstract class AbstractTasklet implements Tasklet {
 
     /**
-     * The mongo collection
+     * The command type
      */
-    private MongoCollection mongoCollection;
+    private CommandType commandType;
+
+    /**
+     * The last action repository
+     */
+    private LastActionRepository lastActionRepository;
+
+    protected abstract RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext);
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
-        final LastAction lastAction = lastActionRepository.findByCommandTypeCode(CommandType.AUTO_LIKE.getCode());
+        this.updateStartAction();
+
+        final RepeatStatus repeatStatus = this.executeTask(contribution, chunkContext);
+
+        this.updateEndAction();
+
+        log.debug("END");
+        return repeatStatus;
+    }
+
+    private void updateStartAction() {
+        log.debug("START");
+
+        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.commandType.getCode());
+
+        if (lastAction == null) {
+            lastAction = new LastAction();
+            lastAction.setCommandTypeCode(this.commandType.getCode());
+        }
+
+        lastAction.setStart(new Date());
+        lastAction.setEnd(null);
+        lastAction.setUpdatedAt(new Date());
+
+        lastActionRepository.save(lastAction);
+        log.debug("Updated last action: {}", lastAction);
+
+        log.debug("END");
+    }
+
+    private void updateEndAction() {
+        log.debug("START");
+
+        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.commandType.getCode());
 
         lastAction.setEnd(new Date());
         lastAction.setUpdatedAt(new Date());
@@ -58,6 +96,5 @@ public final class CompleteAutolikeTasklet implements Tasklet {
         log.debug("Updated last action: {}", lastAction);
 
         log.debug("END");
-        return RepeatStatus.FINISHED;
     }
 }

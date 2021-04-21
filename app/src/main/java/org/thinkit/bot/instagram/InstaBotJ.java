@@ -24,8 +24,10 @@ import org.thinkit.bot.instagram.param.ActionConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
+import org.thinkit.bot.instagram.param.UnfollowUser;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
+import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 import org.thinkit.bot.instagram.result.BotResult;
 
 import lombok.EqualsAndHashCode;
@@ -117,6 +119,11 @@ public final class InstaBotJ extends AbstractInstaBot {
 
     @Override
     public List<AutoFollowResult> executeAutoFollow(@NonNull List<FollowUser> followUsers) {
+        return null;
+    }
+
+    @Override
+    public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull List<UnfollowUser> unfollowUsers) {
         return null;
     }
 }

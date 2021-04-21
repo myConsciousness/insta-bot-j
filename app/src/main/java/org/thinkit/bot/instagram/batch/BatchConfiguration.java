@@ -25,10 +25,8 @@ import org.springframework.context.annotation.Configuration;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.CloseBrowserTasklet;
-import org.thinkit.bot.instagram.batch.tasklet.CompleteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
-import org.thinkit.bot.instagram.batch.tasklet.PrepareAutolikeTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.BatchStep;
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
@@ -96,20 +94,13 @@ public class BatchConfiguration {
     @Bean
     public Job InstaBotJob() {
         return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag()).flow(this.executeLoginStep())
-                .next(this.prepareAutolikeStep()).next(this.executeAutolikeStep()).next(this.completeAutolikeStep())
-                .next(this.closeWebBrowserStep()).end().build();
+                .next(this.executeAutolikeStep()).next(this.closeWebBrowserStep()).end().build();
     }
 
     @Bean
     public Step executeLoginStep() {
-        return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag()).tasklet(ExecuteLoginTasklet.from(this.instaBot))
-                .build();
-    }
-
-    @Bean
-    public Step prepareAutolikeStep() {
-        return this.stepBuilderFactory.get(BatchStep.PREPARE_AUTOLIKE.getTag())
-                .tasklet(PrepareAutolikeTasklet.from(this.getMongoCollection())).build();
+        return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag())
+                .tasklet(ExecuteLoginTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     @Bean
@@ -119,15 +110,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step completeAutolikeStep() {
-        return this.stepBuilderFactory.get(BatchStep.COMPLETE_AUTOLIKE.getTag())
-                .tasklet(CompleteAutolikeTasklet.from(this.getMongoCollection())).build();
-    }
-
-    @Bean
     public Step closeWebBrowserStep() {
         return this.stepBuilderFactory.get(BatchStep.CLOSE_WEB_BROWSER.getTag())
-                .tasklet(CloseBrowserTasklet.from(this.instaBot)).build();
+                .tasklet(CloseBrowserTasklet.from(this.instaBot, this.mongoCollection)).build();
     }
 
     private MongoCollection getMongoCollection() {
