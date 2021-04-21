@@ -4,6 +4,7 @@ import com.mongodb.lang.NonNull;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -26,9 +27,13 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
      */
     private MongoCollection mongoCollection;
 
-    public ReversalEntryHashtagTasklet(@NonNull final MongoCollection mongoCollection) {
+    private ReversalEntryHashtagTasklet(@NonNull final MongoCollection mongoCollection) {
         super(TaskType.REVERSAL_ENTRY_HASHTAG, mongoCollection.getLastActionRepository());
         this.mongoCollection = mongoCollection;
+    }
+
+    public static Tasklet from(@NonNull final MongoCollection mongoCollection) {
+        return new ReversalEntryHashtagTasklet(mongoCollection);
     }
 
     @Override

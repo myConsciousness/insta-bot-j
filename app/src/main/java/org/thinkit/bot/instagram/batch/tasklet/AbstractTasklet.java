@@ -67,7 +67,7 @@ public abstract class AbstractTasklet implements Tasklet {
     private void updateStartAction() {
         log.debug("START");
 
-        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.taskType.getCode());
+        LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
 
         if (lastAction == null) {
             lastAction = new LastAction();
@@ -87,7 +87,7 @@ public abstract class AbstractTasklet implements Tasklet {
     private void updateEndAction() {
         log.debug("START");
 
-        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.taskType.getCode());
+        LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
 
         lastAction.setEnd(new Date());
         lastAction.setUpdatedAt(new Date());

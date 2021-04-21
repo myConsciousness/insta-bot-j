@@ -27,6 +27,7 @@ import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.CloseBrowserTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.BatchStep;
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
@@ -94,13 +95,20 @@ public class BatchConfiguration {
     @Bean
     public Job InstaBotJob() {
         return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag()).flow(this.executeLoginStep())
-                .next(this.executeAutolikeStep()).next(this.closeWebBrowserStep()).end().build();
+                .next(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep()).next(this.closeWebBrowserStep())
+                .end().build();
     }
 
     @Bean
     public Step executeLoginStep() {
         return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag())
                 .tasklet(ExecuteLoginTasklet.from(this.instaBot, this.getMongoCollection())).build();
+    }
+
+    @Bean
+    public Step reversalEntryHashtagStep() {
+        return this.stepBuilderFactory.get(BatchStep.REVERSAL_ENTRY_HASHTAG.getTag())
+                .tasklet(ReversalEntryHashtagTasklet.from(this.getMongoCollection())).build();
     }
 
     @Bean
@@ -112,7 +120,7 @@ public class BatchConfiguration {
     @Bean
     public Step closeWebBrowserStep() {
         return this.stepBuilderFactory.get(BatchStep.CLOSE_WEB_BROWSER.getTag())
-                .tasklet(CloseBrowserTasklet.from(this.instaBot, this.mongoCollection)).build();
+                .tasklet(CloseBrowserTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     private MongoCollection getMongoCollection() {

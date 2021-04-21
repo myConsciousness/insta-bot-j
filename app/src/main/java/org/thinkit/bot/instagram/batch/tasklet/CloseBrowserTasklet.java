@@ -45,6 +45,7 @@ public final class CloseBrowserTasklet extends AbstractTasklet {
 
     private CloseBrowserTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
         super(TaskType.CLOSE_WEB_BROWSER, mongoCollection.getLastActionRepository());
+        this.instaBot = instaBot;
         this.mongoCollection = mongoCollection;
     }
 

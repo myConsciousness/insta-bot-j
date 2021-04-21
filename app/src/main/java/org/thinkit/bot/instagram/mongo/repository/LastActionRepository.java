@@ -28,11 +28,11 @@ import org.thinkit.bot.instagram.mongo.entity.LastAction;
 public interface LastActionRepository extends MongoRepository<LastAction, String> {
 
     /**
-     * Returns the {@link LastAction} document based on the command type code passed
-     * as an argument.
+     * Returns the {@link LastAction} document based on the task type code passed as
+     * an argument.
      *
-     * @param commandTypeCode The command type code
+     * @param taskTypeCode The task type code
      * @return The {@link LastAction} document
      */
-    public LastAction findByCommandTypeCode(int commandTypeCode);
+    public LastAction findByTaskTypeCode(int taskTypeCode);
 }
