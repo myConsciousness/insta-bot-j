@@ -22,7 +22,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
-import org.thinkit.bot.instagram.catalog.CommandType;
+import org.thinkit.bot.instagram.catalog.TaskType;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -44,7 +44,7 @@ public final class CloseBrowserTasklet extends AbstractTasklet {
     private MongoCollection mongoCollection;
 
     private CloseBrowserTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        super(CommandType.CLOSE_WEB_BROWSER, mongoCollection.getLastActionRepository());
+        super(TaskType.CLOSE_WEB_BROWSER, mongoCollection.getLastActionRepository());
         this.mongoCollection = mongoCollection;
     }
 

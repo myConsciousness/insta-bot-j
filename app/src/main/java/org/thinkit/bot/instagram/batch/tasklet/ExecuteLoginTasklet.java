@@ -25,7 +25,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
-import org.thinkit.bot.instagram.catalog.CommandType;
+import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.param.ActionUser;
 
 import lombok.EqualsAndHashCode;
@@ -48,7 +48,7 @@ public final class ExecuteLoginTasklet extends AbstractTasklet {
     private MongoCollection mongoCollection;
 
     private ExecuteLoginTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        super(CommandType.LOGIN, mongoCollection.getLastActionRepository());
+        super(TaskType.LOGIN, mongoCollection.getLastActionRepository());
         this.instaBot = instaBot;
         this.mongoCollection = mongoCollection;
     }

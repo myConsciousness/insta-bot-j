@@ -24,7 +24,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.catalog.CommandType;
+import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
@@ -55,7 +55,7 @@ public final class ExecuteAutolikeTasklet extends AbstractTasklet {
     private MongoCollection mongoCollection;
 
     private ExecuteAutolikeTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        super(CommandType.AUTO_LIKE, mongoCollection.getLastActionRepository());
+        super(TaskType.AUTO_LIKE, mongoCollection.getLastActionRepository());
         this.instaBot = instaBot;
         this.mongoCollection = mongoCollection;
     }
@@ -92,7 +92,7 @@ public final class ExecuteAutolikeTasklet extends AbstractTasklet {
 
                 for (final ActionError actionError : autolikeResult.getActionErrors()) {
                     final Error error = new Error();
-                    error.setCommandTypeCode(actionError.getCommandType().getCode());
+                    error.setTaskTypeCode(actionError.getTaskType().getCode());
                     error.setMessage(actionError.getMessage());
                     error.setLocalizedMessage(actionError.getLocalizedMessage());
                     error.setStackTrace(actionError.getStackTrace());
@@ -104,7 +104,7 @@ public final class ExecuteAutolikeTasklet extends AbstractTasklet {
         }
 
         final ActionRecord actionRecord = new ActionRecord();
-        actionRecord.setCommandTypeCode(CommandType.AUTO_LIKE.getCode());
+        actionRecord.setTaskTypeCode(TaskType.AUTO_LIKE.getCode());
         actionRecord.setCountAttempt(sumLikes);
         actionRecord.setActionStatusCode(ActionStatus.COMPLETED.getCode());
 

@@ -20,12 +20,12 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.catalog.CommandType;
 import org.thinkit.bot.instagram.catalog.ElementAttribute;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementTag;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
+import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.content.DefaultLikeIntervalMapper;
@@ -113,13 +113,13 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
             } catch (Exception recoverableException) {
                 // The possibility exists that a timeout may occur due to delays during
                 // communication, etc. Anyway, let's move on to the next post.
-                actionErrors.add(super.getActionError(recoverableException, CommandType.AUTO_LIKE));
+                actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_LIKE));
 
                 try {
                     this.clickNextArrorw();
                 } catch (Exception unrecoverableException) {
                     // Errors that reach here may be due to restricted actions by Instagram.
-                    actionErrors.add(super.getActionError(unrecoverableException, CommandType.AUTO_LIKE));
+                    actionErrors.add(super.getActionError(unrecoverableException, TaskType.AUTO_LIKE));
 
                     autolikeResultBuilder.ActionStatus(ActionStatus.INTERRUPTED);
                     autolikeResultBuilder.hashtag(this.targetHashtag.getTag());

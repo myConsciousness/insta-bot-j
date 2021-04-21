@@ -20,36 +20,36 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages command type.
+ * The catalog that manages task type.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum CommandType implements Catalog<CommandType> {
+public enum TaskType implements Catalog<TaskType> {
 
     /**
-     * The login command
+     * The login task
      */
     LOGIN(0),
 
     /**
-     * The auto like command
+     * The auto like task
      */
     AUTO_LIKE(1),
 
     /**
-     * The auto comment command
+     * The auto comment task
      */
     AUTO_COMMENT(2),
 
     /**
-     * The auto follow command
+     * The auto follow task
      */
     AUTO_FOLLOW(3),
 
     /**
-     * The auto unfollow command
+     * The auto unfollow task
      */
     AUTO_UNFOLLOW(4),
 
@@ -59,7 +59,7 @@ public enum CommandType implements Catalog<CommandType> {
     CLOSE_WEB_BROWSER(800),
 
     /**
-     * The reversal entry hashtag command
+     * The reversal entry hashtag task
      */
     REVERSAL_ENTRY_HASHTAG(900);
 

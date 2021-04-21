@@ -16,7 +16,7 @@ package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.catalog.CommandType;
+import org.thinkit.bot.instagram.catalog.TaskType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,10 +40,10 @@ import lombok.ToString;
 public final class ActionError implements Serializable {
 
     /**
-     * The command type
+     * The task type
      */
     @Getter
-    private CommandType commandType;
+    private TaskType taskType;
 
     /**
      * The message

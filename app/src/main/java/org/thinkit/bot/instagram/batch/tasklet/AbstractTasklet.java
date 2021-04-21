@@ -20,7 +20,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.thinkit.bot.instagram.catalog.CommandType;
+import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 
@@ -39,9 +39,9 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractTasklet implements Tasklet {
 
     /**
-     * The command type
+     * The task type
      */
-    private CommandType commandType;
+    private TaskType taskType;
 
     /**
      * The last action repository
@@ -67,11 +67,11 @@ public abstract class AbstractTasklet implements Tasklet {
     private void updateStartAction() {
         log.debug("START");
 
-        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.commandType.getCode());
+        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.taskType.getCode());
 
         if (lastAction == null) {
             lastAction = new LastAction();
-            lastAction.setCommandTypeCode(this.commandType.getCode());
+            lastAction.setTaskTypeCode(this.taskType.getCode());
         }
 
         lastAction.setStart(new Date());
@@ -87,7 +87,7 @@ public abstract class AbstractTasklet implements Tasklet {
     private void updateEndAction() {
         log.debug("START");
 
-        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.commandType.getCode());
+        LastAction lastAction = lastActionRepository.findByCommandTypeCode(this.taskType.getCode());
 
         lastAction.setEnd(new Date());
         lastAction.setUpdatedAt(new Date());

@@ -39,9 +39,9 @@ public final class LastAction implements Serializable {
     private String id;
 
     /**
-     * The command type code
+     * The task type code
      */
-    private int commandTypeCode;
+    private int taskTypeCode;
 
     /**
      * The start datetime
