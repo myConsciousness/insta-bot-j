@@ -22,7 +22,11 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.CommandType;
+import org.thinkit.bot.instagram.content.HashtagResourceMapper;
+import org.thinkit.bot.instagram.content.entity.HashtagResource;
+import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
+import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 
 import lombok.AccessLevel;
@@ -48,8 +52,66 @@ public final class PrepareAutolikeTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
+        this.reversalEntryHashtag();
+        this.updateLastAction();
+
+        log.debug("END");
+        return RepeatStatus.FINISHED;
+    }
+
+    private void reversalEntryHashtag() {
+        log.debug("START");
+
         final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
-        final LastAction lastAction = lastActionRepository.findByCommandTypeCode(CommandType.AUTO_LIKE.getCode());
+        LastAction lastAction = lastActionRepository
+                .findByCommandTypeCode(CommandType.REVERSAL_ENTRY_HASHTAG.getCode());
+
+        if (lastAction == null) {
+            lastAction = new LastAction();
+            lastAction.setCommandTypeCode(CommandType.REVERSAL_ENTRY_HASHTAG.getCode());
+        }
+
+        lastAction.setStart(new Date());
+
+        this.updateHashtag();
+
+        lastAction.setEnd(new Date());
+        lastAction.setUpdatedAt(new Date());
+
+        lastActionRepository.save(lastAction);
+        log.debug("Updated last action: {}", lastAction);
+
+        log.debug("END");
+    }
+
+    private void updateHashtag() {
+        log.debug("START");
+
+        final HashtagRepository hashtagRepository = this.mongoCollection.getHashtagRepository();
+        hashtagRepository.deleteAll();
+
+        for (final HashtagResource hashtagResource : HashtagResourceMapper.newInstance().scan()) {
+            final Hashtag hashtag = new Hashtag();
+            hashtag.setTag(hashtagResource.getTag());
+            hashtag.setGroupCode(hashtagResource.getGroupCode());
+
+            hashtagRepository.insert(hashtag);
+            log.debug("Inserted hashtag: {}", hashtag);
+        }
+
+        log.debug("END");
+    }
+
+    private void updateLastAction() {
+        log.debug("START");
+
+        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
+        LastAction lastAction = lastActionRepository.findByCommandTypeCode(CommandType.AUTO_LIKE.getCode());
+
+        if (lastAction == null) {
+            lastAction = new LastAction();
+            lastAction.setCommandTypeCode(CommandType.AUTO_LIKE.getCode());
+        }
 
         lastAction.setStart(new Date());
         lastAction.setEnd(null);
@@ -59,6 +121,5 @@ public final class PrepareAutolikeTasklet implements Tasklet {
         log.debug("Updated last action: {}", lastAction);
 
         log.debug("END");
-        return RepeatStatus.FINISHED;
     }
 }

@@ -29,9 +29,19 @@ import lombok.RequiredArgsConstructor;
 public enum CommandType implements Catalog<CommandType> {
 
     /**
+     * The login command
+     */
+    LOGIN(0),
+
+    /**
      * The auto like command
      */
-    AUTO_LIKE(0);
+    AUTO_LIKE(1),
+
+    /**
+     * The reversal entry hashtag command
+     */
+    REVERSAL_ENTRY_HASHTAG(900);
 
     /**
      * The code

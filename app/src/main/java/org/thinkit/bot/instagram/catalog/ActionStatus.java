@@ -1,5 +1,3 @@
-package org.thinkit.bot.instagram.catalog;
-
 /*
  * Copyright 2021 Kato Shinya.
  *
@@ -13,6 +11,8 @@ package org.thinkit.bot.instagram.catalog;
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+
+package org.thinkit.bot.instagram.catalog;
 
 import org.thinkit.api.catalog.Catalog;
 

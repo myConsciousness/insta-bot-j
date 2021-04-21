@@ -44,6 +44,11 @@ public final class Hashtag implements Serializable {
     private String tag;
 
     /**
+     * The group code
+     */
+    private int groupCode;
+
+    /**
      * The created datetime
      */
     private Date createdAt = new Date();

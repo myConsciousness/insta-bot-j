@@ -30,5 +30,5 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(staticName = "newInstance")
-public final class HashtagResourceRepository extends ContentMapper<HashtagResource> {
+public final class HashtagResourceMapper extends ContentMapper<HashtagResource> {
 }
