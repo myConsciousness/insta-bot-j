@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages actioned liked photo
+ * The class that manages actioned liked photo.
  *
  * @author Kato Shinya
  * @since 1.0.0

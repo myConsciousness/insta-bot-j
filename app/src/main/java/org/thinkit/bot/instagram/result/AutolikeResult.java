@@ -40,12 +40,18 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutolikeResult implements Serializable {
+public final class AutoLikeResult implements Serializable {
 
+    /**
+     * The action status
+     */
     @Getter
     @NonNull
     private ActionStatus ActionStatus;
 
+    /**
+     * The hashtag
+     */
     @Getter
     @NonNull
     private String hashtag;
@@ -57,7 +63,7 @@ public final class AutolikeResult implements Serializable {
     private int countLikes;
 
     /**
-     * The actioned liked photos
+     * The action liked photos
      */
     @Getter
     @NonNull

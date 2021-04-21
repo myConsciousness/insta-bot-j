@@ -39,6 +39,21 @@ public enum CommandType implements Catalog<CommandType> {
     AUTO_LIKE(1),
 
     /**
+     * The auto comment command
+     */
+    AUTO_COMMENT(2),
+
+    /**
+     * The auto follow command
+     */
+    AUTO_FOLLOW(3),
+
+    /**
+     * The auto unfollow command
+     */
+    AUTO_UNFOLLOW(4),
+
+    /**
      * The reversal entry hashtag command
      */
     REVERSAL_ENTRY_HASHTAG(900);

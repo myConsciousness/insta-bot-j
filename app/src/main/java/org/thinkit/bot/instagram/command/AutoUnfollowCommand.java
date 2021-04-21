@@ -12,22 +12,22 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram;
+package org.thinkit.bot.instagram.command;
 
-import java.util.List;
+import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 
-import org.thinkit.bot.instagram.config.ActionHashtag;
-import org.thinkit.bot.instagram.config.ActionUser;
-import org.thinkit.bot.instagram.result.AutoLikeResult;
-import org.thinkit.bot.instagram.result.BotResult;
+import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-import lombok.NonNull;
+@ToString
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowResult> {
 
-public interface InstaBot {
-
-    public BotResult executeLogin(@NonNull final ActionUser actionUser);
-
-    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags);
-
-    public void closeWebBrowser();
+    @Override
+    protected AutoUnfollowResult executeBotProcess() {
+        return null;
+    }
 }

@@ -32,7 +32,7 @@ import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.content.DefaultLikeIntervalMapper;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
-import org.thinkit.bot.instagram.result.AutolikeResult;
+import org.thinkit.bot.instagram.result.AutoLikeResult;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
@@ -43,7 +43,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
+public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
     /**
      * The serial version UID
@@ -65,14 +65,14 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutolikeResult> {
         this.maxLikes = maxLikes;
     }
 
-    public static BotCommand<AutolikeResult> from(@NonNull final ActionHashtag actionHashtag, final int maxLikes) {
+    public static BotCommand<AutoLikeResult> from(@NonNull final ActionHashtag actionHashtag, final int maxLikes) {
         return new AutoLikeCommand(actionHashtag, maxLikes);
     }
 
     @Override
-    public AutolikeResult executeBotProcess() {
+    public AutoLikeResult executeBotProcess() {
 
-        final AutolikeResult.AutolikeResultBuilder autolikeResultBuilder = AutolikeResult.builder();
+        final AutoLikeResult.AutoLikeResultBuilder autolikeResultBuilder = AutoLikeResult.builder();
 
         super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), this.actionHashtag.getTag()));
         super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();

@@ -23,7 +23,7 @@ import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.config.ActionHashtag;
 import org.thinkit.bot.instagram.config.ActionUser;
-import org.thinkit.bot.instagram.result.AutolikeResult;
+import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.BotResult;
 
 import lombok.EqualsAndHashCode;
@@ -91,17 +91,17 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public List<AutolikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags) {
+    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<ActionHashtag> hashTags) {
 
         if (hashTags.isEmpty()) {
             throw new IllegalArgumentException("The hash tag is required to execute autolikes.");
         }
 
-        final List<AutolikeResult> autolikeResults = new ArrayList<>();
+        final List<AutoLikeResult> autolikeResults = new ArrayList<>();
         final int maxLikesPerTag = super.getMaxAttempt() / hashTags.size();
 
         for (final ActionHashtag hashTag : hashTags) {
-            final AutolikeResult autolikeResult = AutoLikeCommand.from(hashTag, maxLikesPerTag)
+            final AutoLikeResult autolikeResult = AutoLikeCommand.from(hashTag, maxLikesPerTag)
                     .execute(super.getWebDriver());
             autolikeResults.add(autolikeResult);
 

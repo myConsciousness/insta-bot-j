@@ -16,8 +16,6 @@ package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.catalog.CommandType;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,39 +25,45 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages action error.
+ * The class that manages action followed user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
+@Builder(toBuilder = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionError implements Serializable {
+public final class ActionFollowedUser implements Serializable {
 
     /**
-     * The command type
+     * The user name
      */
     @Getter
-    private CommandType commandType;
+    private String userName;
 
     /**
-     * The message
+     * The url
      */
     @Getter
-    private String message;
+    private String url;
 
     /**
-     * The localized message
+     * The post
      */
     @Getter
-    private String localizedMessage;
+    private int post;
 
     /**
-     * The stack trace
+     * The follower
      */
     @Getter
-    private String stackTrace;
+    private int follower;
+
+    /**
+     * The following
+     */
+    @Getter
+    private int following;
 }

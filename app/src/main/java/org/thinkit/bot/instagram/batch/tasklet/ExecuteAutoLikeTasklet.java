@@ -32,7 +32,7 @@ import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
-import org.thinkit.bot.instagram.result.AutolikeResult;
+import org.thinkit.bot.instagram.result.AutoLikeResult;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -62,12 +62,12 @@ public final class ExecuteAutolikeTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        final List<AutolikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getActionHashtags());
+        final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getActionHashtags());
         log.info("The autolike has completed the process successfully.");
 
         int sumLikes = 0;
 
-        for (final AutolikeResult autolikeResult : autolikeResults) {
+        for (final AutoLikeResult autolikeResult : autolikeResults) {
             final String hashtag = autolikeResult.getHashtag();
             sumLikes += autolikeResult.getCountLikes();
 
