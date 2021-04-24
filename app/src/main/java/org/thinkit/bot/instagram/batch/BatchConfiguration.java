@@ -35,7 +35,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
-import org.thinkit.bot.instagram.batch.tasklet.CloseBrowserTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
@@ -115,6 +114,8 @@ public class BatchConfiguration {
      */
     private MongoCollection mongoCollection;
 
+    private boolean logined;
+
     @Scheduled(cron = "0 0 * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
@@ -133,8 +134,13 @@ public class BatchConfiguration {
         FlowBuilder<FlowJobBuilder> flowBuilder = null;
 
         for (final UserAccount userAccount : this.userAccountRepository.findAll()) {
-            flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount)).next(this.reversalEntryHashtagStep())
-                    .next(this.executeAutolikeStep()).next(this.closeWebBrowserStep());
+
+            if (!logined) {
+                flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount));
+                logined = true;
+            }
+
+            flowBuilder = flowBuilder.next(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
         }
 
         return flowBuilder.end().build();
@@ -158,11 +164,12 @@ public class BatchConfiguration {
                 .tasklet(ExecuteAutolikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
-    @Bean
-    public Step closeWebBrowserStep() {
-        return this.stepBuilderFactory.get(BatchStep.CLOSE_WEB_BROWSER.getTag())
-                .tasklet(CloseBrowserTasklet.from(this.instaBot, this.getMongoCollection())).build();
-    }
+    // @Bean
+    // public Step closeWebBrowserStep() {
+    // return this.stepBuilderFactory.get(BatchStep.CLOSE_WEB_BROWSER.getTag())
+    // .tasklet(CloseBrowserTasklet.from(this.instaBot,
+    // this.getMongoCollection())).build();
+    // }
 
     private MongoCollection getMongoCollection() {
 
