@@ -41,7 +41,7 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The first element of tags
      */
-    TAGS_FIRST_ELEMENT(2, "//*[@id=\"react-root\"]/section/main/article/div[1]/div/div/div[1]/div[1]/a/div/div[2]"),
+    TAGS_FIRST_ELEMENT(2, "//*[@id=\"react-root\"]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]"),
 
     /**
      * The like button
