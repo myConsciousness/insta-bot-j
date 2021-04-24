@@ -57,6 +57,8 @@ public final class CloseBrowserTasklet extends AbstractTasklet {
     public RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
+        // TODO: Seleniumは一度クローズしてしまうと再度セッションを確立することができない
+        // TODO: クローズする処理をログアウトする処理へ回収する
         this.instaBot.closeWebBrowser();
         log.info("The web browser has been safely closed.");
 

@@ -136,6 +136,7 @@ public class BatchConfiguration {
         for (final UserAccount userAccount : this.userAccountRepository.findAll()) {
 
             if (!logined) {
+                // TODO: 復数アカウントを管理する場合は一度ログアウトする必要があるためログアウト用のタスクが必要
                 flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount));
                 logined = true;
             }
