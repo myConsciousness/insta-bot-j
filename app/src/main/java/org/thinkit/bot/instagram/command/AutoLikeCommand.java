@@ -81,6 +81,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         final List<ActionError> actionErrors = new ArrayList<>();
 
         int countLikes = 0;
+        boolean likedPhoto = false;
         final int likeInterval = this.getLikeInterval();
         final String completedLikeState = this.getCompletedLikeState();
 
@@ -88,6 +89,10 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
             try {
                 if (countLikes != 0 && countLikes % likeInterval == 0) {
                     super.wait(WaitType.LIKE);
+                } else {
+                    if (likedPhoto) {
+                        super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+                    }
                 }
 
                 final WebElement likeButton = this.findLikeButton();
@@ -95,6 +100,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
                         .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
 
                 if (likeState.contains(completedLikeState)) {
+                    likedPhoto = false;
                     this.clickNextArrorw();
                     continue;
                 }
@@ -108,6 +114,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
                 actionedLikedPhotos.add(actionedLikedPhotoBuilder.build());
 
                 likeButton.click();
+                likedPhoto = true;
                 this.clickNextArrorw();
                 countLikes++;
             } catch (Exception recoverableException) {
@@ -129,6 +136,8 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
                     return autolikeResultBuilder.build();
                 }
+
+                likedPhoto = false;
             }
         }
 

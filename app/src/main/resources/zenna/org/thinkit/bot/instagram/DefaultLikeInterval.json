@@ -9,7 +9,7 @@
         {
             "node": {
                 "conditionId": "",
-                "interval": 25
+                "interval": 10
             }
         }
     ],

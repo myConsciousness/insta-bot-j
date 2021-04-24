@@ -14,9 +14,6 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
-import static org.thinkit.bot.instagram.util.EnvironmentVariableUtils.getPassword;
-import static org.thinkit.bot.instagram.util.EnvironmentVariableUtils.getUserName;
-
 import com.mongodb.lang.NonNull;
 
 import org.springframework.batch.core.StepContribution;
@@ -26,6 +23,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.param.ActionUser;
 
 import lombok.EqualsAndHashCode;
@@ -43,25 +41,27 @@ public final class ExecuteLoginTasklet extends AbstractTasklet {
     private InstaBot instaBot;
 
     /**
-     * The mongo collection
+     * The user account
      */
-    private MongoCollection mongoCollection;
+    private UserAccount userAccount;
 
-    private ExecuteLoginTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
+    private ExecuteLoginTasklet(@NonNull final InstaBot instaBot, @NonNull final UserAccount userAccount,
+            @NonNull final MongoCollection mongoCollection) {
         super(TaskType.LOGIN, mongoCollection.getLastActionRepository());
         this.instaBot = instaBot;
-        this.mongoCollection = mongoCollection;
+        this.userAccount = userAccount;
     }
 
-    public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        return new ExecuteLoginTasklet(instaBot, mongoCollection);
+    public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final UserAccount userAccount,
+            @NonNull final MongoCollection mongoCollection) {
+        return new ExecuteLoginTasklet(instaBot, userAccount, mongoCollection);
     }
 
     @Override
     public RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        this.instaBot.executeLogin(ActionUser.from(getUserName(), getPassword()));
+        this.instaBot.executeLogin(ActionUser.from(this.userAccount.getUserName(), this.userAccount.getPassword()));
         log.info("The login to Instagram has been successfully completed.");
 
         log.debug("END");

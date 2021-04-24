@@ -21,6 +21,7 @@ import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
+import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,12 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class MongoCollection implements Serializable {
+
+    /**
+     * The user account repository
+     */
+    @Getter
+    private UserAccountRepository userAccountRepository;
 
     /**
      * The hashtag repository

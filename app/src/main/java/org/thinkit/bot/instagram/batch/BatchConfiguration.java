@@ -14,14 +14,25 @@
 
 package org.thinkit.bot.instagram.batch;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.batch.core.Job;
+import org.springframework.batch.core.JobParameters;
+import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.builder.FlowJobBuilder;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.CloseBrowserTasklet;
@@ -30,13 +41,16 @@ import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.BatchStep;
+import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
+import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 
 @Configuration
+@EnableScheduling
 @EnableBatchProcessing
 public class BatchConfiguration {
 
@@ -51,6 +65,15 @@ public class BatchConfiguration {
      */
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
+
+    @Autowired
+    private SimpleJobLauncher jobLauncher;
+
+    /**
+     * The user account repository
+     */
+    @Autowired
+    private UserAccountRepository userAccountRepository;
 
     /**
      * The hashtag repository
@@ -85,24 +108,42 @@ public class BatchConfiguration {
     /**
      * The insta bot
      */
-    private InstaBot instaBot = InstaBotJ.newInstance();
+    private InstaBot instaBot;
 
     /**
      * The mongo collection
      */
     private MongoCollection mongoCollection;
 
-    @Bean
-    public Job InstaBotJob() {
-        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag()).flow(this.executeLoginStep())
-                .next(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep()).next(this.closeWebBrowserStep())
-                .end().build();
+    @Scheduled(cron = "0 0 */2 * * *")
+    public void performScheduledJob() throws Exception {
+
+        JobParameters param = new JobParametersBuilder()
+                .addString(BatchJob.INSTA_BOT.getTag(), String.valueOf(System.currentTimeMillis())).toJobParameters();
+
+        jobLauncher.run(this.instaBotJob(), param);
     }
 
     @Bean
-    public Step executeLoginStep() {
+    public Job instaBotJob() {
+
+        this.instaBot = InstaBotJ.newInstance();
+
+        final JobBuilder jobBuilder = this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
+        FlowBuilder<FlowJobBuilder> flowBuilder = null;
+
+        for (final UserAccount userAccount : this.userAccountRepository.findAll()) {
+            flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount)).next(this.reversalEntryHashtagStep())
+                    .next(this.executeAutolikeStep()).next(this.closeWebBrowserStep());
+        }
+
+        return flowBuilder.end().build();
+    }
+
+    @Bean
+    public Step executeLoginStep(@NonNull final UserAccount userAccount) {
         return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag())
-                .tasklet(ExecuteLoginTasklet.from(this.instaBot, this.getMongoCollection())).build();
+                .tasklet(ExecuteLoginTasklet.from(this.instaBot, userAccount, this.getMongoCollection())).build();
     }
 
     @Bean
@@ -137,5 +178,12 @@ public class BatchConfiguration {
         mongoCollectionBuilder.lastActionRepository(this.lastActionRepository);
 
         return mongoCollectionBuilder.build();
+    }
+
+    @Bean
+    public SimpleJobLauncher jobLauncher(JobRepository jobRepository) {
+        SimpleJobLauncher launcher = new SimpleJobLauncher();
+        launcher.setJobRepository(jobRepository);
+        return launcher;
     }
 }

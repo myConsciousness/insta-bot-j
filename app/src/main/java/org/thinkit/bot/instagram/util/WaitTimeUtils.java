@@ -46,6 +46,7 @@ public final class WaitTimeUtils implements Serializable {
         return switch (waitType) {
         case DEFAULT -> RANDOM.nextInt(10000) + 40000;
         case LIKE -> RANDOM.nextInt(10000) + 50000;
+        case HUMAN_LIKE_INTERVAL -> RANDOM.nextInt(500) + 5000;
         };
     }
 }

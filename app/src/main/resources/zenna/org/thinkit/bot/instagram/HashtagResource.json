@@ -10,21 +10,63 @@
             "node": {
                 "conditionId": "",
                 "tag": "nature",
-                "groupCode": 1
+                "groupCode": 0
             }
         },
         {
             "node": {
                 "conditionId": "",
                 "tag": "naturephotography",
-                "groupCode": 1
+                "groupCode": 0
             }
         },
         {
             "node": {
                 "conditionId": "",
                 "tag": "life",
+                "groupCode": 0
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "sky",
                 "groupCode": 1
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "mountain",
+                "groupCode": 1
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "follow",
+                "groupCode": 1
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "travel",
+                "groupCode": 2
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "life",
+                "groupCode": 2
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "instagood",
+                "groupCode": 2
             }
         }
     ],

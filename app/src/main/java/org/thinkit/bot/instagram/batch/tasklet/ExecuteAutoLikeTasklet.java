@@ -33,6 +33,7 @@ import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
+import org.thinkit.bot.instagram.util.RandomUtils;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -118,7 +119,8 @@ public final class ExecuteAutolikeTasklet extends AbstractTasklet {
     private List<TargetHashtag> getTargetHashtags() {
         log.debug("START");
 
-        final List<Hashtag> hashtags = this.mongoCollection.getHashtagRepository().findAll();
+        final List<Hashtag> hashtags = this.mongoCollection.getHashtagRepository()
+                .findByGroupCode(RandomUtils.generate());
         final List<TargetHashtag> targetHashtags = new ArrayList<>(hashtags.size());
 
         hashtags.forEach(hashtag -> {

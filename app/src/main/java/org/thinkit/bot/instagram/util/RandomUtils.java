@@ -12,40 +12,22 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.util;
 
-import org.thinkit.api.catalog.Catalog;
+import java.util.Random;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-/**
- * The catalog that manages wait type.
- *
- * @author Kato Shinya
- * @since 1.0.0
- */
-@RequiredArgsConstructor
-public enum WaitType implements Catalog<WaitType> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class RandomUtils {
 
     /**
-     * The default
+     * The random
      */
-    DEFAULT(0),
+    private static final Random RANDOM = new Random();
 
-    /**
-     * The like
-     */
-    LIKE(1),
-
-    /**
-     * The human-like interval
-     */
-    HUMAN_LIKE_INTERVAL(900);
-
-    /**
-     * The code
-     */
-    @Getter
-    private final int code;
+    public static int generate() {
+        return RANDOM.nextInt(2);
+    }
 }

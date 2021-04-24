@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.mongo.repository;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
@@ -26,4 +28,6 @@ import org.thinkit.bot.instagram.mongo.entity.Hashtag;
  */
 @Repository
 public interface HashtagRepository extends MongoRepository<Hashtag, String> {
+
+    public List<Hashtag> findByGroupCode(int groupCode);
 }
