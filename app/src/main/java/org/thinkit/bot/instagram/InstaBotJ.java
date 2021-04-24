@@ -20,6 +20,7 @@ import java.util.List;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
+import org.thinkit.bot.instagram.command.LogoutCommand;
 import org.thinkit.bot.instagram.param.ActionConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
@@ -28,7 +29,8 @@ import org.thinkit.bot.instagram.param.UnfollowUser;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
-import org.thinkit.bot.instagram.result.BotResult;
+import org.thinkit.bot.instagram.result.LoginResult;
+import org.thinkit.bot.instagram.result.LogoutResult;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -87,11 +89,8 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public BotResult executeLogin(@NonNull final ActionUser actionUser) {
-
-        LoginCommand.from(actionUser.getUserName(), actionUser.getPassword()).execute(super.getWebDriver());
-
-        return null;
+    public LoginResult executeLogin(@NonNull final ActionUser actionUser) {
+        return LoginCommand.from(actionUser.getUserName(), actionUser.getPassword()).execute(super.getWebDriver());
     }
 
     @Override
@@ -125,5 +124,10 @@ public final class InstaBotJ extends AbstractInstaBot {
     @Override
     public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull List<UnfollowUser> unfollowUsers) {
         return null;
+    }
+
+    @Override
+    public LogoutResult executeLogout() {
+        return LogoutCommand.newInstance().execute(super.getWebDriver());
     }
 }

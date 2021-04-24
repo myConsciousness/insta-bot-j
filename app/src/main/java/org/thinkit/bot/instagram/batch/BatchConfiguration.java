@@ -37,6 +37,7 @@ import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteLogoutTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.BatchStep;
@@ -114,8 +115,6 @@ public class BatchConfiguration {
      */
     private MongoCollection mongoCollection;
 
-    private boolean logined;
-
     @Scheduled(cron = "0 0 * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
@@ -134,14 +133,8 @@ public class BatchConfiguration {
         FlowBuilder<FlowJobBuilder> flowBuilder = null;
 
         for (final UserAccount userAccount : this.userAccountRepository.findAll()) {
-
-            if (!logined) {
-                // TODO: 復数アカウントを管理する場合は一度ログアウトする必要があるためログアウト用のタスクが必要
-                flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount));
-                logined = true;
-            }
-
-            flowBuilder = flowBuilder.next(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
+            flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount)).next(this.reversalEntryHashtagStep())
+                    .next(this.executeAutolikeStep()).next(this.logoutStep());
         }
 
         return flowBuilder.end().build();
@@ -165,12 +158,11 @@ public class BatchConfiguration {
                 .tasklet(ExecuteAutolikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
-    // @Bean
-    // public Step closeWebBrowserStep() {
-    // return this.stepBuilderFactory.get(BatchStep.CLOSE_WEB_BROWSER.getTag())
-    // .tasklet(CloseBrowserTasklet.from(this.instaBot,
-    // this.getMongoCollection())).build();
-    // }
+    @Bean
+    public Step logoutStep() {
+        return this.stepBuilderFactory.get(BatchStep.LOGOUT.getTag())
+                .tasklet(ExecuteLogoutTasklet.from(this.instaBot, this.getMongoCollection())).build();
+    }
 
     private MongoCollection getMongoCollection() {
 

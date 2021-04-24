@@ -54,9 +54,9 @@ public enum BatchStep implements BiCatalog<BatchStep, String> {
     REVERSAL_ENTRY_HASHTAG(800, "ReversalEntryHashtag"),
 
     /**
-     * The close web browser step
+     * The logout step
      */
-    CLOSE_WEB_BROWSER(900, "CloseWebBrowserStep");
+    LOGOUT(900, "Logout");
 
     /**
      * The code

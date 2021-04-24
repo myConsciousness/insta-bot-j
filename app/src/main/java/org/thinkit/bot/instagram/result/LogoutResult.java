@@ -31,7 +31,7 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class LoginResult implements Serializable {
+public final class LogoutResult implements Serializable {
 
     /**
      * The action status

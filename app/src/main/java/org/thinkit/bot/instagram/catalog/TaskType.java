@@ -54,14 +54,14 @@ public enum TaskType implements Catalog<TaskType> {
     AUTO_UNFOLLOW(4),
 
     /**
-     * The close web browser
-     */
-    CLOSE_WEB_BROWSER(800),
-
-    /**
      * The reversal entry hashtag task
      */
-    REVERSAL_ENTRY_HASHTAG(900);
+    REVERSAL_ENTRY_HASHTAG(800),
+
+    /**
+     * The logout
+     */
+    LOGOUT(900);
 
     /**
      * The code

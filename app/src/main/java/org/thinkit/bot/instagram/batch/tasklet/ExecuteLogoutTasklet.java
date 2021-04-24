@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public final class CloseBrowserTasklet extends AbstractTasklet {
+public final class ExecuteLogoutTasklet extends AbstractTasklet {
 
     /**
      * The insta bot
@@ -43,24 +43,22 @@ public final class CloseBrowserTasklet extends AbstractTasklet {
      */
     private MongoCollection mongoCollection;
 
-    private CloseBrowserTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        super(TaskType.CLOSE_WEB_BROWSER, mongoCollection.getLastActionRepository());
+    private ExecuteLogoutTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
+        super(TaskType.LOGOUT, mongoCollection.getLastActionRepository());
         this.instaBot = instaBot;
         this.mongoCollection = mongoCollection;
     }
 
     public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        return new CloseBrowserTasklet(instaBot, mongoCollection);
+        return new ExecuteLogoutTasklet(instaBot, mongoCollection);
     }
 
     @Override
     public RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        // TODO: Seleniumは一度クローズしてしまうと再度セッションを確立することができない
-        // TODO: クローズする処理をログアウトする処理へ回収する
-        this.instaBot.closeWebBrowser();
-        log.info("The web browser has been safely closed.");
+        this.instaBot.executeLogout();
+        log.info("The logout from Instagram has been successfully completed.");
 
         log.debug("END");
         return RepeatStatus.FINISHED;
