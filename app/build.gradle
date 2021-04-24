@@ -57,6 +57,7 @@ dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
     implementation "io.github.bonigarcia:webdrivermanager:4.4.0"
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+    implementation 'com.google.http-client:google-http-client:1.39.1'
 
     implementation 'org.thinkit.api.catalog:catalog-api:v1.0.2'
     implementation 'org.thinkit.zenna:zenna-db:v1.0.2'
