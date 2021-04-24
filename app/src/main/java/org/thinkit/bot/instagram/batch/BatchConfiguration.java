@@ -115,7 +115,7 @@ public class BatchConfiguration {
      */
     private MongoCollection mongoCollection;
 
-    @Scheduled(cron = "0 0 */1 * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void performScheduledJob() throws Exception {
 
         JobParameters param = new JobParametersBuilder()
