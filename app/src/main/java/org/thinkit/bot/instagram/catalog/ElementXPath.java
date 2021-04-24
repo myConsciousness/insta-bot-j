@@ -44,24 +44,29 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     TAGS_FIRST_ELEMENT(2, "//*[@id=\"react-root\"]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]"),
 
     /**
-     * The like button
+     * The first element of tags
      */
-    LIKE_BUTTON(3, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
+    TAGS_FIRST_ELEMENT_2(3, "//*[@id=\"react-root\"]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]"),
 
     /**
      * The like button
      */
-    LIKE_BUTTON_2(4, "/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
+    LIKE_BUTTON(4, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
+
+    /**
+     * The like button
+     */
+    LIKE_BUTTON_2(5, "/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
 
     /**
      * The comment button
      */
-    COMMENT_BUTTON(5, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button"),
+    COMMENT_BUTTON(6, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button"),
 
     /**
      * The accept cookie button
      */
-    ACCEPT_COOKIE_USE_BUTTON(6, "/html/body/div[2]/div/div/div/div[2]/button[1]");
+    ACCEPT_COOKIE_USE_BUTTON(7, "/html/body/div[2]/div/div/div/div[2]/button[1]");
 
     /**
      * The code

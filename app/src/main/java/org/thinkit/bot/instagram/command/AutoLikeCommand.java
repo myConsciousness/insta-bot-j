@@ -75,7 +75,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         final AutoLikeResult.AutoLikeResultBuilder autolikeResultBuilder = AutoLikeResult.builder();
 
         super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), this.targetHashtag.getTag()));
-        super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag())).click();
+        this.findFirstElement().click();
 
         final List<ActionLikedPhoto> actionedLikedPhotos = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
@@ -159,6 +159,16 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
     private String getCompletedLikeState() {
         return CompletedLikeStateMapper.newInstance().scan().get(0).getCompletedLikeState();
+    }
+
+    private WebElement findFirstElement() {
+        try {
+            return super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
+        } catch (Exception e) {
+            // The condition for this to occur is unknown, but there are two types of XPaths
+            // for the first element.
+            return super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT_2.getTag()));
+        }
     }
 
     private WebElement findLikeButton() {
