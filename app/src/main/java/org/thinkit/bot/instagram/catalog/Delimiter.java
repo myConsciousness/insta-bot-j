@@ -12,20 +12,36 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.communication;
+package org.thinkit.bot.instagram.catalog;
 
-import com.google.api.client.http.GenericUrl;
+import org.thinkit.api.catalog.BiCatalog;
 
-import lombok.NonNull;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-public interface Communicator {
+/**
+ * The catalog that manages delimiter.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@RequiredArgsConstructor
+public enum Delimiter implements BiCatalog<Delimiter, String> {
 
     /**
-     * Sends a post request to the request URL.
-     *
-     * @param genericUrl The request url object
-     *
-     * @exception NullPointerException if {@code null} is passed as an argument
+     * The space {@code " "}
      */
-    public void post(@NonNull final GenericUrl genericUrl);
+    SPACE(0, " ");
+
+    /**
+     * The code
+     */
+    @Getter
+    private final int code;
+
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }

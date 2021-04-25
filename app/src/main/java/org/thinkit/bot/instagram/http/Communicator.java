@@ -12,32 +12,20 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.communication;
-
-import java.io.Serializable;
+package org.thinkit.bot.instagram.http;
 
 import com.google.api.client.http.GenericUrl;
 
-import lombok.EqualsAndHashCode;
 import lombok.NonNull;
-import lombok.ToString;
 
-/**
- * The class that provides general-purpose processing for HTTP communication.
- *
- * @author Kato Shinya
- * @since 1.0.0
- */
-@ToString
-@EqualsAndHashCode(callSuper = false)
-public final class HttpCommunicator extends AbstractCommunicator implements Serializable {
+public interface Communicator {
 
-    public HttpCommunicator() {
-        super();
-    }
-
-    @Override
-    public void post(@NonNull GenericUrl genericUrl) {
-
-    }
+    /**
+     * Sends a post request to the request URL.
+     *
+     * @param genericUrl The request url object
+     *
+     * @exception NullPointerException if {@code null} is passed as an argument
+     */
+    public void post(@NonNull final GenericUrl genericUrl);
 }
