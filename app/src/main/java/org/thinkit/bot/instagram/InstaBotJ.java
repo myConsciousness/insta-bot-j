@@ -21,7 +21,7 @@ import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.command.LogoutCommand;
-import org.thinkit.bot.instagram.param.ActionConfig;
+import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
