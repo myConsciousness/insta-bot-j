@@ -14,6 +14,7 @@
 
 package org.thinkit.bot.instagram.http;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 import com.google.api.client.http.GenericUrl;
@@ -32,12 +33,20 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 public final class HttpCommunicator extends AbstractCommunicator implements Serializable {
 
-    public HttpCommunicator() {
-        super();
+    private HttpCommunicator(@NonNull final String token) {
+        super(token);
+    }
+
+    public static Communicator from(@NonNull final String token) {
+        return new HttpCommunicator(token);
     }
 
     @Override
-    public void post(@NonNull GenericUrl genericUrl) {
-
+    public void post(@NonNull GenericUrl genericUrl, @NonNull final String message) {
+        try {
+            super.postRequest(genericUrl, message);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }

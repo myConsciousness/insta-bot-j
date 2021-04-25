@@ -14,63 +14,34 @@
 
 package org.thinkit.bot.instagram.catalog;
 
-import org.thinkit.api.catalog.Catalog;
+import org.thinkit.api.catalog.BiCatalog;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages task type.
+ * The catalog that manages line notify parameter.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum TaskType implements Catalog<TaskType> {
+public enum LineNotifyParameter implements BiCatalog<LineNotifyParameter, String> {
 
     /**
-     * The login task
+     * The message
      */
-    LOGIN(0),
-
-    /**
-     * The auto like task
-     */
-    AUTO_LIKE(1),
-
-    /**
-     * The auto comment task
-     */
-    AUTO_COMMENT(2),
-
-    /**
-     * The auto follow task
-     */
-    AUTO_FOLLOW(3),
-
-    /**
-     * The auto unfollow task
-     */
-    AUTO_UNFOLLOW(4),
-
-    /**
-     * The reversal entry hashtag task
-     */
-    REVERSAL_ENTRY_HASHTAG(800),
-
-    /**
-     * The notify result
-     */
-    NOTIFY_RESULT(801),
-
-    /**
-     * The logout
-     */
-    LOGOUT(900);
+    MESSAGE(0, "message");
 
     /**
      * The code
      */
     @Getter
     private final int code;
+
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }

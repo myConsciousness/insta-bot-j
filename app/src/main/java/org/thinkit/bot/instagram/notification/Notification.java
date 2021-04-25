@@ -24,5 +24,5 @@ import com.mongodb.lang.NonNull;
  */
 public interface Notification {
 
-    public boolean sendMessage(@NonNull final String message);
+    public void sendMessage(@NonNull final String message);
 }

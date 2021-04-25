@@ -24,8 +24,9 @@ public interface Communicator {
      * Sends a post request to the request URL.
      *
      * @param genericUrl The request url object
+     * @param message    The message
      *
      * @exception NullPointerException if {@code null} is passed as an argument
      */
-    public void post(@NonNull final GenericUrl genericUrl);
+    public void post(@NonNull final GenericUrl genericUrl, @NonNull final String message);
 }

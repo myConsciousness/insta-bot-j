@@ -38,6 +38,7 @@ import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLogoutTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.BatchStep;
@@ -127,7 +128,7 @@ public class BatchConfiguration {
 
     private boolean logined;
 
-    @Scheduled(cron = "0 0 * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "* * * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
         JobParameters param = new JobParametersBuilder()
@@ -153,6 +154,8 @@ public class BatchConfiguration {
             } else {
                 flowBuilder = jobBuilder.flow(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
             }
+
+            flowBuilder.next(this.notifyResultStep());
         }
 
         return flowBuilder.end().build();
@@ -171,6 +174,11 @@ public class BatchConfiguration {
     public Step executeAutolikeStep() {
         return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTOLIKE.getTag())
                 .tasklet(ExecuteAutolikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
+    }
+
+    private Step notifyResultStep() {
+        return this.stepBuilderFactory.get(BatchStep.NOTIFY_RESULT.getTag())
+                .tasklet(NotifyResultTasklet.from(this.getMongoCollection())).build();
     }
 
     public Step logoutStep() {

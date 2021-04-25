@@ -14,18 +14,12 @@
 
 package org.thinkit.bot.instagram.notification;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.io.Serializable;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.stream.Collectors;
+
+import com.google.api.client.http.GenericUrl;
 
 import org.thinkit.bot.instagram.catalog.NotificationApi;
+import org.thinkit.bot.instagram.http.HttpCommunicator;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -46,36 +40,7 @@ public final class LineNotify implements Notification, Serializable {
     private String token;
 
     @Override
-    public boolean sendMessage(String message) {
-
-        HttpURLConnection httpURLConnection = null;
-
-        try {
-            final URL url = new URL(NotificationApi.LINE_NOTIFY.getTag());
-            httpURLConnection = (HttpURLConnection) url.openConnection();
-            httpURLConnection.setDoOutput(true);
-            httpURLConnection.setRequestMethod("POST");
-            httpURLConnection.addRequestProperty("Authorization", "Bearer " + token);
-
-            try (final OutputStream outputStream = httpURLConnection.getOutputStream();
-                    final PrintWriter writer = new PrintWriter(outputStream)) {
-                writer.append("message=").append(URLEncoder.encode(message, "UTF-8")).flush();
-
-                try (final InputStream inputStream = httpURLConnection.getInputStream();
-                        final BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
-                    String res = bufferedReader.lines().collect(Collectors.joining());
-
-                    if (!res.contains("\"message\":\"ok\"")) {
-                    }
-                }
-            }
-        } catch (Exception ignore) {
-        } finally {
-            if (httpURLConnection != null) {
-                httpURLConnection.disconnect();
-            }
-        }
-
-        return true;
+    public void sendMessage(String message) {
+        HttpCommunicator.from(this.token).post(new GenericUrl(NotificationApi.LINE_NOTIFY.getTag()), message);
     }
 }

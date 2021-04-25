@@ -31,7 +31,7 @@ public enum NotificationApi implements BiCatalog<NotificationApi, String> {
     /**
      * The Line Notify
      */
-    LINE_NOTIFY(0, "");
+    LINE_NOTIFY(0, "https://notify-api.line.me/api/notify");
 
     /**
      * The code

@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public enum SecurityScheme implements BiCatalog<SecurityScheme, String> {
 
     /**
-     * The {@code "bearer"} scheme
+     * The {@code "Bearer"} scheme
      */
-    BEARER(0, "bearer");
+    BEARER(0, "Bearer");
 
     /**
      * The code

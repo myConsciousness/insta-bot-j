@@ -46,7 +46,12 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     /**
      * {@code "UNFOLLOW_PER_DAY"}
      */
-    UNFOLLOW_PER_DAY(200, "UNFOLLOW_PER_DAY");
+    UNFOLLOW_PER_DAY(200, "UNFOLLOW_PER_DAY"),
+
+    /**
+     * The Line Notify token
+     */
+    LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN");
 
     /**
      * The code

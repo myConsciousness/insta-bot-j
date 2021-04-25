@@ -14,63 +14,34 @@
 
 package org.thinkit.bot.instagram.catalog;
 
-import org.thinkit.api.catalog.Catalog;
+import org.thinkit.api.catalog.BiCatalog;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages task type.
+ * The catalog that manages content type.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum TaskType implements Catalog<TaskType> {
+public enum ContentType implements BiCatalog<ContentType, String> {
 
     /**
-     * The login task
+     * {@code "application/x-www-form-urlencoded"}
      */
-    LOGIN(0),
-
-    /**
-     * The auto like task
-     */
-    AUTO_LIKE(1),
-
-    /**
-     * The auto comment task
-     */
-    AUTO_COMMENT(2),
-
-    /**
-     * The auto follow task
-     */
-    AUTO_FOLLOW(3),
-
-    /**
-     * The auto unfollow task
-     */
-    AUTO_UNFOLLOW(4),
-
-    /**
-     * The reversal entry hashtag task
-     */
-    REVERSAL_ENTRY_HASHTAG(800),
-
-    /**
-     * The notify result
-     */
-    NOTIFY_RESULT(801),
-
-    /**
-     * The logout
-     */
-    LOGOUT(900);
+    APPLICATION_X_WWWW_FORM_URLENCODED(0, "application/x-www-form-urlencoded");
 
     /**
      * The code
      */
     @Getter
     private final int code;
+
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }

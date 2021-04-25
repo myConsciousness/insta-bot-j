@@ -34,24 +34,19 @@ public enum BatchStep implements BiCatalog<BatchStep, String> {
     LOGIN(0, "LoginStep"),
 
     /**
-     * The prepare autolike step
-     */
-    PREPARE_AUTOLIKE(1, "PrepareAutolikeStep"),
-
-    /**
      * The execute autolike step
      */
-    EXECUTE_AUTOLIKE(2, "ExecuteAutolikeStep"),
-
-    /**
-     * The complete autolike step
-     */
-    COMPLETE_AUTOLIKE(3, "CompleteAutolikeStep"),
+    EXECUTE_AUTOLIKE(1, "ExecuteAutolikeStep"),
 
     /**
      * The reversal entry hashtag step
      */
     REVERSAL_ENTRY_HASHTAG(800, "ReversalEntryHashtag"),
+
+    /**
+     * The notify result
+     */
+    NOTIFY_RESULT(801, "NotifyResult"),
 
     /**
      * The logout step

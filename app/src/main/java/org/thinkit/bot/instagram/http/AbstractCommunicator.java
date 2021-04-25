@@ -16,6 +16,7 @@ package org.thinkit.bot.instagram.http;
 
 import java.io.IOException;
 
+import com.google.api.client.http.ByteArrayContent;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
@@ -23,6 +24,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.thinkit.api.catalog.BiCatalog;
+import org.thinkit.bot.instagram.catalog.ContentType;
 import org.thinkit.bot.instagram.catalog.ErrorHttpStatus;
 import org.thinkit.bot.instagram.exception.http.AccessForbiddenException;
 import org.thinkit.bot.instagram.exception.http.BadGatewayException;
@@ -32,8 +34,11 @@ import org.thinkit.bot.instagram.exception.http.NotAcceptableException;
 import org.thinkit.bot.instagram.exception.http.NotFoundException;
 import org.thinkit.bot.instagram.exception.http.ServiceUnavailableException;
 import org.thinkit.bot.instagram.exception.http.UserUnauthorizedException;
+import org.thinkit.bot.instagram.util.LineNotifyApiUtils;
 import org.thinkit.bot.instagram.util.SecuritySchemeUtils;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -41,7 +46,8 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public abstract class AbstractCommunicator implements Communicator {
 
     /**
@@ -52,6 +58,7 @@ public abstract class AbstractCommunicator implements Communicator {
     /**
      * The token
      */
+    @ToString.Exclude
     private String token;
 
     /**
@@ -63,8 +70,11 @@ public abstract class AbstractCommunicator implements Communicator {
      * @exception NullPointerException If {@code null} is passed as an argument
      * @throws IOException If an error occurs during HTTP communication
      */
-    protected HttpResponse postRequest(@NonNull final GenericUrl genericUrl) throws IOException {
-        final HttpRequest httpRequest = HTTP_REQUEST_FACTORY.buildPostRequest(genericUrl, null);
+    protected HttpResponse postRequest(@NonNull final GenericUrl genericUrl, @NonNull final String message)
+            throws IOException {
+        final HttpRequest httpRequest = HTTP_REQUEST_FACTORY.buildPostRequest(genericUrl, ByteArrayContent.fromString(
+                ContentType.APPLICATION_X_WWWW_FORM_URLENCODED.getTag(), LineNotifyApiUtils.toMessageContent(message)));
+
         httpRequest.getHeaders().setAuthorization(SecuritySchemeUtils.bearer(token));
         return this.checkHttpStatus(httpRequest.execute());
     }
