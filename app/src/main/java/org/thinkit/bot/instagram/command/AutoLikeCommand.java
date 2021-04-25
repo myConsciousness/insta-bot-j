@@ -28,7 +28,6 @@ import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
-import org.thinkit.bot.instagram.content.DefaultLikeIntervalMapper;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
@@ -157,10 +156,6 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         }
 
         return autolikeResultBuilder.build();
-    }
-
-    private int getLikeInterval() {
-        return DefaultLikeIntervalMapper.newInstance().scan().get(0).getInterval();
     }
 
     private String getCompletedLikeState() {

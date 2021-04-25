@@ -20,7 +20,6 @@ import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.thinkit.bot.instagram.config.ActionConfig;
-import org.thinkit.bot.instagram.content.DefaultBotConfigMapper;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.AccessLevel;
@@ -49,20 +48,12 @@ public abstract class AbstractInstaBot implements InstaBot, Serializable {
     @Getter(AccessLevel.PROTECTED)
     private WebDriver webDriver;
 
-    /**
-     * The maxAttempt
-     */
-    @Getter(AccessLevel.PROTECTED)
-    private int maxAttempt;
-
     protected AbstractInstaBot() {
         this.setupWebDriver();
-        this.maxAttempt = DefaultBotConfigMapper.newInstance().scan().get(0).getMaxAttempt();
     }
 
     protected AbstractInstaBot(@NonNull final ActionConfig actionConfig) {
         this.setupWebDriver();
-        this.maxAttempt = actionConfig.getMaxAttempt();
     }
 
     private void setupWebDriver() {
