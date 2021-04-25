@@ -25,10 +25,13 @@ import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
@@ -69,7 +72,8 @@ public final class ExecuteAutolikeTasklet extends AbstractTasklet {
     public RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getTargetHashtags());
+        final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getTargetHashtags(),
+                this.getAutoLikeConfig());
         log.info("The autolike has completed the process successfully.");
 
         int sumLikes = 0;
@@ -130,5 +134,22 @@ public final class ExecuteAutolikeTasklet extends AbstractTasklet {
 
         log.debug("END");
         return targetHashtags;
+    }
+
+    private AutoLikeConfig getAutoLikeConfig() {
+        log.debug("START");
+
+        final VariableRepository variableRepository = this.mongoCollection.getVariableRepository();
+        final int maxLikes = Integer
+                .parseInt(variableRepository.findByName(VariableName.LIKE_PER_HOUR.getTag()).getValue());
+        final int likeInterval = Integer
+                .parseInt(variableRepository.findByName(VariableName.LIKE_INTERVAL.getTag()).getValue());
+
+        final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder().maxLikes(maxLikes).likeInterval(likeInterval)
+                .build();
+        log.debug("The auto like config: {}", autoLikeConfig);
+
+        log.debug("END");
+        return autoLikeConfig;
     }
 }

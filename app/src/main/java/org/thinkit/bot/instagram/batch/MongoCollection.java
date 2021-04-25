@@ -22,6 +22,7 @@ import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
+import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -79,4 +80,10 @@ public final class MongoCollection implements Serializable {
      */
     @Getter
     private LastActionRepository lastActionRepository;
+
+    /**
+     * The variable repository
+     */
+    @Getter
+    private VariableRepository variableRepository;
 }

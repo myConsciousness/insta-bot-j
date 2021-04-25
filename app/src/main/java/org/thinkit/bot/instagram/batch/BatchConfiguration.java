@@ -48,6 +48,7 @@ import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
+import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
 @Configuration
 @EnableScheduling
@@ -66,8 +67,17 @@ public class BatchConfiguration {
     @Autowired
     private StepBuilderFactory stepBuilderFactory;
 
+    /**
+     * The job launcher
+     */
     @Autowired
     private SimpleJobLauncher jobLauncher;
+
+    /**
+     * The variable repository
+     */
+    @Autowired
+    private VariableRepository variableRepository;
 
     /**
      * The user account repository
@@ -117,13 +127,13 @@ public class BatchConfiguration {
 
     private boolean logined;
 
-    @Scheduled(cron = "0 30 * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 0 * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
         JobParameters param = new JobParametersBuilder()
                 .addString(BatchJob.INSTA_BOT.getTag(), String.valueOf(System.currentTimeMillis())).toJobParameters();
 
-        jobLauncher.run(this.instaBotJob(), param);
+        this.jobLauncher.run(this.instaBotJob(), param);
     }
 
     public Job instaBotJob() {
@@ -175,6 +185,7 @@ public class BatchConfiguration {
         }
 
         final MongoCollection.MongoCollectionBuilder mongoCollectionBuilder = MongoCollection.builder();
+        mongoCollectionBuilder.variableRepository(this.variableRepository);
         mongoCollectionBuilder.hashtagRepository(this.hashtagRepository);
         mongoCollectionBuilder.likedPhotoRepository(this.likedPhotoRepository);
         mongoCollectionBuilder.errorRepository(this.errorRepository);

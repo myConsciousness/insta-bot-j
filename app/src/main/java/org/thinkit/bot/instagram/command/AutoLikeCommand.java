@@ -60,13 +60,20 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
      */
     private int maxLikes;
 
-    private AutoLikeCommand(@NonNull final TargetHashtag targetHashtag, final int maxLikes) {
+    /**
+     * The like interval
+     */
+    private int likeInterval;
+
+    private AutoLikeCommand(@NonNull final TargetHashtag targetHashtag, final int maxLikes, final int likeInterval) {
         this.targetHashtag = targetHashtag;
         this.maxLikes = maxLikes;
+        this.likeInterval = likeInterval;
     }
 
-    public static BotCommand<AutoLikeResult> from(@NonNull final TargetHashtag targetHashtag, final int maxLikes) {
-        return new AutoLikeCommand(targetHashtag, maxLikes);
+    public static BotCommand<AutoLikeResult> from(@NonNull final TargetHashtag targetHashtag, final int maxLikes,
+            final int likeInterval) {
+        return new AutoLikeCommand(targetHashtag, maxLikes, likeInterval);
     }
 
     @Override
@@ -82,12 +89,11 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
         int countLikes = 0;
         boolean likedPhoto = false;
-        final int likeInterval = this.getLikeInterval();
         final String completedLikeState = this.getCompletedLikeState();
 
         while (countLikes < maxLikes) {
             try {
-                if (countLikes != 0 && countLikes % likeInterval == 0) {
+                if (countLikes != 0 && countLikes % this.likeInterval == 0) {
                     super.wait(WaitType.LIKE);
                 } else {
                     if (likedPhoto) {

@@ -22,6 +22,7 @@ import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.command.LogoutCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
+import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
@@ -31,6 +32,7 @@ import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 import org.thinkit.bot.instagram.result.LoginResult;
 import org.thinkit.bot.instagram.result.LogoutResult;
+import org.thinkit.common.base.precondition.Preconditions;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -94,17 +96,20 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags) {
-
-        if (targetHashtags.isEmpty()) {
-            throw new IllegalArgumentException("The hash tag is required to execute autolikes.");
-        }
+    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags,
+            @NonNull final AutoLikeConfig autoLikeConfig) {
+        Preconditions.requireNonEmpty(targetHashtags, "The hash tag is required to execute autolikes.");
+        Preconditions.requirePositive(autoLikeConfig.getMaxLikes(), "The count of max like must not be negative.");
+        Preconditions.requirePositive(autoLikeConfig.getLikeInterval(),
+                "The count of like interval must not be negative.");
 
         final List<AutoLikeResult> autolikeResults = new ArrayList<>();
-        final int maxLikesPerTag = super.getMaxAttempt() / targetHashtags.size();
+
+        final int likeInterval = autoLikeConfig.getLikeInterval();
+        final int maxLikesPerTag = autoLikeConfig.getMaxLikes() / targetHashtags.size();
 
         for (final TargetHashtag targetHashtag : targetHashtags) {
-            final AutoLikeResult autolikeResult = AutoLikeCommand.from(targetHashtag, maxLikesPerTag)
+            final AutoLikeResult autolikeResult = AutoLikeCommand.from(targetHashtag, maxLikesPerTag, likeInterval)
                     .execute(super.getWebDriver());
             autolikeResults.add(autolikeResult);
 
