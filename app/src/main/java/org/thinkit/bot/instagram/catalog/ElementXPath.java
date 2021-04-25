@@ -41,7 +41,7 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The logout
      */
-    LOGOUT(2, "//*[@id=\"f8fbf25b74fb6\"]/div/div/div"),
+    LOGOUT(2, "//*[@id=\"f19814fe7767fb8\"]/div/div/div"),
 
     /**
      * The login completed
@@ -76,7 +76,12 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The accept cookie button
      */
-    ACCEPT_COOKIE_USE_BUTTON(9, "/html/body/div[2]/div/div/div/div[2]/button[1]");
+    ACCEPT_COOKIE_USE_BUTTON(9, "/html/body/div[2]/div/div/div/div[2]/button[1]"),
+
+    /**
+     * The deny notification button
+     */
+    DENY_NOTIFICATION_BUTTON(10, "/html/body/div[4]/div/div/div/div[3]/button[2]");
 
     /**
      * The code

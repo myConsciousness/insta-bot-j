@@ -115,6 +115,8 @@ public class BatchConfiguration {
      */
     private MongoCollection mongoCollection;
 
+    private boolean logined;
+
     @Scheduled(cron = "0 0 * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
@@ -133,8 +135,12 @@ public class BatchConfiguration {
         FlowBuilder<FlowJobBuilder> flowBuilder = null;
 
         for (final UserAccount userAccount : this.userAccountRepository.findAll()) {
-            flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount)).next(this.reversalEntryHashtagStep())
-                    .next(this.executeAutolikeStep()).next(this.logoutStep());
+            if (!this.logined) {
+                this.logined = true;
+                flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount));
+            }
+
+            flowBuilder = flowBuilder.next(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
         }
 
         return flowBuilder.end().build();

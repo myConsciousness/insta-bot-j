@@ -17,6 +17,7 @@ package org.thinkit.bot.instagram.command;
 import org.openqa.selenium.By;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
+import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.result.LogoutResult;
 
 import lombok.EqualsAndHashCode;
@@ -30,6 +31,11 @@ public final class LogoutCommand extends AbstractBotCommand<LogoutResult> {
 
     @Override
     protected LogoutResult executeBotProcess() {
+
+        super.getWebPage(InstagramUrl.HOME.getTag());
+
+        super.waitUntilElementClickable(By.xpath(ElementXPath.DENY_NOTIFICATION_BUTTON.getTag()));
+        super.findElement(By.xpath(ElementXPath.DENY_NOTIFICATION_BUTTON.getTag())).click();
 
         super.waitUntilElementClickable(By.xpath(ElementXPath.MY_PROFILE_ICON.getTag()));
         super.findElement(By.xpath(ElementXPath.MY_PROFILE_ICON.getTag())).click();
