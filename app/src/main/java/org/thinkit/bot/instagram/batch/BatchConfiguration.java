@@ -128,7 +128,7 @@ public class BatchConfiguration {
 
     private boolean logined;
 
-    @Scheduled(cron = "* * * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "* */30 * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
         JobParameters param = new JobParametersBuilder()
