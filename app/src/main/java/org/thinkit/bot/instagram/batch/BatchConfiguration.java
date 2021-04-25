@@ -155,7 +155,7 @@ public class BatchConfiguration {
                 flowBuilder = jobBuilder.flow(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
             }
 
-            flowBuilder = flowBuilder.next(this.notifyResultStep());
+            flowBuilder.next(this.notifyResultStep());
         }
 
         return flowBuilder.end().build();
