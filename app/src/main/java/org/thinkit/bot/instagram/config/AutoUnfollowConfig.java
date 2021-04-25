@@ -12,11 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.param;
+package org.thinkit.bot.instagram.config;
 
 import java.io.Serializable;
-
-import org.thinkit.bot.instagram.catalog.Language;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,7 +25,8 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the meta configuration values for executing BOT.
+ * The class that manages the configuration when execution auto unfollow
+ * command.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -37,23 +36,17 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionConfig implements Serializable {
+public final class AutoUnfollowConfig implements Serializable {
 
     /**
-     * The serial version UID
-     */
-    private static final long serialVersionUID = 7181719801365111285L;
-
-    /**
-     * The maximum number of attempt
+     * The max unfollow
      */
     @Getter
-    private int maxAttempt;
+    private int maxUnfollow;
 
     /**
-     * The language
+     * The unfollow interval
      */
     @Getter
-    @Builder.Default
-    private Language language = Language.JAPANESE;
+    private int unfollowInterval;
 }
