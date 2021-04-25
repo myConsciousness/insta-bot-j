@@ -117,7 +117,7 @@ public class BatchConfiguration {
 
     private boolean logined;
 
-    @Scheduled(cron = "0 0 * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "0 30 * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
         JobParameters param = new JobParametersBuilder()
@@ -126,7 +126,6 @@ public class BatchConfiguration {
         jobLauncher.run(this.instaBotJob(), param);
     }
 
-    @Bean
     public Job instaBotJob() {
 
         if (this.instaBot == null) {
@@ -149,25 +148,21 @@ public class BatchConfiguration {
         return flowBuilder.end().build();
     }
 
-    @Bean
     public Step executeLoginStep(@NonNull final UserAccount userAccount) {
         return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag())
                 .tasklet(ExecuteLoginTasklet.from(this.instaBot, userAccount, this.getMongoCollection())).build();
     }
 
-    @Bean
     public Step reversalEntryHashtagStep() {
         return this.stepBuilderFactory.get(BatchStep.REVERSAL_ENTRY_HASHTAG.getTag())
                 .tasklet(ReversalEntryHashtagTasklet.from(this.getMongoCollection())).build();
     }
 
-    @Bean
     public Step executeAutolikeStep() {
         return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTOLIKE.getTag())
                 .tasklet(ExecuteAutolikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
-    @Bean
     public Step logoutStep() {
         return this.stepBuilderFactory.get(BatchStep.LOGOUT.getTag())
                 .tasklet(ExecuteLogoutTasklet.from(this.instaBot, this.getMongoCollection())).build();
