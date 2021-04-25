@@ -139,10 +139,11 @@ public class BatchConfiguration {
         for (final UserAccount userAccount : this.userAccountRepository.findAll()) {
             if (!this.logined) {
                 this.logined = true;
-                flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount));
+                flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount)).next(this.reversalEntryHashtagStep())
+                        .next(this.executeAutolikeStep());
+            } else {
+                flowBuilder = jobBuilder.flow(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
             }
-
-            flowBuilder = flowBuilder.next(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
         }
 
         return flowBuilder.end().build();
