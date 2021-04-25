@@ -46,7 +46,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @EqualsAndHashCode(callSuper = false)
-public final class ExecuteAutolikeTasklet extends AbstractTasklet {
+public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
     /**
      * The insta bot
@@ -58,14 +58,14 @@ public final class ExecuteAutolikeTasklet extends AbstractTasklet {
      */
     private MongoCollection mongoCollection;
 
-    private ExecuteAutolikeTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
+    private ExecuteAutoLikeTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
         super(TaskType.AUTO_LIKE, mongoCollection.getLastActionRepository());
         this.instaBot = instaBot;
         this.mongoCollection = mongoCollection;
     }
 
     public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        return new ExecuteAutolikeTasklet(instaBot, mongoCollection);
+        return new ExecuteAutoLikeTasklet(instaBot, mongoCollection);
     }
 
     @Override

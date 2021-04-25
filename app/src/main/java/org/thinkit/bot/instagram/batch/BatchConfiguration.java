@@ -35,7 +35,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
-import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutolikeTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLogoutTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
@@ -173,7 +173,7 @@ public class BatchConfiguration {
 
     public Step executeAutolikeStep() {
         return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTOLIKE.getTag())
-                .tasklet(ExecuteAutolikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
+                .tasklet(ExecuteAutoLikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     private Step notifyResultStep() {
