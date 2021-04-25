@@ -129,7 +129,9 @@ public class BatchConfiguration {
     @Bean
     public Job instaBotJob() {
 
-        this.instaBot = InstaBotJ.newInstance();
+        if (this.instaBot == null) {
+            this.instaBot = InstaBotJ.newInstance();
+        }
 
         final JobBuilder jobBuilder = this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
         FlowBuilder<FlowJobBuilder> flowBuilder = null;
