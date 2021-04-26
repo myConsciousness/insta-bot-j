@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.List;
+
 import com.mongodb.lang.NonNull;
 
 import org.springframework.batch.core.StepContribution;
@@ -23,6 +25,8 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.message.LineMessageBuilder;
+import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.notification.LineNotify;
 
 import lombok.EqualsAndHashCode;
@@ -46,9 +50,12 @@ public final class NotifyResultTasklet extends AbstractTasklet {
     protected RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
+        final List<MessageMeta> messageMetas = this.getMongoCollection().getMessageMetaRepository().findAll();
         final String token = super.getMongoCollection().getVariableRepository()
                 .findByName(VariableName.LINE_NOTIFY_TOKEN.getTag()).getValue();
-        LineNotify.from(token).sendMessage("completed!");
+
+        LineNotify.from(token).sendMessage(LineMessageBuilder.from(messageMetas).build());
+        log.debug("The message has been sent.");
 
         log.debug("END");
         return RepeatStatus.FINISHED;

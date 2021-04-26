@@ -14,7 +14,12 @@
 
 package org.thinkit.bot.instagram.message;
 
+import static org.thinkit.bot.instagram.util.IndentUtils.newline;
+import static org.thinkit.bot.instagram.util.IndentUtils.space;
+
 import java.util.List;
+
+import com.mongodb.lang.NonNull;
 
 import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -27,7 +32,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
 public final class LineMessageBuilder extends AbstractMessageBuilder {
@@ -40,12 +45,32 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
     @Override
     public String build() {
 
-        for (final MessageMeta messageMeta : this.messageMetas) {
+        final StringBuilder message = new StringBuilder(newline());
 
+        for (final MessageMeta messageMeta : this.messageMetas) {
             final TaskType taskType = Catalog.getEnum(TaskType.class, messageMeta.getTaskTypeCode());
 
+            if (taskType == TaskType.AUTO_LIKE) {
+                message.append(newline(this.createMessageAutoLike(messageMeta)));
+            }
         }
 
-        return "";
+        return message.toString();
+    }
+
+    private String createMessageAutoLike(@NonNull final MessageMeta messageMeta) {
+
+        final StringBuilder messageAutoLike = new StringBuilder();
+
+        if (messageMeta.isInterrupted()) {
+            messageAutoLike.append("[INTERRUPTED]");
+        } else {
+            messageAutoLike.append("[COMPLETED]");
+        }
+
+        messageAutoLike.append(space());
+        messageAutoLike.append(String.format("AutoLike executed for %s photos.", messageMeta.getCountAttempt()));
+
+        return messageAutoLike.toString();
     }
 }
