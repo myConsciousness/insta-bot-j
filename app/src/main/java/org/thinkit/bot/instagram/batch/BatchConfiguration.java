@@ -178,7 +178,7 @@ public class BatchConfiguration {
     }
 
     public Step executeAutolikeStep() {
-        return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTOLIKE.getTag())
+        return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_LIKE.getTag())
                 .tasklet(ExecuteAutoLikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 

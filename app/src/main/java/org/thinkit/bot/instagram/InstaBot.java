@@ -16,7 +16,9 @@ package org.thinkit.bot.instagram;
 
 import java.util.List;
 
+import org.thinkit.bot.instagram.config.AutoFollowConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
+import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
@@ -35,7 +37,9 @@ public interface InstaBot {
     public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags,
             @NonNull final AutoLikeConfig autoLikeConfig);
 
-    public List<AutoFollowResult> executeAutoFollow(@NonNull final List<FollowUser> followUsers);
+    public List<AutoFollowResult> executeAutoFollow(@NonNull final List<FollowUser> followUsers,
+            @NonNull final AutoFollowConfig autoFollowConfig);
 
-    public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers);
+    public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
+            @NonNull final AutoUnfollowConfig autoUnfollowConfig);
 }
