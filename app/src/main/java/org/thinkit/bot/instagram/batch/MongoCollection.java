@@ -21,6 +21,7 @@ import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
+import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
@@ -86,4 +87,10 @@ public final class MongoCollection implements Serializable {
      */
     @Getter
     private VariableRepository variableRepository;
+
+    /**
+     * The message meta repository
+     */
+    @Getter
+    private MessageMetaRepository messageMetaRepository;
 }

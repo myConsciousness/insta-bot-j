@@ -47,7 +47,7 @@ public final class ExecuteLoginTasklet extends AbstractTasklet {
 
     private ExecuteLoginTasklet(@NonNull final InstaBot instaBot, @NonNull final UserAccount userAccount,
             @NonNull final MongoCollection mongoCollection) {
-        super(TaskType.LOGIN, mongoCollection.getLastActionRepository());
+        super(TaskType.LOGIN, mongoCollection);
         this.instaBot = instaBot;
         this.userAccount = userAccount;
     }

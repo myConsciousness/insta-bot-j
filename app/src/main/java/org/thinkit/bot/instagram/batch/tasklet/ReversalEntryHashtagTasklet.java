@@ -40,14 +40,8 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = false)
 public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
 
-    /**
-     * The mongo collection
-     */
-    private MongoCollection mongoCollection;
-
     private ReversalEntryHashtagTasklet(@NonNull final MongoCollection mongoCollection) {
-        super(TaskType.REVERSAL_ENTRY_HASHTAG, mongoCollection.getLastActionRepository());
-        this.mongoCollection = mongoCollection;
+        super(TaskType.REVERSAL_ENTRY_HASHTAG, mongoCollection);
     }
 
     public static Tasklet from(@NonNull final MongoCollection mongoCollection) {
@@ -68,7 +62,7 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
     private void updateHashtag() {
         log.debug("START");
 
-        final HashtagRepository hashtagRepository = this.mongoCollection.getHashtagRepository();
+        final HashtagRepository hashtagRepository = super.getMongoCollection().getHashtagRepository();
         hashtagRepository.deleteAll();
 
         for (final HashtagResource hashtagResource : HashtagResourceMapper.newInstance().scan()) {
@@ -86,9 +80,8 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
     private void updateHashtagGroupCount() {
         log.debug("START");
 
-        final VariableRepository variableRepository = this.mongoCollection.getVariableRepository();
-        final Variable variable = this.mongoCollection.getVariableRepository()
-                .findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
+        final VariableRepository variableRepository = super.getMongoCollection().getVariableRepository();
+        final Variable variable = variableRepository.findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
 
         HashtagGroupMapper.newInstance().scan().forEach(hashtagGroup -> {
             // This iteration should be always done only once

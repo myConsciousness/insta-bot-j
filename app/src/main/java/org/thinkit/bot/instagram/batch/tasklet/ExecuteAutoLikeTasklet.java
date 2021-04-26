@@ -24,6 +24,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
@@ -54,15 +55,9 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
      */
     private InstaBot instaBot;
 
-    /**
-     * The mongo collection
-     */
-    private MongoCollection mongoCollection;
-
     private ExecuteAutoLikeTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        super(TaskType.AUTO_LIKE, mongoCollection.getLastActionRepository());
+        super(TaskType.AUTO_LIKE, mongoCollection);
         this.instaBot = instaBot;
-        this.mongoCollection = mongoCollection;
     }
 
     public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
@@ -77,8 +72,10 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
                 this.getAutoLikeConfig());
         log.info("The autolike has completed the process successfully.");
 
-        int sumLikes = 0;
+        MessageMetaStatus messageMetaStatus = MessageMetaStatus.COMPLETED;
+        final MongoCollection mongoCollection = super.getMongoCollection();
 
+        int sumLikes = 0;
         for (final AutoLikeResult autolikeResult : autolikeResults) {
             final String hashtag = autolikeResult.getHashtag();
             sumLikes += autolikeResult.getCountLikes();
@@ -89,7 +86,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
                 likedPhoto.setUrl(actionLikedPhoto.getUrl());
                 likedPhoto.setHashtag(hashtag);
 
-                final LikedPhoto insertedLikedPhoto = this.mongoCollection.getLikedPhotoRepository().insert(likedPhoto);
+                final LikedPhoto insertedLikedPhoto = mongoCollection.getLikedPhotoRepository().insert(likedPhoto);
                 log.debug("Inserted liked photo: {}", insertedLikedPhoto);
             }
 
@@ -103,9 +100,13 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
                     error.setLocalizedMessage(actionError.getLocalizedMessage());
                     error.setStackTrace(actionError.getStackTrace());
 
-                    final Error insertedError = this.mongoCollection.getErrorRepository().insert(error);
+                    final Error insertedError = mongoCollection.getErrorRepository().insert(error);
                     log.debug("Inserted error: {}", insertedError);
                 }
+            }
+
+            if (autolikeResult.getActionStatus() == ActionStatus.INTERRUPTED) {
+                messageMetaStatus = MessageMetaStatus.INTERRUPTED;
             }
         }
 
@@ -114,8 +115,10 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         actionRecord.setCountAttempt(sumLikes);
         actionRecord.setActionStatusCode(ActionStatus.COMPLETED.getCode());
 
-        this.mongoCollection.getActionRecordRepository().insert(actionRecord);
+        mongoCollection.getActionRecordRepository().insert(actionRecord);
         log.debug("Inserted action record: {}", actionRecord);
+
+        super.createMessageMeta(sumLikes, messageMetaStatus);
 
         log.debug("END");
         return RepeatStatus.FINISHED;
@@ -124,7 +127,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     private List<TargetHashtag> getTargetHashtags() {
         log.debug("START");
 
-        final List<Hashtag> hashtags = this.mongoCollection.getHashtagRepository()
+        final List<Hashtag> hashtags = super.getMongoCollection().getHashtagRepository()
                 .findByGroupCode(this.getTargetGroupCode());
         final List<TargetHashtag> targetHashtags = new ArrayList<>(hashtags.size());
 
@@ -140,7 +143,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     private int getTargetGroupCode() {
         log.debug("START");
 
-        final Variable variable = this.mongoCollection.getVariableRepository()
+        final Variable variable = super.getMongoCollection().getVariableRepository()
                 .findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
         final int groupCount = Integer.parseInt(variable.getValue()) - 1;
 
@@ -151,7 +154,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     private AutoLikeConfig getAutoLikeConfig() {
         log.debug("START");
 
-        final VariableRepository variableRepository = this.mongoCollection.getVariableRepository();
+        final VariableRepository variableRepository = super.getMongoCollection().getVariableRepository();
         final int maxLikes = Integer
                 .parseInt(variableRepository.findByName(VariableName.LIKE_PER_HOUR.getTag()).getValue());
         final int likeInterval = Integer

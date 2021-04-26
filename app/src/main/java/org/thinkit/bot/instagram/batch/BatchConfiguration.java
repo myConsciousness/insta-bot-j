@@ -48,6 +48,7 @@ import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
+import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
@@ -115,6 +116,12 @@ public class BatchConfiguration {
      */
     @Autowired
     private LastActionRepository lastActionRepository;
+
+    /**
+     * The message meta repository
+     */
+    @Autowired
+    private MessageMetaRepository messageMetaRepository;
 
     /**
      * The insta bot
@@ -199,6 +206,7 @@ public class BatchConfiguration {
         mongoCollectionBuilder.errorRepository(this.errorRepository);
         mongoCollectionBuilder.actionRecordRepository(this.actionRecordRepository);
         mongoCollectionBuilder.lastActionRepository(this.lastActionRepository);
+        mongoCollectionBuilder.messageMetaRepository(this.messageMetaRepository);
 
         return mongoCollectionBuilder.build();
     }

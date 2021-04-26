@@ -44,7 +44,7 @@ public final class ExecuteLogoutTasklet extends AbstractTasklet {
     private MongoCollection mongoCollection;
 
     private ExecuteLogoutTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        super(TaskType.LOGOUT, mongoCollection.getLastActionRepository());
+        super(TaskType.LOGOUT, mongoCollection);
         this.instaBot = instaBot;
         this.mongoCollection = mongoCollection;
     }

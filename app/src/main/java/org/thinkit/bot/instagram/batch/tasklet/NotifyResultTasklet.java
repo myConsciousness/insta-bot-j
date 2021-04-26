@@ -34,14 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = false)
 public final class NotifyResultTasklet extends AbstractTasklet {
 
-    /**
-     * The mongo collection
-     */
-    private MongoCollection mongoCollection;
-
     private NotifyResultTasklet(@NonNull final MongoCollection mongoCollection) {
-        super(TaskType.NOTIFY_RESULT, mongoCollection.getLastActionRepository());
-        this.mongoCollection = mongoCollection;
+        super(TaskType.NOTIFY_RESULT, mongoCollection);
     }
 
     public static Tasklet from(@NonNull final MongoCollection mongoCollection) {
@@ -52,7 +46,7 @@ public final class NotifyResultTasklet extends AbstractTasklet {
     protected RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final String token = this.mongoCollection.getVariableRepository()
+        final String token = super.getMongoCollection().getVariableRepository()
                 .findByName(VariableName.LINE_NOTIFY_TOKEN.getTag()).getValue();
         LineNotify.from(token).sendMessage("completed!");
 

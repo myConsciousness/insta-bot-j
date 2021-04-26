@@ -16,17 +16,25 @@ package org.thinkit.bot.instagram.batch.tasklet;
 
 import java.util.Date;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.thinkit.bot.instagram.batch.MongoCollection;
+import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
+import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
+import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
+import org.thinkit.common.base.precondition.Preconditions;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -44,9 +52,10 @@ public abstract class AbstractTasklet implements Tasklet {
     private TaskType taskType;
 
     /**
-     * The last action repository
+     * The mongo collection
      */
-    private LastActionRepository lastActionRepository;
+    @Getter(AccessLevel.PROTECTED)
+    private MongoCollection mongoCollection;
 
     protected abstract RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext);
 
@@ -54,17 +63,45 @@ public abstract class AbstractTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        this.updateStartAction();
+        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
 
+        this.updateStartAction(lastActionRepository);
         final RepeatStatus repeatStatus = this.executeTask(contribution, chunkContext);
-
-        this.updateEndAction();
+        this.updateEndAction(lastActionRepository);
 
         log.debug("END");
         return repeatStatus;
     }
 
-    private void updateStartAction() {
+    protected void createMessageMeta(final int countAttempt) {
+        log.debug("START");
+        this.createMessageMeta(countAttempt, MessageMetaStatus.COMPLETED);
+        log.debug("END");
+    }
+
+    protected void createMessageMeta(final int countAttempt, @NonNull final MessageMetaStatus messageMetaStatus) {
+        log.debug("START");
+        Preconditions.requirePositive(countAttempt);
+
+        final MessageMetaRepository messageMetaRepository = this.mongoCollection.getMessageMetaRepository();
+        MessageMeta messageMeta = messageMetaRepository.findByTaskTypeCode(this.taskType.getCode());
+
+        if (messageMeta == null) {
+            messageMeta = new MessageMeta();
+        }
+
+        messageMeta.setTaskTypeCode(this.taskType.getCode());
+        messageMeta.setCountAttempt(countAttempt);
+        messageMeta.setInterrupted(messageMetaStatus == MessageMetaStatus.INTERRUPTED);
+        messageMeta.setUpdatedAt(new Date());
+
+        messageMetaRepository.save(messageMeta);
+        log.debug("Updated message meta: {}", messageMeta);
+
+        log.debug("END");
+    }
+
+    private void updateStartAction(@NonNull final LastActionRepository lastActionRepository) {
         log.debug("START");
 
         LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
@@ -84,7 +121,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("END");
     }
 
-    private void updateEndAction() {
+    private void updateEndAction(@NonNull final LastActionRepository lastActionRepository) {
         log.debug("START");
 
         LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
