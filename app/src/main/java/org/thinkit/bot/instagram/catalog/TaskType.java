@@ -59,6 +59,11 @@ public enum TaskType implements Catalog<TaskType> {
     REVERSAL_ENTRY_HASHTAG(800),
 
     /**
+     * The forecast follow back user
+     */
+    FORECAST_FOLLOW_BACK_USER(801),
+
+    /**
      * The notify result
      */
     NOTIFY_RESULT(801),

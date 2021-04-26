@@ -54,6 +54,11 @@ public enum BatchStep implements BiCatalog<BatchStep, String> {
     REVERSAL_ENTRY_HASHTAG(800, "ReversalEntryHashtag"),
 
     /**
+     * The forecast follow back user
+     */
+    FORECAST_FOLLOW_BACK_USER(801, "ForecastFollowBackUser"),
+
+    /**
      * The notify result
      */
     NOTIFY_RESULT(801, "NotifyResult");

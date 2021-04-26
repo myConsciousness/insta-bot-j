@@ -39,6 +39,7 @@ import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoFollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoUnfollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ForecastFollowBackUserTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
@@ -177,6 +178,11 @@ public class BatchConfiguration {
     public Step reversalEntryHashtagStep() {
         return this.stepBuilderFactory.get(BatchStep.REVERSAL_ENTRY_HASHTAG.getTag())
                 .tasklet(ReversalEntryHashtagTasklet.from(this.getMongoCollection())).build();
+    }
+
+    public Step forecastFollowBackUserStep() {
+        return this.stepBuilderFactory.get(BatchStep.FORECAST_FOLLOW_BACK_USER.getTag())
+                .tasklet(ForecastFollowBackUserTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     public Step executeAutoLikeStep() {

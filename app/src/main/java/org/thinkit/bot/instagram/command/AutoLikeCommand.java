@@ -34,14 +34,15 @@ import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
     /**
@@ -63,17 +64,6 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
      * The like interval
      */
     private int likeInterval;
-
-    private AutoLikeCommand(@NonNull final TargetHashtag targetHashtag, final int maxLikes, final int likeInterval) {
-        this.targetHashtag = targetHashtag;
-        this.maxLikes = maxLikes;
-        this.likeInterval = likeInterval;
-    }
-
-    public static BotCommand<AutoLikeResult> from(@NonNull final TargetHashtag targetHashtag, final int maxLikes,
-            final int likeInterval) {
-        return new AutoLikeCommand(targetHashtag, maxLikes, likeInterval);
-    }
 
     @Override
     public AutoLikeResult executeBotProcess() {

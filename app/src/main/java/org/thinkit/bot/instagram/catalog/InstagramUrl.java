@@ -34,9 +34,9 @@ public enum InstagramUrl implements BiCatalog<InstagramUrl, String> {
     LOGIN(0, "https://www.instagram.com/"),
 
     /**
-     * The home url
+     * The user profile
      */
-    HOME(1, "https://www.instagram.com/"),
+    USER_PRODILE(1, "https://www.instagram.com/%s"),
 
     /**
      * The tags url

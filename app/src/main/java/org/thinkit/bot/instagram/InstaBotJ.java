@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
+import org.thinkit.bot.instagram.command.ForecastFollowBackUserCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
@@ -147,10 +148,11 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public ForecastFollowBackResult forecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers) {
+    public ForecastFollowBackResult executeForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers) {
         Preconditions.requireNonEmpty(forecastUsers,
                 "The forecast user is required to execute forecast follow back user command.");
 
+        ForecastFollowBackUserCommand.from(forecastUsers).execute(super.getWebDriver());
         return null;
     }
 }
