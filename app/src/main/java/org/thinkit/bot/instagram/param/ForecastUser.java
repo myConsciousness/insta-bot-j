@@ -12,39 +12,32 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.param;
 
 import java.io.Serializable;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the results of BOT execution.
+ * The entity that manages forecast user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class BotResult implements Serializable {
+@AllArgsConstructor(staticName = "from")
+public class ForecastUser implements Serializable {
 
     /**
-     * The serial version UID
-     */
-    private static final long serialVersionUID = -1463858541297073499L;
-
-    /**
-     * The count of attempt
+     * The user name
      */
     @Getter
-    private int countAttempt;
+    private String userName;
 }

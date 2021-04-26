@@ -12,26 +12,50 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.catalog;
 
-import java.io.Serializable;
+import org.thinkit.api.catalog.Catalog;
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
- * The class that manages result of bot command.
+ * The catalog that manages the follow back possibility.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode
-public final class BotCommandResult implements Serializable {
+@RequiredArgsConstructor
+public enum FollowBackPossibility implements Catalog<FollowBackPossibility> {
 
     /**
-     * The serial version UID
+     * The highest
      */
-    private static final long serialVersionUID = -1285728764286613734L;
+    HIGHEST(0),
 
+    /**
+     * The high
+     */
+    HIGH(1),
+
+    /**
+     * The middle
+     */
+    MIDDLE(2),
+
+    /**
+     * The low
+     */
+    LOW(3),
+
+    /**
+     * The lowest
+     */
+    LOWEST(4);
+
+    /**
+     * The code
+     */
+    @Getter
+    private final int code;
 }

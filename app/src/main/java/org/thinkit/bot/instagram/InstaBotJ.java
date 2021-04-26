@@ -26,11 +26,13 @@ import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
+import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.param.UnfollowUser;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
+import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
 import org.thinkit.bot.instagram.result.LoginResult;
 import org.thinkit.common.base.precondition.Preconditions;
 
@@ -122,26 +124,32 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public List<AutoFollowResult> executeAutoFollow(@NonNull final List<FollowUser> followUsers,
+    public AutoFollowResult executeAutoFollow(@NonNull final List<FollowUser> followUsers,
             @NonNull final AutoFollowConfig autoFollowConfig) {
         Preconditions.requireNonEmpty(followUsers, "The follow user is required to execute auto follow command.");
         Preconditions.requirePositive(autoFollowConfig.getMaxFollow(), "The count of max follow must not be negative.");
         Preconditions.requirePositive(autoFollowConfig.getFollowInterval(),
                 "The count of follow interval must not be negative.");
 
-        final List<AutoFollowResult> autoFollowResults = new ArrayList<>();
-
-        return autoFollowResults;
+        return null;
     }
 
     @Override
-    public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
+    public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
             @NonNull final AutoUnfollowConfig autoUnfollowConfig) {
         Preconditions.requireNonEmpty(unfollowUsers, "The unfollow user is required to execute auto unfollow command.");
         Preconditions.requirePositive(autoUnfollowConfig.getMaxUnfollow(),
                 "The count of max unfollow must not be negative.");
         Preconditions.requirePositive(autoUnfollowConfig.getUnfollowInterval(),
                 "The count of unfollow interval must not be negative.");
+
+        return null;
+    }
+
+    @Override
+    public ForecastFollowBackResult forecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers) {
+        Preconditions.requireNonEmpty(forecastUsers,
+                "The forecast user is required to execute forecast follow back user command.");
 
         return null;
     }

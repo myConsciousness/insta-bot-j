@@ -12,32 +12,35 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.param;
+package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
+import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The entity that manages follow user.
+ * The class that manages the result of forecast follow back.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
+@Builder(toBuilder = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class FollowUser implements Serializable {
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public final class ForecastFollowBackResult implements Serializable {
 
     /**
-     * The use rname
+     * The users follow back is expectable
      */
     @Getter
-    private String userName;
+    private List<FollowBackExpectableUser> followBackExpectableUsers;
 }

@@ -16,7 +16,7 @@ package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,16 +26,46 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * The class that manages the user follow back is expectable.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
+@Builder(toBuilder = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class LogoutResult implements Serializable {
+public final class FollowBackExpectableUser implements Serializable {
 
     /**
-     * The action status
+     * The user name
      */
     @Getter
-    private ActionStatus actionStatus;
+    private String userName;
+
+    /**
+     * The follow back possibility
+     */
+    @Getter
+    private FollowBackPossibility followBackPossibility;
+
+    /**
+     * The following
+     */
+    @Getter
+    private int following;
+
+    /**
+     * The follower
+     */
+    @Getter
+    private int follower;
+
+    /**
+     * The follow diff
+     */
+    @Getter
+    private int followDiff;
 }

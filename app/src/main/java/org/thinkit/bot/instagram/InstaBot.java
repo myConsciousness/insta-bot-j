@@ -21,11 +21,13 @@ import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
+import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.param.UnfollowUser;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
+import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
 import org.thinkit.bot.instagram.result.LoginResult;
 
 import lombok.NonNull;
@@ -37,9 +39,11 @@ public interface InstaBot {
     public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags,
             @NonNull final AutoLikeConfig autoLikeConfig);
 
-    public List<AutoFollowResult> executeAutoFollow(@NonNull final List<FollowUser> followUsers,
+    public AutoFollowResult executeAutoFollow(@NonNull final List<FollowUser> followUsers,
             @NonNull final AutoFollowConfig autoFollowConfig);
 
-    public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
+    public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
             @NonNull final AutoUnfollowConfig autoUnfollowConfig);
+
+    public ForecastFollowBackResult forecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers);
 }
