@@ -25,6 +25,7 @@ import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.HashtagGroupMapper;
 import org.thinkit.bot.instagram.content.HashtagResourceMapper;
+import org.thinkit.bot.instagram.content.entity.HashtagGroup;
 import org.thinkit.bot.instagram.content.entity.HashtagResource;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
@@ -81,12 +82,17 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
         log.debug("START");
 
         final VariableRepository variableRepository = super.getMongoCollection().getVariableRepository();
-        final Variable variable = variableRepository.findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
+        Variable variable = variableRepository.findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
 
-        HashtagGroupMapper.newInstance().scan().forEach(hashtagGroup -> {
+        if (variable == null) {
+            variable = new Variable();
+            variable.setName(VariableName.HASHTAG_GROUP_COUNT.getTag());
+        }
+
+        for (final HashtagGroup hashtagGroup : HashtagGroupMapper.newInstance().scan()) {
             // This iteration should be always done only once
             variable.setValue(String.valueOf(hashtagGroup.getCount()));
-        });
+        }
 
         variableRepository.save(variable);
         log.debug("Updated variable: {}", variable);
