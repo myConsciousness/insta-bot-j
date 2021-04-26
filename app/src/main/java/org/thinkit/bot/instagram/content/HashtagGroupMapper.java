@@ -12,26 +12,23 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.util;
+package org.thinkit.bot.instagram.content;
 
-import java.util.Random;
+import org.thinkit.bot.instagram.content.entity.HashtagGroup;
+import org.thinkit.zenna.mapper.ContentMapper;
 
-import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-public final class RandomUtils {
-
-    /**
-     * The random
-     */
-    private static final Random RANDOM = new Random();
-
-    public static int generate(final int bound) {
-        return generate(bound, 0);
-    }
-
-    public static int generate(final int bound, final int weight) {
-        return RANDOM.nextInt(bound) + weight;
-    }
+/**
+ * The mapper class that manages the content {@code HashtagGroup} .
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@ToString
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(staticName = "newInstance")
+public final class HashtagGroupMapper extends ContentMapper<HashtagGroup> {
 }

@@ -1,0 +1,17 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the hashtag group.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.HahstagGroup"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "",
+                "count": 3
+            }
+        }
+    ],
+    "conditionNodes": []
+}

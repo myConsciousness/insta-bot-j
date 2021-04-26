@@ -22,7 +22,7 @@ plugins {
 }
 
 group = 'org.thinkit.bot.instagram'
-version = '0.0.1-SNAPSHOT'
+version = '1.0.0-SNAPSHOT'
 sourceCompatibility = '15'
 
 repositories {
@@ -48,6 +48,8 @@ dependencies {
 
 	implementation 'org.springframework.boot:spring-boot-starter-batch'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-devtools', version: '2.4.5'
+
 
 	implementation 'org.projectlombok:lombok:1.18.18'
 	annotationProcessor 'org.projectlombok:lombok:1.18.18'
@@ -55,7 +57,7 @@ dependencies {
 	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
 
     implementation 'org.seleniumhq.selenium:selenium-java:3.141.59'
-    implementation "io.github.bonigarcia:webdrivermanager:4.4.0"
+    implementation "io.github.bonigarcia:webdrivermanager:4.4.1"
     implementation group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
     implementation 'com.google.http-client:google-http-client:1.39.1'
 

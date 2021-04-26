@@ -31,6 +31,7 @@ import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
@@ -124,7 +125,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         log.debug("START");
 
         final List<Hashtag> hashtags = this.mongoCollection.getHashtagRepository()
-                .findByGroupCode(RandomUtils.generate());
+                .findByGroupCode(this.getTargetGroupCode());
         final List<TargetHashtag> targetHashtags = new ArrayList<>(hashtags.size());
 
         hashtags.forEach(hashtag -> {
@@ -134,6 +135,17 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
         log.debug("END");
         return targetHashtags;
+    }
+
+    private int getTargetGroupCode() {
+        log.debug("START");
+
+        final Variable variable = this.mongoCollection.getVariableRepository()
+                .findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
+        final int groupCount = Integer.parseInt(variable.getValue()) - 1;
+
+        log.debug("END");
+        return RandomUtils.generate(groupCount);
     }
 
     private AutoLikeConfig getAutoLikeConfig() {

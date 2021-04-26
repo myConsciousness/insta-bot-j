@@ -22,10 +22,14 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.batch.MongoCollection;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.content.HashtagGroupMapper;
 import org.thinkit.bot.instagram.content.HashtagResourceMapper;
 import org.thinkit.bot.instagram.content.entity.HashtagResource;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
+import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
+import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -54,6 +58,16 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
     protected RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
+        this.updateHashtag();
+        this.updateHashtagGroupCount();
+
+        log.debug("END");
+        return RepeatStatus.FINISHED;
+    }
+
+    private void updateHashtag() {
+        log.debug("START");
+
         final HashtagRepository hashtagRepository = this.mongoCollection.getHashtagRepository();
         hashtagRepository.deleteAll();
 
@@ -67,6 +81,23 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
         }
 
         log.debug("END");
-        return RepeatStatus.FINISHED;
+    }
+
+    private void updateHashtagGroupCount() {
+        log.debug("START");
+
+        final VariableRepository variableRepository = this.mongoCollection.getVariableRepository();
+        final Variable variable = this.mongoCollection.getVariableRepository()
+                .findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
+
+        HashtagGroupMapper.newInstance().scan().forEach(hashtagGroup -> {
+            // This iteration should be always done only once
+            variable.setValue(String.valueOf(hashtagGroup.getCount()));
+        });
+
+        variableRepository.save(variable);
+        log.debug("Updated variable: {}", variable);
+
+        log.debug("END");
     }
 }
