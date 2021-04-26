@@ -18,6 +18,7 @@ import com.mongodb.lang.NonNull;
 
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
+import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.MongoCollection;
@@ -37,9 +38,13 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
      */
     private InstaBot instaBot;
 
-    public ExecuteAutoFollowTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
+    private ExecuteAutoFollowTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
         super(TaskType.AUTO_FOLLOW, mongoCollection);
         this.instaBot = instaBot;
+    }
+
+    public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
+        return new ExecuteAutoFollowTasklet(instaBot, mongoCollection);
     }
 
     @Override

@@ -1,0 +1,69 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the follow state.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.FollowState"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "0",
+                "states": "フォローする"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "states": "フォローバックする"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "states": "フォロー中"
+            }
+        }
+    ],
+    "conditionNodes": [
+        {
+            "node": {
+                "conditionId": "0",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "followStateType",
+                        "operator": "=",
+                        "operand": "0"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "followStateType",
+                        "operator": "=",
+                        "operand": "1"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "followStateType",
+                        "operator": "=",
+                        "operand": "2"
+                    }
+                ]
+            }
+        }
+    ]
+}

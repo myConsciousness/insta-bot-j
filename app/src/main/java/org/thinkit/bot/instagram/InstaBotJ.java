@@ -129,7 +129,9 @@ public final class InstaBotJ extends AbstractInstaBot {
         Preconditions.requirePositive(autoFollowConfig.getFollowInterval(),
                 "The count of follow interval must not be negative.");
 
-        return null;
+        final List<AutoFollowResult> autoFollowResults = new ArrayList<>();
+
+        return autoFollowResults;
     }
 
     @Override

@@ -35,7 +35,9 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoFollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoUnfollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
@@ -156,9 +158,9 @@ public class BatchConfiguration {
             if (!this.logined) {
                 this.logined = true;
                 flowBuilder = jobBuilder.flow(this.executeLoginStep(userAccount)).next(this.reversalEntryHashtagStep())
-                        .next(this.executeAutolikeStep());
+                        .next(this.executeAutoLikeStep());
             } else {
-                flowBuilder = jobBuilder.flow(this.reversalEntryHashtagStep()).next(this.executeAutolikeStep());
+                flowBuilder = jobBuilder.flow(this.reversalEntryHashtagStep()).next(this.executeAutoLikeStep());
             }
 
             flowBuilder.next(this.notifyResultStep());
@@ -177,9 +179,19 @@ public class BatchConfiguration {
                 .tasklet(ReversalEntryHashtagTasklet.from(this.getMongoCollection())).build();
     }
 
-    public Step executeAutolikeStep() {
+    public Step executeAutoLikeStep() {
         return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_LIKE.getTag())
                 .tasklet(ExecuteAutoLikeTasklet.from(this.instaBot, this.getMongoCollection())).build();
+    }
+
+    public Step executeAutoFollowStep() {
+        return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_FOLLOW.getTag())
+                .tasklet(ExecuteAutoFollowTasklet.from(this.instaBot, this.getMongoCollection())).build();
+    }
+
+    public Step executeAutoUnfollowStep() {
+        return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_UNFOLLOW.getTag())
+                .tasklet(ExecuteAutoUnfollowTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     private Step notifyResultStep() {

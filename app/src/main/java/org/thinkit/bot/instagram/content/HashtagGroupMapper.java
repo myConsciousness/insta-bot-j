@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code HashtagGroup} .
+ * The mapper class that manages the content {@code "HashtagGroup"} .
  *
  * @author Kato Shinya
  * @since 1.0.0

@@ -12,23 +12,40 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.catalog;
 
-import org.thinkit.bot.instagram.content.entity.CompletedLikeState;
-import org.thinkit.zenna.mapper.ContentMapper;
+import org.thinkit.api.catalog.Catalog;
 
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 /**
- * The mapper class that manages the content {@code "CompletedLikeState"} .
+ * The catalog that manages follow state type.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
-public final class CompletedLikeStateMapper extends ContentMapper<CompletedLikeState> {
+@RequiredArgsConstructor
+public enum FollowStateType implements Catalog<FollowStateType> {
+
+    /**
+     * The state of not followed yet
+     */
+    NOT_FOLLOWED_YET(0),
+
+    /**
+     * The state of follow
+     */
+    FOLLOWER(1),
+
+    /**
+     * The state of already followed
+     */
+    ALREADY_FOLLOWED(2);
+
+    /**
+     * The code
+     */
+    @Getter
+    private final int code;
 }
