@@ -37,7 +37,6 @@ import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
-import org.thinkit.bot.instagram.batch.tasklet.ExecuteLogoutTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
 import org.thinkit.bot.instagram.catalog.BatchJob;
@@ -186,11 +185,6 @@ public class BatchConfiguration {
     private Step notifyResultStep() {
         return this.stepBuilderFactory.get(BatchStep.NOTIFY_RESULT.getTag())
                 .tasklet(NotifyResultTasklet.from(this.getMongoCollection())).build();
-    }
-
-    public Step logoutStep() {
-        return this.stepBuilderFactory.get(BatchStep.LOGOUT.getTag())
-                .tasklet(ExecuteLogoutTasklet.from(this.instaBot, this.getMongoCollection())).build();
     }
 
     private MongoCollection getMongoCollection() {

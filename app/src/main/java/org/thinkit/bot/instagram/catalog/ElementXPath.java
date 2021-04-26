@@ -39,49 +39,34 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     MY_PROFILE_ICON(1, "//*[@id=\"react-root\"]/section/nav/div[2]/div/div/div[3]/div/div[5]/span/img"),
 
     /**
-     * The logout
-     */
-    LOGOUT(2, "//*[@id=\"f19814fe7767fb8\"]/div/div/div"),
-
-    /**
      * The login completed
      */
-    LOGIN_COMPLETED(3, "//*[@id=\"react-root\"]/section/main/div/div/div/section/div/button"),
+    LOGIN_COMPLETED(2, "//*[@id=\"react-root\"]/section/main/div/div/div/section/div/button"),
 
     /**
      * The first element of tags
      */
-    TAGS_FIRST_ELEMENT(4, "//*[@id=\"react-root\"]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]"),
+    TAGS_FIRST_ELEMENT(3, "//*[@id=\"react-root\"]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]"),
 
     /**
      * The first element of tags
      */
-    TAGS_FIRST_ELEMENT_2(5, "//*[@id=\"react-root\"]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]"),
+    TAGS_FIRST_ELEMENT_2(4, "//*[@id=\"react-root\"]/section/main/article/div[2]/div/div[1]/div[1]/a/div/div[2]"),
 
     /**
      * The like button
      */
-    LIKE_BUTTON(6, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
+    LIKE_BUTTON(5, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
 
     /**
      * The like button
      */
-    LIKE_BUTTON_2(7, "/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
+    LIKE_BUTTON_2(6, "/html/body/div[4]/div[2]/div/article/div[3]/section[1]/span[1]/button"),
 
     /**
      * The comment button
      */
-    COMMENT_BUTTON(8, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button"),
-
-    /**
-     * The accept cookie button
-     */
-    ACCEPT_COOKIE_USE_BUTTON(9, "/html/body/div[2]/div/div/div/div[2]/button[1]"),
-
-    /**
-     * The deny notification button
-     */
-    DENY_NOTIFICATION_BUTTON(10, "/html/body/div[4]/div/div/div/div[3]/button[2]");
+    COMMENT_BUTTON(7, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button");
 
     /**
      * The code

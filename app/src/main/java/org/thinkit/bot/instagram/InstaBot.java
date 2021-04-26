@@ -25,7 +25,6 @@ import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 import org.thinkit.bot.instagram.result.LoginResult;
-import org.thinkit.bot.instagram.result.LogoutResult;
 
 import lombok.NonNull;
 
@@ -39,8 +38,4 @@ public interface InstaBot {
     public List<AutoFollowResult> executeAutoFollow(@NonNull final List<FollowUser> followUsers);
 
     public List<AutoUnfollowResult> executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers);
-
-    public LogoutResult executeLogout();
-
-    public void closeWebBrowser();
 }
