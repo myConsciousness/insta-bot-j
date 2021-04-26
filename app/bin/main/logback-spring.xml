@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml" />
     <include resource="org/springframework/boot/logging/logback/console-appender.xml" />
     <timestamp key="LOG_DATE" datePattern="yyyyMMdd" />
-    <property name="LOG_FILE" value="/Users/${USER}/Desktop/test.log" />
+    <property name="LOG_FILE" value="/Users/${USER}/log/instabot/batch_runtime.log" />
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <encoder>
             <pattern>${FILE_LOG_PATTERN}</pattern>
