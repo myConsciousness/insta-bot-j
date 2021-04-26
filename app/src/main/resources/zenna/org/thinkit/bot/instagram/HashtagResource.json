@@ -68,6 +68,27 @@
                 "tag": "instagood",
                 "groupCode": 2
             }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "life",
+                "groupCode": 3
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "travel",
+                "groupCode": 3
+            }
+        },
+        {
+            "node": {
+                "conditionId": "",
+                "tag": "nature",
+                "groupCode": 3
+            }
         }
     ],
     "conditionNodes": []
