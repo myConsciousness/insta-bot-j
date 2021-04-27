@@ -21,8 +21,9 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
-import org.thinkit.bot.instagram.batch.MongoCollection;
+import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.mongo.MongoCollection;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -49,12 +50,12 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
     }
 
     @Override
-    protected RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
+    protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
         this.instaBot.executeAutoUnfollow(null, null);
 
         log.debug("END");
-        return RepeatStatus.FINISHED;
+        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
     }
 }

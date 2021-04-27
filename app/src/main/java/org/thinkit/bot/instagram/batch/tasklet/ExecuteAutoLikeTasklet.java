@@ -22,12 +22,13 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
-import org.thinkit.bot.instagram.batch.MongoCollection;
+import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
+import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
@@ -65,7 +66,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     }
 
     @Override
-    public RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
+    public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
         final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getTargetHashtags(),
@@ -121,7 +122,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         super.createMessageMeta(sumLikes, messageMetaStatus);
 
         log.debug("END");
-        return RepeatStatus.FINISHED;
+        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
     }
 
     private List<TargetHashtag> getTargetHashtags() {

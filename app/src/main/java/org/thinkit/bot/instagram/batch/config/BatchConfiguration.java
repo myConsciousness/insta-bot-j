@@ -12,23 +12,20 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo;
+package org.thinkit.bot.instagram.batch.config;
 
+import org.springframework.batch.core.launch.support.SimpleJobLauncher;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
-import org.thinkit.bot.instagram.catalog.MongoDatabase;
 
-/**
- * The configuration class for MongoDB.
- *
- * @author Kato Shinya
- * @since 1.0.0
- */
 @Configuration
-public class MongoConfiguration extends AbstractMongoClientConfiguration {
+public class BatchConfiguration {
 
-    @Override
-    protected String getDatabaseName() {
-        return MongoDatabase.INSTAGRAM.getTag();
+    @Bean
+    public SimpleJobLauncher simpleJobLauncher(JobRepository jobRepository) {
+        SimpleJobLauncher launcher = new SimpleJobLauncher();
+        launcher.setJobRepository(jobRepository);
+        return launcher;
     }
 }

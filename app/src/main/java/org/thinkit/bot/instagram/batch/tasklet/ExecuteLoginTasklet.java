@@ -21,8 +21,9 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.InstaBot;
-import org.thinkit.bot.instagram.batch.MongoCollection;
+import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.param.ActionUser;
 
@@ -58,13 +59,13 @@ public final class ExecuteLoginTasklet extends AbstractTasklet {
     }
 
     @Override
-    public RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
+    public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
         this.instaBot.executeLogin(ActionUser.from(this.userAccount.getUserName(), this.userAccount.getPassword()));
         log.info("The login to Instagram has been successfully completed.");
 
         log.debug("END");
-        return RepeatStatus.FINISHED;
+        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
     }
 }

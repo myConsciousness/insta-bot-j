@@ -22,10 +22,11 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.thinkit.bot.instagram.batch.MongoCollection;
+import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.message.LineMessageBuilder;
+import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.notification.LineNotify;
 
@@ -47,7 +48,7 @@ public final class NotifyResultTasklet extends AbstractTasklet {
     }
 
     @Override
-    protected RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext) {
+    protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
         final List<MessageMeta> messageMetas = this.getMongoCollection().getMessageMetaRepository().findAll();
@@ -58,6 +59,6 @@ public final class NotifyResultTasklet extends AbstractTasklet {
         log.debug("The message has been sent.");
 
         log.debug("END");
-        return RepeatStatus.FINISHED;
+        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
     }
 }

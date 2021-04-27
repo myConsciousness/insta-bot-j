@@ -12,9 +12,12 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.batch.result;
 
 import java.io.Serializable;
+
+import org.springframework.batch.repeat.RepeatStatus;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,7 +28,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages action unfollowed user.
+ * The class that manages the result of batch task.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -35,41 +38,17 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionUnfollowedUser implements Serializable {
+public final class BatchTaskResult implements Serializable {
 
     /**
-     * The user name
+     * The action status
      */
     @Getter
-    private String userName;
+    private ActionStatus actionStatus;
 
     /**
-     * The nickname
+     * The repeat status
      */
     @Getter
-    private String nickname;
-
-    /**
-     * The url
-     */
-    @Getter
-    private String url;
-
-    /**
-     * The post
-     */
-    @Getter
-    private int post;
-
-    /**
-     * The follower
-     */
-    @Getter
-    private int follower;
-
-    /**
-     * The following
-     */
-    @Getter
-    private int following;
+    private RepeatStatus repeatStatus;
 }

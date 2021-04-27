@@ -22,9 +22,10 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.thinkit.bot.instagram.batch.MongoCollection;
+import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
@@ -57,7 +58,7 @@ public abstract class AbstractTasklet implements Tasklet {
     @Getter(AccessLevel.PROTECTED)
     private MongoCollection mongoCollection;
 
-    protected abstract RepeatStatus executeTask(StepContribution contribution, ChunkContext chunkContext);
+    protected abstract BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext);
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
@@ -66,11 +67,11 @@ public abstract class AbstractTasklet implements Tasklet {
         final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
 
         this.updateStartAction(lastActionRepository);
-        final RepeatStatus repeatStatus = this.executeTask(contribution, chunkContext);
+        final BatchTaskResult batchTaskResult = this.executeTask(contribution, chunkContext);
         this.updateEndAction(lastActionRepository);
 
         log.debug("END");
-        return repeatStatus;
+        return batchTaskResult.getRepeatStatus();
     }
 
     protected void createMessageMeta(final int countAttempt) {
