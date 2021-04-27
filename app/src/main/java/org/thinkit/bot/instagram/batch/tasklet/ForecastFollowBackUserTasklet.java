@@ -17,16 +17,15 @@ package org.thinkit.bot.instagram.batch.tasklet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mongodb.lang.NonNull;
-
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.param.ForecastUser;
 
@@ -37,21 +36,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@Component
 public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
     /**
      * The insta bot
      */
+    @Autowired
     private InstaBot instaBot;
 
-    private ForecastFollowBackUserTasklet(@NonNull final InstaBot instaBot,
-            @NonNull final MongoCollection mongoCollection) {
-        super(TaskType.FORECAST_FOLLOW_BACK_USER, mongoCollection);
-        this.instaBot = instaBot;
+    private ForecastFollowBackUserTasklet() {
+        super(TaskType.FORECAST_FOLLOW_BACK_USER);
     }
 
-    public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        return new ForecastFollowBackUserTasklet(instaBot, mongoCollection);
+    public static Tasklet newInstance() {
+        return new ForecastFollowBackUserTasklet();
     }
 
     @Override

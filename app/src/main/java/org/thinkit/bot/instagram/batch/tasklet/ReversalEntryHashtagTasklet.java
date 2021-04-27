@@ -14,12 +14,11 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
-import com.mongodb.lang.NonNull;
-
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
@@ -27,7 +26,6 @@ import org.thinkit.bot.instagram.content.HashtagGroupMapper;
 import org.thinkit.bot.instagram.content.HashtagResourceMapper;
 import org.thinkit.bot.instagram.content.entity.HashtagGroup;
 import org.thinkit.bot.instagram.content.entity.HashtagResource;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
@@ -40,14 +38,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@Component
 public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
 
-    private ReversalEntryHashtagTasklet(@NonNull final MongoCollection mongoCollection) {
-        super(TaskType.REVERSAL_ENTRY_HASHTAG, mongoCollection);
+    private ReversalEntryHashtagTasklet() {
+        super(TaskType.REVERSAL_ENTRY_HASHTAG);
     }
 
-    public static Tasklet from(@NonNull final MongoCollection mongoCollection) {
-        return new ReversalEntryHashtagTasklet(mongoCollection);
+    public static Tasklet newInstance() {
+        return new ReversalEntryHashtagTasklet();
     }
 
     @Override

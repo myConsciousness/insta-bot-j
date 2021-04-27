@@ -14,16 +14,15 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
-import com.mongodb.lang.NonNull;
-
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -32,21 +31,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@Component
 public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
     /**
      * The insta bot
      */
+    @Autowired
     private InstaBot instaBot;
 
-    private ExecuteAutoUnfollowTasklet(@NonNull final InstaBot instaBot,
-            @NonNull final MongoCollection mongoCollection) {
-        super(TaskType.AUTO_FOLLOW, mongoCollection);
-        this.instaBot = instaBot;
+    private ExecuteAutoUnfollowTasklet() {
+        super(TaskType.AUTO_FOLLOW);
     }
 
-    public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        return new ExecuteAutoUnfollowTasklet(instaBot, mongoCollection);
+    public static Tasklet newInstance() {
+        return new ExecuteAutoUnfollowTasklet();
     }
 
     @Override

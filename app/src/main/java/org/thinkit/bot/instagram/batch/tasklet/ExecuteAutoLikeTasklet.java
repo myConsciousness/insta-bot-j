@@ -21,6 +21,8 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
@@ -42,27 +44,27 @@ import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.util.RandomUtils;
 
 import lombok.EqualsAndHashCode;
-import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@Component
 public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
     /**
      * The insta bot
      */
+    @Autowired
     private InstaBot instaBot;
 
-    private ExecuteAutoLikeTasklet(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        super(TaskType.AUTO_LIKE, mongoCollection);
-        this.instaBot = instaBot;
+    private ExecuteAutoLikeTasklet() {
+        super(TaskType.AUTO_LIKE);
     }
 
-    public static Tasklet from(@NonNull final InstaBot instaBot, @NonNull final MongoCollection mongoCollection) {
-        return new ExecuteAutoLikeTasklet(instaBot, mongoCollection);
+    public static Tasklet newInstance() {
+        return new ExecuteAutoLikeTasklet();
     }
 
     @Override

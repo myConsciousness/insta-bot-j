@@ -16,17 +16,15 @@ package org.thinkit.bot.instagram.batch.tasklet;
 
 import java.util.List;
 
-import com.mongodb.lang.NonNull;
-
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
+import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.message.LineMessageBuilder;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.notification.LineNotify;
 
@@ -37,14 +35,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@Component
 public final class NotifyResultTasklet extends AbstractTasklet {
 
-    private NotifyResultTasklet(@NonNull final MongoCollection mongoCollection) {
-        super(TaskType.NOTIFY_RESULT, mongoCollection);
+    private NotifyResultTasklet() {
+        super(TaskType.NOTIFY_RESULT);
     }
 
-    public static Tasklet from(@NonNull final MongoCollection mongoCollection) {
-        return new NotifyResultTasklet(mongoCollection);
+    public static Tasklet newInstance() {
+        return new NotifyResultTasklet();
     }
 
     @Override
