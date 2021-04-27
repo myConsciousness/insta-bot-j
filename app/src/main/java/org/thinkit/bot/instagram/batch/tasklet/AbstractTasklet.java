@@ -23,6 +23,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -52,6 +53,13 @@ public abstract class AbstractTasklet implements Tasklet {
      * The task type
      */
     private final TaskType taskType;
+
+    /**
+     * The insta bot
+     */
+    @Autowired
+    @Getter(AccessLevel.PROTECTED)
+    private InstaBot instaBot;
 
     /**
      * The mongo collection

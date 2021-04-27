@@ -21,9 +21,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
@@ -53,12 +51,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
-    /**
-     * The insta bot
-     */
-    @Autowired
-    private InstaBot instaBot;
-
     private ExecuteAutoLikeTasklet() {
         super(TaskType.AUTO_LIKE);
     }
@@ -71,7 +63,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final List<AutoLikeResult> autolikeResults = this.instaBot.executeAutoLikes(this.getTargetHashtags(),
+        final List<AutoLikeResult> autolikeResults = super.getInstaBot().executeAutoLikes(this.getTargetHashtags(),
                 this.getAutoLikeConfig());
         log.info("The autolike has completed the process successfully.");
 
