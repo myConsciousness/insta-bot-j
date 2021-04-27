@@ -12,35 +12,44 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.mongo.entity;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Date;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
 
 /**
- * The class that manages the result of forecast follow back.
+ * The entity that manages follow back expectable user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@ToString
-@EqualsAndHashCode
-@Builder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ForecastFollowBackResult implements Serializable {
+@Data
+@Document("excluded_user")
+public final class FollowBackExpectableUser implements Serializable {
 
     /**
-     * The users follow back is expectable
+     * The id
      */
-    @Getter
-    private List<ExpectableUser> followBackExpectableUsers;
+    @Id
+    private String id;
+
+    /**
+     * The user name
+     */
+    private String userName;
+
+    /**
+     * The created datetime
+     */
+    private Date createdAt = new Date();
+
+    /**
+     * The updated datetime
+     */
+    private Date updatedAt = new Date();
 }

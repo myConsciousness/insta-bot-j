@@ -27,7 +27,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the user follow back is expectable.
+ * The class that manages the expectable user.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -37,7 +37,7 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class FollowBackExpectableUser implements Serializable {
+public final class ExpectableUser implements Serializable {
 
     /**
      * The user name

@@ -18,6 +18,7 @@ import java.io.Serializable;
 
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
+import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
@@ -93,4 +94,10 @@ public final class MongoCollection implements Serializable {
      */
     @Getter
     private MessageMetaRepository messageMetaRepository;
+
+    /**
+     * The follow back expectable user repository
+     */
+    @Getter
+    private FollowBackExpectableUserRepository followBackExpectableUserRepository;
 }
