@@ -17,6 +17,8 @@ package org.thinkit.bot.instagram.result;
 import java.io.Serializable;
 import java.util.List;
 
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -37,6 +39,12 @@ import lombok.ToString;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ForecastFollowBackResult implements Serializable {
+
+    /**
+     * The action status
+     */
+    @Getter
+    private ActionStatus actionStatus;
 
     /**
      * The expectable users

@@ -15,6 +15,7 @@
 package org.thinkit.bot.instagram.batch.tasklet;
 
 import java.util.Date;
+import java.util.List;
 
 import com.mongodb.lang.NonNull;
 
@@ -28,10 +29,13 @@ import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
+import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
+import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.common.base.precondition.Preconditions;
 
 import lombok.AccessLevel;
@@ -84,13 +88,32 @@ public abstract class AbstractTasklet implements Tasklet {
         return batchTaskResult.getRepeatStatus();
     }
 
-    protected void createMessageMeta(final int countAttempt) {
+    protected void saveActionError(@NonNull final List<ActionError> actionErrors) {
         log.debug("START");
-        this.createMessageMeta(countAttempt, MessageMetaStatus.COMPLETED);
+
+        final ErrorRepository errorRepository = this.mongoCollection.getErrorRepository();
+
+        for (final ActionError actionError : actionErrors) {
+            final Error error = new Error();
+            error.setTaskTypeCode(actionError.getTaskType().getCode());
+            error.setMessage(actionError.getMessage());
+            error.setLocalizedMessage(actionError.getLocalizedMessage());
+            error.setStackTrace(actionError.getStackTrace());
+
+            final Error insertedError = errorRepository.insert(error);
+            log.debug("Inserted error: {}", insertedError);
+        }
+
         log.debug("END");
     }
 
-    protected void createMessageMeta(final int countAttempt, @NonNull final MessageMetaStatus messageMetaStatus) {
+    protected void saveMessageMeta(final int countAttempt) {
+        log.debug("START");
+        this.saveMessageMeta(countAttempt, MessageMetaStatus.COMPLETED);
+        log.debug("END");
+    }
+
+    protected void saveMessageMeta(final int countAttempt, @NonNull final MessageMetaStatus messageMetaStatus) {
         log.debug("START");
         Preconditions.requirePositive(countAttempt);
 

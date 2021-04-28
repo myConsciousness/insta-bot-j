@@ -30,13 +30,11 @@ import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
-import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
-import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.util.RandomUtils;
@@ -86,18 +84,8 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
             }
 
             if (autolikeResult.getActionErrors() != null) {
-                log.debug("Autolike runtime error detected.");
-
-                for (final ActionError actionError : autolikeResult.getActionErrors()) {
-                    final Error error = new Error();
-                    error.setTaskTypeCode(actionError.getTaskType().getCode());
-                    error.setMessage(actionError.getMessage());
-                    error.setLocalizedMessage(actionError.getLocalizedMessage());
-                    error.setStackTrace(actionError.getStackTrace());
-
-                    final Error insertedError = mongoCollection.getErrorRepository().insert(error);
-                    log.debug("Inserted error: {}", insertedError);
-                }
+                log.debug("Auto Like runtime error detected.");
+                super.saveActionError(autolikeResult.getActionErrors());
             }
 
             if (autolikeResult.getActionStatus() == ActionStatus.INTERRUPTED) {
@@ -113,7 +101,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         mongoCollection.getActionRecordRepository().insert(actionRecord);
         log.debug("Inserted action record: {}", actionRecord);
 
-        super.createMessageMeta(sumLikes, messageMetaStatus);
+        super.saveMessageMeta(sumLikes, messageMetaStatus);
 
         log.debug("END");
         return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();

@@ -151,8 +151,6 @@ public final class InstaBotJ extends AbstractInstaBot {
     public ForecastFollowBackResult executeForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers) {
         Preconditions.requireNonEmpty(forecastUsers,
                 "The forecast user is required to execute forecast follow back user command.");
-
-        ForecastFollowBackUserCommand.from(forecastUsers).execute(super.getWebDriver());
-        return null;
+        return ForecastFollowBackUserCommand.from(forecastUsers).execute(super.getWebDriver());
     }
 }

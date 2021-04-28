@@ -36,7 +36,12 @@ public enum Delimiter implements BiCatalog<Delimiter, String> {
     /**
      * The equal {@code "="}
      */
-    EQUAL(1, "=");
+    EQUAL(1, "="),
+
+    /**
+     * The comma {@code ","}
+     */
+    COMMA(2, ",");
 
     /**
      * The code

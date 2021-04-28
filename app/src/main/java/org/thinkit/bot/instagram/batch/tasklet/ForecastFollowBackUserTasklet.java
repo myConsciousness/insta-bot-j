@@ -26,8 +26,11 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.param.ForecastUser;
+import org.thinkit.bot.instagram.result.ExpectableUser;
 import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
 
 import lombok.EqualsAndHashCode;
@@ -54,10 +57,38 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
         final ForecastFollowBackResult followBackResult = super.getInstaBot()
                 .executeForecastFollowBackUser(this.getForecastUsers());
-        log.debug("Forecast follow back result: {}", followBackResult);
+        log.info("The forecast follow back user has completed the process successfully.");
+
+        final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollection()
+                .getFollowBackExpectableUserRepository();
+        final List<ExpectableUser> expectableUsers = followBackResult.getExpectableUsers();
+
+        for (final ExpectableUser expectableUser : expectableUsers) {
+            final FollowBackExpectableUser followBackExpectableUser = new FollowBackExpectableUser();
+            followBackExpectableUser.setUserName(expectableUser.getUserName());
+            followBackExpectableUser.setFollowBackPossibilityCode(expectableUser.getFollowBackPossibility().getCode());
+            followBackExpectableUser.setPost(expectableUser.getPost());
+            followBackExpectableUser.setFollower(expectableUser.getFollower());
+            followBackExpectableUser.setFollowing(expectableUser.getFollowing());
+            followBackExpectableUser.setFollowDiff(expectableUser.getFollowDiff());
+
+            followBackExpectableUserRepository.insert(followBackExpectableUser);
+            log.debug("Interted follow back expectable user: {}", followBackExpectableUser);
+
+            if (followBackResult.getActionErrors() != null) {
+                log.debug("Forecast follow back user runtime error detected.");
+                super.saveActionError(followBackResult.getActionErrors());
+            }
+        }
+
+        super.saveMessageMeta(expectableUsers.size());
+
+        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
+        batchTaskResultBuilder.actionStatus(followBackResult.getActionStatus());
+        batchTaskResultBuilder.repeatStatus(RepeatStatus.FINISHED);
 
         log.debug("END");
-        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
+        return batchTaskResultBuilder.build();
     }
 
     private List<ForecastUser> getForecastUsers() {
@@ -79,13 +110,18 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
     private boolean isDuplicateUser(@NonNull final List<ForecastUser> forecastUsers,
             @NonNull final LikedPhoto likedPhoto) {
+        log.debug("START");
 
         for (final ForecastUser forecastUser : forecastUsers) {
             if (forecastUser.getUserName().equals(likedPhoto.getUserName())) {
+                log.debug("The duplicate user has detected.");
+                log.debug("END");
                 return true;
             }
         }
 
+        log.debug("The duplicate user has not detected.");
+        log.debug("END");
         return false;
     }
 }

@@ -30,7 +30,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
-@Document("excluded_user")
+@Document("follow_back_expectable_user")
 public final class FollowBackExpectableUser implements Serializable {
 
     /**
@@ -50,6 +50,26 @@ public final class FollowBackExpectableUser implements Serializable {
      * The follow back possibility code
      */
     private int followBackPossibilityCode;
+
+    /**
+     * The post
+     */
+    private int post;
+
+    /**
+     * The following
+     */
+    private int following;
+
+    /**
+     * The follower
+     */
+    private int follower;
+
+    /**
+     * The follow diff
+     */
+    private int followDiff;
 
     /**
      * The created datetime

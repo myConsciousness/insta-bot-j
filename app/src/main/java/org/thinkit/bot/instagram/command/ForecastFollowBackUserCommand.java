@@ -17,6 +17,9 @@ package org.thinkit.bot.instagram.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.Delimiter;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
@@ -29,7 +32,6 @@ import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ExpectableUser;
 import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
-import org.thinkit.bot.instagram.util.NumberUnitResolver;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -55,7 +57,7 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
         final List<ExpectableUser> expectableUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
-        final NumberUnitResolver numberUnitResolver = NumberUnitResolver.from(this.getNumberUnitResource());
+        final NumberUnitResource numberUnitResource = this.getNumberUnitResource();
         final FollowBackPossibilityIndicator followBackPossibilityIndicator = this.getFollowBackPossibilityIndicator();
 
         for (final ForecastUser forecastUser : this.forecastUsers) {
@@ -64,9 +66,13 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
                 final String userProfileUrl = String.format(InstagramUrl.USER_PROFILE.getTag(), userName);
                 super.getWebPage(userProfileUrl);
 
-                final int postCount = this.fetchPostCount(numberUnitResolver);
-                final int followerCount = this.fetchFollowerCount(numberUnitResolver);
-                final int followingCount = this.fetchFollowingCount(numberUnitResolver);
+                if (this.isUserInfluencer(numberUnitResource)) {
+                    continue;
+                }
+
+                final int postCount = this.fetchPostCount();
+                final int followerCount = this.fetchFollowerCount();
+                final int followingCount = this.fetchFollowingCount();
 
                 final int followDiff = followerCount - followingCount;
                 final FollowBackPossibility followBackPossibility = this.getFollowBackPossibility(followDiff,
@@ -92,6 +98,7 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
 
         final ForecastFollowBackResult.ForecastFollowBackResultBuilder forecastFollowBackResultBuilder = ForecastFollowBackResult
                 .builder();
+        forecastFollowBackResultBuilder.actionStatus(ActionStatus.COMPLETED);
         forecastFollowBackResultBuilder.expectableUsers(expectableUsers);
 
         if (!actionErrors.isEmpty()) {
@@ -101,18 +108,29 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
         return forecastFollowBackResultBuilder.build();
     }
 
-    private int fetchPostCount(@NonNull final NumberUnitResolver numberUnitResolver) {
-        return numberUnitResolver.deduceInt(super.findByCssSelector(ElementCssSelector.PROFILE_POST_COUNT).getText());
+    private boolean isUserInfluencer(@NonNull final NumberUnitResource numberUnitResource) {
+        final String follower = super.findByCssSelector(ElementCssSelector.PROFILE_FOLLOWER_COUNT).getText();
+        return follower.contains(numberUnitResource.getUnit1()) || follower.contains(numberUnitResource.getUnit2());
     }
 
-    private int fetchFollowerCount(@NonNull final NumberUnitResolver numberUnitResolver) {
-        return numberUnitResolver
-                .deduceInt(super.findByCssSelector(ElementCssSelector.PROFILE_FOLLOWER_COUNT).getText());
+    private int fetchPostCount() {
+        return Integer.parseInt(this.getNumberText(ElementCssSelector.PROFILE_POST_COUNT));
     }
 
-    private int fetchFollowingCount(@NonNull final NumberUnitResolver numberUnitResolver) {
-        return numberUnitResolver
-                .deduceInt(super.findByCssSelector(ElementCssSelector.PROFILE_FOLLOWING_COUNT).getText());
+    private int fetchFollowerCount() {
+        return Integer.parseInt(this.getNumberText(ElementCssSelector.PROFILE_FOLLOWER_COUNT));
+    }
+
+    private int fetchFollowingCount() {
+        return Integer.parseInt(this.getNumberText(ElementCssSelector.PROFILE_FOLLOWING_COUNT));
+    }
+
+    private String getNumberText(@NonNull final ElementCssSelector elementCssSelector) {
+        return this.removeComma(super.findByCssSelector(elementCssSelector).getText());
+    }
+
+    private String removeComma(@NonNull final String number) {
+        return StringUtils.remove(number, Delimiter.COMMA.getTag());
     }
 
     private FollowBackPossibility getFollowBackPossibility(final int indicator,
