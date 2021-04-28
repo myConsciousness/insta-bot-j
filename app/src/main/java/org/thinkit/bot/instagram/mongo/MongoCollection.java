@@ -17,6 +17,7 @@ package org.thinkit.bot.instagram.mongo;
 import java.io.Serializable;
 
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
+import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
@@ -70,6 +71,12 @@ public final class MongoCollection implements Serializable {
      */
     @Getter
     private ErrorRepository errorRepository;
+
+    /**
+     * The action restriction repository
+     */
+    @Getter
+    private ActionRestrictionRepository actionRestrictionRepository;
 
     /**
      * The action record repository

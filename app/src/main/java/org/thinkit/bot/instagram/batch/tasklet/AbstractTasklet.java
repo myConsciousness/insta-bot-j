@@ -32,10 +32,12 @@ import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.DefaultVariableMapper;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
+import org.thinkit.bot.instagram.mongo.entity.ActionRestriction;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
+import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
@@ -85,25 +87,22 @@ public abstract class AbstractTasklet implements Tasklet {
 
         this.updateStartAction();
 
-        final BatchTaskResult batchTaskResult = this.executeTask(contribution, chunkContext);
-        final int countAttempt = batchTaskResult.getCountAttempt();
-        final ActionStatus actionStatus = batchTaskResult.getActionStatus();
-        final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
+        final List<ActionRestriction> actionRestrictions = this.mongoCollection.getActionRestrictionRepository()
+                .findAll();
 
-        this.saveActionRecord(countAttempt, actionStatus);
+        if (actionRestrictions != null && this.isRestrictable()) {
 
-        if (!actionErrors.isEmpty()) {
-            this.saveActionError(actionErrors);
+            if (this.canSendResultMessage()) {
+                this.saveMessageMeta(0, ActionStatus.SKIPPED);
+            }
+
+            this.updateEndAction();
+
+            return RepeatStatus.FINISHED;
         }
-
-        if (this.canSendResultMessage()) {
-            this.saveMessageMeta(countAttempt, actionStatus);
-        }
-
-        this.updateEndAction();
 
         log.debug("END");
-        return batchTaskResult.getRepeatStatus();
+        return this.executeTaskProcess(contribution, chunkContext);
     }
 
     protected String getVariableValue(@NonNull final VariableName variableName) {
@@ -125,8 +124,41 @@ public abstract class AbstractTasklet implements Tasklet {
         return variable.getValue();
     }
 
+    private RepeatStatus executeTaskProcess(StepContribution contribution, ChunkContext chunkContext) {
+        log.debug("START");
+
+        final BatchTaskResult batchTaskResult = this.executeTask(contribution, chunkContext);
+        final int countAttempt = batchTaskResult.getCountAttempt();
+        final ActionStatus actionStatus = batchTaskResult.getActionStatus();
+        final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
+
+        this.saveActionRecord(countAttempt, actionStatus);
+
+        if (!actionErrors.isEmpty()) {
+            this.saveActionError(actionErrors);
+        }
+
+        if (actionStatus == ActionStatus.INTERRUPTED) {
+            this.saveActionRestriction();
+        }
+
+        if (this.canSendResultMessage()) {
+            this.saveMessageMeta(countAttempt, actionStatus);
+        }
+
+        this.updateEndAction();
+
+        log.debug("END");
+        return batchTaskResult.getRepeatStatus();
+    }
+
     private boolean canSendResultMessage() {
         return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.FORECAST_FOLLOW_BACK_USER;
+    }
+
+    private boolean isRestrictable() {
+        return this.taskType == TaskType.REVERSAL_ENTRY_HASHTAG || this.taskType == TaskType.AUTO_LIKE
+                || this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
 
     private void saveActionRecord(final int countAttempt, @NonNull final ActionStatus actionStatus) {
@@ -158,6 +190,21 @@ public abstract class AbstractTasklet implements Tasklet {
             final Error insertedError = errorRepository.insert(error);
             log.debug("Inserted error: {}", insertedError);
         }
+
+        log.debug("END");
+    }
+
+    private void saveActionRestriction() {
+        log.debug("START");
+
+        final ActionRestrictionRepository actionRestrictionRepository = this.mongoCollection
+                .getActionRestrictionRepository();
+
+        final ActionRestriction actionRestriction = new ActionRestriction();
+        actionRestriction.setTaskTypeCode(this.taskType.getCode());
+
+        actionRestrictionRepository.insert(actionRestriction);
+        log.debug("Inserted action restriction: {}", actionRestriction);
 
         log.debug("END");
     }

@@ -12,50 +12,18 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.mongo.repository;
 
-import org.thinkit.api.catalog.Catalog;
-
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+import org.thinkit.bot.instagram.mongo.entity.ActionRestriction;
 
 /**
- * The catalog that manages action status.
+ * The interface that manages action restriction repository.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@RequiredArgsConstructor
-public enum ActionStatus implements Catalog<ActionStatus> {
-
-    /**
-     * The preparing
-     */
-    PREPARING(0),
-
-    /**
-     * The running
-     */
-    RUNNING(1),
-
-    /**
-     * The interrupted
-     */
-    INTERRUPTED(2),
-
-    /**
-     * The completed
-     */
-    COMPLETED(3),
-
-    /**
-     * The skipped
-     */
-    SKIPPED(4);
-
-    /**
-     * The code
-     */
-    @Getter
-    private final int code;
+@Repository
+public interface ActionRestrictionRepository extends MongoRepository<ActionRestriction, String> {
 }

@@ -21,6 +21,7 @@ import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.thinkit.bot.instagram.catalog.MongoDatabase;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
+import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
@@ -70,6 +71,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     private ErrorRepository errorRepository;
 
     /**
+     * The action restriction repository
+     */
+    @Autowired
+    private ActionRestrictionRepository actionRestrictionRepository;
+
+    /**
      * The action record repository
      */
     @Autowired
@@ -104,6 +111,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionBuilder.hashtagRepository(this.hashtagRepository);
         mongoCollectionBuilder.likedPhotoRepository(this.likedPhotoRepository);
         mongoCollectionBuilder.errorRepository(this.errorRepository);
+        mongoCollectionBuilder.actionRestrictionRepository(this.actionRestrictionRepository);
         mongoCollectionBuilder.actionRecordRepository(this.actionRecordRepository);
         mongoCollectionBuilder.lastActionRepository(this.lastActionRepository);
         mongoCollectionBuilder.messageMetaRepository(this.messageMetaRepository);
