@@ -12,40 +12,35 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.config;
+package org.thinkit.bot.instagram.content.entity;
 
 import java.io.Serializable;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import org.thinkit.zenna.entity.ContentEntity;
+
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the configuration when execution auto like command.
+ * The entity that manages the content {@code "DefaultVariable"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoLikeConfig implements Serializable {
+public final class DefaultVariable implements ContentEntity, Serializable {
 
     /**
-     * The max like
+     * The name
      */
     @Getter
-    private int maxLike;
+    private String name;
 
     /**
-     * The like interval
+     * The value
      */
     @Getter
-    private int likeInterval;
+    private String value;
 }

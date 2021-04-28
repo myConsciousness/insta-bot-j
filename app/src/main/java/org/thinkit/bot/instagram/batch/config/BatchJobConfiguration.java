@@ -107,12 +107,11 @@ public class BatchJobConfiguration {
 
         if (!this.logined) {
             this.logined = true;
-            return jobBuilder.flow(this.executeLoginStep).next(this.forecastFollowBackUserStep);
-            // .next(this.reversalEntryHashtagStep)
-            // .next(this.executeAutoLikeStep).next(this.notifyResultStep);
+            return jobBuilder.flow(this.executeLoginStep).next(this.reversalEntryHashtagStep)
+                    .next(this.executeAutoLikeStep).next(this.forecastFollowBackUserStep).next(this.notifyResultStep);
         }
 
         return jobBuilder.flow(this.reversalEntryHashtagStep).next(this.executeAutoLikeStep)
-                .next(this.notifyResultStep);
+                .next(this.forecastFollowBackUserStep).next(this.notifyResultStep);
     }
 }

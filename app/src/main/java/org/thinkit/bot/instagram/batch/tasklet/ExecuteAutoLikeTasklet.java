@@ -20,21 +20,19 @@ import java.util.List;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
-import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
+import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.util.RandomUtils;
@@ -65,10 +63,12 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
                 this.getAutoLikeConfig());
         log.info("The autolike has completed the process successfully.");
 
-        MessageMetaStatus messageMetaStatus = MessageMetaStatus.COMPLETED;
         final MongoCollection mongoCollection = super.getMongoCollection();
+        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
 
         int sumLikes = 0;
+        final List<ActionError> actionErrors = new ArrayList<>();
+
         for (final AutoLikeResult autolikeResult : autolikeResults) {
             final String hashtag = autolikeResult.getHashtag();
             sumLikes += autolikeResult.getCountLikes();
@@ -85,26 +85,21 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
             if (autolikeResult.getActionErrors() != null) {
                 log.debug("Auto Like runtime error detected.");
-                super.saveActionError(autolikeResult.getActionErrors());
+                autolikeResult.getActionErrors().forEach(actionError -> {
+                    actionErrors.add(actionError);
+                });
             }
 
             if (autolikeResult.getActionStatus() == ActionStatus.INTERRUPTED) {
-                messageMetaStatus = MessageMetaStatus.INTERRUPTED;
+                batchTaskResultBuilder.actionStatus(ActionStatus.INTERRUPTED);
             }
         }
 
-        final ActionRecord actionRecord = new ActionRecord();
-        actionRecord.setTaskTypeCode(TaskType.AUTO_LIKE.getCode());
-        actionRecord.setCountAttempt(sumLikes);
-        actionRecord.setActionStatusCode(ActionStatus.COMPLETED.getCode());
-
-        mongoCollection.getActionRecordRepository().insert(actionRecord);
-        log.debug("Inserted action record: {}", actionRecord);
-
-        super.saveMessageMeta(sumLikes, messageMetaStatus);
+        batchTaskResultBuilder.countAttempt(sumLikes);
+        batchTaskResultBuilder.actionErrors(actionErrors);
 
         log.debug("END");
-        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
+        return batchTaskResultBuilder.build();
     }
 
     private List<TargetHashtag> getTargetHashtags() {
@@ -138,12 +133,12 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         log.debug("START");
 
         final VariableRepository variableRepository = super.getMongoCollection().getVariableRepository();
-        final int maxLikes = Integer
-                .parseInt(variableRepository.findByName(VariableName.LIKE_PER_HOUR.getTag()).getValue());
+        final int maxLike = Integer
+                .parseInt(variableRepository.findByName(VariableName.LIKE_PER_HOUR_PER_TASK.getTag()).getValue());
         final int likeInterval = Integer
                 .parseInt(variableRepository.findByName(VariableName.LIKE_INTERVAL.getTag()).getValue());
 
-        final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder().maxLikes(maxLikes).likeInterval(likeInterval)
+        final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder().maxLike(maxLike).likeInterval(likeInterval)
                 .build();
         log.debug("The auto like config: {}", autoLikeConfig);
 

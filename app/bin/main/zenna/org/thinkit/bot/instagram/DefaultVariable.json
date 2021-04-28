@@ -1,0 +1,132 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the default variable.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.DefaultVariable"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "0",
+                "name": "LIKE_PER_HOUR_PER_TASK",
+                "value": "12"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "name": "LIKE_INTERVAL",
+                "value": "10"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "name": "FOLLOW_PER_DAY",
+                "value": "10"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "3",
+                "name": "UNFOLLOW_PER_DAY",
+                "value": "10"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "name": "FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK",
+                "value": "100"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "name": "LINE_NOTIFY_TOKEN",
+                "value": ""
+            }
+        }
+    ],
+    "conditionNodes": [
+        {
+            "node": {
+                "conditionId": "0",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "LIKE_PER_HOUR_PER_TASK"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "LIKE_INTERVAL"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "FOLLOW_PER_DAY"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "3",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "UNFOLLOW_PER_DAY"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "LINE_NOTIFY_TOKEN"
+                    }
+                ]
+            }
+        }
+    ]
+}

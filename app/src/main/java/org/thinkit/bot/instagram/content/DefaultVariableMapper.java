@@ -12,35 +12,30 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.content;
 
-import org.thinkit.api.catalog.Catalog;
+import org.thinkit.bot.instagram.content.entity.DefaultVariable;
+import org.thinkit.zenna.mapper.ContentMapper;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
- * The catalog that manages message meta status.
+ * The mapper class that manages the content {@code "DefaultVariable"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@RequiredArgsConstructor
-public enum MessageMetaStatus implements Catalog<MessageMetaStatus> {
+@ToString
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(staticName = "newInstance")
+public final class DefaultVariableMapper extends ContentMapper<DefaultVariable> {
 
     /**
-     * The interrupted
+     * The variable name
      */
-    INTERRUPTED(0),
-
-    /**
-     * The completed
-     */
-    COMPLETED(1);
-
-    /**
-     * The code
-     */
-    @Getter
-    private final int code;
+    @Setter
+    private String variableName;
 }

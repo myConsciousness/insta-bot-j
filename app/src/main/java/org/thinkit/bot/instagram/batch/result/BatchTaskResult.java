@@ -15,9 +15,14 @@
 package org.thinkit.bot.instagram.batch.result;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mongodb.lang.NonNull;
 
 import org.springframework.batch.repeat.RepeatStatus;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.result.ActionError;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -41,14 +46,32 @@ import lombok.ToString;
 public final class BatchTaskResult implements Serializable {
 
     /**
+     * The count attempt
+     */
+    @Getter
+    private int countAttempt;
+
+    /**
      * The action status
      */
     @Getter
-    private ActionStatus actionStatus;
+    @NonNull
+    @Builder.Default
+    private ActionStatus actionStatus = ActionStatus.COMPLETED;
 
     /**
      * The repeat status
      */
     @Getter
-    private RepeatStatus repeatStatus;
+    @NonNull
+    @Builder.Default
+    private RepeatStatus repeatStatus = RepeatStatus.FINISHED;
+
+    /**
+     * The action errors
+     */
+    @Getter
+    @NonNull
+    @Builder.Default
+    private List<ActionError> actionErrors = new ArrayList<>(0);
 }

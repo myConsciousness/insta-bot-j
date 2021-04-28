@@ -26,15 +26,20 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
-import org.thinkit.bot.instagram.catalog.MessageMetaStatus;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.content.DefaultVariableMapper;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
+import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
+import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.common.base.precondition.Preconditions;
 
@@ -78,17 +83,67 @@ public abstract class AbstractTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
+        this.updateStartAction();
 
-        this.updateStartAction(lastActionRepository);
         final BatchTaskResult batchTaskResult = this.executeTask(contribution, chunkContext);
-        this.updateEndAction(lastActionRepository);
+        final int countAttempt = batchTaskResult.getCountAttempt();
+        final ActionStatus actionStatus = batchTaskResult.getActionStatus();
+        final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
+
+        this.saveActionRecord(countAttempt, actionStatus);
+
+        if (!actionErrors.isEmpty()) {
+            this.saveActionError(actionErrors);
+        }
+
+        if (this.canSendResultMessage()) {
+            this.saveMessageMeta(countAttempt, actionStatus);
+        }
+
+        this.updateEndAction();
 
         log.debug("END");
         return batchTaskResult.getRepeatStatus();
     }
 
-    protected void saveActionError(@NonNull final List<ActionError> actionErrors) {
+    protected String getVariableValue(@NonNull final VariableName variableName) {
+        log.debug("START");
+
+        final VariableRepository variableRepository = this.mongoCollection.getVariableRepository();
+        Variable variable = variableRepository.findByName(variableName.getTag());
+
+        if (variable == null) {
+            variable = new Variable();
+            variable.setName(variableName.getTag());
+            variable.setValue(this.getDefaultVariableValue(variableName));
+
+            variableRepository.insert(variable);
+            log.debug("Inserted variable: {}", variable);
+        }
+
+        log.debug("END");
+        return variable.getValue();
+    }
+
+    private boolean canSendResultMessage() {
+        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.FORECAST_FOLLOW_BACK_USER;
+    }
+
+    private void saveActionRecord(final int countAttempt, @NonNull final ActionStatus actionStatus) {
+        log.debug("START");
+
+        final ActionRecord actionRecord = new ActionRecord();
+        actionRecord.setTaskTypeCode(this.taskType.getCode());
+        actionRecord.setCountAttempt(countAttempt);
+        actionRecord.setActionStatusCode(actionStatus.getCode());
+
+        this.mongoCollection.getActionRecordRepository().insert(actionRecord);
+        log.debug("Inserted action record: {}", actionRecord);
+
+        log.debug("END");
+    }
+
+    private void saveActionError(@NonNull final List<ActionError> actionErrors) {
         log.debug("START");
 
         final ErrorRepository errorRepository = this.mongoCollection.getErrorRepository();
@@ -107,13 +162,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("END");
     }
 
-    protected void saveMessageMeta(final int countAttempt) {
-        log.debug("START");
-        this.saveMessageMeta(countAttempt, MessageMetaStatus.COMPLETED);
-        log.debug("END");
-    }
-
-    protected void saveMessageMeta(final int countAttempt, @NonNull final MessageMetaStatus messageMetaStatus) {
+    private void saveMessageMeta(final int countAttempt, @NonNull final ActionStatus actionStatus) {
         log.debug("START");
         Preconditions.requirePositive(countAttempt);
 
@@ -126,7 +175,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
         messageMeta.setTaskTypeCode(this.taskType.getCode());
         messageMeta.setCountAttempt(countAttempt);
-        messageMeta.setInterrupted(messageMetaStatus == MessageMetaStatus.INTERRUPTED);
+        messageMeta.setInterrupted(actionStatus == ActionStatus.INTERRUPTED);
         messageMeta.setUpdatedAt(new Date());
 
         messageMetaRepository.save(messageMeta);
@@ -135,9 +184,10 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("END");
     }
 
-    private void updateStartAction(@NonNull final LastActionRepository lastActionRepository) {
+    private void updateStartAction() {
         log.debug("START");
 
+        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
         LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
 
         if (lastAction == null) {
@@ -155,10 +205,11 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("END");
     }
 
-    private void updateEndAction(@NonNull final LastActionRepository lastActionRepository) {
+    private void updateEndAction() {
         log.debug("START");
 
-        LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
+        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
+        final LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
 
         lastAction.setEnd(new Date());
         lastAction.setUpdatedAt(new Date());
@@ -167,5 +218,11 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("Updated last action: {}", lastAction);
 
         log.debug("END");
+    }
+
+    private String getDefaultVariableValue(@NonNull final VariableName variableName) {
+        final DefaultVariableMapper defaultVariableMapper = DefaultVariableMapper.newInstance();
+        defaultVariableMapper.setVariableName(variableName.getTag());
+        return defaultVariableMapper.scan().get(0).getValue();
     }
 }

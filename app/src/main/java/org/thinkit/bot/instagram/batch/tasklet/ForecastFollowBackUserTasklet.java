@@ -22,10 +22,10 @@ import com.mongodb.lang.NonNull;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
@@ -74,18 +74,16 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
             followBackExpectableUserRepository.insert(followBackExpectableUser);
             log.debug("Interted follow back expectable user: {}", followBackExpectableUser);
-
-            if (followBackResult.getActionErrors() != null) {
-                log.debug("Forecast follow back user runtime error detected.");
-                super.saveActionError(followBackResult.getActionErrors());
-            }
         }
 
-        super.saveMessageMeta(expectableUsers.size());
-
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
+        batchTaskResultBuilder.countAttempt(expectableUsers.size());
         batchTaskResultBuilder.actionStatus(followBackResult.getActionStatus());
-        batchTaskResultBuilder.repeatStatus(RepeatStatus.FINISHED);
+
+        if (followBackResult.getActionErrors() != null) {
+            log.debug("Forecast follow back user runtime error detected.");
+            batchTaskResultBuilder.actionErrors(followBackResult.getActionErrors());
+        }
 
         log.debug("END");
         return batchTaskResultBuilder.build();
@@ -98,11 +96,18 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
                 .findDistinctUserNameBy();
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
-        likedPhotos.forEach(likedPhoto -> {
+        int userCount = 0;
+        final int maxUserCount = this.getMaxUserCount();
+        for (final LikedPhoto likedPhoto : likedPhotos) {
             if (!this.isDuplicateUser(forecastUsers, likedPhoto)) {
                 forecastUsers.add(ForecastUser.from(likedPhoto.getUserName()));
+                userCount++;
             }
-        });
+
+            if (userCount >= maxUserCount) {
+                break;
+            }
+        }
 
         log.debug("END");
         return forecastUsers;
@@ -123,5 +128,9 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         log.debug("The duplicate user has not detected.");
         log.debug("END");
         return false;
+    }
+
+    private int getMaxUserCount() {
+        return Integer.parseInt(super.getVariableValue(VariableName.FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK));
     }
 }

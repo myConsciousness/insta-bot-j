@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public enum VariableName implements BiCatalog<VariableName, String> {
 
     /**
-     * {@code "LIKE_PER_HOUR"}
+     * {@code "LIKE_PER_HOUR_PER_TASK"}
      */
-    LIKE_PER_HOUR(0, "LIKE_PER_HOUR"),
+    LIKE_PER_HOUR_PER_TASK(0, "LIKE_PER_HOUR_PER_TASK"),
 
     /**
      * {@code "LIKE_INTERVAL"}
@@ -52,6 +52,11 @@ public enum VariableName implements BiCatalog<VariableName, String> {
      * {@code "HASHTAG_GROUP_COUNT"}
      */
     HASHTAG_GROUP_COUNT(800, "HASHTAG_GROUP_COUNT"),
+
+    /**
+     * {@code "FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK"}
+     */
+    FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK(801, "FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK"),
 
     /**
      * {@code "LINE_NOTIFY_TOKEN"}
