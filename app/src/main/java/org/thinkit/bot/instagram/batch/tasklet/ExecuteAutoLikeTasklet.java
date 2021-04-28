@@ -29,8 +29,6 @@ import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
-import org.thinkit.bot.instagram.mongo.entity.Variable;
-import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
@@ -118,31 +116,30 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         return targetHashtags;
     }
 
-    private int getTargetGroupCode() {
-        log.debug("START");
-
-        final Variable variable = super.getMongoCollection().getVariableRepository()
-                .findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
-        final int groupCount = Integer.parseInt(variable.getValue()) - 1;
-
-        log.debug("END");
-        return RandomUtils.generate(groupCount);
-    }
-
     private AutoLikeConfig getAutoLikeConfig() {
         log.debug("START");
 
-        final VariableRepository variableRepository = super.getMongoCollection().getVariableRepository();
-        final int maxLike = Integer
-                .parseInt(variableRepository.findByName(VariableName.LIKE_PER_HOUR_PER_TASK.getTag()).getValue());
-        final int likeInterval = Integer
-                .parseInt(variableRepository.findByName(VariableName.LIKE_INTERVAL.getTag()).getValue());
-
-        final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder().maxLike(maxLike).likeInterval(likeInterval)
-                .build();
+        final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder().maxLike(this.getMaxLike())
+                .likeInterval(this.getLikeInterval()).build();
         log.debug("The auto like config: {}", autoLikeConfig);
 
         log.debug("END");
         return autoLikeConfig;
+    }
+
+    private int getTargetGroupCode() {
+        return RandomUtils.generate(this.getGroupCount() - 1);
+    }
+
+    private int getMaxLike() {
+        return Integer.parseInt(super.getVariableValue(VariableName.LIKE_PER_HOUR_PER_TASK));
+    }
+
+    private int getLikeInterval() {
+        return Integer.parseInt(super.getVariableValue(VariableName.LIKE_INTERVAL));
+    }
+
+    private int getGroupCount() {
+        return Integer.parseInt(super.getVariableValue(VariableName.HASHTAG_GROUP_COUNT));
     }
 }

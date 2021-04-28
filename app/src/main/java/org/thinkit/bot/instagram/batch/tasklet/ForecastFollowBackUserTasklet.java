@@ -98,6 +98,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
         int userCount = 0;
         final int maxUserCount = this.getMaxUserCount();
+
         for (final LikedPhoto likedPhoto : likedPhotos) {
             if (!this.isDuplicateUser(forecastUsers, likedPhoto)) {
                 forecastUsers.add(ForecastUser.from(likedPhoto.getUserName()));
