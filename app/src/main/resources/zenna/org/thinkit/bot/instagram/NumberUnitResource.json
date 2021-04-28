@@ -1,0 +1,18 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the number unit resource.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.NumberUnitResource"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "",
+                "unit1": "万",
+                "unit2": "億"
+            }
+        }
+    ],
+    "conditionNodes": []
+}

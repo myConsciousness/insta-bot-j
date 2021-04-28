@@ -12,66 +12,38 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.util;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
+import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
-/**
- * The class that manages the expectable user.
- *
- * @author Kato Shinya
- * @since 1.0.0
- */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ExpectableUser implements Serializable {
+@AllArgsConstructor(staticName = "from")
+public final class NumberUnitResolver implements Serializable {
 
     /**
-     * The user name
+     * The number unit resource
      */
-    @Getter
-    private String userName;
+    private NumberUnitResource numberUnitResource;
 
-    /**
-     * The follow back possibility
-     */
-    @Getter
-    private FollowBackPossibility followBackPossibility;
+    public int deduceInt(@NonNull final String number) {
 
-    /**
-     * The post
-     */
-    @Getter
-    private int post;
+        if (number.contains(numberUnitResource.getUnit1())) {
 
-    /**
-     * The following
-     */
-    @Getter
-    private int following;
+        } else if (number.contains(numberUnitResource.getUnit2())) {
 
-    /**
-     * The follower
-     */
-    @Getter
-    private int follower;
+        }
 
-    /**
-     * The follow diff
-     */
-    @Getter
-    private int followDiff;
+        return 1;
+    }
 }

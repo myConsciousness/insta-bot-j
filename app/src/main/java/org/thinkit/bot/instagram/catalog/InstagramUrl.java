@@ -36,7 +36,7 @@ public enum InstagramUrl implements BiCatalog<InstagramUrl, String> {
     /**
      * The user profile
      */
-    USER_PRODILE(1, "https://www.instagram.com/%s"),
+    USER_PROFILE(1, "https://www.instagram.com/%s"),
 
     /**
      * The tags url

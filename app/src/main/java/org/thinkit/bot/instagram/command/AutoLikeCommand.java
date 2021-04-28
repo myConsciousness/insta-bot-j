@@ -101,8 +101,7 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
                 }
 
                 final ActionLikedPhoto.ActionLikedPhotoBuilder actionedLikedPhotoBuilder = ActionLikedPhoto.builder();
-                final WebElement userProfileLink = super.findElement(
-                        By.cssSelector(ElementCssSelector.USER_NAME_ON_EXPLORE.getTag()));
+                final WebElement userProfileLink = super.findByCssSelector(ElementCssSelector.USER_NAME_ON_EXPLORE);
 
                 actionedLikedPhotoBuilder.userName(userProfileLink.getText());
                 actionedLikedPhotoBuilder.url(super.getCurrentUrl());
@@ -154,26 +153,26 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
     private WebElement findFirstElement() {
         try {
-            return super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT.getTag()));
+            return super.findByXpath(ElementXPath.TAGS_FIRST_ELEMENT);
         } catch (Exception e) {
             // The condition for this to occur is unknown, but there are two types of XPaths
             // for the first element.
-            return super.findElement(By.xpath(ElementXPath.TAGS_FIRST_ELEMENT_2.getTag()));
+            return super.findByXpath(ElementXPath.TAGS_FIRST_ELEMENT_2);
         }
     }
 
     private WebElement findLikeButton() {
         try {
-            return super.findElement(By.xpath(ElementXPath.LIKE_BUTTON.getTag()));
+            return super.findByXpath(ElementXPath.LIKE_BUTTON);
         } catch (Exception e) {
             // The condition for this to occur is unknown, but there are two types of XPaths
             // for the Like button.
-            return super.findElement(By.xpath(ElementXPath.LIKE_BUTTON_2.getTag()));
+            return super.findByXpath(ElementXPath.LIKE_BUTTON_2);
         }
     }
 
     private void clickNextArrorw() {
-        super.findElement(By.cssSelector(ElementCssSelector.NEXT_ARROW.getTag())).click();
+        super.findByCssSelector(ElementCssSelector.NEXT_ARROW).click();
         ;
     }
 }

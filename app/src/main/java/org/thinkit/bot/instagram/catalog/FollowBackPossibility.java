@@ -29,29 +29,34 @@ import lombok.RequiredArgsConstructor;
 public enum FollowBackPossibility implements Catalog<FollowBackPossibility> {
 
     /**
+     * The none
+     */
+    NONE(0),
+
+    /**
      * The highest
      */
-    HIGHEST(0),
+    HIGHEST(1),
 
     /**
      * The high
      */
-    HIGH(1),
+    HIGH(2),
 
     /**
      * The middle
      */
-    MIDDLE(2),
+    MIDDLE(3),
 
     /**
      * The low
      */
-    LOW(3),
+    LOW(4),
 
     /**
      * The lowest
      */
-    LOWEST(4);
+    LOWEST(5);
 
     /**
      * The code

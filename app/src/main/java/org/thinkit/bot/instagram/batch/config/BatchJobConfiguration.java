@@ -67,6 +67,12 @@ public class BatchJobConfiguration {
     private Step executeAutoLikeStep;
 
     /**
+     * The forecast follow back user step
+     */
+    @Autowired
+    private Step forecastFollowBackUserStep;
+
+    /**
      * The notify result step
      */
     @Autowired
@@ -82,7 +88,7 @@ public class BatchJobConfiguration {
         return InstaBotJ.newInstance();
     }
 
-    @Scheduled(cron = "0 */30 * * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "* * * * * *", zone = "Asia/Tokyo")
     public void performScheduledJob() throws Exception {
 
         JobParameters param = new JobParametersBuilder()
@@ -101,8 +107,9 @@ public class BatchJobConfiguration {
 
         if (!this.logined) {
             this.logined = true;
-            return jobBuilder.flow(this.executeLoginStep).next(this.reversalEntryHashtagStep)
-                    .next(this.executeAutoLikeStep).next(this.notifyResultStep);
+            return jobBuilder.flow(this.executeLoginStep).next(this.forecastFollowBackUserStep);
+            // .next(this.reversalEntryHashtagStep)
+            // .next(this.executeAutoLikeStep).next(this.notifyResultStep);
         }
 
         return jobBuilder.flow(this.reversalEntryHashtagStep).next(this.executeAutoLikeStep)

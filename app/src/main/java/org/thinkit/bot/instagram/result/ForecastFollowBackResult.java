@@ -39,8 +39,14 @@ import lombok.ToString;
 public final class ForecastFollowBackResult implements Serializable {
 
     /**
-     * The users follow back is expectable
+     * The expectable users
      */
     @Getter
-    private List<ExpectableUser> followBackExpectableUsers;
+    private List<ExpectableUser> expectableUsers;
+
+    /**
+     * Tne action errors
+     */
+    @Getter
+    private List<ActionError> actionErrors;
 }

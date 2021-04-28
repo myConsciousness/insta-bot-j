@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 
 import lombok.Data;
 
@@ -34,11 +35,13 @@ public final class Error implements Serializable {
      * The id
      */
     @Id
+    @Indexed(unique = true)
     private String id;
 
     /**
      * The task type code
      */
+    @Indexed
     private int taskTypeCode;
 
     /**

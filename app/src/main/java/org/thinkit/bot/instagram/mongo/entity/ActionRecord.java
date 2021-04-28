@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
@@ -36,11 +37,13 @@ public final class ActionRecord implements Serializable {
      * The id
      */
     @Id
+    @Indexed(unique = true)
     private String id;
 
     /**
      * The task type code
      */
+    @Indexed(unique = true)
     private int taskTypeCode;
 
     /**

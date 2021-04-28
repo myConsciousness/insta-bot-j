@@ -12,66 +12,54 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.result;
+package org.thinkit.bot.instagram.content.entity;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
+import org.thinkit.zenna.entity.ContentEntity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the expectable user.
+ * The entity that manages the content {@code "FollowBackPossibilityIndicator"}
+ * .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ExpectableUser implements Serializable {
+public final class FollowBackPossibilityIndicator implements ContentEntity, Serializable {
 
     /**
-     * The user name
+     * The highest indicator
      */
     @Getter
-    private String userName;
+    private int highest;
 
     /**
-     * The follow back possibility
+     * The high indicator
      */
     @Getter
-    private FollowBackPossibility followBackPossibility;
+    private int high;
 
     /**
-     * The post
+     * The middle indicator
      */
     @Getter
-    private int post;
+    private int middle;
 
     /**
-     * The following
+     * The low indicator
      */
     @Getter
-    private int following;
+    private int low;
 
     /**
-     * The follower
+     * The lowest indicator
      */
     @Getter
-    private int follower;
-
-    /**
-     * The follow diff
-     */
-    @Getter
-    private int followDiff;
+    private int lowest;
 }

@@ -17,6 +17,8 @@ package org.thinkit.bot.instagram.batch.tasklet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -26,6 +28,7 @@ import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.param.ForecastUser;
+import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -49,7 +52,9 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        super.getInstaBot().executeForecastFollowBackUser(this.getForecastUsers());
+        final ForecastFollowBackResult followBackResult = super.getInstaBot()
+                .executeForecastFollowBackUser(this.getForecastUsers());
+        log.debug("Forecast follow back result: {}", followBackResult);
 
         log.debug("END");
         return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
@@ -58,14 +63,29 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
     private List<ForecastUser> getForecastUsers() {
         log.debug("START");
 
-        final List<LikedPhoto> likedPhotos = this.getMongoCollection().getLikedPhotoRepository().findAll();
+        final List<LikedPhoto> likedPhotos = this.getMongoCollection().getLikedPhotoRepository()
+                .findDistinctUserNameBy();
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
         likedPhotos.forEach(likedPhoto -> {
-            forecastUsers.add(ForecastUser.from(likedPhoto.getUserName()));
+            if (!this.isDuplicateUser(forecastUsers, likedPhoto)) {
+                forecastUsers.add(ForecastUser.from(likedPhoto.getUserName()));
+            }
         });
 
         log.debug("END");
         return forecastUsers;
+    }
+
+    private boolean isDuplicateUser(@NonNull final List<ForecastUser> forecastUsers,
+            @NonNull final LikedPhoto likedPhoto) {
+
+        for (final ForecastUser forecastUser : forecastUsers) {
+            if (forecastUser.getUserName().equals(likedPhoto.getUserName())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

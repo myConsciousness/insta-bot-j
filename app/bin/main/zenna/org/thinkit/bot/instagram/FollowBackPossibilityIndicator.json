@@ -1,0 +1,21 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the indicator of follow back possibility.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.FollowBackPossibilityIndicator"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "",
+                "highest": -100,
+                "high": -500,
+                "middle": -200,
+                "low": -100,
+                "lowest": 100
+            }
+        }
+    ],
+    "conditionNodes": []
+}

@@ -12,22 +12,24 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.repository;
+package org.thinkit.bot.instagram.content;
 
-import java.util.List;
+import org.thinkit.bot.instagram.content.entity.FollowBackPossibilityIndicator;
+import org.thinkit.zenna.mapper.ContentMapper;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
- * The interface that manages liked photo repository.
+ * The mapper class that manages the content
+ * {@code "FollowBackPossibilityIndicator"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Repository
-public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, String> {
-
-    public List<LikedPhoto> findDistinctUserNameBy();
+@ToString
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(staticName = "newInstance")
+public final class FollowBackPossibilityIndicatorMapper extends ContentMapper<FollowBackPossibilityIndicator> {
 }

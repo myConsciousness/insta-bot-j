@@ -21,6 +21,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.thinkit.bot.instagram.catalog.ElementCssSelector;
+import org.thinkit.bot.instagram.catalog.ElementName;
+import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.result.ActionError;
@@ -43,6 +46,18 @@ public abstract class AbstractBotCommand<R> implements BotCommand<R>, Serializab
     private WebDriver webDriver;
 
     protected abstract R executeBotProcess();
+
+    protected final WebElement findByName(@NonNull final ElementName elementName) {
+        return this.findElement(By.name(elementName.getTag()));
+    }
+
+    protected final WebElement findByXpath(@NonNull final ElementXPath elementXPath) {
+        return this.findElement(By.xpath(elementXPath.getTag()));
+    }
+
+    protected final WebElement findByCssSelector(@NonNull final ElementCssSelector elementCssSelector) {
+        return this.findElement(By.cssSelector(elementCssSelector.getTag()));
+    }
 
     protected final WebElement findElement(@NonNull final By by) {
         this.waitUntilElementLocated(by);

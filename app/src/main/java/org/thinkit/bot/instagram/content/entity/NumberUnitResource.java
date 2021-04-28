@@ -12,22 +12,35 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.repository;
+package org.thinkit.bot.instagram.content.entity;
 
-import java.util.List;
+import java.io.Serializable;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.zenna.entity.ContentEntity;
+
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 /**
- * The interface that manages liked photo repository.
+ * The entity that manages the content {@code "NumberUnitResource"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Repository
-public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, String> {
+@ToString
+@EqualsAndHashCode
+public final class NumberUnitResource implements ContentEntity, Serializable {
 
-    public List<LikedPhoto> findDistinctUserNameBy();
+    /**
+     * The unit 1
+     */
+    @Getter
+    private String unit1;
+
+    /**
+     * The unit 2
+     */
+    @Getter
+    private String unit2;
 }
