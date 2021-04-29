@@ -20,6 +20,12 @@
         },
         {
             "node": {
+                "conditionId": "2",
+                "value": "0"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "100",
                 "value": "10"
             }
@@ -78,6 +84,19 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "LIKE_INTERVAL"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "AUTO_LIKE_SKIPPED_COUNT"
                     }
                 ]
             }

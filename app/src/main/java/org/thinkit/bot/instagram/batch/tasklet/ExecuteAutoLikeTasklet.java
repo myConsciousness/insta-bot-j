@@ -119,8 +119,12 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     private AutoLikeConfig getAutoLikeConfig() {
         log.debug("START");
 
-        final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder().maxLike(this.getMaxLike())
-                .likeInterval(this.getLikeInterval()).build();
+        final int maxLike = this.getMaxLike();
+        final int skippedCount = this.getSkippedCount();
+
+        final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder()
+                .maxLike(skippedCount > 0 ? maxLike * skippedCount : maxLike).likeInterval(this.getLikeInterval())
+                .build();
         log.debug("The auto like config: {}", autoLikeConfig);
 
         log.debug("END");
@@ -132,14 +136,18 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     }
 
     private int getMaxLike() {
-        return Integer.parseInt(super.getVariableValue(VariableName.LIKE_PER_HOUR_PER_TASK));
+        return Integer.parseInt(super.getVariable(VariableName.LIKE_PER_HOUR_PER_TASK).getValue());
     }
 
     private int getLikeInterval() {
-        return Integer.parseInt(super.getVariableValue(VariableName.LIKE_INTERVAL));
+        return Integer.parseInt(super.getVariable(VariableName.LIKE_INTERVAL).getValue());
     }
 
     private int getGroupCount() {
-        return Integer.parseInt(super.getVariableValue(VariableName.HASHTAG_GROUP_COUNT));
+        return Integer.parseInt(super.getVariable(VariableName.HASHTAG_GROUP_COUNT).getValue());
+    }
+
+    private int getSkippedCount() {
+        return Integer.parseInt(super.getVariable(VariableName.AUTO_LIKE_SKIPPED_COUNT).getValue());
     }
 }

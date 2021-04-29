@@ -24,6 +24,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
@@ -56,8 +57,14 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
+        final List<ForecastUser> forecastUsers = this.getForecastUsers();
+
+        if (forecastUsers.isEmpty()) {
+            return BatchTaskResult.builder().actionStatus(ActionStatus.SKIPPED).build();
+        }
+
         final ForecastFollowBackResult followBackResult = super.getInstaBot()
-                .executeForecastFollowBackUser(this.getForecastUsers());
+                .executeForecastFollowBackUser(forecastUsers);
         log.info("The forecast follow back user has completed the process successfully.");
 
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollection()
@@ -97,8 +104,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
     private List<ForecastUser> getForecastUsers() {
         log.debug("START");
 
-        final List<LikedPhoto> likedPhotos = this.getMongoCollection().getLikedPhotoRepository()
-                .findDistinctUserNameBy();
+        final List<LikedPhoto> likedPhotos = this.getMongoCollection().getLikedPhotoRepository().findAll();
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
         int userCount = 0;
@@ -123,6 +129,10 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
             @NonNull final LikedPhoto likedPhoto) {
         log.debug("START");
 
+        if (this.isAlreadyForecastedUser(forecastUsers, likedPhoto)) {
+            return true;
+        }
+
         for (final ForecastUser forecastUser : forecastUsers) {
             if (forecastUser.getUserName().equals(likedPhoto.getUserName())) {
                 log.debug("The duplicate user has detected.");
@@ -136,7 +146,15 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         return false;
     }
 
+    private boolean isAlreadyForecastedUser(@NonNull final List<ForecastUser> forecastUsers,
+            @NonNull final LikedPhoto likedPhoto) {
+        final FollowBackExpectableUserRepository followBackExpectableUserRepository = this.getMongoCollection()
+                .getFollowBackExpectableUserRepository();
+        return followBackExpectableUserRepository.findByUserName(likedPhoto.getUserName()) != null;
+    }
+
     private int getMaxUserCount() {
-        return Integer.parseInt(super.getVariableValue(VariableName.FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK));
+        return Integer
+                .parseInt(super.getVariable(VariableName.FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK).getValue());
     }
 }

@@ -45,6 +45,7 @@ import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.util.DateUtils;
+import org.thinkit.bot.instagram.util.RandomUtils;
 import org.thinkit.common.base.precondition.Preconditions;
 
 import lombok.AccessLevel;
@@ -89,19 +90,21 @@ public abstract class AbstractTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        final List<ActionRestriction> actionRestrictions = this.mongoCollection.getActionRestrictionRepository()
-                .findAll();
-
-        if (actionRestrictions != null && this.task.isRestrictable()) {
+        if (this.task.isRestrictable() && this.isActionRestricted()) {
             log.debug("END");
             return this.executeRestrictedProcess();
+        }
+
+        if (this.task.canSkip() && this.isSkipMood()) {
+            log.debug("END");
+            return this.executeSkipMoodProcess();
         }
 
         log.debug("END");
         return this.executeTaskProcess(contribution, chunkContext);
     }
 
-    protected String getVariableValue(@NonNull final VariableName variableName) {
+    protected Variable getVariable(@NonNull final VariableName variableName) {
         log.debug("START");
 
         final VariableRepository variableRepository = this.mongoCollection.getVariableRepository();
@@ -117,7 +120,7 @@ public abstract class AbstractTasklet implements Tasklet {
         }
 
         log.debug("END");
-        return variable.getValue();
+        return variable;
     }
 
     private RepeatStatus executeTaskProcess(StepContribution contribution, ChunkContext chunkContext) {
@@ -130,6 +133,7 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
         final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
 
+        this.resetSkippedCount();
         this.saveActionRecord(countAttempt, actionStatus);
 
         if (!actionErrors.isEmpty()) {
@@ -160,12 +164,11 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionRestriction actionRestriction = actionRestrictionRepository.findAll().get(0);
 
         final Date restrictedDate = actionRestriction.getCreatedAt();
-        final int restrictionWaitHour = Integer
-                .parseInt(this.getVariableValue(VariableName.ACTION_RESTRICTION_WAIT_HOUR));
+        final int actionRestrictionWaitHour = this.getActionRestrictionWaitHour();
 
-        if (DateUtils.isHourElapsed(restrictedDate, restrictionWaitHour)) {
+        if (DateUtils.isHourElapsed(restrictedDate, actionRestrictionWaitHour)) {
             actionRestrictionRepository.deleteAll();
-            log.info("The waiting time for the action limit has passed.");
+            log.info("The waiting time for the action restriction has passed.");
         }
 
         if (this.task.canSendResultMessage()) {
@@ -176,6 +179,59 @@ public abstract class AbstractTasklet implements Tasklet {
 
         log.debug("END");
         return RepeatStatus.FINISHED;
+    }
+
+    private RepeatStatus executeSkipMoodProcess() {
+        log.debug("START");
+
+        this.updateStartAction();
+
+        if (this.task.canSendResultMessage()) {
+            this.saveMessageMeta(0, ActionStatus.SKIP_MOOD);
+        }
+
+        this.incrementSkippedCount();
+        this.updateEndAction();
+
+        log.debug("END");
+        return RepeatStatus.FINISHED;
+    }
+
+    private boolean isActionRestricted() {
+        return this.mongoCollection.getActionRestrictionRepository().findAll() != null;
+    }
+
+    private boolean isSkipMood() {
+        return RandomUtils.generate(6, 1) % 5 == 0;
+    }
+
+    private void incrementSkippedCount() {
+        log.debug("START");
+
+        final Variable variable = this.getVariable(this.getSkippedCountVariableName());
+        int skippedCount = Integer.parseInt(variable.getValue());
+        variable.setValue(String.valueOf(skippedCount++));
+
+        this.mongoCollection.getVariableRepository().save(variable);
+        log.debug("Updated variable: {}", variable);
+
+        log.debug("END");
+    }
+
+    private void resetSkippedCount() {
+        log.debug("START");
+
+        final Variable variable = this.getVariable(this.getSkippedCountVariableName());
+        variable.setValue("0");
+
+        this.mongoCollection.getVariableRepository().save(variable);
+        log.debug("Updated variable: {}", variable);
+
+        log.debug("END");
+    }
+
+    private VariableName getSkippedCountVariableName() {
+        return VariableName.AUTO_LIKE_SKIPPED_COUNT;
     }
 
     private void saveActionRecord(final int countAttempt, @NonNull final ActionStatus actionStatus) {
@@ -288,5 +344,9 @@ public abstract class AbstractTasklet implements Tasklet {
         final DefaultVariableMapper defaultVariableMapper = DefaultVariableMapper.newInstance();
         defaultVariableMapper.setVariableName(variableName.getTag());
         return defaultVariableMapper.scan().get(0).getValue();
+    }
+
+    private int getActionRestrictionWaitHour() {
+        return Integer.parseInt(this.getVariable(VariableName.ACTION_RESTRICTION_WAIT_HOUR).getValue());
     }
 }

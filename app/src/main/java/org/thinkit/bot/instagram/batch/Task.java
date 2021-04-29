@@ -53,4 +53,8 @@ public final class Task implements Serializable {
         return this.taskType == TaskType.REVERSAL_ENTRY_HASHTAG || this.taskType == TaskType.AUTO_LIKE
                 || this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
+
+    public boolean canSkip() {
+        return this.taskType == TaskType.AUTO_LIKE;
+    }
 }
