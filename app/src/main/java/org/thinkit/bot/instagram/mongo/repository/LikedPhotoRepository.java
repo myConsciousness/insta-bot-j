@@ -30,4 +30,6 @@ import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, String> {
 
     public List<LikedPhoto> findDistinctUserNameBy();
+
+    public void deleteByUserName(String userName);
 }

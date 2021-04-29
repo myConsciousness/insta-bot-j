@@ -29,6 +29,7 @@ import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ExpectableUser;
 import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
@@ -61,6 +62,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollection()
                 .getFollowBackExpectableUserRepository();
+        final LikedPhotoRepository likedPhotoRepository = this.getMongoCollection().getLikedPhotoRepository();
         final List<ExpectableUser> expectableUsers = followBackResult.getExpectableUsers();
 
         for (final ExpectableUser expectableUser : expectableUsers) {
@@ -74,6 +76,9 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
             followBackExpectableUserRepository.insert(followBackExpectableUser);
             log.debug("Interted follow back expectable user: {}", followBackExpectableUser);
+
+            // Delete forecasted user
+            likedPhotoRepository.deleteByUserName(expectableUser.getUserName());
         }
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
