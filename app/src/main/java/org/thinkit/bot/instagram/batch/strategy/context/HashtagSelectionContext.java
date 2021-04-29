@@ -12,12 +12,12 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.context;
+package org.thinkit.bot.instagram.batch.strategy.context;
 
-import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
-import org.thinkit.bot.instagram.batch.strategy.flow.RestrictableBatchFlowStrategy;
-import org.thinkit.bot.instagram.batch.strategy.flow.UnrestrictableBatchFlowStrategy;
-import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
+import org.thinkit.bot.instagram.batch.strategy.hashtag.DefaultHashtagSelectionStrategy;
+import org.thinkit.bot.instagram.batch.strategy.hashtag.FocusHashtagSelectionStrategy;
+import org.thinkit.bot.instagram.batch.strategy.hashtag.HashtagSelectionStrategy;
+import org.thinkit.bot.instagram.catalog.HashtagSelectionStrategyPattern;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,18 +29,18 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class BatchFlowContext implements Context<BatchFlowStrategy> {
+public final class HashtagSelectionContext implements Context<HashtagSelectionStrategy> {
 
     /**
-     * The batch flow strategy pattern
+     * The hashtag selection strategy pattern
      */
-    private BatchFlowStrategyPattern batchFlowStrategyPattern;
+    private HashtagSelectionStrategyPattern hashtagSelectionStrategyPattern;
 
     @Override
-    public BatchFlowStrategy evaluate() {
-        return switch (this.batchFlowStrategyPattern) {
-        case RESTRICTABLE -> RestrictableBatchFlowStrategy.newInstance();
-        case UNRESTRICTABLE -> UnrestrictableBatchFlowStrategy.newInstance();
+    public HashtagSelectionStrategy evaluate() {
+        return switch (this.hashtagSelectionStrategyPattern) {
+        case DEFAULT -> DefaultHashtagSelectionStrategy.newInstance();
+        case FOCUS -> FocusHashtagSelectionStrategy.newInstance();
         };
     }
 }

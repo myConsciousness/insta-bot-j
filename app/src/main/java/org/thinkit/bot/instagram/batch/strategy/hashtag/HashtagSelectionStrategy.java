@@ -12,9 +12,13 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.context;
+package org.thinkit.bot.instagram.batch.strategy.hashtag;
 
-public interface Context<R> {
+import java.util.List;
 
-    public R evaluate();
+import org.thinkit.bot.instagram.param.TargetHashtag;
+
+public interface HashtagSelectionStrategy {
+
+    public List<TargetHashtag> getTargetHashtags(final int groupCode);
 }

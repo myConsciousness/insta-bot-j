@@ -28,7 +28,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
-import org.thinkit.bot.instagram.batch.context.BatchFlowContext;
+import org.thinkit.bot.instagram.batch.strategy.context.BatchFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
 import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.catalog.BatchJob;

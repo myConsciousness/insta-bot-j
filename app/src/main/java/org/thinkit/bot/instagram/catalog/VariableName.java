@@ -54,6 +54,11 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     UNFOLLOW_PER_DAY(200, "UNFOLLOW_PER_DAY"),
 
     /**
+     * {@code "BATCH_FLOW_STRATEGY"}
+     */
+    BATCH_FLOW_STRATEGY(700, "BATCH_FLOW_STRATEGY"),
+
+    /**
      * {@code "HASHTAG_GROUP_COUNT"}
      */
     HASHTAG_GROUP_COUNT(800, "HASHTAG_GROUP_COUNT"),
@@ -67,11 +72,6 @@ public enum VariableName implements BiCatalog<VariableName, String> {
      * {@code "ACTION_RESTRICTION_WAIT_HOUR"}
      */
     ACTION_RESTRICTION_WAIT_HOUR(802, "ACTION_RESTRICTION_WAIT_HOUR"),
-
-    /**
-     * {@code "BATCH_FLOW_STRATEGY"}
-     */
-    BATCH_FLOW_STRATEGY(803, "BATCH_FLOW_STRATEGY"),
 
     /**
      * {@code "LINE_NOTIFY_TOKEN"}

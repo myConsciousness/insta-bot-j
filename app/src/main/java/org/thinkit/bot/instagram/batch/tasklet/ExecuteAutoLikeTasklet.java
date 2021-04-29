@@ -21,13 +21,16 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
+import org.thinkit.bot.instagram.batch.strategy.context.HashtagSelectionContext;
+import org.thinkit.bot.instagram.batch.strategy.hashtag.HashtagSelectionStrategy;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.HashtagSelectionStrategyPattern;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.mongo.MongoCollection;
-import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
@@ -103,17 +106,15 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     private List<TargetHashtag> getTargetHashtags() {
         log.debug("START");
 
-        final List<Hashtag> hashtags = super.getMongoCollection().getHashtagRepository()
-                .findByGroupCode(this.getTargetGroupCode());
-        final List<TargetHashtag> targetHashtags = new ArrayList<>(hashtags.size());
+        final int patternCount = HashtagSelectionStrategyPattern.values().length;
+        final HashtagSelectionStrategyPattern hashtagSelectionStrategyPattern = Catalog
+                .getEnum(HashtagSelectionStrategyPattern.class, RandomUtils.generate(patternCount - 1));
 
-        hashtags.forEach(hashtag -> {
-            log.debug("The using hashtags: {}", hashtag);
-            targetHashtags.add(TargetHashtag.from(hashtag.getTag()));
-        });
+        final HashtagSelectionStrategy hashtagSelectionStrategy = HashtagSelectionContext
+                .from(hashtagSelectionStrategyPattern).evaluate();
 
         log.debug("END");
-        return targetHashtags;
+        return hashtagSelectionStrategy.getTargetHashtags(this.getTargetGroupCode());
     }
 
     private AutoLikeConfig getAutoLikeConfig() {

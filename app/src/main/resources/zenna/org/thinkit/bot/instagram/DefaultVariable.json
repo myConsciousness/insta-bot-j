@@ -38,6 +38,12 @@
         },
         {
             "node": {
+                "conditionId": "700",
+                "value": "0"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "800",
                 "value": "4"
             }
@@ -52,12 +58,6 @@
             "node": {
                 "conditionId": "802",
                 "value": "6"
-            }
-        },
-        {
-            "node": {
-                "conditionId": "803",
-                "value": "0"
             }
         },
         {
@@ -135,6 +135,19 @@
         },
         {
             "node": {
+                "conditionId": "700",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "BATCH_FLOW_STRATEGY"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
                 "conditionId": "800",
                 "exclude": false,
                 "conditions": [
@@ -168,19 +181,6 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "ACTION_RESTRICTION_WAIT_HOUR"
-                    }
-                ]
-            }
-        },
-        {
-            "node": {
-                "conditionId": "803",
-                "exclude": false,
-                "conditions": [
-                    {
-                        "keyName": "variableName",
-                        "operator": "=",
-                        "operand": "BATCH_FLOW_STRATEGY"
                     }
                 ]
             }
