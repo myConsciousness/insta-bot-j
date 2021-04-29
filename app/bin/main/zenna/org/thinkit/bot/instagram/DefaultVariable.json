@@ -9,42 +9,48 @@
         {
             "node": {
                 "conditionId": "0",
-                "name": "LIKE_PER_HOUR_PER_TASK",
                 "value": "12"
             }
         },
         {
             "node": {
                 "conditionId": "1",
-                "name": "LIKE_INTERVAL",
                 "value": "10"
             }
         },
         {
             "node": {
-                "conditionId": "2",
-                "name": "FOLLOW_PER_DAY",
+                "conditionId": "100",
                 "value": "10"
             }
         },
         {
             "node": {
-                "conditionId": "3",
-                "name": "UNFOLLOW_PER_DAY",
+                "conditionId": "200",
                 "value": "10"
             }
         },
         {
             "node": {
-                "conditionId": "4",
-                "name": "FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK",
+                "conditionId": "800",
+                "value": "4"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "801",
                 "value": "100"
             }
         },
         {
             "node": {
-                "conditionId": "5",
-                "name": "LINE_NOTIFY_TOKEN",
+                "conditionId": "802",
+                "value": "6"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "900",
                 "value": ""
             }
         }
@@ -78,7 +84,7 @@
         },
         {
             "node": {
-                "conditionId": "2",
+                "conditionId": "100",
                 "exclude": false,
                 "conditions": [
                     {
@@ -91,7 +97,7 @@
         },
         {
             "node": {
-                "conditionId": "3",
+                "conditionId": "200",
                 "exclude": false,
                 "conditions": [
                     {
@@ -104,13 +110,39 @@
         },
         {
             "node": {
-                "conditionId": "4",
+                "conditionId": "800",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "HASHTAG_GROUP_COUNT"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "801",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "802",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "ACTION_RESTRICTION_WAIT_HOUR"
                     }
                 ]
             }

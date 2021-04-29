@@ -12,29 +12,24 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.util;
 
-import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
 
-import org.thinkit.zenna.entity.ContentEntity;
+import com.mongodb.lang.NonNull;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
-/**
- * The entity that manages the content {@code "DefaultVariable"} .
- *
- * @author Kato Shinya
- * @since 1.0.0
- */
-@ToString
-@EqualsAndHashCode
-public final class DefaultVariable implements ContentEntity, Serializable {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class DateUtils {
 
-    /**
-     * The value
-     */
-    @Getter
-    private String value;
+    public static boolean isHourElapsed(@NonNull final Date baseDate, final int elapsedHour) {
+
+        final Calendar now = Calendar.getInstance();
+        now.add(Calendar.HOUR, -9);
+
+        return baseDate.getTime() - now.getTime().getTime() >= elapsedHour;
+    }
 }

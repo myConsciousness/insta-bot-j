@@ -44,6 +44,7 @@ import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.result.ActionError;
+import org.thinkit.bot.instagram.util.DateUtils;
 import org.thinkit.common.base.precondition.Preconditions;
 
 import lombok.AccessLevel;
@@ -153,6 +154,19 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         this.updateStartAction();
+
+        final ActionRestrictionRepository actionRestrictionRepository = this.mongoCollection
+                .getActionRestrictionRepository();
+        final ActionRestriction actionRestriction = actionRestrictionRepository.findAll().get(0);
+
+        final Date restrictedDate = actionRestriction.getCreatedAt();
+        final int restrictionWaitHour = Integer
+                .parseInt(this.getVariableValue(VariableName.ACTION_RESTRICTION_WAIT_HOUR));
+
+        if (DateUtils.isHourElapsed(restrictedDate, restrictionWaitHour)) {
+            actionRestrictionRepository.deleteAll();
+            log.info("The waiting time for the action limit has passed.");
+        }
 
         if (this.task.canSendResultMessage()) {
             this.saveMessageMeta(0, ActionStatus.SKIPPED);
