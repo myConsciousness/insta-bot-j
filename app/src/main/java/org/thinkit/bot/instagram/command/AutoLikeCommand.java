@@ -71,7 +71,19 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         final AutoLikeResult.AutoLikeResultBuilder autolikeResultBuilder = AutoLikeResult.builder();
 
         super.getWebPage(String.format(InstagramUrl.TAGS.getTag(), this.targetHashtag.getTag()));
-        this.findFirstElement().click();
+
+        try {
+            this.findFirstElement().click();
+        } catch (Exception e) {
+            // Errors that reach here may be due to restricted actions by Instagram.
+            autolikeResultBuilder.ActionStatus(ActionStatus.INTERRUPTED);
+            autolikeResultBuilder.hashtag(this.targetHashtag.getTag());
+            autolikeResultBuilder.countLikes(0);
+            autolikeResultBuilder.actionLikedPhotos(List.of());
+            autolikeResultBuilder.actionErrors(List.of(super.getActionError(e, TaskType.AUTO_LIKE)));
+
+            return autolikeResultBuilder.build();
+        }
 
         final List<ActionLikedPhoto> actionedLikedPhotos = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
