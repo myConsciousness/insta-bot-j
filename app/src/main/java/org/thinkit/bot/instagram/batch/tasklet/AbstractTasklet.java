@@ -198,7 +198,7 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private boolean isActionRestricted() {
-        return this.mongoCollection.getActionRestrictionRepository().findAll() != null;
+        return !this.mongoCollection.getActionRestrictionRepository().findAll().isEmpty();
     }
 
     private boolean isSkipMood() {
