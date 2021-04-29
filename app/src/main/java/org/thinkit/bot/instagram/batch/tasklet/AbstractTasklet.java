@@ -25,6 +25,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thinkit.bot.instagram.InstaBot;
+import org.thinkit.bot.instagram.batch.Task;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -49,7 +50,6 @@ import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -57,13 +57,12 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-@RequiredArgsConstructor
 public abstract class AbstractTasklet implements Tasklet {
 
     /**
-     * The task type
+     * The task
      */
-    private final TaskType taskType;
+    private final Task task;
 
     /**
      * The insta bot
@@ -79,26 +78,22 @@ public abstract class AbstractTasklet implements Tasklet {
     @Getter(AccessLevel.PROTECTED)
     private MongoCollection mongoCollection;
 
+    protected AbstractTasklet(@NonNull final TaskType taskType) {
+        this.task = Task.from(taskType);
+    }
+
     protected abstract BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext);
 
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        this.updateStartAction();
-
         final List<ActionRestriction> actionRestrictions = this.mongoCollection.getActionRestrictionRepository()
                 .findAll();
 
-        if (actionRestrictions != null && this.isRestrictable()) {
-
-            if (this.canSendResultMessage()) {
-                this.saveMessageMeta(0, ActionStatus.SKIPPED);
-            }
-
-            this.updateEndAction();
-
-            return RepeatStatus.FINISHED;
+        if (actionRestrictions != null && this.task.isRestrictable()) {
+            log.debug("END");
+            return this.executeRestrictedProcess();
         }
 
         log.debug("END");
@@ -127,6 +122,8 @@ public abstract class AbstractTasklet implements Tasklet {
     private RepeatStatus executeTaskProcess(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
+        this.updateStartAction();
+
         final BatchTaskResult batchTaskResult = this.executeTask(contribution, chunkContext);
         final int countAttempt = batchTaskResult.getCountAttempt();
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
@@ -142,7 +139,7 @@ public abstract class AbstractTasklet implements Tasklet {
             this.saveActionRestriction();
         }
 
-        if (this.canSendResultMessage()) {
+        if (this.task.canSendResultMessage()) {
             this.saveMessageMeta(countAttempt, actionStatus);
         }
 
@@ -152,20 +149,26 @@ public abstract class AbstractTasklet implements Tasklet {
         return batchTaskResult.getRepeatStatus();
     }
 
-    private boolean canSendResultMessage() {
-        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.FORECAST_FOLLOW_BACK_USER;
-    }
+    private RepeatStatus executeRestrictedProcess() {
+        log.debug("START");
 
-    private boolean isRestrictable() {
-        return this.taskType == TaskType.REVERSAL_ENTRY_HASHTAG || this.taskType == TaskType.AUTO_LIKE
-                || this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
+        this.updateStartAction();
+
+        if (this.task.canSendResultMessage()) {
+            this.saveMessageMeta(0, ActionStatus.SKIPPED);
+        }
+
+        this.updateEndAction();
+
+        log.debug("END");
+        return RepeatStatus.FINISHED;
     }
 
     private void saveActionRecord(final int countAttempt, @NonNull final ActionStatus actionStatus) {
         log.debug("START");
 
         final ActionRecord actionRecord = new ActionRecord();
-        actionRecord.setTaskTypeCode(this.taskType.getCode());
+        actionRecord.setTaskTypeCode(this.task.getTypeCode());
         actionRecord.setCountAttempt(countAttempt);
         actionRecord.setActionStatusCode(actionStatus.getCode());
 
@@ -201,7 +204,7 @@ public abstract class AbstractTasklet implements Tasklet {
                 .getActionRestrictionRepository();
 
         final ActionRestriction actionRestriction = new ActionRestriction();
-        actionRestriction.setTaskTypeCode(this.taskType.getCode());
+        actionRestriction.setTaskTypeCode(this.task.getTypeCode());
 
         actionRestrictionRepository.insert(actionRestriction);
         log.debug("Inserted action restriction: {}", actionRestriction);
@@ -214,13 +217,13 @@ public abstract class AbstractTasklet implements Tasklet {
         Preconditions.requirePositive(countAttempt);
 
         final MessageMetaRepository messageMetaRepository = this.mongoCollection.getMessageMetaRepository();
-        MessageMeta messageMeta = messageMetaRepository.findByTaskTypeCode(this.taskType.getCode());
+        MessageMeta messageMeta = messageMetaRepository.findByTaskTypeCode(this.task.getTypeCode());
 
         if (messageMeta == null) {
             messageMeta = new MessageMeta();
         }
 
-        messageMeta.setTaskTypeCode(this.taskType.getCode());
+        messageMeta.setTaskTypeCode(this.task.getTypeCode());
         messageMeta.setCountAttempt(countAttempt);
         messageMeta.setInterrupted(actionStatus == ActionStatus.INTERRUPTED);
         messageMeta.setUpdatedAt(new Date());
@@ -235,11 +238,11 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
-        LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
+        LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.task.getTypeCode());
 
         if (lastAction == null) {
             lastAction = new LastAction();
-            lastAction.setTaskTypeCode(this.taskType.getCode());
+            lastAction.setTaskTypeCode(this.task.getTypeCode());
         }
 
         lastAction.setStart(new Date());
@@ -256,7 +259,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
-        final LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.taskType.getCode());
+        final LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.task.getTypeCode());
 
         lastAction.setEnd(new Date());
         lastAction.setUpdatedAt(new Date());
