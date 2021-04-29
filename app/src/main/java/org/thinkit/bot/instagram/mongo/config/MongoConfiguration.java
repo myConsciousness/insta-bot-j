@@ -94,6 +94,9 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Autowired
     private MessageMetaRepository messageMetaRepository;
 
+    /**
+     * The follow bacl expectable user repository
+     */
     @Autowired
     private FollowBackExpectableUserRepository followBackExpectableUserRepository;
 
