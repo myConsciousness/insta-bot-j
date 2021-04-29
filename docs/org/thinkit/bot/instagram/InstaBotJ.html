@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":9,"i4":10,"i5":9,"i6":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":9,"i7":10,"i8":9,"i9":10};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],1:["t1","static\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],8:["t4","concrete\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -117,35 +117,53 @@ extends <a href="AbstractInstaBot.html" title="org.thinkit.bot.instagram内の�
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoLikes(java.util.List)">executeAutoLikes</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&gt;&nbsp;hashTags)</code></th>
+<td class="col-first"><code><a href="result/AutoFollowResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoFollowResult</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoFollow(java.util.List,org.thinkit.bot.instagram.config.AutoFollowConfig)">executeAutoFollow</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/FollowUser.html" title="org.thinkit.bot.instagram.param内のクラス">FollowUser</a>&gt;&nbsp;followUsers,
+@NonNull <a href="config/AutoFollowConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoFollowConfig</a>&nbsp;autoFollowConfig)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
-<td class="col-first"><code><a href="result/BotResult.html" title="org.thinkit.bot.instagram.result内のクラス">BotResult</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeLogin(org.thinkit.bot.instagram.config.ActionUser)">executeLogin</a></span>&#8203;(@NonNull <a href="config/ActionUser.html" title="org.thinkit.bot.instagram.config内のクラス">ActionUser</a>&nbsp;actionUser)</code></th>
+<td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoLikes(java.util.List,org.thinkit.bot.instagram.config.AutoLikeConfig)">executeAutoLikes</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/TargetHashtag.html" title="org.thinkit.bot.instagram.param内のクラス">TargetHashtag</a>&gt;&nbsp;targetHashtags,
+@NonNull <a href="config/AutoLikeConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoLikeConfig</a>&nbsp;autoLikeConfig)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i3">
+<td class="col-first"><code><a href="result/AutoUnfollowResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoUnfollowResult</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoUnfollow(java.util.List,org.thinkit.bot.instagram.config.AutoUnfollowConfig)">executeAutoUnfollow</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/UnfollowUser.html" title="org.thinkit.bot.instagram.param内のクラス">UnfollowUser</a>&gt;&nbsp;unfollowUsers,
+@NonNull <a href="config/AutoUnfollowConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoUnfollowConfig</a>&nbsp;autoUnfollowConfig)</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+<tr class="alt-color" id="i4">
+<td class="col-first"><code><a href="result/ForecastFollowBackResult.html" title="org.thinkit.bot.instagram.result内のクラス">ForecastFollowBackResult</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeForecastFollowBackUser(java.util.List)">executeForecastFollowBackUser</a></span>&#8203;(@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/ForecastUser.html" title="org.thinkit.bot.instagram.param内のクラス">ForecastUser</a>&gt;&nbsp;forecastUsers)</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+<tr class="row-color" id="i5">
+<td class="col-first"><code><a href="result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeLogin(org.thinkit.bot.instagram.param.ActionUser)">executeLogin</a></span>&#8203;(@NonNull <a href="param/ActionUser.html" title="org.thinkit.bot.instagram.param内のクラス">ActionUser</a>&nbsp;actionUser)</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+<tr class="alt-color" id="i6">
 <td class="col-first"><code>static <a href="InstaBot.html" title="org.thinkit.bot.instagram内のインタフェース">InstaBot</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(org.thinkit.bot.instagram.config.ActionConfig)">from</a></span>&#8203;(@NonNull <a href="config/ActionConfig.html" title="org.thinkit.bot.instagram.config内のクラス">ActionConfig</a>&nbsp;botConfig)</code></th>
 <td class="col-last">
 <div class="block">Returns the new instance of <a href="InstaBotJ.html" title="org.thinkit.bot.instagram内のクラス"><code>InstaBotJ</code></a> based on the arguments.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i4">
+<tr class="row-color" id="i7">
 <td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i5">
+<tr class="alt-color" id="i8">
 <td class="col-first"><code>static <a href="InstaBot.html" title="org.thinkit.bot.instagram内のインタフェース">InstaBot</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#newInstance()">newInstance</a></span>()</code></th>
 <td class="col-last">
 <div class="block">Returns the new instance of <a href="InstaBotJ.html" title="org.thinkit.bot.instagram内のクラス"><code>InstaBotJ</code></a> based on the arguments.</div>
 </td>
 </tr>
-<tr class="alt-color" id="i6">
+<tr class="row-color" id="i9">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
@@ -154,9 +172,6 @@ extends <a href="AbstractInstaBot.html" title="org.thinkit.bot.instagram内の�
 </table>
 </div>
 </div>
-<div class="inherited-list">
-<h3 id="methods.inherited.from.class.org.thinkit.bot.instagram.AbstractInstaBot">クラスから継承されたメソッド&nbsp;org.thinkit.bot.instagram.<a href="AbstractInstaBot.html" title="org.thinkit.bot.instagram内のクラス">AbstractInstaBot</a></h3>
-<code><a href="AbstractInstaBot.html#closeWebBrowser()">closeWebBrowser</a></code></div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.java.lang.Object">クラスから継承されたメソッド&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#getClass()" title="java.lang内のクラスまたはインタフェース" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#notify()" title="java.lang内のクラスまたはインタフェース" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#notifyAll()" title="java.lang内のクラスまたはインタフェース" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#wait()" title="java.lang内のクラスまたはインタフェース" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#wait(long)" title="java.lang内のクラスまたはインタフェース" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="java.lang内のクラスまたはインタフェース" class="external-link">wait</a></code></div>
@@ -201,17 +216,44 @@ extends <a href="AbstractInstaBot.html" title="org.thinkit.bot.instagram内の�
 </section>
 </li>
 <li>
-<section class="detail" id="executeLogin(org.thinkit.bot.instagram.config.ActionUser)">
+<section class="detail" id="executeLogin(org.thinkit.bot.instagram.param.ActionUser)">
 <h3>executeLogin</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="result/BotResult.html" title="org.thinkit.bot.instagram.result内のクラス">BotResult</a></span>&nbsp;<span class="member-name">executeLogin</span>&#8203;(<span class="parameters">@NonNull
-@NonNull <a href="config/ActionUser.html" title="org.thinkit.bot.instagram.config内のクラス">ActionUser</a>&nbsp;actionUser)</span></div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="result/LoginResult.html" title="org.thinkit.bot.instagram.result内のクラス">LoginResult</a></span>&nbsp;<span class="member-name">executeLogin</span>&#8203;(<span class="parameters">@NonNull
+@NonNull <a href="param/ActionUser.html" title="org.thinkit.bot.instagram.param内のクラス">ActionUser</a>&nbsp;actionUser)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="executeAutoLikes(java.util.List)">
+<section class="detail" id="executeAutoLikes(java.util.List,org.thinkit.bot.instagram.config.AutoLikeConfig)">
 <h3>executeAutoLikes</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</span>&nbsp;<span class="member-name">executeAutoLikes</span>&#8203;(<span class="parameters">@NonNull
-@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&gt;&nbsp;hashTags)</span></div>
+@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/TargetHashtag.html" title="org.thinkit.bot.instagram.param内のクラス">TargetHashtag</a>&gt;&nbsp;targetHashtags,
+@NonNull
+@NonNull <a href="config/AutoLikeConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoLikeConfig</a>&nbsp;autoLikeConfig)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="executeAutoFollow(java.util.List,org.thinkit.bot.instagram.config.AutoFollowConfig)">
+<h3>executeAutoFollow</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="result/AutoFollowResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoFollowResult</a></span>&nbsp;<span class="member-name">executeAutoFollow</span>&#8203;(<span class="parameters">@NonNull
+@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/FollowUser.html" title="org.thinkit.bot.instagram.param内のクラス">FollowUser</a>&gt;&nbsp;followUsers,
+@NonNull
+@NonNull <a href="config/AutoFollowConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoFollowConfig</a>&nbsp;autoFollowConfig)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="executeAutoUnfollow(java.util.List,org.thinkit.bot.instagram.config.AutoUnfollowConfig)">
+<h3>executeAutoUnfollow</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="result/AutoUnfollowResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoUnfollowResult</a></span>&nbsp;<span class="member-name">executeAutoUnfollow</span>&#8203;(<span class="parameters">@NonNull
+@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/UnfollowUser.html" title="org.thinkit.bot.instagram.param内のクラス">UnfollowUser</a>&gt;&nbsp;unfollowUsers,
+@NonNull
+@NonNull <a href="config/AutoUnfollowConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoUnfollowConfig</a>&nbsp;autoUnfollowConfig)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="executeForecastFollowBackUser(java.util.List)">
+<h3>executeForecastFollowBackUser</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="result/ForecastFollowBackResult.html" title="org.thinkit.bot.instagram.result内のクラス">ForecastFollowBackResult</a></span>&nbsp;<span class="member-name">executeForecastFollowBackUser</span>&#8203;(<span class="parameters">@NonNull
+@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="param/ForecastUser.html" title="org.thinkit.bot.instagram.param内のクラス">ForecastUser</a>&gt;&nbsp;forecastUsers)</span></div>
 </section>
 </li>
 <li>

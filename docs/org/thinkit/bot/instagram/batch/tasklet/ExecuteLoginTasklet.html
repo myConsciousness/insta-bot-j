@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":9,"i4":10};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],1:["t1","static\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],8:["t4","concrete\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -76,7 +76,9 @@ loadScripts(document, 'script');</script>
 <h1 title="クラス ExecuteLoginTasklet" class="title">クラス ExecuteLoginTasklet</h1>
 </div>
 <div class="inheritance" title="継承ツリー"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">java.lang.Object</a>
+<div class="inheritance"><a href="AbstractTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">org.thinkit.bot.instagram.batch.tasklet.AbstractTasklet</a>
 <div class="inheritance">org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet</div>
+</div>
 </div>
 <section class="description">
 <dl class="notes">
@@ -84,9 +86,9 @@ loadScripts(document, 'script');</script>
 <dd><code>org.springframework.batch.core.step.tasklet.Tasklet</code></dd>
 </dl>
 <hr>
-<pre>public final class <span class="type-name-label">ExecuteLoginTasklet</span>
-extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a>
-implements org.springframework.batch.core.step.tasklet.Tasklet</pre>
+<pre>@Component
+public final class <span class="type-name-label">ExecuteLoginTasklet</span>
+extends <a href="AbstractTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">AbstractTasklet</a></pre>
 </section>
 <section class="summary">
 <ul class="summary-list">
@@ -112,19 +114,19 @@ implements org.springframework.batch.core.step.tasklet.Tasklet</pre>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i1">
-<td class="col-first"><code>org.springframework.batch.repeat.RepeatStatus</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#execute(org.springframework.batch.core.StepContribution,org.springframework.batch.core.scope.context.ChunkContext)">execute</a></span>&#8203;(org.springframework.batch.core.StepContribution&nbsp;contribution,
+<td class="col-first"><code><a href="../result/BatchTaskResult.html" title="org.thinkit.bot.instagram.batch.result内のクラス">BatchTaskResult</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeTask(org.springframework.batch.core.StepContribution,org.springframework.batch.core.scope.context.ChunkContext)">executeTask</a></span>&#8203;(org.springframework.batch.core.StepContribution&nbsp;contribution,
 org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
-<td class="col-first"><code>static <a href="ExecuteLoginTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">ExecuteLoginTasklet</a></code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(org.thinkit.bot.instagram.InstaBot)">from</a></span>&#8203;(<a href="../../InstaBot.html" title="org.thinkit.bot.instagram内のインタフェース">InstaBot</a>&nbsp;instaBot)</code></th>
+<td class="col-first"><code>int</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i3">
-<td class="col-first"><code>int</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
+<td class="col-first"><code>static org.springframework.batch.core.step.tasklet.Tasklet</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#newInstance()">newInstance</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i4">
@@ -136,6 +138,9 @@ org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</co
 </table>
 </div>
 </div>
+<div class="inherited-list">
+<h3 id="methods.inherited.from.class.org.thinkit.bot.instagram.batch.tasklet.AbstractTasklet">クラスから継承されたメソッド&nbsp;org.thinkit.bot.instagram.batch.tasklet.<a href="AbstractTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">AbstractTasklet</a></h3>
+<code><a href="AbstractTasklet.html#execute(org.springframework.batch.core.StepContribution,org.springframework.batch.core.scope.context.ChunkContext)">execute</a></code></div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.java.lang.Object">クラスから継承されたメソッド&nbsp;java.lang.<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a></h3>
 <code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#getClass()" title="java.lang内のクラスまたはインタフェース" class="external-link">getClass</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#notify()" title="java.lang内のクラスまたはインタフェース" class="external-link">notify</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#notifyAll()" title="java.lang内のクラスまたはインタフェース" class="external-link">notifyAll</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#wait()" title="java.lang内のクラスまたはインタフェース" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#wait(long)" title="java.lang内のクラスまたはインタフェース" class="external-link">wait</a>, <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#wait(long,int)" title="java.lang内のクラスまたはインタフェース" class="external-link">wait</a></code></div>
@@ -151,17 +156,16 @@ org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</co
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="execute(org.springframework.batch.core.StepContribution,org.springframework.batch.core.scope.context.ChunkContext)">
-<h3>execute</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.repeat.RepeatStatus</span>&nbsp;<span class="member-name">execute</span>&#8203;(<span class="parameters">org.springframework.batch.core.StepContribution&nbsp;contribution,
-org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</span>
-                                                      throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></span></div>
-<dl class="notes">
-<dt>定義:</dt>
-<dd><code>execute</code>&nbsp;インタフェース内&nbsp;<code>org.springframework.batch.core.step.tasklet.Tasklet</code></dd>
-<dt>例外:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></code></dd>
-</dl>
+<section class="detail" id="newInstance()">
+<h3>newInstance</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type">org.springframework.batch.core.step.tasklet.Tasklet</span>&nbsp;<span class="member-name">newInstance</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="executeTask(org.springframework.batch.core.StepContribution,org.springframework.batch.core.scope.context.ChunkContext)">
+<h3>executeTask</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/BatchTaskResult.html" title="org.thinkit.bot.instagram.batch.result内のクラス">BatchTaskResult</a></span>&nbsp;<span class="member-name">executeTask</span>&#8203;(<span class="parameters">org.springframework.batch.core.StepContribution&nbsp;contribution,
+org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</span></div>
 </section>
 </li>
 <li>
@@ -170,7 +174,7 @@ org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</sp
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a></span>&nbsp;<span class="member-name">toString</span>()</div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#toString()" title="java.lang内のクラスまたはインタフェース" class="external-link">toString</a></code>&nbsp;クラス内&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a></code></dd>
+<dd><code><a href="AbstractTasklet.html#toString()">toString</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">AbstractTasklet</a></code></dd>
 </dl>
 </section>
 </li>
@@ -180,7 +184,7 @@ org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</sp
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">boolean</span>&nbsp;<span class="member-name">equals</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a>&nbsp;o)</span></div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#equals(java.lang.Object)" title="java.lang内のクラスまたはインタフェース" class="external-link">equals</a></code>&nbsp;クラス内&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a></code></dd>
+<dd><code><a href="AbstractTasklet.html#equals(java.lang.Object)">equals</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">AbstractTasklet</a></code></dd>
 </dl>
 </section>
 </li>
@@ -190,14 +194,8 @@ org.springframework.batch.core.scope.context.ChunkContext&nbsp;chunkContext)</sp
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">hashCode</span>()</div>
 <dl class="notes">
 <dt>オーバーライド:</dt>
-<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html#hashCode()" title="java.lang内のクラスまたはインタフェース" class="external-link">hashCode</a></code>&nbsp;クラス内&nbsp;<code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a></code></dd>
+<dd><code><a href="AbstractTasklet.html#hashCode()">hashCode</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">AbstractTasklet</a></code></dd>
 </dl>
-</section>
-</li>
-<li>
-<section class="detail" id="from(org.thinkit.bot.instagram.InstaBot)">
-<h3>from</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="ExecuteLoginTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">ExecuteLoginTasklet</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../../InstaBot.html" title="org.thinkit.bot.instagram内のインタフェース">InstaBot</a>&nbsp;instaBot)</span></div>
 </section>
 </li>
 </ul>

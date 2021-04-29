@@ -122,9 +122,10 @@ extends <a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.comma
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
-<td class="col-first"><code>static <a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;<a href="../result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(org.thinkit.bot.instagram.config.ActionHashtag,int)">from</a></span>&#8203;(@NonNull <a href="../config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&nbsp;actionHashtag,
-int&nbsp;maxLikes)</code></th>
+<td class="col-first"><code>static <a href="AutoLikeCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoLikeCommand</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#from(org.thinkit.bot.instagram.param.TargetHashtag,int,int)">from</a></span>&#8203;(<a href="../param/TargetHashtag.html" title="org.thinkit.bot.instagram.param内のクラス">TargetHashtag</a>&nbsp;targetHashtag,
+int&nbsp;maxLikes,
+int&nbsp;likeInterval)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i3">
@@ -159,14 +160,6 @@ int&nbsp;maxLikes)</code></th>
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="from(org.thinkit.bot.instagram.config.ActionHashtag,int)">
-<h3>from</h3>
-<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="BotCommand.html" title="org.thinkit.bot.instagram.command内のインタフェース">BotCommand</a>&lt;<a href="../result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters">@NonNull
-@NonNull <a href="../config/ActionHashtag.html" title="org.thinkit.bot.instagram.config内のクラス">ActionHashtag</a>&nbsp;actionHashtag,
-int&nbsp;maxLikes)</span></div>
-</section>
-</li>
-<li>
 <section class="detail" id="executeBotProcess()">
 <h3>executeBotProcess</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a></span>&nbsp;<span class="member-name">executeBotProcess</span>()</div>
@@ -200,6 +193,14 @@ int&nbsp;maxLikes)</span></div>
 <dt>オーバーライド:</dt>
 <dd><code><a href="AbstractBotCommand.html#hashCode()">hashCode</a></code>&nbsp;クラス内&nbsp;<code><a href="AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="../result/AutoLikeResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoLikeResult</a>&gt;</code></dd>
 </dl>
+</section>
+</li>
+<li>
+<section class="detail" id="from(org.thinkit.bot.instagram.param.TargetHashtag,int,int)">
+<h3>from</h3>
+<div class="member-signature"><span class="modifiers">public static</span>&nbsp;<span class="return-type"><a href="AutoLikeCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AutoLikeCommand</a></span>&nbsp;<span class="member-name">from</span>&#8203;(<span class="parameters"><a href="../param/TargetHashtag.html" title="org.thinkit.bot.instagram.param内のクラス">TargetHashtag</a>&nbsp;targetHashtag,
+int&nbsp;maxLikes,
+int&nbsp;likeInterval)</span></div>
 </section>
 </li>
 </ul>
