@@ -363,10 +363,22 @@ loadScripts(document, 'script');</script>
 <div class="block">Constructs a new exception with the specified cause and a detail message of
  (cause==null ?</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/VariableName.html#BATCH_FLOW_STRATEGY">BATCH_FLOW_STRATEGY</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/VariableName.html" title="org.thinkit.bot.instagram.catalog内の列挙型">VariableName</a></dt>
+<dd>
+<div class="block"><code>"BATCH_FLOW_STRATEGY"</code></div>
+</dd>
 <dt><a href="org/thinkit/bot/instagram/batch/config/BatchConfiguration.html" title="org.thinkit.bot.instagram.batch.config内のクラス"><span class="type-name-link">BatchConfiguration</span></a> - <a href="org/thinkit/bot/instagram/batch/config/package-summary.html">org.thinkit.bot.instagram.batch.config</a>のクラス</dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/config/BatchConfiguration.html#%3Cinit%3E()">BatchConfiguration()</a></span> - クラス のコンストラクタorg.thinkit.bot.instagram.batch.config.<a href="org/thinkit/bot/instagram/batch/config/BatchConfiguration.html" title="org.thinkit.bot.instagram.batch.config内のクラス">BatchConfiguration</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス"><span class="type-name-link">BatchFlowContext</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/context/package-summary.html">org.thinkit.bot.instagram.batch.strategy.context</a>のクラス</dt>
+<dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/flow/BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース"><span class="type-name-link">BatchFlowStrategy</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/flow/package-summary.html">org.thinkit.bot.instagram.batch.strategy.flow</a>のインタフェース</dt>
+<dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">BatchFlowStrategyPattern</span></a> - <a href="org/thinkit/bot/instagram/catalog/package-summary.html">org.thinkit.bot.instagram.catalog</a>の列挙</dt>
+<dd>
+<div class="block">The catalog that manages batch flow strategy pattern.</div>
+</dd>
 <dt><a href="org/thinkit/bot/instagram/catalog/BatchJob.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">BatchJob</span></a> - <a href="org/thinkit/bot/instagram/catalog/package-summary.html">org.thinkit.bot.instagram.catalog</a>の列挙</dt>
 <dd>
 <div class="block">The catalog that manages batch job.</div>
@@ -510,6 +522,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The catalog that manages content type.</div>
 </dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/context/Context.html" title="org.thinkit.bot.instagram.batch.strategy.context内のインタフェース"><span class="type-name-link">Context</span></a>&lt;<a href="org/thinkit/bot/instagram/batch/strategy/context/Context.html" title="Context内の型パラメータ">R</a>&gt; - <a href="org/thinkit/bot/instagram/batch/strategy/context/package-summary.html">org.thinkit.bot.instagram.batch.strategy.context</a>のインタフェース</dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.BatchTaskResultBuilder.html#countAttempt(int)">countAttempt(int)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.result.<a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.BatchTaskResultBuilder.html" title="org.thinkit.bot.instagram.batch.result内のクラス">BatchTaskResult.BatchTaskResultBuilder</a></dt>
 <dd>
 <div class="block">The count attempt</div>
@@ -528,15 +542,33 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/util/WaitTimeUtils.html#create(org.thinkit.bot.instagram.catalog.WaitType)">create(WaitType)</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.util.<a href="org/thinkit/bot/instagram/util/WaitTimeUtils.html" title="org.thinkit.bot.instagram.util内のクラス">WaitTimeUtils</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/BatchFlowStrategy.html#createJobFlowBuilder()">createJobFlowBuilder()</a></span> - インタフェース のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html#createJobFlowBuilder()">createJobFlowBuilder()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">RestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html#createJobFlowBuilder()">createJobFlowBuilder()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">UnrestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/BatchFlowStrategy.html#createLoginJobFlowBuilder()">createLoginJobFlowBuilder()</a></span> - インタフェース のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html#createLoginJobFlowBuilder()">createLoginJobFlowBuilder()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">RestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html#createLoginJobFlowBuilder()">createLoginJobFlowBuilder()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">UnrestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
 <dt><a href="org/thinkit/bot/instagram/util/DateUtils.html" title="org.thinkit.bot.instagram.util内のクラス"><span class="type-name-link">DateUtils</span></a> - <a href="org/thinkit/bot/instagram/util/package-summary.html">org.thinkit.bot.instagram.util</a>のクラス</dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html#DEFAULT">DEFAULT</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">HashtagSelectionStrategyPattern</a></dt>
+<dd>
+<div class="block">The default</div>
+</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/WaitType.html#DEFAULT">DEFAULT</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/WaitType.html" title="org.thinkit.bot.instagram.catalog内の列挙型">WaitType</a></dt>
 <dd>
 <div class="block">The default</div>
 </dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス"><span class="type-name-link">DefaultHashtagSelectionStrategy</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/hashtag/package-summary.html">org.thinkit.bot.instagram.batch.strategy.hashtag</a>のクラス</dt>
+<dd>&nbsp;</dd>
 <dt><a href="org/thinkit/bot/instagram/content/entity/DefaultVariable.html" title="org.thinkit.bot.instagram.content.entity内のクラス"><span class="type-name-link">DefaultVariable</span></a> - <a href="org/thinkit/bot/instagram/content/entity/package-summary.html">org.thinkit.bot.instagram.content.entity</a>のクラス</dt>
 <dd>
 <div class="block">The entity that manages the content <code>"DefaultVariable"</code> .</div>
@@ -595,6 +627,18 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/AbstractInstaBot.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.<a href="org/thinkit/bot/instagram/AbstractInstaBot.html" title="org.thinkit.bot.instagram内のクラス">AbstractInstaBot</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.result.<a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.html" title="org.thinkit.bot.instagram.batch.result内のクラス">BatchTaskResult</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">BatchFlowContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">HashtagSelectionContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">RestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">UnrestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">DefaultHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">FocusHashtagSelectionStrategy</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/Task.html#equals(java.lang.Object)">equals(Object)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.<a href="org/thinkit/bot/instagram/batch/Task.html" title="org.thinkit.bot.instagram.batch内のクラス">Task</a></dt>
 <dd>&nbsp;</dd>
@@ -762,6 +806,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The interface that manages error repository.</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html#evaluate()">evaluate()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">BatchFlowContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/Context.html#evaluate()">evaluate()</a></span> - インタフェース のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/Context.html" title="org.thinkit.bot.instagram.batch.strategy.context内のインタフェース">Context</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html#evaluate()">evaluate()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">HashtagSelectionContext</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="org/thinkit/bot/instagram/mongo/entity/ExcludedUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">ExcludedUser</span></a> - <a href="org/thinkit/bot/instagram/mongo/entity/package-summary.html">org.thinkit.bot.instagram.mongo.entity</a>のクラス</dt>
 <dd>
 <div class="block">The entity that manages excluded user.</div>
@@ -871,6 +921,12 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/mongo/repository/MessageMetaRepository.html#findByTaskTypeCode(int)">findByTaskTypeCode(int)</a></span> - インタフェース のメソッドorg.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/MessageMetaRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">MessageMetaRepository</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/mongo/repository/FollowBackExpectableUserRepository.html#findByUserName(java.lang.String)">findByUserName(String)</a></span> - インタフェース のメソッドorg.thinkit.bot.instagram.mongo.repository.<a href="org/thinkit/bot/instagram/mongo/repository/FollowBackExpectableUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">FollowBackExpectableUserRepository</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html#FOCUS">FOCUS</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">HashtagSelectionStrategyPattern</a></dt>
+<dd>
+<div class="block">The focus</div>
+</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス"><span class="type-name-link">FocusHashtagSelectionStrategy</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/hashtag/package-summary.html">org.thinkit.bot.instagram.batch.strategy.hashtag</a>のクラス</dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/RecordType.html#FOLLOW">FOLLOW</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/RecordType.html" title="org.thinkit.bot.instagram.catalog内の列挙型">RecordType</a></dt>
 <dd>
@@ -1048,6 +1104,10 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/command/ForecastFollowBackUserCommand.html#from(java.util.List)">from(List&lt;ForecastUser&gt;)</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.command.<a href="org/thinkit/bot/instagram/command/ForecastFollowBackUserCommand.html" title="org.thinkit.bot.instagram.command内のクラス">ForecastFollowBackUserCommand</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html#from(org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern)">from(BatchFlowStrategyPattern)</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">BatchFlowContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html#from(org.thinkit.bot.instagram.catalog.HashtagSelectionStrategyPattern)">from(HashtagSelectionStrategyPattern)</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">HashtagSelectionContext</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/Task.html#from(org.thinkit.bot.instagram.catalog.TaskType)">from(TaskType)</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.<a href="org/thinkit/bot/instagram/batch/Task.html" title="org.thinkit.bot.instagram.batch内のクラス">Task</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/content/LineMessagePhraseMapper.html#from(org.thinkit.bot.instagram.catalog.TaskType)">from(TaskType)</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.content.<a href="org/thinkit/bot/instagram/content/LineMessagePhraseMapper.html" title="org.thinkit.bot.instagram.content内のクラス">LineMessagePhraseMapper</a></dt>
@@ -1137,6 +1197,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The code</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html#getCode()">getCode()</a></span> - 列挙 のメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchFlowStrategyPattern</a></dt>
+<dd>
+<div class="block">The code</div>
+</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchJob.html#getCode()">getCode()</a></span> - 列挙 のメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchJob.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchJob</a></dt>
 <dd>
 <div class="block">The code</div>
@@ -1186,6 +1250,10 @@ loadScripts(document, 'script');</script>
 <div class="block">The code</div>
 </dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/FollowStateType.html#getCode()">getCode()</a></span> - 列挙 のメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/FollowStateType.html" title="org.thinkit.bot.instagram.catalog内の列挙型">FollowStateType</a></dt>
+<dd>
+<div class="block">The code</div>
+</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html#getCode()">getCode()</a></span> - 列挙 のメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">HashtagSelectionStrategyPattern</a></dt>
 <dd>
 <div class="block">The code</div>
 </dd>
@@ -1701,6 +1769,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The tag</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html#getTargetHashtags(int)">getTargetHashtags(int)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">DefaultHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html#getTargetHashtags(int)">getTargetHashtags(int)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">FocusHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/HashtagSelectionStrategy.html#getTargetHashtags(int)">getTargetHashtags(int)</a></span> - インタフェース のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/HashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のインタフェース">HashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/result/ActionError.html#getTaskType()">getTaskType()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionError.html" title="org.thinkit.bot.instagram.result内のクラス">ActionError</a></dt>
 <dd>
 <div class="block">The task type</div>
@@ -1889,6 +1963,18 @@ loadScripts(document, 'script');</script>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/AbstractInstaBot.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.<a href="org/thinkit/bot/instagram/AbstractInstaBot.html" title="org.thinkit.bot.instagram内のクラス">AbstractInstaBot</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.result.<a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.html" title="org.thinkit.bot.instagram.batch.result内のクラス">BatchTaskResult</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">BatchFlowContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">HashtagSelectionContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">RestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">UnrestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">DefaultHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">FocusHashtagSelectionStrategy</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/Task.html#hashCode()">hashCode()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.<a href="org/thinkit/bot/instagram/batch/Task.html" title="org.thinkit.bot.instagram.batch内のクラス">Task</a></dt>
 <dd>&nbsp;</dd>
@@ -2080,6 +2166,14 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The mapper class that manages the content <code>"HashtagResource"</code> .</div>
 </dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス"><span class="type-name-link">HashtagSelectionContext</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/context/package-summary.html">org.thinkit.bot.instagram.batch.strategy.context</a>のクラス</dt>
+<dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/HashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のインタフェース"><span class="type-name-link">HashtagSelectionStrategy</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/hashtag/package-summary.html">org.thinkit.bot.instagram.batch.strategy.hashtag</a>のインタフェース</dt>
+<dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型"><span class="type-name-link">HashtagSelectionStrategyPattern</span></a> - <a href="org/thinkit/bot/instagram/catalog/package-summary.html">org.thinkit.bot.instagram.catalog</a>の列挙</dt>
+<dd>
+<div class="block">The catalog that manages hashtag selection strategy pattern.</div>
+</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/FollowBackPossibility.html#HIGH">HIGH</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/FollowBackPossibility.html" title="org.thinkit.bot.instagram.catalog内の列挙型">FollowBackPossibility</a></dt>
 <dd>
 <div class="block">The high</div>
@@ -2236,9 +2330,9 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block"><code>"LIKE_INTERVAL"</code></div>
 </dd>
-<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/VariableName.html#LIKE_PER_HOUR_PER_TASK">LIKE_PER_HOUR_PER_TASK</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/VariableName.html" title="org.thinkit.bot.instagram.catalog内の列挙型">VariableName</a></dt>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/VariableName.html#LIKE_PER_TASK">LIKE_PER_TASK</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/VariableName.html" title="org.thinkit.bot.instagram.catalog内の列挙型">VariableName</a></dt>
 <dd>
-<div class="block"><code>"LIKE_PER_HOUR_PER_TASK"</code></div>
+<div class="block"><code>"LIKE_PER_TASK"</code></div>
 </dd>
 <dt><a href="org/thinkit/bot/instagram/mongo/entity/LikedPhoto.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス"><span class="type-name-link">LikedPhoto</span></a> - <a href="org/thinkit/bot/instagram/mongo/entity/package-summary.html">org.thinkit.bot.instagram.mongo.entity</a>のクラス</dt>
 <dd>
@@ -2400,6 +2494,14 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:N">N</h2>
 <dl class="index">
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html#newInstance()">newInstance()</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">RestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html#newInstance()">newInstance()</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">UnrestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html#newInstance()">newInstance()</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">DefaultHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html#newInstance()">newInstance()</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">FocusHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/tasklet/ExecuteAutoFollowTasklet.html#newInstance()">newInstance()</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/ExecuteAutoFollowTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">ExecuteAutoFollowTasklet</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/tasklet/ExecuteAutoLikeTasklet.html#newInstance()">newInstance()</a></span> - クラス のstaticメソッドorg.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/ExecuteAutoLikeTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">ExecuteAutoLikeTasklet</a></dt>
@@ -2555,6 +2657,12 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="org/thinkit/bot/instagram/batch/result/package-summary.html">org.thinkit.bot.instagram.batch.result</a> - パッケージ org.thinkit.bot.instagram.batch.result</dt>
 <dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/context/package-summary.html">org.thinkit.bot.instagram.batch.strategy.context</a> - パッケージ org.thinkit.bot.instagram.batch.strategy.context</dt>
+<dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/flow/package-summary.html">org.thinkit.bot.instagram.batch.strategy.flow</a> - パッケージ org.thinkit.bot.instagram.batch.strategy.flow</dt>
+<dd>&nbsp;</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/package-summary.html">org.thinkit.bot.instagram.batch.strategy.hashtag</a> - パッケージ org.thinkit.bot.instagram.batch.strategy.hashtag</dt>
+<dd>&nbsp;</dd>
 <dt><a href="org/thinkit/bot/instagram/batch/tasklet/package-summary.html">org.thinkit.bot.instagram.batch.tasklet</a> - パッケージ org.thinkit.bot.instagram.batch.tasklet</dt>
 <dd>&nbsp;</dd>
 <dt><a href="org/thinkit/bot/instagram/catalog/package-summary.html">org.thinkit.bot.instagram.catalog</a> - パッケージ org.thinkit.bot.instagram.catalog</dt>
@@ -2649,6 +2757,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The repeat status</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html#RESTRICTABLE">RESTRICTABLE</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchFlowStrategyPattern</a></dt>
+<dd>
+<div class="block">The default</div>
+</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス"><span class="type-name-link">RestrictableBatchFlowStrategy</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/flow/package-summary.html">org.thinkit.bot.instagram.batch.strategy.flow</a>のクラス</dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchStep.html#REVERSAL_ENTRY_HASHTAG">REVERSAL_ENTRY_HASHTAG</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchStep.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchStep</a></dt>
 <dd>
 <div class="block">The reversal entry hashtag step</div>
@@ -3113,6 +3227,18 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.result.<a href="org/thinkit/bot/instagram/batch/result/BatchTaskResult.html" title="org.thinkit.bot.instagram.batch.result内のクラス">BatchTaskResult</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/BatchFlowContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">BatchFlowContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.context.<a href="org/thinkit/bot/instagram/batch/strategy/context/HashtagSelectionContext.html" title="org.thinkit.bot.instagram.batch.strategy.context内のクラス">HashtagSelectionContext</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">RestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.flow.<a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">UnrestrictableBatchFlowStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/DefaultHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">DefaultHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.strategy.hashtag.<a href="org/thinkit/bot/instagram/batch/strategy/hashtag/FocusHashtagSelectionStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.hashtag内のクラス">FocusHashtagSelectionStrategy</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/Task.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.<a href="org/thinkit/bot/instagram/batch/Task.html" title="org.thinkit.bot.instagram.batch内のクラス">Task</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/batch/tasklet/AbstractTasklet.html#toString()">toString()</a></span> - クラス のメソッドorg.thinkit.bot.instagram.batch.tasklet.<a href="org/thinkit/bot/instagram/batch/tasklet/AbstractTasklet.html" title="org.thinkit.bot.instagram.batch.tasklet内のクラス">AbstractTasklet</a></dt>
@@ -3316,6 +3442,12 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">The entity that manages unfollow user.</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html#UNRESTRICTABLE">UNRESTRICTABLE</a></span> - org.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchFlowStrategyPattern</a></dt>
+<dd>
+<div class="block">The unrestrictable</div>
+</dd>
+<dt><a href="org/thinkit/bot/instagram/batch/strategy/flow/UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス"><span class="type-name-link">UnrestrictableBatchFlowStrategy</span></a> - <a href="org/thinkit/bot/instagram/batch/strategy/flow/package-summary.html">org.thinkit.bot.instagram.batch.strategy.flow</a>のクラス</dt>
+<dd>&nbsp;</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/result/ActionFollowedUser.ActionFollowedUserBuilder.html#url(java.lang.String)">url(String)</a></span> - クラス のメソッドorg.thinkit.bot.instagram.result.<a href="org/thinkit/bot/instagram/result/ActionFollowedUser.ActionFollowedUserBuilder.html" title="org.thinkit.bot.instagram.result内のクラス">ActionFollowedUser.ActionFollowedUserBuilder</a></dt>
 <dd>
 <div class="block">The url</div>
@@ -3405,6 +3537,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">指定した名前を持つこの型の列挙型定数を返します。</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html#valueOf(java.lang.String)">valueOf(String)</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchFlowStrategyPattern</a></dt>
+<dd>
+<div class="block">指定した名前を持つこの型の列挙型定数を返します。</div>
+</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchJob.html#valueOf(java.lang.String)">valueOf(String)</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchJob.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchJob</a></dt>
 <dd>
 <div class="block">指定した名前を持つこの型の列挙型定数を返します。</div>
@@ -3457,6 +3593,10 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">指定した名前を持つこの型の列挙型定数を返します。</div>
 </dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html#valueOf(java.lang.String)">valueOf(String)</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">HashtagSelectionStrategyPattern</a></dt>
+<dd>
+<div class="block">指定した名前を持つこの型の列挙型定数を返します。</div>
+</dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/IndentType.html#valueOf(java.lang.String)">valueOf(String)</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/IndentType.html" title="org.thinkit.bot.instagram.catalog内の列挙型">IndentType</a></dt>
 <dd>
 <div class="block">指定した名前を持つこの型の列挙型定数を返します。</div>
@@ -3506,6 +3646,11 @@ loadScripts(document, 'script');</script>
 <div class="block">指定した名前を持つこの型の列挙型定数を返します。</div>
 </dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/ActionStatus.html#values()">values()</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/ActionStatus.html" title="org.thinkit.bot.instagram.catalog内の列挙型">ActionStatus</a></dt>
+<dd>
+<div class="block">この列挙型の定数を含む配列を宣言されている順序で
+返します。</div>
+</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html#values()">values()</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/BatchFlowStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">BatchFlowStrategyPattern</a></dt>
 <dd>
 <div class="block">この列挙型の定数を含む配列を宣言されている順序で
 返します。</div>
@@ -3571,6 +3716,11 @@ loadScripts(document, 'script');</script>
 返します。</div>
 </dd>
 <dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/FollowStateType.html#values()">values()</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/FollowStateType.html" title="org.thinkit.bot.instagram.catalog内の列挙型">FollowStateType</a></dt>
+<dd>
+<div class="block">この列挙型の定数を含む配列を宣言されている順序で
+返します。</div>
+</dd>
+<dt><span class="member-name-link"><a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html#values()">values()</a></span> - 列挙 のstaticメソッドorg.thinkit.bot.instagram.catalog.<a href="org/thinkit/bot/instagram/catalog/HashtagSelectionStrategyPattern.html" title="org.thinkit.bot.instagram.catalog内の列挙型">HashtagSelectionStrategyPattern</a></dt>
 <dd>
 <div class="block">この列挙型の定数を含む配列を宣言されている順序で
 返します。</div>

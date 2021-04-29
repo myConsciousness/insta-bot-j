@@ -2,6 +2,9 @@ org.thinkit.bot.instagram
 org.thinkit.bot.instagram.batch
 org.thinkit.bot.instagram.batch.config
 org.thinkit.bot.instagram.batch.result
+org.thinkit.bot.instagram.batch.strategy.context
+org.thinkit.bot.instagram.batch.strategy.flow
+org.thinkit.bot.instagram.batch.strategy.hashtag
 org.thinkit.bot.instagram.batch.tasklet
 org.thinkit.bot.instagram.catalog
 org.thinkit.bot.instagram.command
