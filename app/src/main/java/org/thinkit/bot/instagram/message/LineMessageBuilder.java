@@ -23,6 +23,10 @@ import com.mongodb.lang.NonNull;
 
 import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.content.ActionStatusMessageMapper;
+import org.thinkit.bot.instagram.content.LineMessagePhraseMapper;
+import org.thinkit.bot.instagram.content.entity.ActionStatusMessage;
+import org.thinkit.bot.instagram.content.entity.LineMessagePhrase;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 
 import lombok.AccessLevel;
@@ -50,27 +54,44 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
         for (final MessageMeta messageMeta : this.messageMetas) {
             final TaskType taskType = Catalog.getEnum(TaskType.class, messageMeta.getTaskTypeCode());
 
-            if (taskType == TaskType.AUTO_LIKE) {
-                message.append(newline(this.createMessageAutoLike(messageMeta)));
+            if (taskType == TaskType.AUTO_LIKE || taskType == TaskType.FORECAST_FOLLOW_BACK_USER) {
+                message.append(newline(this.createMessage(taskType, messageMeta)));
             }
         }
 
         return message.toString();
     }
 
-    private String createMessageAutoLike(@NonNull final MessageMeta messageMeta) {
+    private String createMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
 
-        final StringBuilder messageAutoLike = new StringBuilder();
+        final StringBuilder message = new StringBuilder();
+
+        message.append(this.getActionStatusMessage(messageMeta));
+        message.append(space());
+        message.append(this.getTaskMessage(taskType, messageMeta));
+
+        return message.toString();
+    }
+
+    private String getTaskMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
+        final LineMessagePhraseMapper lineMessagePhraseMapper = LineMessagePhraseMapper.from(taskType);
+        final LineMessagePhrase lineMessagePhrase = lineMessagePhraseMapper.scan().get(0);
+
+        return String.format(lineMessagePhrase.getPhrase(), messageMeta.getCountAttempt());
+    }
+
+    private String getActionStatusMessage(@NonNull final MessageMeta messageMeta) {
+
+        final ActionStatusMessage actionStatusMessage = ActionStatusMessageMapper.newInstance().scan().get(0);
 
         if (messageMeta.isInterrupted()) {
-            messageAutoLike.append("[INTERRUPTED]");
-        } else {
-            messageAutoLike.append("[COMPLETED]");
+            return actionStatusMessage.getInterrupted();
+        } else if (messageMeta.isSkipped()) {
+            return actionStatusMessage.getSkipped();
+        } else if (messageMeta.isSkippedByMood()) {
+            return actionStatusMessage.getSkippedByMood();
         }
 
-        messageAutoLike.append(space());
-        messageAutoLike.append(String.format("AutoLike executed for %s photos.", messageMeta.getCountAttempt()));
-
-        return messageAutoLike.toString();
+        return actionStatusMessage.getCompleted();
     }
 }

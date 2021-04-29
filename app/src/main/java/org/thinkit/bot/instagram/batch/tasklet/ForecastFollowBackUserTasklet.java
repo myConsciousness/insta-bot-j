@@ -60,7 +60,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         final List<ForecastUser> forecastUsers = this.getForecastUsers();
 
         if (forecastUsers.isEmpty()) {
-            return BatchTaskResult.builder().actionStatus(ActionStatus.SKIPPED).build();
+            return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
         }
 
         final ForecastFollowBackResult followBackResult = super.getInstaBot()

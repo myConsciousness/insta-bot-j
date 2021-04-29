@@ -14,7 +14,7 @@
 
 package org.thinkit.bot.instagram.content;
 
-import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
+import org.thinkit.bot.instagram.content.entity.ActionStatusMessage;
 import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.EqualsAndHashCode;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "NumberUnitResource"} .
+ * The mapper class that manages the content {@code "ActionStatusMessage"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -30,5 +30,5 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(staticName = "newInstance")
-public final class NumberUnitResourceMapper extends ContentMapper<NumberUnitResource> {
+public final class ActionStatusMessageMapper extends ContentMapper<ActionStatusMessage> {
 }

@@ -49,9 +49,9 @@ public enum ActionStatus implements Catalog<ActionStatus> {
     COMPLETED(3),
 
     /**
-     * The skipped
+     * The skip
      */
-    SKIPPED(4),
+    SKIP(4),
 
     /**
      * The skip mood

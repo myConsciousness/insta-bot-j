@@ -172,7 +172,7 @@ public abstract class AbstractTasklet implements Tasklet {
         }
 
         if (this.task.canSendResultMessage()) {
-            this.saveMessageMeta(0, ActionStatus.SKIPPED);
+            this.saveMessageMeta(0, ActionStatus.SKIP);
         }
 
         this.updateEndAction();
@@ -295,7 +295,15 @@ public abstract class AbstractTasklet implements Tasklet {
 
         messageMeta.setTaskTypeCode(this.task.getTypeCode());
         messageMeta.setCountAttempt(countAttempt);
-        messageMeta.setInterrupted(actionStatus == ActionStatus.INTERRUPTED);
+
+        if (actionStatus == ActionStatus.INTERRUPTED) {
+            messageMeta.setInterrupted(true);
+        } else if (actionStatus == ActionStatus.SKIP) {
+            messageMeta.setSkipped(true);
+        } else if (actionStatus == ActionStatus.SKIP_MOOD) {
+            messageMeta.setSkippedByMood(true);
+        }
+
         messageMeta.setUpdatedAt(new Date());
 
         messageMetaRepository.save(messageMeta);
@@ -341,8 +349,7 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private String getDefaultVariableValue(@NonNull final VariableName variableName) {
-        final DefaultVariableMapper defaultVariableMapper = DefaultVariableMapper.newInstance();
-        defaultVariableMapper.setVariableName(variableName.getTag());
+        final DefaultVariableMapper defaultVariableMapper = DefaultVariableMapper.from(variableName.getTag());
         return defaultVariableMapper.scan().get(0).getValue();
     }
 

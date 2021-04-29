@@ -1,0 +1,50 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the Line message phrase.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.LineMessagePhrase"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "1",
+                "phrase": "The Auto Like executed for %s photos."
+            }
+        },
+        {
+            "node": {
+                "conditionId": "801",
+                "phrase": "The %s expectable users were found."
+            }
+        }
+    ],
+    "conditionNodes": [
+        {
+            "node": {
+                "conditionId": "1",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "1"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "801",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "801"
+                    }
+                ]
+            }
+        }
+    ]
+}

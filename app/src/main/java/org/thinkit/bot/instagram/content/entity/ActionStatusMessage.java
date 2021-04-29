@@ -12,23 +12,47 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.entity;
 
-import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
-import org.thinkit.zenna.mapper.ContentMapper;
+import java.io.Serializable;
+
+import org.thinkit.zenna.entity.ContentEntity;
 
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "NumberUnitResource"} .
+ * The entity that manages the content {@code "ActionStatusMessage"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
-@EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
-public final class NumberUnitResourceMapper extends ContentMapper<NumberUnitResource> {
+@EqualsAndHashCode
+public final class ActionStatusMessage implements ContentEntity, Serializable {
+
+    /**
+     * The completed
+     */
+    @Getter
+    private String completed;
+
+    /**
+     * The interrupted
+     */
+    @Getter
+    private String interrupted;
+
+    /**
+     * The skipped
+     */
+    @Getter
+    private String skipped;
+
+    /**
+     * The skipped by mood
+     */
+    @Getter
+    private String skippedByMood;
 }

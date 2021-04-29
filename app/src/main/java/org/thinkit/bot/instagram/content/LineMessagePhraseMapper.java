@@ -14,21 +14,30 @@
 
 package org.thinkit.bot.instagram.content;
 
-import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
+import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.content.entity.LineMessagePhrase;
 import org.thinkit.zenna.mapper.ContentMapper;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "NumberUnitResource"} .
+ * The mapper class that manages the content {@code "LineMessagePhrase"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
-public final class NumberUnitResourceMapper extends ContentMapper<NumberUnitResource> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
+public final class LineMessagePhraseMapper extends ContentMapper<LineMessagePhrase> {
+
+    /**
+     * The task type
+     */
+    private TaskType taskType;
 }

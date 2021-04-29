@@ -54,6 +54,16 @@ public final class MessageMeta implements Serializable {
     private boolean interrupted;
 
     /**
+     * The skipped
+     */
+    private boolean skipped;
+
+    /**
+     * The skipped by mood
+     */
+    private boolean skippedByMood;
+
+    /**
      * The created datetime
      */
     private Date createdAt = new Date();
