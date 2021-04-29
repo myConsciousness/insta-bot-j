@@ -202,6 +202,14 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private boolean isSkipMood() {
+
+        final Variable variable = this.getVariable(this.getSkippedCountVariableName());
+
+        if (Integer.parseInt(variable.getValue()) > 1) {
+            // Prevent too much skipping and too many attemps per execution
+            return false;
+        }
+
         return RandomUtils.generate(6, 1) % 5 == 0;
     }
 
