@@ -88,7 +88,7 @@ public class BatchJobConfiguration {
         return InstaBotJ.newInstance();
     }
 
-    @Scheduled(cron = "0 */30 8-23 * * *", zone = "Asia/Tokyo")
+    @Scheduled(cron = "${spring.batch.schedule.cron}", zone = "${spring.batch.schedule.timezone}")
     public void performScheduledJob() throws Exception {
 
         JobParameters param = new JobParametersBuilder()
