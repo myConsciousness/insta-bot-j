@@ -69,6 +69,11 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     ACTION_RESTRICTION_WAIT_HOUR(802, "ACTION_RESTRICTION_WAIT_HOUR"),
 
     /**
+     * {@code "BATCH_FLOW_STRATEGY"}
+     */
+    BATCH_FLOW_STRATEGY(803, "BATCH_FLOW_STRATEGY"),
+
+    /**
      * {@code "LINE_NOTIFY_TOKEN"}
      */
     LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN");

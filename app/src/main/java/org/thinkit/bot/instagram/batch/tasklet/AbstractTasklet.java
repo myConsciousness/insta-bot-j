@@ -55,6 +55,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
 @Slf4j
 @ToString
 @EqualsAndHashCode
@@ -80,10 +85,31 @@ public abstract class AbstractTasklet implements Tasklet {
     @Getter(AccessLevel.PROTECTED)
     private MongoCollection mongoCollection;
 
+    /**
+     * The constructor.
+     *
+     * @param taskType The task type
+     *
+     * @exception NullPointerException If {@code null} is passed as an argument
+     */
     protected AbstractTasklet(@NonNull final TaskType taskType) {
         this.task = Task.from(taskType);
     }
 
+    /**
+     * Given the current context in the form of a step contribution, do whatever is
+     * necessary to process this unit inside a transaction.
+     *
+     * <p>
+     * Implementations return {@link RepeatStatus#FINISHED} if finished. If not they
+     * return {@link RepeatStatus#CONTINUABLE}. On failure throws an exception.
+     *
+     * @param contribution The mutable state to be passed back to update the current
+     *                     step execution
+     * @param chunkContext The attributes shared between invocations but not between
+     *                     restarts
+     * @return The batch task result
+     */
     protected abstract BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext);
 
     @Override

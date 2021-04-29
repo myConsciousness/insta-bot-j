@@ -17,20 +17,24 @@ package org.thinkit.bot.instagram.batch.config;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
-import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.FlowJobBuilder;
-import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
+import org.thinkit.bot.instagram.batch.context.BatchFlowContext;
+import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
+import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.catalog.BatchJob;
+import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.mongo.entity.Variable;
+import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
 @Configuration
 @EnableScheduling
@@ -43,40 +47,10 @@ public class BatchJobConfiguration {
     private SimpleJobLauncher simpleJobLauncher;
 
     /**
-     * The job builder factory
+     * The variable repository
      */
     @Autowired
-    private JobBuilderFactory jobBuilderFactory;
-
-    /**
-     * The login step
-     */
-    @Autowired
-    private Step executeLoginStep;
-
-    /**
-     * The reversal entry hashtag step
-     */
-    @Autowired
-    private Step reversalEntryHashtagStep;
-
-    /**
-     * The auto like step
-     */
-    @Autowired
-    private Step executeAutoLikeStep;
-
-    /**
-     * The forecast follow back user step
-     */
-    @Autowired
-    private Step forecastFollowBackUserStep;
-
-    /**
-     * The notify result step
-     */
-    @Autowired
-    private Step notifyResultStep;
+    private VariableRepository variableRepository;
 
     /**
      * The login flag
@@ -103,15 +77,17 @@ public class BatchJobConfiguration {
 
     private FlowBuilder<FlowJobBuilder> createInstaBotFlowBuilder() {
 
-        final JobBuilder jobBuilder = this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
+        final Variable variable = variableRepository.findByName(VariableName.BATCH_FLOW_STRATEGY.getTag());
+        final BatchFlowStrategyPattern batchFlowStrategyPattern = Catalog.getEnum(BatchFlowStrategyPattern.class,
+                Integer.parseInt(variable.getValue()));
+
+        final BatchFlowStrategy batchFlowStrategy = BatchFlowContext.from(batchFlowStrategyPattern).evaluate();
 
         if (!this.logined) {
             this.logined = true;
-            return jobBuilder.flow(this.executeLoginStep).next(this.reversalEntryHashtagStep)
-                    .next(this.executeAutoLikeStep).next(this.forecastFollowBackUserStep).next(this.notifyResultStep);
+            return batchFlowStrategy.createLoginJobFlowBuilder();
         }
 
-        return jobBuilder.flow(this.reversalEntryHashtagStep).next(this.executeAutoLikeStep)
-                .next(this.forecastFollowBackUserStep).next(this.notifyResultStep);
+        return batchFlowStrategy.createJobFlowBuilder();
     }
 }

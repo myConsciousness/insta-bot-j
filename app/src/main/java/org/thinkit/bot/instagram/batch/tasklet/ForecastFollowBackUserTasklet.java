@@ -107,17 +107,15 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         final List<LikedPhoto> likedPhotos = this.getMongoCollection().getLikedPhotoRepository().findAll();
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
-        int userCount = 0;
         final int maxUserCount = this.getMaxUserCount();
 
         for (final LikedPhoto likedPhoto : likedPhotos) {
             if (!this.isDuplicateUser(forecastUsers, likedPhoto)) {
                 forecastUsers.add(ForecastUser.from(likedPhoto.getUserName()));
-                userCount++;
-            }
 
-            if (userCount >= maxUserCount) {
-                break;
+                if (forecastUsers.size() >= maxUserCount) {
+                    break;
+                }
             }
         }
 

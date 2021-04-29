@@ -55,7 +55,9 @@ public final class NotifyResultTasklet extends AbstractTasklet {
                 .findByName(VariableName.LINE_NOTIFY_TOKEN.getTag()).getValue();
 
         LineNotify.from(token).sendMessage(LineMessageBuilder.from(messageMetas).build());
-        log.debug("The message has been sent.");
+        log.info("The message has been sent.");
+
+        this.getMongoCollection().getMessageMetaRepository().deleteAll();
 
         log.debug("END");
         return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
