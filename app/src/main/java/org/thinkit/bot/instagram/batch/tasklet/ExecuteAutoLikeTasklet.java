@@ -137,7 +137,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     }
 
     private int getMaxLike() {
-        return Integer.parseInt(super.getVariable(VariableName.LIKE_PER_HOUR_PER_TASK).getValue());
+        return Integer.parseInt(super.getVariable(VariableName.LIKE_PER_TASK).getValue());
     }
 
     private int getLikeInterval() {

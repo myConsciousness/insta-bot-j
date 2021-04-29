@@ -76,7 +76,7 @@
                     {
                         "keyName": "variableName",
                         "operator": "=",
-                        "operand": "LIKE_PER_HOUR_PER_TASK"
+                        "operand": "LIKE_PER_TASK"
                     }
                 ]
             }
