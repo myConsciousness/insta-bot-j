@@ -15,7 +15,6 @@ package org.thinkit.bot.instagram.util;
  */
 
 import java.io.Serializable;
-import java.util.Random;
 
 import org.thinkit.bot.instagram.catalog.WaitType;
 
@@ -37,16 +36,11 @@ public final class WaitTimeUtils implements Serializable {
      */
     private static final long serialVersionUID = 3291150816726238730L;
 
-    /**
-     * The random
-     */
-    private static final Random RANDOM = new Random();
-
     public static int create(@NonNull final WaitType waitType) {
         return switch (waitType) {
-        case DEFAULT -> RANDOM.nextInt(10000) + 40000;
-        case LIKE -> RANDOM.nextInt(10000) + 50000;
-        case HUMAN_LIKE_INTERVAL -> RANDOM.nextInt(500) + 5000;
+            case DEFAULT -> RandomUtils.nextInt(10000, 40000);
+            case LIKE -> RandomUtils.nextInt(10000, 50000);
+            case HUMAN_LIKE_INTERVAL -> RandomUtils.nextInt(1000, 5000);
         };
     }
 }

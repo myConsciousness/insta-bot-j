@@ -119,6 +119,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
             }
         }
 
+        log.debug("The forecast users: {}", forecastUsers);
         log.debug("END");
         return forecastUsers;
     }

@@ -24,6 +24,7 @@ import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.content.FollowBackPossibilityIndicatorMapper;
 import org.thinkit.bot.instagram.content.NumberUnitResourceMapper;
 import org.thinkit.bot.instagram.content.entity.FollowBackPossibilityIndicator;
@@ -62,6 +63,9 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
 
         for (final ForecastUser forecastUser : this.forecastUsers) {
             try {
+
+                super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+
                 final String userName = forecastUser.getUserName();
                 final String userProfileUrl = String.format(InstagramUrl.USER_PROFILE.getTag(), userName);
                 super.getWebPage(userProfileUrl);

@@ -108,7 +108,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
         final int patternCount = HashtagSelectionStrategyPattern.values().length;
         final HashtagSelectionStrategyPattern hashtagSelectionStrategyPattern = Catalog
-                .getEnum(HashtagSelectionStrategyPattern.class, RandomUtils.generate(patternCount - 1));
+                .getEnum(HashtagSelectionStrategyPattern.class, RandomUtils.nextInt(patternCount - 1));
 
         final HashtagSelectionStrategy hashtagSelectionStrategy = HashtagSelectionContext
                 .from(hashtagSelectionStrategyPattern).evaluate();
@@ -134,7 +134,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     }
 
     private int getTargetGroupCode() {
-        return RandomUtils.generate(this.getGroupCount() - 1);
+        return RandomUtils.nextInt(this.getGroupCount() - 1);
     }
 
     private int getMaxLike() {

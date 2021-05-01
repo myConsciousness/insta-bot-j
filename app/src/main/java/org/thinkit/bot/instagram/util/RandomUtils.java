@@ -27,11 +27,11 @@ public final class RandomUtils {
      */
     private static final Random RANDOM = new Random();
 
-    public static int generate(final int bound) {
-        return generate(bound, 0);
+    public static int nextInt(final int bound) {
+        return nextInt(bound, 0);
     }
 
-    public static int generate(final int bound, final int weight) {
+    public static int nextInt(final int bound, final int weight) {
         return RANDOM.nextInt(bound) + weight;
     }
 }

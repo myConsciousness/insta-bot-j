@@ -235,7 +235,7 @@ public abstract class AbstractTasklet implements Tasklet {
             return false;
         }
 
-        return RandomUtils.generate(6, 1) % 5 == 0;
+        return RandomUtils.nextInt(6, 1) % 5 == 0;
     }
 
     private void incrementSkippedCount() {
