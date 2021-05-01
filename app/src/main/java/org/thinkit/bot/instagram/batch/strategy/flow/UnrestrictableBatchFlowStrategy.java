@@ -14,16 +14,15 @@
 
 package org.thinkit.bot.instagram.batch.strategy.flow;
 
-import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.FlowJobBuilder;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.stereotype.Component;
-import org.thinkit.bot.instagram.catalog.BatchJob;
+import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
@@ -32,39 +31,18 @@ import lombok.ToString;
 @Component
 public final class UnrestrictableBatchFlowStrategy implements BatchFlowStrategy {
 
-    /**
-     * The job builder factory
-     */
-    @Autowired
-    private JobBuilderFactory jobBuilderFactory;
-
-    /**
-     * The login step
-     */
-    @Autowired
-    private Step executeLoginStep;
-
-    /**
-     * The forecast follow back user step
-     */
-    @Autowired
-    private Step forecastFollowBackUserStep;
-
-    /**
-     * The notify result step
-     */
-    @Autowired
-    private Step notifyResultStep;
-
     @Override
-    public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder() {
-        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag()).flow(this.executeLoginStep)
-                .next(this.forecastFollowBackUserStep).next(this.notifyResultStep);
+    public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
+            @NonNull final BatchStepCollections batchStepCollections) {
+        return jobBuilder.flow(batchStepCollections.getExecuteLoginStep())
+                .next(batchStepCollections.getForecastFollowBackUserStep())
+                .next(batchStepCollections.getNotifyResultStep());
     }
 
     @Override
-    public FlowBuilder<FlowJobBuilder> createJobFlowBuilder() {
-        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag()).flow(this.forecastFollowBackUserStep)
-                .next(this.forecastFollowBackUserStep).next(this.notifyResultStep);
+    public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
+            @NonNull final BatchStepCollections batchStepCollections) {
+        return jobBuilder.flow(batchStepCollections.getForecastFollowBackUserStep())
+                .next(batchStepCollections.getNotifyResultStep());
     }
 }

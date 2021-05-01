@@ -17,8 +17,10 @@ package org.thinkit.bot.instagram.batch.config;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
+import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.FlowJobBuilder;
+import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.launch.support.SimpleJobLauncher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -28,17 +30,24 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
+import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
 import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.VariableName;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 
 @Configuration
 @EnableScheduling
 public class BatchJobConfiguration {
+
+    /**
+     * The job builder factory
+     */
+    @Autowired
+    private JobBuilderFactory jobBuilderFactory;
 
     /**
      * The job launcher
@@ -47,10 +56,16 @@ public class BatchJobConfiguration {
     private SimpleJobLauncher simpleJobLauncher;
 
     /**
+     * The batch step collections
+     */
+    @Autowired
+    private BatchStepCollections batchStepCollections;
+
+    /**
      * The mongo collection
      */
     @Autowired
-    private MongoCollection mongoCollection;
+    private MongoCollections mongoCollection;
 
     /**
      * The login flag
@@ -82,13 +97,14 @@ public class BatchJobConfiguration {
         final BatchFlowStrategyPattern batchFlowStrategyPattern = Catalog.getEnum(BatchFlowStrategyPattern.class,
                 Integer.parseInt(variable.getValue()));
 
+        final JobBuilder jobBuilder = this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
         final BatchFlowStrategy batchFlowStrategy = BatchFlowContext.from(batchFlowStrategyPattern).evaluate();
 
         if (!this.logined) {
             this.logined = true;
-            return batchFlowStrategy.createLoginJobFlowBuilder();
+            return batchFlowStrategy.createLoginJobFlowBuilder(jobBuilder, this.batchStepCollections);
         }
 
-        return batchFlowStrategy.createJobFlowBuilder();
+        return batchFlowStrategy.createJobFlowBuilder(jobBuilder, this.batchStepCollections);
     }
 }

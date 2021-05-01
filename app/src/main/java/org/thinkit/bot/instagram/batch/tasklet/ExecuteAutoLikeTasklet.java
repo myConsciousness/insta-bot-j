@@ -22,6 +22,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.api.catalog.Catalog;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.batch.strategy.context.HashtagSelectionContext;
 import org.thinkit.bot.instagram.batch.strategy.hashtag.HashtagSelectionStrategy;
@@ -30,7 +31,6 @@ import org.thinkit.bot.instagram.catalog.HashtagSelectionStrategyPattern;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
@@ -64,7 +64,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
                 this.getAutoLikeConfig());
         log.info("The autolike has completed the process successfully.");
 
-        final MongoCollection mongoCollection = super.getMongoCollection();
+        final MongoCollections mongoCollection = super.getMongoCollections();
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
 
         int sumLikes = 0;

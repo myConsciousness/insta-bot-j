@@ -26,12 +26,12 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.Task;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.DefaultVariableMapper;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.ActionRestriction;
 import org.thinkit.bot.instagram.mongo.entity.Error;
@@ -79,11 +79,11 @@ public abstract class AbstractTasklet implements Tasklet {
     private InstaBot instaBot;
 
     /**
-     * The mongo collection
+     * The mongo collections
      */
     @Autowired
     @Getter(AccessLevel.PROTECTED)
-    private MongoCollection mongoCollection;
+    private MongoCollections mongoCollections;
 
     /**
      * The constructor.
@@ -133,7 +133,7 @@ public abstract class AbstractTasklet implements Tasklet {
     protected Variable getVariable(@NonNull final VariableName variableName) {
         log.debug("START");
 
-        final VariableRepository variableRepository = this.mongoCollection.getVariableRepository();
+        final VariableRepository variableRepository = this.mongoCollections.getVariableRepository();
         Variable variable = variableRepository.findByName(variableName.getTag());
 
         if (variable == null) {
@@ -185,7 +185,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
         this.updateStartAction();
 
-        final ActionRestrictionRepository actionRestrictionRepository = this.mongoCollection
+        final ActionRestrictionRepository actionRestrictionRepository = this.mongoCollections
                 .getActionRestrictionRepository();
         final ActionRestriction actionRestriction = actionRestrictionRepository.findAll().get(0);
 
@@ -224,7 +224,7 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private boolean isActionRestricted() {
-        return !this.mongoCollection.getActionRestrictionRepository().findAll().isEmpty();
+        return !this.mongoCollections.getActionRestrictionRepository().findAll().isEmpty();
     }
 
     private boolean isSkipMood() {
@@ -246,7 +246,7 @@ public abstract class AbstractTasklet implements Tasklet {
         int skippedCount = Integer.parseInt(variable.getValue());
         variable.setValue(String.valueOf(skippedCount++));
 
-        this.mongoCollection.getVariableRepository().save(variable);
+        this.mongoCollections.getVariableRepository().save(variable);
         log.debug("Updated variable: {}", variable);
 
         log.debug("END");
@@ -258,7 +258,7 @@ public abstract class AbstractTasklet implements Tasklet {
         final Variable variable = this.getVariable(this.getSkippedCountVariableName());
         variable.setValue("0");
 
-        this.mongoCollection.getVariableRepository().save(variable);
+        this.mongoCollections.getVariableRepository().save(variable);
         log.debug("Updated variable: {}", variable);
 
         log.debug("END");
@@ -276,7 +276,7 @@ public abstract class AbstractTasklet implements Tasklet {
         actionRecord.setCountAttempt(countAttempt);
         actionRecord.setActionStatusCode(actionStatus.getCode());
 
-        this.mongoCollection.getActionRecordRepository().insert(actionRecord);
+        this.mongoCollections.getActionRecordRepository().insert(actionRecord);
         log.debug("Inserted action record: {}", actionRecord);
 
         log.debug("END");
@@ -285,7 +285,7 @@ public abstract class AbstractTasklet implements Tasklet {
     private void saveActionError(@NonNull final List<ActionError> actionErrors) {
         log.debug("START");
 
-        final ErrorRepository errorRepository = this.mongoCollection.getErrorRepository();
+        final ErrorRepository errorRepository = this.mongoCollections.getErrorRepository();
 
         for (final ActionError actionError : actionErrors) {
             final Error error = new Error();
@@ -304,7 +304,7 @@ public abstract class AbstractTasklet implements Tasklet {
     private void saveActionRestriction() {
         log.debug("START");
 
-        final ActionRestrictionRepository actionRestrictionRepository = this.mongoCollection
+        final ActionRestrictionRepository actionRestrictionRepository = this.mongoCollections
                 .getActionRestrictionRepository();
 
         final ActionRestriction actionRestriction = new ActionRestriction();
@@ -320,7 +320,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
         Preconditions.requirePositive(countAttempt);
 
-        final MessageMetaRepository messageMetaRepository = this.mongoCollection.getMessageMetaRepository();
+        final MessageMetaRepository messageMetaRepository = this.mongoCollections.getMessageMetaRepository();
         MessageMeta messageMeta = messageMetaRepository.findByTaskTypeCode(this.task.getTypeCode());
 
         if (messageMeta == null) {
@@ -349,7 +349,7 @@ public abstract class AbstractTasklet implements Tasklet {
     private void updateStartAction() {
         log.debug("START");
 
-        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
+        final LastActionRepository lastActionRepository = this.mongoCollections.getLastActionRepository();
         LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.task.getTypeCode());
 
         if (lastAction == null) {
@@ -370,7 +370,7 @@ public abstract class AbstractTasklet implements Tasklet {
     private void updateEndAction() {
         log.debug("START");
 
-        final LastActionRepository lastActionRepository = this.mongoCollection.getLastActionRepository();
+        final LastActionRepository lastActionRepository = this.mongoCollections.getLastActionRepository();
         final LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.task.getTypeCode());
 
         lastAction.setEnd(new Date());

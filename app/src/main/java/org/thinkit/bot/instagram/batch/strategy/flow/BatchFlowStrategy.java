@@ -14,12 +14,18 @@
 
 package org.thinkit.bot.instagram.batch.strategy.flow;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.FlowJobBuilder;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 
 public interface BatchFlowStrategy {
 
-    public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder();
+    public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
+            @NonNull final BatchStepCollections batchStepCollections);
 
-    public FlowBuilder<FlowJobBuilder> createJobFlowBuilder();
+    public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
+            @NonNull final BatchStepCollections batchStepCollections);
 }

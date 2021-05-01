@@ -12,14 +12,10 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.config;
+package org.thinkit.bot.instagram.batch.dto;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
-import org.thinkit.bot.instagram.catalog.MongoDatabase;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
+import java.io.Serializable;
+
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
@@ -31,95 +27,84 @@ import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
 /**
- * The configuration class for MongoDB.
+ * The class that manages collections of MongoDB.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Configuration
-public class MongoConfiguration extends AbstractMongoClientConfiguration {
-
-    /**
-     * The variable repository
-     */
-    @Autowired
-    private VariableRepository variableRepository;
+@ToString
+@EqualsAndHashCode
+@Builder(toBuilder = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public final class MongoCollections implements Serializable {
 
     /**
      * The user account repository
      */
-    @Autowired
+    @Getter
     private UserAccountRepository userAccountRepository;
 
     /**
      * The hashtag repository
      */
-    @Autowired
+    @Getter
     private HashtagRepository hashtagRepository;
 
     /**
      * The liked photo repository
      */
-    @Autowired
+    @Getter
     private LikedPhotoRepository likedPhotoRepository;
 
     /**
      * The error repository
      */
-    @Autowired
+    @Getter
     private ErrorRepository errorRepository;
 
     /**
      * The action restriction repository
      */
-    @Autowired
+    @Getter
     private ActionRestrictionRepository actionRestrictionRepository;
 
     /**
      * The action record repository
      */
-    @Autowired
+    @Getter
     private ActionRecordRepository actionRecordRepository;
 
     /**
-     * The last action repository
+     * The last action
      */
-    @Autowired
+    @Getter
     private LastActionRepository lastActionRepository;
+
+    /**
+     * The variable repository
+     */
+    @Getter
+    private VariableRepository variableRepository;
 
     /**
      * The message meta repository
      */
-    @Autowired
+    @Getter
     private MessageMetaRepository messageMetaRepository;
 
     /**
-     * The follow bacl expectable user repository
+     * The follow back expectable user repository
      */
-    @Autowired
+    @Getter
     private FollowBackExpectableUserRepository followBackExpectableUserRepository;
-
-    @Override
-    protected String getDatabaseName() {
-        return MongoDatabase.INSTAGRAM.getTag();
-    }
-
-    @Bean
-    public MongoCollection mongoCollection() {
-
-        final MongoCollection.MongoCollectionBuilder mongoCollectionBuilder = MongoCollection.builder();
-        mongoCollectionBuilder.userAccountRepository(this.userAccountRepository);
-        mongoCollectionBuilder.variableRepository(this.variableRepository);
-        mongoCollectionBuilder.hashtagRepository(this.hashtagRepository);
-        mongoCollectionBuilder.likedPhotoRepository(this.likedPhotoRepository);
-        mongoCollectionBuilder.errorRepository(this.errorRepository);
-        mongoCollectionBuilder.actionRestrictionRepository(this.actionRestrictionRepository);
-        mongoCollectionBuilder.actionRecordRepository(this.actionRecordRepository);
-        mongoCollectionBuilder.lastActionRepository(this.lastActionRepository);
-        mongoCollectionBuilder.messageMetaRepository(this.messageMetaRepository);
-        mongoCollectionBuilder.followBackExpectableUserRepository(this.followBackExpectableUserRepository);
-
-        return mongoCollectionBuilder.build();
-    }
 }

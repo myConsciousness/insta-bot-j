@@ -63,7 +63,7 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
     private void updateHashtag() {
         log.debug("START");
 
-        final HashtagRepository hashtagRepository = super.getMongoCollection().getHashtagRepository();
+        final HashtagRepository hashtagRepository = super.getMongoCollections().getHashtagRepository();
         hashtagRepository.deleteAll();
 
         for (final HashtagResource hashtagResource : HashtagResourceMapper.newInstance().scan()) {
@@ -81,7 +81,7 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
     private void updateHashtagGroupCount() {
         log.debug("START");
 
-        final VariableRepository variableRepository = super.getMongoCollection().getVariableRepository();
+        final VariableRepository variableRepository = super.getMongoCollections().getVariableRepository();
         Variable variable = variableRepository.findByName(VariableName.HASHTAG_GROUP_COUNT.getTag());
 
         if (variable == null) {

@@ -67,9 +67,9 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
                 .executeForecastFollowBackUser(forecastUsers);
         log.info("The forecast follow back user has completed the process successfully.");
 
-        final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollection()
+        final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
-        final LikedPhotoRepository likedPhotoRepository = this.getMongoCollection().getLikedPhotoRepository();
+        final LikedPhotoRepository likedPhotoRepository = this.getMongoCollections().getLikedPhotoRepository();
         final List<ExpectableUser> expectableUsers = followBackResult.getExpectableUsers();
 
         for (final ExpectableUser expectableUser : expectableUsers) {
@@ -104,7 +104,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
     private List<ForecastUser> getForecastUsers() {
         log.debug("START");
 
-        final List<LikedPhoto> likedPhotos = this.getMongoCollection().getLikedPhotoRepository().findAll();
+        final List<LikedPhoto> likedPhotos = this.getMongoCollections().getLikedPhotoRepository().findAll();
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
         final int maxUserCount = this.getMaxUserCount();
@@ -146,7 +146,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
 
     private boolean isAlreadyForecastedUser(@NonNull final List<ForecastUser> forecastUsers,
             @NonNull final LikedPhoto likedPhoto) {
-        final FollowBackExpectableUserRepository followBackExpectableUserRepository = this.getMongoCollection()
+        final FollowBackExpectableUserRepository followBackExpectableUserRepository = this.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
         return followBackExpectableUserRepository.findByUserName(likedPhoto.getUserName()) != null;
     }

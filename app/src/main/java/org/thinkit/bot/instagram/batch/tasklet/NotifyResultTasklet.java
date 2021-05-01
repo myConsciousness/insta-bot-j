@@ -50,14 +50,14 @@ public final class NotifyResultTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final List<MessageMeta> messageMetas = this.getMongoCollection().getMessageMetaRepository().findAll();
-        final String token = super.getMongoCollection().getVariableRepository()
+        final List<MessageMeta> messageMetas = this.getMongoCollections().getMessageMetaRepository().findAll();
+        final String token = super.getMongoCollections().getVariableRepository()
                 .findByName(VariableName.LINE_NOTIFY_TOKEN.getTag()).getValue();
 
         LineNotify.from(token).sendMessage(LineMessageBuilder.from(messageMetas).build());
         log.info("The message has been sent.");
 
-        this.getMongoCollection().getMessageMetaRepository().deleteAll();
+        this.getMongoCollections().getMessageMetaRepository().deleteAll();
 
         log.debug("END");
         return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();

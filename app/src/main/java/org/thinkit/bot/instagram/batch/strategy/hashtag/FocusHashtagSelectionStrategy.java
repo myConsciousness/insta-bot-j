@@ -19,7 +19,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 
@@ -39,7 +39,7 @@ public final class FocusHashtagSelectionStrategy implements HashtagSelectionStra
      * The mongo collection
      */
     @Autowired
-    private MongoCollection mongoCollection;
+    private MongoCollections mongoCollection;
 
     @Override
     public List<TargetHashtag> getTargetHashtags(final int groupCode) {

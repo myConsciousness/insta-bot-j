@@ -18,6 +18,7 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoFollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoUnfollowTasklet;
@@ -25,7 +26,6 @@ import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ForecastFollowBackUserTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ReversalEntryHashtagTasklet;
-import org.thinkit.bot.instagram.mongo.MongoCollection;
 import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 
 @Configuration
@@ -35,7 +35,7 @@ public class BatchTaskletConfiguration {
      * The mongo collection
      */
     @Autowired
-    private MongoCollection mongoCollection;
+    private MongoCollections mongoCollection;
 
     @Bean
     public UserAccount userAccount() {
