@@ -41,7 +41,6 @@ import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
-import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.util.DateUtils;
@@ -320,13 +319,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
         Preconditions.requirePositive(countAttempt);
 
-        final MessageMetaRepository messageMetaRepository = this.mongoCollections.getMessageMetaRepository();
-        MessageMeta messageMeta = messageMetaRepository.findByTaskTypeCode(this.task.getTypeCode());
-
-        if (messageMeta == null) {
-            messageMeta = new MessageMeta();
-        }
-
+        final MessageMeta messageMeta = new MessageMeta();
         messageMeta.setTaskTypeCode(this.task.getTypeCode());
         messageMeta.setCountAttempt(countAttempt);
 
@@ -340,8 +333,8 @@ public abstract class AbstractTasklet implements Tasklet {
 
         messageMeta.setUpdatedAt(new Date());
 
-        messageMetaRepository.save(messageMeta);
-        log.debug("Updated message meta: {}", messageMeta);
+        this.mongoCollections.getMessageMetaRepository().insert(messageMeta);
+        log.debug("Inserted message meta: {}", messageMeta);
 
         log.debug("END");
     }

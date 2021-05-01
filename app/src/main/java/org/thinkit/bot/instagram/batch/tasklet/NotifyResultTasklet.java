@@ -26,6 +26,7 @@ import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.message.LineMessageBuilder;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.notification.LineNotify;
 
 import lombok.EqualsAndHashCode;
@@ -50,14 +51,20 @@ public final class NotifyResultTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final List<MessageMeta> messageMetas = this.getMongoCollections().getMessageMetaRepository().findAll();
+        final MessageMetaRepository messageMetaRepository = this.getMongoCollections().getMessageMetaRepository();
+        final List<MessageMeta> messageMetas = messageMetaRepository.findByAlreadySentFalse();
+
         final String token = super.getMongoCollections().getVariableRepository()
                 .findByName(VariableName.LINE_NOTIFY_TOKEN.getTag()).getValue();
 
         LineNotify.from(token).sendMessage(LineMessageBuilder.from(messageMetas).build());
         log.info("The message has been sent.");
 
-        this.getMongoCollections().getMessageMetaRepository().deleteAll();
+        for (final MessageMeta messageMeta : messageMetas) {
+            messageMeta.setAlreadySent(true);
+            messageMetaRepository.save(messageMeta);
+            log.debug("Updated message meta: {}", messageMeta);
+        }
 
         log.debug("END");
         return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();

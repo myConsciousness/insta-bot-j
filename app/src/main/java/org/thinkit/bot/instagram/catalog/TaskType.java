@@ -66,7 +66,7 @@ public enum TaskType implements Catalog<TaskType> {
     /**
      * The notify result
      */
-    NOTIFY_RESULT(801),
+    NOTIFY_RESULT(802),
 
     /**
      * The logout
