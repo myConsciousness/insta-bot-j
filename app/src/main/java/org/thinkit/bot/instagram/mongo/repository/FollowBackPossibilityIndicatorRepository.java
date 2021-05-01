@@ -27,6 +27,4 @@ import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
 @Repository
 public interface FollowBackPossibilityIndicatorRepository
         extends MongoRepository<FollowBackPossibilityIndicator, String> {
-
-    public FollowBackPossibilityIndicator findByFollowBackPossibilityCode(int followBackPossibilityCode);
 }
