@@ -19,10 +19,9 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.mongo.entity.UserAccount;
-import org.thinkit.bot.instagram.param.ActionUser;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -32,31 +31,29 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class ExecuteLoginTasklet extends AbstractTasklet {
+public final class InitializeTasklet extends AbstractTasklet {
 
     /**
-     * The user account
+     * The mongo collections
      */
     @Autowired
-    private UserAccount userAccount;
+    private MongoCollections mongoCollections;
 
-    private ExecuteLoginTasklet() {
-        super(TaskType.LOGIN);
+    private InitializeTasklet() {
+        super(TaskType.INITIALIZE);
     }
 
     public static Tasklet newInstance() {
-        return new ExecuteLoginTasklet();
+        return new InitializeTasklet();
     }
 
     @Override
-    public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
+    protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        super.getInstaBot()
-                .executeLogin(ActionUser.from(this.userAccount.getUserName(), this.userAccount.getPassword()));
-        log.info("The login to Instagram has been successfully completed.");
+        // Do nothing now
 
         log.debug("END");
-        return BatchTaskResult.builder().actionCount(1).build();
+        return BatchTaskResult.builder().build();
     }
 }

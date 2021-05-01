@@ -59,9 +59,14 @@ public enum TaskType implements Catalog<TaskType> {
     AUTO_UNFOLLOW(5),
 
     /**
+     * The initialize
+     */
+    INITIALIZE(800),
+
+    /**
      * The update auto like config
      */
-    UPDATE_AUTO_LIKE_CONFIG(800),
+    UPDATE_AUTO_LIKE_CONFIG(801),
 
     /**
      * The notify result

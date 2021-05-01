@@ -19,7 +19,6 @@ import java.util.List;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -67,6 +66,6 @@ public final class NotifyResultTasklet extends AbstractTasklet {
         }
 
         log.debug("END");
-        return BatchTaskResult.builder().actionCount(1).repeatStatus(RepeatStatus.FINISHED).build();
+        return BatchTaskResult.builder().actionCount(1).build();
     }
 }

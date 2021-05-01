@@ -37,7 +37,9 @@ import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
 import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.content.DefaultVariableMapper;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
+import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
 /**
  *
@@ -97,13 +99,9 @@ public class BatchJobConfiguration {
 
     private FlowBuilder<FlowJobBuilder> createInstaBotFlowBuilder() {
 
-        final Variable variable = mongoCollections.getVariableRepository()
-                .findByName(VariableName.BATCH_FLOW_STRATEGY.getTag());
-        final BatchFlowStrategyPattern batchFlowStrategyPattern = Catalog.getEnum(BatchFlowStrategyPattern.class,
-                Integer.parseInt(variable.getValue()));
-
         final JobBuilder jobBuilder = this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
-        final BatchFlowStrategy batchFlowStrategy = BatchFlowContext.from(batchFlowStrategyPattern).evaluate();
+        final BatchFlowStrategy batchFlowStrategy = BatchFlowContext.from(this.getBatchFlowStrategyPattern())
+                .evaluate();
 
         if (!this.logined) {
             this.logined = true;
@@ -111,5 +109,27 @@ public class BatchJobConfiguration {
         }
 
         return batchFlowStrategy.createJobFlowBuilder(jobBuilder, this.batchStepCollections);
+    }
+
+    private BatchFlowStrategyPattern getBatchFlowStrategyPattern() {
+
+        final VariableRepository variableRepository = mongoCollections.getVariableRepository();
+        Variable variable = variableRepository.findByName(VariableName.BATCH_FLOW_STRATEGY.getTag());
+
+        if (variable == null) {
+            variable = new Variable();
+            variable.setName(VariableName.BATCH_FLOW_STRATEGY.getTag());
+            variable.setValue(this.getDefaultBatchFlowStrategy());
+            variable = variableRepository.insert(variable);
+        }
+
+        final BatchFlowStrategyPattern batchFlowStrategyPattern = Catalog.getEnum(BatchFlowStrategyPattern.class,
+                Integer.parseInt(variable.getValue()));
+
+        return batchFlowStrategyPattern;
+    }
+
+    private String getDefaultBatchFlowStrategy() {
+        return DefaultVariableMapper.from(VariableName.BATCH_FLOW_STRATEGY.getTag()).scan().get(0).getValue();
     }
 }
