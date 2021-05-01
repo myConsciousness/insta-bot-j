@@ -140,7 +140,7 @@ public abstract class AbstractTasklet implements Tasklet {
             variable.setName(variableName.getTag());
             variable.setValue(this.getDefaultVariableValue(variableName));
 
-            variableRepository.insert(variable);
+            variable = variableRepository.insert(variable);
             log.debug("Inserted variable: {}", variable);
         }
 
