@@ -19,6 +19,7 @@ import java.util.List;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
+import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.ForecastUser;
@@ -45,5 +46,6 @@ public interface InstaBot {
     public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
             @NonNull final AutoUnfollowConfig autoUnfollowConfig);
 
-    public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers);
+    public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers,
+            @NonNull final FollowBackPossibilityIndicator followBackPossibilityIndicator);
 }

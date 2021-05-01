@@ -24,6 +24,7 @@ import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.FollowBackPossibilityIndicatorRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
@@ -100,6 +101,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Autowired
     private FollowBackExpectableUserRepository followBackExpectableUserRepository;
 
+    /**
+     * The follow back possibility indicator repository
+     */
+    @Autowired
+    private FollowBackPossibilityIndicatorRepository followBackPossibilityIndicatorRepository;
+
     @Override
     protected String getDatabaseName() {
         return MongoDatabase.INSTAGRAM.getTag();
@@ -123,6 +130,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.lastActionRepository(this.lastActionRepository);
         mongoCollectionsBuilder.messageMetaRepository(this.messageMetaRepository);
         mongoCollectionsBuilder.followBackExpectableUserRepository(this.followBackExpectableUserRepository);
+        mongoCollectionsBuilder.followBackPossibilityIndicatorRepository(this.followBackPossibilityIndicatorRepository);
 
         return mongoCollectionsBuilder.build();
     }

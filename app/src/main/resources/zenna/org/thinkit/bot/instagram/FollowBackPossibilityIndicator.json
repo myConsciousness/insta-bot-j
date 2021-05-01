@@ -9,7 +9,7 @@
         {
             "node": {
                 "conditionId": "",
-                "highest": -100,
+                "highest": -1000,
                 "high": -500,
                 "middle": -200,
                 "low": -100,

@@ -25,10 +25,9 @@ import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
-import org.thinkit.bot.instagram.content.FollowBackPossibilityIndicatorMapper;
 import org.thinkit.bot.instagram.content.NumberUnitResourceMapper;
-import org.thinkit.bot.instagram.content.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
+import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ExpectableUser;
@@ -53,6 +52,11 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
      */
     private List<ForecastUser> forecastUsers;
 
+    /**
+     * The follow back possibility indicator
+     */
+    private FollowBackPossibilityIndicator followBackPossibilityIndicator;
+
     @Override
     protected ForecastFollowBackResult executeBotProcess() {
 
@@ -61,7 +65,6 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
         final List<ActionError> actionErrors = new ArrayList<>();
 
         final NumberUnitResource numberUnitResource = this.getNumberUnitResource();
-        final FollowBackPossibilityIndicator followBackPossibilityIndicator = this.getFollowBackPossibilityIndicator();
 
         String userName = "";
         for (final ForecastUser forecastUser : this.forecastUsers) {
@@ -81,8 +84,7 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
                 final int followingCount = this.fetchFollowingCount();
 
                 final int followDiff = followerCount - followingCount;
-                final FollowBackPossibility followBackPossibility = this.getFollowBackPossibility(followDiff,
-                        followBackPossibilityIndicator);
+                final FollowBackPossibility followBackPossibility = this.getFollowBackPossibility(followDiff);
 
                 if (followBackPossibility != FollowBackPossibility.NONE) {
                     final ExpectableUser.ExpectableUserBuilder expectableUserBuilder = ExpectableUser.builder();
@@ -144,20 +146,19 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
         return StringUtils.remove(number, Delimiter.COMMA.getTag());
     }
 
-    private FollowBackPossibility getFollowBackPossibility(final int indicator,
-            @NonNull final FollowBackPossibilityIndicator followBackPossibilityIndicator) {
+    private FollowBackPossibility getFollowBackPossibility(final int indicator) {
 
-        if (indicator > followBackPossibilityIndicator.getLowest()) {
+        if (indicator > this.followBackPossibilityIndicator.getLowestIndicator()) {
             return FollowBackPossibility.NONE;
         }
 
-        if (indicator <= followBackPossibilityIndicator.getHighest()) {
+        if (indicator <= this.followBackPossibilityIndicator.getHighestIndicator()) {
             return FollowBackPossibility.HIGHEST;
-        } else if (indicator <= followBackPossibilityIndicator.getHigh()) {
+        } else if (indicator <= this.followBackPossibilityIndicator.getHighIndicator()) {
             return FollowBackPossibility.HIGH;
-        } else if (indicator <= followBackPossibilityIndicator.getMiddle()) {
+        } else if (indicator <= this.followBackPossibilityIndicator.getMiddleIndicator()) {
             return FollowBackPossibility.MIDDLE;
-        } else if (indicator <= followBackPossibilityIndicator.getLow()) {
+        } else if (indicator <= this.followBackPossibilityIndicator.getLowIndicator()) {
             return FollowBackPossibility.LOW;
         }
 
@@ -166,9 +167,5 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
 
     private NumberUnitResource getNumberUnitResource() {
         return NumberUnitResourceMapper.newInstance().scan().get(0);
-    }
-
-    private FollowBackPossibilityIndicator getFollowBackPossibilityIndicator() {
-        return FollowBackPossibilityIndicatorMapper.newInstance().scan().get(0);
     }
 }

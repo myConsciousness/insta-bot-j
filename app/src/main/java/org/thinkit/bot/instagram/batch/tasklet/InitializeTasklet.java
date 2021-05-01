@@ -54,6 +54,6 @@ public final class InitializeTasklet extends AbstractTasklet {
         // Do nothing now
 
         log.debug("END");
-        return BatchTaskResult.builder().build();
+        return BatchTaskResult.builder().actionCount(1).build();
     }
 }
