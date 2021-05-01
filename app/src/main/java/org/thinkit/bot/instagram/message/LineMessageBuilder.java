@@ -74,7 +74,7 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
     }
 
     private String getTaskMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
-        final LineMessagePhraseMapper lineMessagePhraseMapper = LineMessagePhraseMapper.from(taskType);
+        final LineMessagePhraseMapper lineMessagePhraseMapper = LineMessagePhraseMapper.from(taskType.getCode());
         final LineMessagePhrase lineMessagePhrase = lineMessagePhraseMapper.scan().get(0);
 
         return String.format(lineMessagePhrase.getPhrase(), messageMeta.getCountAttempt());

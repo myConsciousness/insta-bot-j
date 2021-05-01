@@ -26,7 +26,7 @@
                 "exclude": false,
                 "conditions": [
                     {
-                        "keyName": "taskType",
+                        "keyName": "taskTypeCode",
                         "operator": "=",
                         "operand": "1"
                     }
@@ -39,7 +39,7 @@
                 "exclude": false,
                 "conditions": [
                     {
-                        "keyName": "taskType",
+                        "keyName": "taskTypeCode",
                         "operator": "=",
                         "operand": "801"
                     }

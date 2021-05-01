@@ -14,7 +14,6 @@
 
 package org.thinkit.bot.instagram.content;
 
-import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.content.entity.LineMessagePhrase;
 import org.thinkit.zenna.mapper.ContentMapper;
 
@@ -37,7 +36,7 @@ import lombok.ToString;
 public final class LineMessagePhraseMapper extends ContentMapper<LineMessagePhrase> {
 
     /**
-     * The task type
+     * The task type code
      */
-    private TaskType taskType;
+    private int taskTypeCode;
 }
