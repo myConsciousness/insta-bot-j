@@ -39,6 +39,11 @@ import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 
+/**
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
 @Configuration
 @EnableScheduling
 public class BatchJobConfiguration {
@@ -62,10 +67,10 @@ public class BatchJobConfiguration {
     private BatchStepCollections batchStepCollections;
 
     /**
-     * The mongo collection
+     * The mongo collections
      */
     @Autowired
-    private MongoCollections mongoCollection;
+    private MongoCollections mongoCollections;
 
     /**
      * The login flag
@@ -83,16 +88,16 @@ public class BatchJobConfiguration {
         JobParameters param = new JobParametersBuilder()
                 .addString(BatchJob.INSTA_BOT.getTag(), String.valueOf(System.currentTimeMillis())).toJobParameters();
 
-        this.simpleJobLauncher.run(this.instaBotJob(), param);
+        this.simpleJobLauncher.run(this.createInstaBotJob(), param);
     }
 
-    private Job instaBotJob() {
+    private Job createInstaBotJob() {
         return this.createInstaBotFlowBuilder().end().build();
     }
 
     private FlowBuilder<FlowJobBuilder> createInstaBotFlowBuilder() {
 
-        final Variable variable = mongoCollection.getVariableRepository()
+        final Variable variable = mongoCollections.getVariableRepository()
                 .findByName(VariableName.BATCH_FLOW_STRATEGY.getTag());
         final BatchFlowStrategyPattern batchFlowStrategyPattern = Catalog.getEnum(BatchFlowStrategyPattern.class,
                 Integer.parseInt(variable.getValue()));

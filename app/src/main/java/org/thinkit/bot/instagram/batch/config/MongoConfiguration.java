@@ -105,9 +105,13 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         return MongoDatabase.INSTAGRAM.getTag();
     }
 
+    /**
+     * The bean that returns the mongo collections.
+     *
+     * @return The mongo collections.
+     */
     @Bean
-    public MongoCollections mongoCollection() {
-
+    public MongoCollections mongoCollections() {
         final MongoCollections.MongoCollectionsBuilder mongoCollectionsBuilder = MongoCollections.builder();
         mongoCollectionsBuilder.userAccountRepository(this.userAccountRepository);
         mongoCollectionsBuilder.variableRepository(this.variableRepository);
