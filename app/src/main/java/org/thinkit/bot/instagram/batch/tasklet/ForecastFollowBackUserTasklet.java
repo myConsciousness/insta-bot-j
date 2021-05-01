@@ -34,6 +34,7 @@ import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ExpectableUser;
 import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
+import org.thinkit.bot.instagram.result.UnexpectableUser;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -70,7 +71,9 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
         final LikedPhotoRepository likedPhotoRepository = this.getMongoCollections().getLikedPhotoRepository();
+
         final List<ExpectableUser> expectableUsers = followBackResult.getExpectableUsers();
+        final List<UnexpectableUser> unexpectableUsers = followBackResult.getUnexpectableUsers();
 
         for (final ExpectableUser expectableUser : expectableUsers) {
             final FollowBackExpectableUser followBackExpectableUser = new FollowBackExpectableUser();
@@ -84,8 +87,13 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
             followBackExpectableUserRepository.insert(followBackExpectableUser);
             log.debug("Interted follow back expectable user: {}", followBackExpectableUser);
 
-            // Delete forecasted user
+            // Delete forecasted expectable users
             likedPhotoRepository.deleteByUserName(expectableUser.getUserName());
+        }
+
+        for (final UnexpectableUser unexpectableUser : unexpectableUsers) {
+            // Delete forecasted unexpectable users
+            likedPhotoRepository.deleteByUserName(unexpectableUser.getUserName());
         }
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();

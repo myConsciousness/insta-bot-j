@@ -33,6 +33,7 @@ import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ExpectableUser;
 import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
+import org.thinkit.bot.instagram.result.UnexpectableUser;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -56,17 +57,18 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
     protected ForecastFollowBackResult executeBotProcess() {
 
         final List<ExpectableUser> expectableUsers = new ArrayList<>();
+        final List<UnexpectableUser> unexpectableUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
         final NumberUnitResource numberUnitResource = this.getNumberUnitResource();
         final FollowBackPossibilityIndicator followBackPossibilityIndicator = this.getFollowBackPossibilityIndicator();
 
+        String userName = "";
         for (final ForecastUser forecastUser : this.forecastUsers) {
             try {
-
                 super.wait(WaitType.HUMAN_LIKE_INTERVAL);
 
-                final String userName = forecastUser.getUserName();
+                userName = forecastUser.getUserName();
                 final String userProfileUrl = String.format(InstagramUrl.USER_PROFILE.getTag(), userName);
                 super.getWebPage(userProfileUrl);
 
@@ -92,10 +94,13 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
                     expectableUserBuilder.followDiff(followDiff);
 
                     expectableUsers.add(expectableUserBuilder.build());
+                } else {
+                    unexpectableUsers.add(UnexpectableUser.builder().userName(userName).build());
                 }
             } catch (Exception recoverableException) {
                 // The possibility exists that a timeout may occur due to wrong css selector was
                 // located, etc. Anyway, let's move on to the next profile.
+                unexpectableUsers.add(UnexpectableUser.builder().userName(userName).build());
                 actionErrors.add(super.getActionError(recoverableException, TaskType.FORECAST_FOLLOW_BACK_USER));
             }
         }
@@ -104,6 +109,7 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
                 .builder();
         forecastFollowBackResultBuilder.actionStatus(ActionStatus.COMPLETED);
         forecastFollowBackResultBuilder.expectableUsers(expectableUsers);
+        forecastFollowBackResultBuilder.unexpectableUsers(unexpectableUsers);
 
         if (!actionErrors.isEmpty()) {
             forecastFollowBackResultBuilder.actionErrors(actionErrors);

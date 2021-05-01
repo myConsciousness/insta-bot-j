@@ -12,22 +12,34 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.mongo.repository;
+package org.thinkit.bot.instagram.result;
 
-import org.springframework.data.mongodb.repository.DeleteQuery;
-import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import java.io.Serializable;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
- * The interface that manages liked photo repository.
+ * The class that manages the unexpectable user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-@Repository
-public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, String> {
+@ToString
+@EqualsAndHashCode
+@Builder(toBuilder = true)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+public final class UnexpectableUser implements Serializable {
 
-    @DeleteQuery
-    public void deleteByUserName(String userName);
+    /**
+     * The user name
+     */
+    @Getter
+    private String userName;
 }

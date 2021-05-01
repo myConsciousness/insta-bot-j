@@ -154,6 +154,8 @@ public abstract class AbstractTasklet implements Tasklet {
         this.updateStartAction();
 
         final BatchTaskResult batchTaskResult = this.executeTask(contribution, chunkContext);
+        log.debug("The batch task result: {}", batchTaskResult);
+
         final int countAttempt = batchTaskResult.getCountAttempt();
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
         final List<ActionError> actionErrors = batchTaskResult.getActionErrors();

@@ -53,6 +53,12 @@ public final class ForecastFollowBackResult implements Serializable {
     private List<ExpectableUser> expectableUsers;
 
     /**
+     * The unexpectable users
+     */
+    @Getter
+    private List<UnexpectableUser> unexpectableUsers;
+
+    /**
      * Tne action errors
      */
     @Getter
