@@ -25,6 +25,7 @@ import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoUnfollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.UpdateAutoForecastFollowBackUserConfigTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.UpdateAutoLikeConfigTasklet;
 import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 
@@ -50,6 +51,11 @@ public class BatchTaskletConfiguration {
     @Bean
     public Tasklet updateAutoLikeConfigTasklet() {
         return UpdateAutoLikeConfigTasklet.newInstance();
+    }
+
+    @Bean
+    public Tasklet updateAutoForecastFollowBackUserConfigTasklet() {
+        return UpdateAutoForecastFollowBackUserConfigTasklet.newInstance();
     }
 
     @Bean

@@ -39,6 +39,9 @@ public class BatchStepConfiguration {
     private Tasklet updateAutoLikeConfigTasklet;
 
     @Autowired
+    private Tasklet updateAutoForecastFollowBackUserConfigTasklet;
+
+    @Autowired
     private Tasklet executeAutoLikeTasklet;
 
     @Autowired
@@ -59,6 +62,8 @@ public class BatchStepConfiguration {
                 .builder();
         batchStepCollectionsBuilder.executeLoginStep(this.executeLoginStep());
         batchStepCollectionsBuilder.updateAutoLikeConfigStep(this.updateAutoLikeConfigStep());
+        batchStepCollectionsBuilder
+                .updateAutoForecastFollowBackUserConfigStep(this.updateAutoForecastFollowBackUserConfigStep());
         batchStepCollectionsBuilder.executeAutoForecastFollowBackUserStep(this.executeAutoForecastFollowBackUserStep());
         batchStepCollectionsBuilder.executeAutoLikeStep(this.executeAutoLikeStep());
         batchStepCollectionsBuilder.executeAutoFollowStep(this.executeAutoFollowStep());
@@ -73,8 +78,13 @@ public class BatchStepConfiguration {
     }
 
     private Step updateAutoLikeConfigStep() {
-        return this.stepBuilderFactory.get(BatchStep.REVERSAL_ENTRY_HASHTAG.getTag())
+        return this.stepBuilderFactory.get(BatchStep.UPDATE_AUTO_LIKE_CONFIG.getTag())
                 .tasklet(this.updateAutoLikeConfigTasklet).build();
+    }
+
+    private Step updateAutoForecastFollowBackUserConfigStep() {
+        return this.stepBuilderFactory.get(BatchStep.UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG.getTag())
+                .tasklet(this.updateAutoForecastFollowBackUserConfigTasklet).build();
     }
 
     private Step executeAutoLikeStep() {
@@ -83,7 +93,7 @@ public class BatchStepConfiguration {
     }
 
     private Step executeAutoForecastFollowBackUserStep() {
-        return this.stepBuilderFactory.get(BatchStep.FORECAST_FOLLOW_BACK_USER.getTag())
+        return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_FORECAST_FOLLOW_BACK_USER.getTag())
                 .tasklet(this.executeAutoForecastFollowBackUserTasklet).build();
     }
 
