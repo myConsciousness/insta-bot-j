@@ -25,6 +25,7 @@ import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
+import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.content.NumberUnitResourceMapper;
 import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
 import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
@@ -53,9 +54,9 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
     private List<ForecastUser> forecastUsers;
 
     /**
-     * The follow back possibility indicator
+     * The auto forecast follow back user config
      */
-    private FollowBackPossibilityIndicator followBackPossibilityIndicator;
+    private AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig;
 
     @Override
     protected ForecastFollowBackResult executeBotProcess() {
@@ -148,17 +149,20 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
 
     private FollowBackPossibility getFollowBackPossibility(final int indicator) {
 
-        if (indicator > this.followBackPossibilityIndicator.getLowestIndicator()) {
+        final FollowBackPossibilityIndicator followBackPossibilityIndicator = this.autoForecastFollowBackUserConfig
+                .getFollowBackPossibilityIndicator();
+
+        if (indicator > followBackPossibilityIndicator.getLowestIndicator()) {
             return FollowBackPossibility.NONE;
         }
 
-        if (indicator <= this.followBackPossibilityIndicator.getHighestIndicator()) {
+        if (indicator <= followBackPossibilityIndicator.getHighestIndicator()) {
             return FollowBackPossibility.HIGHEST;
-        } else if (indicator <= this.followBackPossibilityIndicator.getHighIndicator()) {
+        } else if (indicator <= followBackPossibilityIndicator.getHighIndicator()) {
             return FollowBackPossibility.HIGH;
-        } else if (indicator <= this.followBackPossibilityIndicator.getMiddleIndicator()) {
+        } else if (indicator <= followBackPossibilityIndicator.getMiddleIndicator()) {
             return FollowBackPossibility.MIDDLE;
-        } else if (indicator <= this.followBackPossibilityIndicator.getLowIndicator()) {
+        } else if (indicator <= followBackPossibilityIndicator.getLowIndicator()) {
             return FollowBackPossibility.LOW;
         }
 

@@ -23,9 +23,9 @@ import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
+import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
-import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.ForecastUser;
@@ -150,10 +150,10 @@ public final class InstaBotJ extends AbstractInstaBot {
 
     @Override
     public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers,
-            @NonNull final FollowBackPossibilityIndicator followBackPossibilityIndicator) {
+            @NonNull final AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig) {
         Preconditions.requireNonEmpty(forecastUsers,
                 "The forecast user is required to execute auto forecast follow back user command.");
-        return AutoForecastFollowBackUserCommand.from(forecastUsers, followBackPossibilityIndicator)
+        return AutoForecastFollowBackUserCommand.from(forecastUsers, autoForecastFollowBackUserConfig)
                 .execute(super.getWebDriver());
     }
 }

@@ -28,7 +28,9 @@ import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
+import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
@@ -47,10 +49,19 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTasklet {
 
+    /**
+     * The constructor.
+     */
     private ExecuteAutoForecastFollowBackUserTasklet() {
         super(TaskType.AUTO_FORECAST_FOLLOW_BACK_USER);
     }
 
+    /**
+     * Returns the new instance of {@link ExecuteAutoForecastFollowBackUserTasklet}
+     * .
+     *
+     * @return The new instance of {@link ExecuteAutoForecastFollowBackUserTasklet}
+     */
     public static Tasklet newInstance() {
         return new ExecuteAutoForecastFollowBackUserTasklet();
     }
@@ -66,7 +77,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
         }
 
         final ForecastFollowBackResult followBackResult = super.getInstaBot()
-                .executeAutoForecastFollowBackUser(forecastUsers);
+                .executeAutoForecastFollowBackUser(forecastUsers, this.getAutoForecastFollowBackUserConfig());
         log.info("The forecast follow back user has completed the process successfully.");
 
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
@@ -154,6 +165,24 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
         log.debug("The duplicate user has not detected.");
         log.debug("END");
         return false;
+    }
+
+    private AutoForecastFollowBackUserConfig getAutoForecastFollowBackUserConfig() {
+        log.debug("START");
+
+        final List<FollowBackPossibilityIndicator> followBackPossibilityIndicators = super.getMongoCollections()
+                .getFollowBackPossibilityIndicatorRepository().findAll();
+
+        if (followBackPossibilityIndicators == null || followBackPossibilityIndicators.isEmpty()) {
+            throw new IllegalStateException();
+        }
+
+        final AutoForecastFollowBackUserConfig.AutoForecastFollowBackUserConfigBuilder autoForecastFollowBackUserConfigBuilder = AutoForecastFollowBackUserConfig
+                .builder();
+        autoForecastFollowBackUserConfigBuilder.followBackPossibilityIndicator(followBackPossibilityIndicators.get(0));
+
+        log.debug("END");
+        return autoForecastFollowBackUserConfigBuilder.build();
     }
 
     private boolean isAlreadyForecastedUser(@NonNull final List<ForecastUser> forecastUsers,
