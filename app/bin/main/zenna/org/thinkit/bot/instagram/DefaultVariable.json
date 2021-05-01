@@ -38,12 +38,6 @@
         },
         {
             "node": {
-                "conditionId": "700",
-                "value": "0"
-            }
-        },
-        {
-            "node": {
                 "conditionId": "800",
                 "value": "4"
             }
@@ -129,19 +123,6 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "UNFOLLOW_PER_DAY"
-                    }
-                ]
-            }
-        },
-        {
-            "node": {
-                "conditionId": "700",
-                "exclude": false,
-                "conditions": [
-                    {
-                        "keyName": "variableName",
-                        "operator": "=",
-                        "operand": "BATCH_FLOW_STRATEGY"
                     }
                 ]
             }
