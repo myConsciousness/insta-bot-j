@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
+<script type="text/javascript">var data = {"i0":10};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],8:["t4","concrete\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -126,38 +126,8 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 </thead>
 <tbody>
 <tr class="alt-color" id="i0">
-<td class="col-first"><code>org.springframework.batch.core.Step</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoFollowStep()">executeAutoFollowStep</a></span>()</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
-<tr class="row-color" id="i1">
-<td class="col-first"><code>org.springframework.batch.core.Step</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoLikeStep()">executeAutoLikeStep</a></span>()</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
-<tr class="alt-color" id="i2">
-<td class="col-first"><code>org.springframework.batch.core.Step</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoUnfollowStep()">executeAutoUnfollowStep</a></span>()</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
-<tr class="row-color" id="i3">
-<td class="col-first"><code>org.springframework.batch.core.Step</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeLoginStep()">executeLoginStep</a></span>()</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
-<tr class="alt-color" id="i4">
-<td class="col-first"><code>org.springframework.batch.core.Step</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#forecastFollowBackUserStep()">forecastFollowBackUserStep</a></span>()</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
-<tr class="row-color" id="i5">
-<td class="col-first"><code>org.springframework.batch.core.Step</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#notifyResultStep()">notifyResultStep</a></span>()</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
-<tr class="alt-color" id="i6">
-<td class="col-first"><code>org.springframework.batch.core.Step</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#reversalEntryHashtagStep()">reversalEntryHashtagStep</a></span>()</code></th>
+<td class="col-first"><code><a href="../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#batchStepCollections()">batchStepCollections</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 </tbody>
@@ -193,52 +163,10 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="executeLoginStep()">
-<h3>executeLoginStep</h3>
+<section class="detail" id="batchStepCollections()">
+<h3>batchStepCollections</h3>
 <div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.Step</span>&nbsp;<span class="member-name">executeLoginStep</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="reversalEntryHashtagStep()">
-<h3>reversalEntryHashtagStep</h3>
-<div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.Step</span>&nbsp;<span class="member-name">reversalEntryHashtagStep</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="forecastFollowBackUserStep()">
-<h3>forecastFollowBackUserStep</h3>
-<div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.Step</span>&nbsp;<span class="member-name">forecastFollowBackUserStep</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="executeAutoLikeStep()">
-<h3>executeAutoLikeStep</h3>
-<div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.Step</span>&nbsp;<span class="member-name">executeAutoLikeStep</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="executeAutoFollowStep()">
-<h3>executeAutoFollowStep</h3>
-<div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.Step</span>&nbsp;<span class="member-name">executeAutoFollowStep</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="executeAutoUnfollowStep()">
-<h3>executeAutoUnfollowStep</h3>
-<div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.Step</span>&nbsp;<span class="member-name">executeAutoUnfollowStep</span>()</div>
-</section>
-</li>
-<li>
-<section class="detail" id="notifyResultStep()">
-<h3>notifyResultStep</h3>
-<div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.Step</span>&nbsp;<span class="member-name">notifyResultStep</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a></span>&nbsp;<span class="member-name">batchStepCollections</span>()</div>
 </section>
 </li>
 </ul>

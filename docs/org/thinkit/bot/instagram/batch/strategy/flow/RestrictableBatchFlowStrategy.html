@@ -84,8 +84,7 @@ loadScripts(document, 'script');</script>
 <dd><code><a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></code></dd>
 </dl>
 <hr>
-<pre>@Component
-public final class <span class="type-name-label">RestrictableBatchFlowStrategy</span>
+<pre>public final class <span class="type-name-label">RestrictableBatchFlowStrategy</span>
 extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a>
 implements <a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></pre>
 </section>
@@ -109,12 +108,14 @@ implements <a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.bat
 <tbody>
 <tr class="alt-color" id="i0">
 <td class="col-first"><code>org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createJobFlowBuilder()">createJobFlowBuilder</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">createJobFlowBuilder</a></span>&#8203;(@NonNull org.springframework.batch.core.job.builder.JobBuilder&nbsp;jobBuilder,
+@NonNull <a href="../../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a>&nbsp;batchStepCollections)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i1">
 <td class="col-first"><code>org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createLoginJobFlowBuilder()">createLoginJobFlowBuilder</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createLoginJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">createLoginJobFlowBuilder</a></span>&#8203;(@NonNull org.springframework.batch.core.job.builder.JobBuilder&nbsp;jobBuilder,
+@NonNull <a href="../../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a>&nbsp;batchStepCollections)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
@@ -156,22 +157,28 @@ implements <a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.bat
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="createLoginJobFlowBuilder()">
+<section class="detail" id="createLoginJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">
 <h3>createLoginJobFlowBuilder</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</span>&nbsp;<span class="member-name">createLoginJobFlowBuilder</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</span>&nbsp;<span class="member-name">createLoginJobFlowBuilder</span>&#8203;(<span class="parameters">@NonNull
+@NonNull org.springframework.batch.core.job.builder.JobBuilder&nbsp;jobBuilder,
+@NonNull
+@NonNull <a href="../../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a>&nbsp;batchStepCollections)</span></div>
 <dl class="notes">
 <dt>定義:</dt>
-<dd><code><a href="BatchFlowStrategy.html#createLoginJobFlowBuilder()">createLoginJobFlowBuilder</a></code>&nbsp;インタフェース内&nbsp;<code><a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></code></dd>
+<dd><code><a href="BatchFlowStrategy.html#createLoginJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">createLoginJobFlowBuilder</a></code>&nbsp;インタフェース内&nbsp;<code><a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="createJobFlowBuilder()">
+<section class="detail" id="createJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">
 <h3>createJobFlowBuilder</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</span>&nbsp;<span class="member-name">createJobFlowBuilder</span>()</div>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</span>&nbsp;<span class="member-name">createJobFlowBuilder</span>&#8203;(<span class="parameters">@NonNull
+@NonNull org.springframework.batch.core.job.builder.JobBuilder&nbsp;jobBuilder,
+@NonNull
+@NonNull <a href="../../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a>&nbsp;batchStepCollections)</span></div>
 <dl class="notes">
 <dt>定義:</dt>
-<dd><code><a href="BatchFlowStrategy.html#createJobFlowBuilder()">createJobFlowBuilder</a></code>&nbsp;インタフェース内&nbsp;<code><a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></code></dd>
+<dd><code><a href="BatchFlowStrategy.html#createJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">createJobFlowBuilder</a></code>&nbsp;インタフェース内&nbsp;<code><a href="BatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のインタフェース">BatchFlowStrategy</a></code></dd>
 </dl>
 </section>
 </li>

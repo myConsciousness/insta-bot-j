@@ -1,6 +1,7 @@
 org.thinkit.bot.instagram
 org.thinkit.bot.instagram.batch
 org.thinkit.bot.instagram.batch.config
+org.thinkit.bot.instagram.batch.dto
 org.thinkit.bot.instagram.batch.result
 org.thinkit.bot.instagram.batch.strategy.context
 org.thinkit.bot.instagram.batch.strategy.flow
@@ -14,8 +15,6 @@ org.thinkit.bot.instagram.content.entity
 org.thinkit.bot.instagram.exception.http
 org.thinkit.bot.instagram.http
 org.thinkit.bot.instagram.message
-org.thinkit.bot.instagram.mongo
-org.thinkit.bot.instagram.mongo.config
 org.thinkit.bot.instagram.mongo.entity
 org.thinkit.bot.instagram.mongo.repository
 org.thinkit.bot.instagram.notification
