@@ -108,6 +108,7 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
         final ForecastFollowBackResult.ForecastFollowBackResultBuilder forecastFollowBackResultBuilder = ForecastFollowBackResult
                 .builder();
         forecastFollowBackResultBuilder.actionStatus(ActionStatus.COMPLETED);
+        forecastFollowBackResultBuilder.actionCount(expectableUsers.size() + unexpectableUsers.size());
         forecastFollowBackResultBuilder.expectableUsers(expectableUsers);
         forecastFollowBackResultBuilder.unexpectableUsers(unexpectableUsers);
 
