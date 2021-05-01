@@ -15,6 +15,7 @@
 package org.thinkit.bot.instagram.batch.tasklet;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.mongodb.lang.NonNull;
@@ -116,6 +117,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         final List<LikedPhoto> likedPhotos = this.getMongoCollections().getLikedPhotoRepository().findAll();
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
+        Collections.shuffle(likedPhotos);
         final int maxUserCount = this.getMaxUserCount();
 
         for (final LikedPhoto likedPhoto : likedPhotos) {

@@ -36,7 +36,7 @@ public class BatchStepConfiguration {
     private Tasklet executeLoginTasklet;
 
     @Autowired
-    private Tasklet reversalEntryHashtagTasklet;
+    private Tasklet updateAutoLikeConfigTasklet;
 
     @Autowired
     private Tasklet forecastFollowBackUserTasklet;
@@ -58,7 +58,7 @@ public class BatchStepConfiguration {
         final BatchStepCollections.BatchStepCollectionsBuilder batchStepCollectionsBuilder = BatchStepCollections
                 .builder();
         batchStepCollectionsBuilder.executeLoginStep(this.executeLoginStep());
-        batchStepCollectionsBuilder.reversalEntryHashtagStep(this.reversalEntryHashtagStep());
+        batchStepCollectionsBuilder.updateAutoLikeConfigStep(this.updateAutoLikeConfigStep());
         batchStepCollectionsBuilder.forecastFollowBackUserStep(this.forecastFollowBackUserStep());
         batchStepCollectionsBuilder.executeAutoLikeStep(this.executeAutoLikeStep());
         batchStepCollectionsBuilder.executeAutoFollowStep(this.executeAutoFollowStep());
@@ -72,9 +72,9 @@ public class BatchStepConfiguration {
         return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag()).tasklet(this.executeLoginTasklet).build();
     }
 
-    private Step reversalEntryHashtagStep() {
+    private Step updateAutoLikeConfigStep() {
         return this.stepBuilderFactory.get(BatchStep.REVERSAL_ENTRY_HASHTAG.getTag())
-                .tasklet(this.reversalEntryHashtagTasklet).build();
+                .tasklet(this.updateAutoLikeConfigTasklet).build();
     }
 
     private Step forecastFollowBackUserStep() {

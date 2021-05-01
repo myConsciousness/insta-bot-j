@@ -43,7 +43,7 @@ public final class BatchStepCollections implements Serializable {
     private Step executeLoginStep;
 
     @Getter
-    private Step reversalEntryHashtagStep;
+    private Step updateAutoLikeConfigStep;
 
     @Getter
     private Step forecastFollowBackUserStep;

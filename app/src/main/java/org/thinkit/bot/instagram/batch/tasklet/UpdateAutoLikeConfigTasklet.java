@@ -39,14 +39,14 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
+public final class UpdateAutoLikeConfigTasklet extends AbstractTasklet {
 
-    private ReversalEntryHashtagTasklet() {
+    private UpdateAutoLikeConfigTasklet() {
         super(TaskType.REVERSAL_ENTRY_HASHTAG);
     }
 
     public static Tasklet newInstance() {
-        return new ReversalEntryHashtagTasklet();
+        return new UpdateAutoLikeConfigTasklet();
     }
 
     @Override
