@@ -39,39 +39,34 @@ public enum TaskType implements Catalog<TaskType> {
     AUTO_LIKE(1),
 
     /**
+     * The auto forecast follow back user
+     */
+    AUTO_FORECAST_FOLLOW_BACK_USER(2),
+
+    /**
      * The auto comment task
      */
-    AUTO_COMMENT(2),
+    AUTO_COMMENT(3),
 
     /**
      * The auto follow task
      */
-    AUTO_FOLLOW(3),
+    AUTO_FOLLOW(4),
 
     /**
      * The auto unfollow task
      */
-    AUTO_UNFOLLOW(4),
+    AUTO_UNFOLLOW(5),
 
     /**
-     * The reversal entry hashtag task
+     * The update auto like config
      */
-    REVERSAL_ENTRY_HASHTAG(800),
-
-    /**
-     * The forecast follow back user
-     */
-    FORECAST_FOLLOW_BACK_USER(801),
+    UPDATE_AUTO_LIKE_CONFIG(800),
 
     /**
      * The notify result
      */
-    NOTIFY_RESULT(802),
-
-    /**
-     * The logout
-     */
-    LOGOUT(900);
+    NOTIFY_RESULT(900);
 
     /**
      * The code

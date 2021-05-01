@@ -39,10 +39,10 @@ public class BatchStepConfiguration {
     private Tasklet updateAutoLikeConfigTasklet;
 
     @Autowired
-    private Tasklet forecastFollowBackUserTasklet;
+    private Tasklet executeAutoLikeTasklet;
 
     @Autowired
-    private Tasklet executeAutoLikeTasklet;
+    private Tasklet executeAutoForecastFollowBackUserTasklet;
 
     @Autowired
     private Tasklet executeAutoFollowTasklet;
@@ -59,7 +59,7 @@ public class BatchStepConfiguration {
                 .builder();
         batchStepCollectionsBuilder.executeLoginStep(this.executeLoginStep());
         batchStepCollectionsBuilder.updateAutoLikeConfigStep(this.updateAutoLikeConfigStep());
-        batchStepCollectionsBuilder.forecastFollowBackUserStep(this.forecastFollowBackUserStep());
+        batchStepCollectionsBuilder.executeAutoForecastFollowBackUserStep(this.executeAutoForecastFollowBackUserStep());
         batchStepCollectionsBuilder.executeAutoLikeStep(this.executeAutoLikeStep());
         batchStepCollectionsBuilder.executeAutoFollowStep(this.executeAutoFollowStep());
         batchStepCollectionsBuilder.executeAutoUnfollowStep(this.executeAutoUnfollowStep());
@@ -77,14 +77,14 @@ public class BatchStepConfiguration {
                 .tasklet(this.updateAutoLikeConfigTasklet).build();
     }
 
-    private Step forecastFollowBackUserStep() {
-        return this.stepBuilderFactory.get(BatchStep.FORECAST_FOLLOW_BACK_USER.getTag())
-                .tasklet(this.forecastFollowBackUserTasklet).build();
-    }
-
     private Step executeAutoLikeStep() {
         return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_LIKE.getTag()).tasklet(this.executeAutoLikeTasklet)
                 .build();
+    }
+
+    private Step executeAutoForecastFollowBackUserStep() {
+        return this.stepBuilderFactory.get(BatchStep.FORECAST_FOLLOW_BACK_USER.getTag())
+                .tasklet(this.executeAutoForecastFollowBackUserTasklet).build();
     }
 
     private Step executeAutoFollowStep() {

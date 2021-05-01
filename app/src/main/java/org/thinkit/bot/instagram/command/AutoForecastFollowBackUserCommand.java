@@ -46,7 +46,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class ForecastFollowBackUserCommand extends AbstractBotCommand<ForecastFollowBackResult> {
+public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<ForecastFollowBackResult> {
 
     /**
      * The forecast users
@@ -101,7 +101,7 @@ public final class ForecastFollowBackUserCommand extends AbstractBotCommand<Fore
                 // The possibility exists that a timeout may occur due to wrong css selector was
                 // located, etc. Anyway, let's move on to the next profile.
                 unexpectableUsers.add(UnexpectableUser.builder().userName(userName).build());
-                actionErrors.add(super.getActionError(recoverableException, TaskType.FORECAST_FOLLOW_BACK_USER));
+                actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_FORECAST_FOLLOW_BACK_USER));
             }
         }
 

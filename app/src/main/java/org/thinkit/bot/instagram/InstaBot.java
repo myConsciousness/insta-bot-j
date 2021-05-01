@@ -45,5 +45,5 @@ public interface InstaBot {
     public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
             @NonNull final AutoUnfollowConfig autoUnfollowConfig);
 
-    public ForecastFollowBackResult executeForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers);
+    public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers);
 }

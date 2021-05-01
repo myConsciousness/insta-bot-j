@@ -46,11 +46,11 @@ public final class Task implements Serializable {
     }
 
     public boolean canSendResultMessage() {
-        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.FORECAST_FOLLOW_BACK_USER;
+        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.AUTO_FORECAST_FOLLOW_BACK_USER;
     }
 
     public boolean isRestrictable() {
-        return this.taskType == TaskType.REVERSAL_ENTRY_HASHTAG || this.taskType == TaskType.AUTO_LIKE
+        return this.taskType == TaskType.UPDATE_AUTO_LIKE_CONFIG || this.taskType == TaskType.AUTO_LIKE
                 || this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
 

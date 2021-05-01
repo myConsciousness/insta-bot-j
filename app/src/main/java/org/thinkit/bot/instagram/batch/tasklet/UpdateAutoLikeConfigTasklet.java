@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 public final class UpdateAutoLikeConfigTasklet extends AbstractTasklet {
 
     private UpdateAutoLikeConfigTasklet() {
-        super(TaskType.REVERSAL_ENTRY_HASHTAG);
+        super(TaskType.UPDATE_AUTO_LIKE_CONFIG);
     }
 
     public static Tasklet newInstance() {

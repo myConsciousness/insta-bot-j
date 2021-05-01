@@ -33,14 +33,14 @@ public final class UnrestrictableBatchFlowStrategy implements BatchFlowStrategy 
     public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
         return jobBuilder.flow(batchStepCollections.getExecuteLoginStep())
-                .next(batchStepCollections.getForecastFollowBackUserStep())
+                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 
     @Override
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
-        return jobBuilder.flow(batchStepCollections.getForecastFollowBackUserStep())
+        return jobBuilder.flow(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 }

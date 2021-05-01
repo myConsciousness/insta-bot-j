@@ -45,14 +45,14 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
+public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTasklet {
 
-    private ForecastFollowBackUserTasklet() {
-        super(TaskType.FORECAST_FOLLOW_BACK_USER);
+    private ExecuteAutoForecastFollowBackUserTasklet() {
+        super(TaskType.AUTO_FORECAST_FOLLOW_BACK_USER);
     }
 
     public static Tasklet newInstance() {
-        return new ForecastFollowBackUserTasklet();
+        return new ExecuteAutoForecastFollowBackUserTasklet();
     }
 
     @Override
@@ -66,7 +66,7 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         }
 
         final ForecastFollowBackResult followBackResult = super.getInstaBot()
-                .executeForecastFollowBackUser(forecastUsers);
+                .executeAutoForecastFollowBackUser(forecastUsers);
         log.info("The forecast follow back user has completed the process successfully.");
 
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()

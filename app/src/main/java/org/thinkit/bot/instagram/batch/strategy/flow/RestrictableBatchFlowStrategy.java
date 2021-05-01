@@ -35,7 +35,7 @@ public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
         return jobBuilder.flow(batchStepCollections.getExecuteLoginStep())
                 .next(batchStepCollections.getUpdateAutoLikeConfigStep())
                 .next(batchStepCollections.getExecuteAutoLikeStep())
-                .next(batchStepCollections.getForecastFollowBackUserStep())
+                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 
@@ -44,7 +44,7 @@ public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
             @NonNull final BatchStepCollections batchStepCollections) {
         return jobBuilder.flow(batchStepCollections.getUpdateAutoLikeConfigStep())
                 .next(batchStepCollections.getExecuteAutoLikeStep())
-                .next(batchStepCollections.getForecastFollowBackUserStep())
+                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 }
