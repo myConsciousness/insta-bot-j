@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
+<script type="text/javascript">var data = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],1:["t1","static\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],8:["t4","concrete\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -149,24 +149,24 @@ implements <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
+<td class="col-first"><code>int</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getActionCount()">getActionCount</a></span>()</code></th>
+<td class="col-last">
+<div class="block">The action count</div>
+</td>
+</tr>
+<tr class="row-color" id="i3">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="../../result/ActionError.html" title="org.thinkit.bot.instagram.result内のクラス">ActionError</a>&gt;</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getActionErrors()">getActionErrors</a></span>()</code></th>
 <td class="col-last">
 <div class="block">The action errors</div>
 </td>
 </tr>
-<tr class="row-color" id="i3">
+<tr class="alt-color" id="i4">
 <td class="col-first"><code><a href="../../catalog/ActionStatus.html" title="org.thinkit.bot.instagram.catalog内の列挙型">ActionStatus</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getActionStatus()">getActionStatus</a></span>()</code></th>
 <td class="col-last">
 <div class="block">The action status</div>
-</td>
-</tr>
-<tr class="alt-color" id="i4">
-<td class="col-first"><code>int</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getCountAttempt()">getCountAttempt</a></span>()</code></th>
-<td class="col-last">
-<div class="block">The count attempt</div>
 </td>
 </tr>
 <tr class="row-color" id="i5">
@@ -178,15 +178,22 @@ implements <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base
 </tr>
 <tr class="alt-color" id="i6">
 <td class="col-first"><code>int</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#getResultCount()">getResultCount</a></span>()</code></th>
+<td class="col-last">
+<div class="block">The result count</div>
+</td>
+</tr>
+<tr class="row-color" id="i7">
+<td class="col-first"><code>int</code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i7">
+<tr class="alt-color" id="i8">
 <td class="col-first"><code><a href="BatchTaskResult.BatchTaskResultBuilder.html" title="org.thinkit.bot.instagram.batch.result内のクラス">BatchTaskResult.BatchTaskResultBuilder</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toBuilder()">toBuilder</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="alt-color" id="i8">
+<tr class="row-color" id="i9">
 <td class="col-first"><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#toString()">toString</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
@@ -252,10 +259,17 @@ implements <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base
 </section>
 </li>
 <li>
-<section class="detail" id="getCountAttempt()">
-<h3>getCountAttempt</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">getCountAttempt</span>()</div>
-<div class="block">The count attempt</div>
+<section class="detail" id="getActionCount()">
+<h3>getActionCount</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">getActionCount</span>()</div>
+<div class="block">The action count</div>
+</section>
+</li>
+<li>
+<section class="detail" id="getResultCount()">
+<h3>getResultCount</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">int</span>&nbsp;<span class="member-name">getResultCount</span>()</div>
+<div class="block">The result count</div>
 </section>
 </li>
 <li>
