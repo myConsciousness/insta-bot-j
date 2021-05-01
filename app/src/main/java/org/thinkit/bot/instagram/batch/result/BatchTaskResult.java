@@ -46,10 +46,16 @@ import lombok.ToString;
 public final class BatchTaskResult implements Serializable {
 
     /**
-     * The count attempt
+     * The action count
      */
     @Getter
-    private int countAttempt;
+    private int actionCount;
+
+    /**
+     * The result count
+     */
+    @Getter
+    private int resultCount;
 
     /**
      * The action status

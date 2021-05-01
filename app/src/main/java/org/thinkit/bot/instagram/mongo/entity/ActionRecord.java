@@ -47,19 +47,14 @@ public final class ActionRecord implements Serializable {
     private int taskTypeCode;
 
     /**
-     * The count attempt
+     * The count
      */
-    private int countAttempt;
+    private int count;
 
     /**
      * The action status code
      */
     private int actionStatusCode;
-
-    /**
-     * The retry
-     */
-    private boolean retry;
 
     /**
      * The created datetime

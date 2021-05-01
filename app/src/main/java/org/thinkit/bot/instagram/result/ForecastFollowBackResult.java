@@ -47,6 +47,12 @@ public final class ForecastFollowBackResult implements Serializable {
     private ActionStatus actionStatus;
 
     /**
+     * The action count
+     */
+    @Getter
+    private int actionCount;
+
+    /**
      * The expectable users
      */
     @Getter

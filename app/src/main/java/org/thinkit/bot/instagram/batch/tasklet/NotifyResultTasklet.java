@@ -67,6 +67,6 @@ public final class NotifyResultTasklet extends AbstractTasklet {
         }
 
         log.debug("END");
-        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
+        return BatchTaskResult.builder().actionCount(1).repeatStatus(RepeatStatus.FINISHED).build();
     }
 }

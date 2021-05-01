@@ -44,9 +44,9 @@ public final class MessageMeta implements Serializable {
     private int taskTypeCode;
 
     /**
-     * The count attempt
+     * The count
      */
-    private int countAttempt;
+    private int count;
 
     /**
      * The interrupted

@@ -97,7 +97,8 @@ public final class ForecastFollowBackUserTasklet extends AbstractTasklet {
         }
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
-        batchTaskResultBuilder.countAttempt(expectableUsers.size());
+        batchTaskResultBuilder.actionCount(followBackResult.getActionCount());
+        batchTaskResultBuilder.resultCount(expectableUsers.size());
         batchTaskResultBuilder.actionStatus(followBackResult.getActionStatus());
 
         if (followBackResult.getActionErrors() != null) {

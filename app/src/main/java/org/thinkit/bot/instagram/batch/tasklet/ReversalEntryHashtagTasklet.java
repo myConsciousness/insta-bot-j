@@ -57,7 +57,7 @@ public final class ReversalEntryHashtagTasklet extends AbstractTasklet {
         this.updateHashtagGroupCount();
 
         log.debug("END");
-        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
+        return BatchTaskResult.builder().actionCount(1).repeatStatus(RepeatStatus.FINISHED).build();
     }
 
     private void updateHashtag() {

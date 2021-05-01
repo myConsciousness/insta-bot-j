@@ -96,7 +96,8 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
             }
         }
 
-        batchTaskResultBuilder.countAttempt(sumLikes);
+        batchTaskResultBuilder.actionCount(sumLikes);
+        batchTaskResultBuilder.resultCount(sumLikes);
         batchTaskResultBuilder.actionErrors(actionErrors);
 
         log.debug("END");

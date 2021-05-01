@@ -58,6 +58,6 @@ public final class ExecuteLoginTasklet extends AbstractTasklet {
         log.info("The login to Instagram has been successfully completed.");
 
         log.debug("END");
-        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
+        return BatchTaskResult.builder().actionCount(1).repeatStatus(RepeatStatus.FINISHED).build();
     }
 }

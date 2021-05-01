@@ -156,12 +156,12 @@ public abstract class AbstractTasklet implements Tasklet {
         final BatchTaskResult batchTaskResult = this.executeTask(contribution, chunkContext);
         log.debug("The batch task result: {}", batchTaskResult);
 
-        final int countAttempt = batchTaskResult.getCountAttempt();
+        final int actionCount = batchTaskResult.getActionCount();
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
         final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
 
         this.resetSkippedCount();
-        this.saveActionRecord(countAttempt, actionStatus);
+        this.saveActionRecord(actionCount, actionStatus);
 
         if (!actionErrors.isEmpty()) {
             this.saveActionError(actionErrors);
@@ -172,7 +172,7 @@ public abstract class AbstractTasklet implements Tasklet {
         }
 
         if (this.task.canSendResultMessage()) {
-            this.saveMessageMeta(countAttempt, actionStatus);
+            this.saveMessageMeta(batchTaskResult.getResultCount(), actionStatus);
         }
 
         this.updateEndAction();
@@ -269,12 +269,12 @@ public abstract class AbstractTasklet implements Tasklet {
         return VariableName.AUTO_LIKE_SKIPPED_COUNT;
     }
 
-    private void saveActionRecord(final int countAttempt, @NonNull final ActionStatus actionStatus) {
+    private void saveActionRecord(final int actionCount, @NonNull final ActionStatus actionStatus) {
         log.debug("START");
 
         final ActionRecord actionRecord = new ActionRecord();
         actionRecord.setTaskTypeCode(this.task.getTypeCode());
-        actionRecord.setCountAttempt(countAttempt);
+        actionRecord.setCount(actionCount);
         actionRecord.setActionStatusCode(actionStatus.getCode());
 
         this.mongoCollections.getActionRecordRepository().insert(actionRecord);
@@ -317,13 +317,13 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("END");
     }
 
-    private void saveMessageMeta(final int countAttempt, @NonNull final ActionStatus actionStatus) {
+    private void saveMessageMeta(final int resultCount, @NonNull final ActionStatus actionStatus) {
         log.debug("START");
-        Preconditions.requirePositive(countAttempt);
+        Preconditions.requirePositive(resultCount);
 
         MessageMeta messageMeta = new MessageMeta();
         messageMeta.setTaskTypeCode(this.task.getTypeCode());
-        messageMeta.setCountAttempt(countAttempt);
+        messageMeta.setCount(resultCount);
 
         if (actionStatus == ActionStatus.INTERRUPTED) {
             messageMeta.setInterrupted(true);
