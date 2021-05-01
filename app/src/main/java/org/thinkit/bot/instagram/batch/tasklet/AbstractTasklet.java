@@ -325,12 +325,19 @@ public abstract class AbstractTasklet implements Tasklet {
 
         if (actionStatus == ActionStatus.INTERRUPTED) {
             messageMeta.setInterrupted(true);
+            messageMeta.setSkipped(false);
+            messageMeta.setSkippedByMood(false);
         } else if (actionStatus == ActionStatus.SKIP) {
+            messageMeta.setInterrupted(false);
             messageMeta.setSkipped(true);
+            messageMeta.setSkippedByMood(false);
         } else if (actionStatus == ActionStatus.SKIP_MOOD) {
+            messageMeta.setInterrupted(false);
+            messageMeta.setSkipped(false);
             messageMeta.setSkippedByMood(true);
         }
 
+        messageMeta.setAlreadySent(false);
         messageMeta.setUpdatedAt(new Date());
 
         this.mongoCollections.getMessageMetaRepository().insert(messageMeta);
