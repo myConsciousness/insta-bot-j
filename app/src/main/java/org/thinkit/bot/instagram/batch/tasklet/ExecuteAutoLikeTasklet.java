@@ -114,7 +114,8 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
                 .from(hashtagSelectionStrategyPattern).evaluate();
 
         log.debug("END");
-        return hashtagSelectionStrategy.getTargetHashtags(this.getTargetGroupCode());
+        return hashtagSelectionStrategy.getTargetHashtags(super.getMongoCollections().getHashtagRepository(),
+                this.getTargetGroupCode());
     }
 
     private AutoLikeConfig getAutoLikeConfig() {

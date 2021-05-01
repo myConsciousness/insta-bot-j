@@ -18,10 +18,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import com.mongodb.lang.NonNull;
+
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
+import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 
 import lombok.EqualsAndHashCode;
@@ -33,20 +33,14 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(staticName = "newInstance")
-@Component
 public final class DefaultHashtagSelectionStrategy implements HashtagSelectionStrategy {
 
-    /**
-     * The mongo collection
-     */
-    @Autowired
-    private MongoCollections mongoCollection;
-
     @Override
-    public List<TargetHashtag> getTargetHashtags(final int groupCode) {
+    public List<TargetHashtag> getTargetHashtags(@NonNull final HashtagRepository hashtagRepository,
+            final int groupCode) {
         log.debug("START");
 
-        final List<Hashtag> hashtags = this.mongoCollection.getHashtagRepository().findByGroupCode(groupCode);
+        final List<Hashtag> hashtags = hashtagRepository.findByGroupCode(groupCode);
         final List<TargetHashtag> targetHashtags = new ArrayList<>(hashtags.size());
 
         hashtags.forEach(hashtag -> {

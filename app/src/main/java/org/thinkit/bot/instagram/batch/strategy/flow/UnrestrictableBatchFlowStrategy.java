@@ -17,7 +17,6 @@ package org.thinkit.bot.instagram.batch.strategy.flow;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.FlowJobBuilder;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 
 import lombok.EqualsAndHashCode;
@@ -28,7 +27,6 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(staticName = "newInstance")
-@Component
 public final class UnrestrictableBatchFlowStrategy implements BatchFlowStrategy {
 
     @Override

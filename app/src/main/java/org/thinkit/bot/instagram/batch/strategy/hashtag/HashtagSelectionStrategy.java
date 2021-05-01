@@ -16,9 +16,13 @@ package org.thinkit.bot.instagram.batch.strategy.hashtag;
 
 import java.util.List;
 
+import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
+
+import lombok.NonNull;
 
 public interface HashtagSelectionStrategy {
 
-    public List<TargetHashtag> getTargetHashtags(final int groupCode);
+    public List<TargetHashtag> getTargetHashtags(@NonNull final HashtagRepository hashtagRepository,
+            final int groupCode);
 }
