@@ -76,7 +76,17 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     /**
      * {@code "LINE_NOTIFY_TOKEN"}
      */
-    LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN");
+    LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN"),
+
+    /**
+     * {@code "LOGIN_STRATEGY"}
+     */
+    LOGIN_STRATEGY(901, "LOGIN_STRATEGY"),
+
+    /**
+     * {@code "LOGIN_TWO_FACTOR_TOKEN"}
+     */
+    LOGIN_TWO_FACTOR_TOKEN(902, "LOGIN_TWO_FACTOR_TOKEN");
 
     /**
      * The code
