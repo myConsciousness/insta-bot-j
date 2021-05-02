@@ -39,12 +39,6 @@ import lombok.ToString;
 public final class AutoUnfollowConfig implements Serializable {
 
     /**
-     * The max unfollow
-     */
-    @Getter
-    private int maxUnfollow;
-
-    /**
      * The unfollow interval
      */
     @Getter

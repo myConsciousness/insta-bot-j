@@ -40,12 +40,13 @@ public interface InstaBot {
     public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags,
             @NonNull final AutoLikeConfig autoLikeConfig);
 
+    public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers,
+            @NonNull final AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig);
+
     public AutoFollowResult executeAutoFollow(@NonNull final List<FollowUser> followUsers,
             @NonNull final AutoFollowConfig autoFollowConfig);
 
     public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
             @NonNull final AutoUnfollowConfig autoUnfollowConfig);
 
-    public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers,
-            @NonNull final AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig);
 }

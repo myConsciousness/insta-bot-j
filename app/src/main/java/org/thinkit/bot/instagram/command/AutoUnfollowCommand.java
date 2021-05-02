@@ -14,9 +14,14 @@
 
 package org.thinkit.bot.instagram.command;
 
+import java.util.List;
+
+import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
+import org.thinkit.bot.instagram.param.UnfollowUser;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,7 +29,18 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowResult> {
+
+    /**
+     * The unfollow users
+     */
+    private List<UnfollowUser> unfollowUsers;
+
+    /**
+     * The auto unfollow config
+     */
+    private AutoUnfollowConfig autoUnfollowConfig;
 
     @Override
     protected AutoUnfollowResult executeBotProcess() {

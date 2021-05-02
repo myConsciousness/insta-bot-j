@@ -14,9 +14,14 @@
 
 package org.thinkit.bot.instagram.command;
 
+import java.util.List;
+
+import org.thinkit.bot.instagram.config.AutoFollowConfig;
+import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -24,10 +29,22 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult> {
+
+    /**
+     * The follow users
+     */
+    private List<FollowUser> followUsers;
+
+    /**
+     * The auto follow config
+     */
+    private AutoFollowConfig autoFollowConfig;
 
     @Override
     protected AutoFollowResult executeBotProcess() {
-        return null;
+
+        return AutoFollowResult.builder().build();
     }
 }

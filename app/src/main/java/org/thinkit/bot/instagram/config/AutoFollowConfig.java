@@ -38,12 +38,6 @@ import lombok.ToString;
 public final class AutoFollowConfig implements Serializable {
 
     /**
-     * The max follow
-     */
-    @Getter
-    private int maxFollow;
-
-    /**
      * The follow interval
      */
     @Getter

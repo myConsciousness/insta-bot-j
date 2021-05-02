@@ -61,7 +61,24 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The comment button
      */
-    COMMENT_BUTTON(6, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button");
+    COMMENT_BUTTON(6, "/html/body/div[5]/div[2]/div/article/div[3]/section[1]/span[2]/button"),
+
+    /**
+     * The follow button
+     */
+    FOLLOW_BUTTON(7,
+            "//*[@id=\"react-root\"]/section/main/div/header/section/div[1]/div[1]/div/div/div/span/span[1]/button"),
+
+    /**
+     * The unfollow button
+     */
+    UNFOLLOW_BUTTON(8,
+            "//*[@id=\"react-root\"]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button"),
+
+    /**
+     * The unfollow button on modal
+     */
+    UNFOLLOW_BUTTON_ON_MODAL(9, "/html/body/div[7]/div/div/div/div[3]/button[1]");
 
     /**
      * The code
