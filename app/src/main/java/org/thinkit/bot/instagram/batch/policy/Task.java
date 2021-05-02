@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch;
+package org.thinkit.bot.instagram.batch.policy;
 
 import java.io.Serializable;
 
