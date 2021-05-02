@@ -245,7 +245,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
         final Variable variable = this.getVariable(this.getSkippedCountVariableName());
         int skippedCount = Integer.parseInt(variable.getValue());
-        variable.setValue(String.valueOf(skippedCount++));
+        variable.setValue(String.valueOf(++skippedCount));
 
         this.mongoCollections.getVariableRepository().save(variable);
         log.debug("Updated variable: {}", variable);
