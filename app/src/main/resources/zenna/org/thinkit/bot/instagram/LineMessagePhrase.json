@@ -14,7 +14,7 @@
         },
         {
             "node": {
-                "conditionId": "801",
+                "conditionId": "2",
                 "phrase": "The %s expectable users were found."
             }
         }
@@ -35,13 +35,13 @@
         },
         {
             "node": {
-                "conditionId": "801",
+                "conditionId": "2",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "801"
+                        "operand": "2"
                     }
                 ]
             }
