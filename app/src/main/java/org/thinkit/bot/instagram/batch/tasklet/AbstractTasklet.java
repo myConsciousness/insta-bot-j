@@ -131,6 +131,10 @@ public abstract class AbstractTasklet implements Tasklet {
         return this.executeTaskProcess(contribution, chunkContext);
     }
 
+    protected int getIntVariableValue(@NonNull final VariableName variableName) {
+        return Integer.parseInt(this.getVariable(variableName).getValue());
+    }
+
     /**
      * Returns the variable from {@code Variable} collection on MongoDB linked by
      * the {@code variableName} passed as an argument. If the corresponding variable
@@ -265,8 +269,7 @@ public abstract class AbstractTasklet implements Tasklet {
             }
         }
 
-        final Variable variable = this.getVariable(VariableName.SKIP_MOOD_OCCURRENCE_PROBABILITY);
-        final int occurrenceProbability = Integer.parseInt(variable.getValue());
+        final int occurrenceProbability = this.getSkipMoodOccurrenceProbability();
 
         log.debug("END");
         return RandomUtils.nextInt(occurrenceProbability + 1, 1) % occurrenceProbability == 0;
@@ -414,6 +417,10 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private int getActionRestrictionWaitHour() {
-        return Integer.parseInt(this.getVariable(VariableName.ACTION_RESTRICTION_WAIT_HOUR).getValue());
+        return this.getIntVariableValue(VariableName.ACTION_RESTRICTION_WAIT_HOUR);
+    }
+
+    private int getSkipMoodOccurrenceProbability() {
+        return this.getIntVariableValue(VariableName.SKIP_MOOD_OCCURRENCE_PROBABILITY);
     }
 }
