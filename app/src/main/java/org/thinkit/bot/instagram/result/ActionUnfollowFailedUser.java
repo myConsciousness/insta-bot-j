@@ -15,9 +15,6 @@
 package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
-import java.util.List;
-
-import org.thinkit.bot.instagram.catalog.ActionStatus;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,11 +22,10 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
- * The class that manages the result of auto unfollow command.
+ * The class that manages action unfollow failed user.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -39,38 +35,11 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoUnfollowResult implements Serializable {
+public final class ActionUnfollowFailedUser implements Serializable {
 
     /**
-     * The action status
+     * The user name
      */
     @Getter
-    @NonNull
-    private ActionStatus actionStatus;
-
-    /**
-     * The count unfollowed
-     */
-    @Getter
-    private int countUnfollowed;
-
-    /**
-     * The action unfollowed users
-     */
-    @Getter
-    @NonNull
-    private List<ActionUnfollowedUser> actionUnfollowedUsers;
-
-    /**
-     * The action unfollow failed users
-     */
-    @Getter
-    @NonNull
-    private List<ActionUnfollowFailedUser> actionUnfollowFailedUsers;
-
-    /**
-     * The action errors
-     */
-    @Getter
-    private List<ActionError> actionErrors;
+    private String userName;
 }
