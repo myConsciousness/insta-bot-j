@@ -249,7 +249,7 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionSkip actionSkip = this.mongoCollections.getActionSkipRepository()
                 .findByTaskTypeCode(this.task.getTypeCode());
 
-        if (actionSkip.getCount() > 1) {
+        if (actionSkip != null && actionSkip.getCount() > 1) {
             // Prevent too much skipping and too many attemps per execution
             return false;
         }
