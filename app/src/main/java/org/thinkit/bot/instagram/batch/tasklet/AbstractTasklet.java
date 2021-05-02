@@ -264,6 +264,7 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
         final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
         actionSkip.setCount(actionSkip.getCount() + 1);
+        actionSkip.setUpdatedAt(new Date());
 
         actionSkipRepository.save(actionSkip);
         log.debug("Updated action skip: {}", actionSkip);
@@ -277,6 +278,7 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
         final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
         actionSkip.setCount(0);
+        actionSkip.setUpdatedAt(new Date());
 
         actionSkipRepository.save(actionSkip);
         log.debug("Updated action skip: {}", actionSkip);
