@@ -22,6 +22,7 @@ import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.catalog.MongoDatabase;
 import org.thinkit.bot.instagram.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
+import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackPossibilityIndicatorRepository;
@@ -84,6 +85,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     private ActionRecordRepository actionRecordRepository;
 
     /**
+     * The action skip repository
+     */
+    @Autowired
+    private ActionSkipRepository actionSkipRepository;
+
+    /**
      * The last action repository
      */
     @Autowired
@@ -127,6 +134,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.errorRepository(this.errorRepository);
         mongoCollectionsBuilder.actionRestrictionRepository(this.actionRestrictionRepository);
         mongoCollectionsBuilder.actionRecordRepository(this.actionRecordRepository);
+        mongoCollectionsBuilder.actionSkipRepository(this.actionSkipRepository);
         mongoCollectionsBuilder.lastActionRepository(this.lastActionRepository);
         mongoCollectionsBuilder.messageMetaRepository(this.messageMetaRepository);
         mongoCollectionsBuilder.followBackExpectableUserRepository(this.followBackExpectableUserRepository);

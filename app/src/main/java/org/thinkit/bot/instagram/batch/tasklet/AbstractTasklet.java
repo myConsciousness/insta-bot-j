@@ -34,11 +34,13 @@ import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.DefaultVariableMapper;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.ActionRestriction;
+import org.thinkit.bot.instagram.mongo.entity.ActionSkip;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
+import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
@@ -129,6 +131,17 @@ public abstract class AbstractTasklet implements Tasklet {
         return this.executeTaskProcess(contribution, chunkContext);
     }
 
+    /**
+     * Returns the variable from {@code Variable} collection on MongoDB linked by
+     * the {@code variableName} passed as an argument. If the corresponding variable
+     * document does not exist in the {@code Variable} collection, it will be
+     * generated with the default value.
+     *
+     * @param variableName The variable name
+     * @return The variable linked by the {@code variableName} passed as an argument
+     *
+     * @exception NullPointerException If {@code null} is passed as an argument
+     */
     protected Variable getVariable(@NonNull final VariableName variableName) {
         log.debug("START");
 
@@ -160,7 +173,6 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
         final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
 
-        this.resetSkippedCount();
         this.saveActionRecord(actionCount, actionStatus);
 
         if (!actionErrors.isEmpty()) {
@@ -173,6 +185,10 @@ public abstract class AbstractTasklet implements Tasklet {
 
         if (this.task.canSendResultMessage()) {
             this.saveMessageMeta(batchTaskResult.getResultCount(), actionStatus);
+        }
+
+        if (this.task.canSkip()) {
+            this.resetSkippedCount();
         }
 
         this.updateEndAction();
@@ -230,25 +246,27 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private boolean isSkipMood() {
 
-        final Variable variable = this.getVariable(this.getSkippedCountVariableName());
+        final ActionSkip actionSkip = this.mongoCollections.getActionSkipRepository()
+                .findByTaskTypeCode(this.task.getTypeCode());
 
-        if (Integer.parseInt(variable.getValue()) > 1) {
+        if (actionSkip.getCount() > 1) {
             // Prevent too much skipping and too many attemps per execution
             return false;
         }
 
+        // TODO: To variable
         return RandomUtils.nextInt(6, 1) % 5 == 0;
     }
 
     private void incrementSkippedCount() {
         log.debug("START");
 
-        final Variable variable = this.getVariable(this.getSkippedCountVariableName());
-        int skippedCount = Integer.parseInt(variable.getValue());
-        variable.setValue(String.valueOf(++skippedCount));
+        final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
+        final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
+        actionSkip.setCount(actionSkip.getCount() + 1);
 
-        this.mongoCollections.getVariableRepository().save(variable);
-        log.debug("Updated variable: {}", variable);
+        actionSkipRepository.save(actionSkip);
+        log.debug("Updated action skip: {}", actionSkip);
 
         log.debug("END");
     }
@@ -256,17 +274,14 @@ public abstract class AbstractTasklet implements Tasklet {
     private void resetSkippedCount() {
         log.debug("START");
 
-        final Variable variable = this.getVariable(this.getSkippedCountVariableName());
-        variable.setValue("0");
+        final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
+        final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
+        actionSkip.setCount(0);
 
-        this.mongoCollections.getVariableRepository().save(variable);
-        log.debug("Updated variable: {}", variable);
+        actionSkipRepository.save(actionSkip);
+        log.debug("Updated action skip: {}", actionSkip);
 
         log.debug("END");
-    }
-
-    private VariableName getSkippedCountVariableName() {
-        return VariableName.AUTO_LIKE_SKIPPED_COUNT;
     }
 
     private void saveActionRecord(final int actionCount, @NonNull final ActionStatus actionStatus) {

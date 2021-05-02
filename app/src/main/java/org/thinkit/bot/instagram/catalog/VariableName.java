@@ -39,11 +39,6 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     LIKE_INTERVAL(1, "LIKE_INTERVAL"),
 
     /**
-     * {@code "AUTO_LIKE_SKIPPED_COUNT"}
-     */
-    AUTO_LIKE_SKIPPED_COUNT(2, "AUTO_LIKE_SKIPPED_COUNT"),
-
-    /**
      * {@code "FOLLOW_PER_DAY"}
      */
     FOLLOW_PER_DAY(100, "FOLLOW_PER_DAY"),

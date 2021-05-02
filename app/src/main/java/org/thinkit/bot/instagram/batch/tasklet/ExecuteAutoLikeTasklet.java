@@ -31,7 +31,9 @@ import org.thinkit.bot.instagram.catalog.HashtagSelectionStrategyPattern;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
+import org.thinkit.bot.instagram.mongo.entity.ActionSkip;
 import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
+import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
@@ -151,6 +153,21 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     }
 
     private int getSkippedCount() {
-        return Integer.parseInt(super.getVariable(VariableName.AUTO_LIKE_SKIPPED_COUNT).getValue());
+        log.debug("START");
+
+        final ActionSkipRepository actionSkipRepository = this.getMongoCollections().getActionSkipRepository();
+        ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(TaskType.AUTO_LIKE.getCode());
+
+        if (actionSkip == null) {
+            actionSkip = new ActionSkip();
+            actionSkip.setTaskTypeCode(TaskType.AUTO_LIKE.getCode());
+            actionSkip.setCount(0);
+
+            actionSkip = actionSkipRepository.insert(actionSkip);
+            log.debug("Inserted action skip: {}", actionSkip);
+        }
+
+        log.debug("END");
+        return actionSkip.getCount();
     }
 }

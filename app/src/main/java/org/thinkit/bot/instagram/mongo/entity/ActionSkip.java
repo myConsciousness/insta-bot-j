@@ -24,14 +24,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.Data;
 
 /**
- * The entity that manages action restriction.
+ * The entity that manages action skip.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @Data
-@Document("action_restriction")
-public final class ActionRestriction implements Serializable {
+@Document("action_skip")
+public final class ActionSkip implements Serializable {
 
     /**
      * The id
@@ -45,6 +45,11 @@ public final class ActionRestriction implements Serializable {
      */
     @Indexed(unique = true)
     private int taskTypeCode;
+
+    /**
+     * The count
+     */
+    private int count;
 
     /**
      * The created datetime
