@@ -157,6 +157,7 @@ public abstract class AbstractTasklet implements Tasklet {
             log.debug("Inserted variable: {}", variable);
         }
 
+        log.debug("The variable: {}", variable);
         log.debug("END");
         return variable;
     }
@@ -245,6 +246,7 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private boolean isSkipMood() {
+        log.debug("STRAT");
 
         final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
         ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
@@ -263,8 +265,11 @@ public abstract class AbstractTasklet implements Tasklet {
             }
         }
 
-        // TODO: To variable
-        return RandomUtils.nextInt(6, 1) % 5 == 0;
+        final Variable variable = this.getVariable(VariableName.SKIP_MOOD_OCCURRENCE_PROBABILITY);
+        final int occurrenceProbability = Integer.parseInt(variable.getValue());
+
+        log.debug("END");
+        return RandomUtils.nextInt(occurrenceProbability + 1, 1) % occurrenceProbability == 0;
     }
 
     private void incrementSkippedCount() {

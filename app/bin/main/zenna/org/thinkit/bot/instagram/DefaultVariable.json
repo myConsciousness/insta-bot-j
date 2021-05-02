@@ -50,6 +50,12 @@
         },
         {
             "node": {
+                "conditionId": "803",
+                "value": "5"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "900",
                 "value": ""
             }
@@ -143,6 +149,19 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "ACTION_RESTRICTION_WAIT_HOUR"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "803",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "SKIP_MOOD_OCCURRENCE_PROBABILITY"
                     }
                 ]
             }
