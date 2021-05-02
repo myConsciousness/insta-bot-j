@@ -17,9 +17,7 @@ package org.thinkit.bot.instagram.batch.tasklet;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 
@@ -32,12 +30,6 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(callSuper = false)
 @Component
 public final class InitializeTasklet extends AbstractTasklet {
-
-    /**
-     * The mongo collections
-     */
-    @Autowired
-    private MongoCollections mongoCollections;
 
     private InitializeTasklet() {
         super(TaskType.INITIALIZE);

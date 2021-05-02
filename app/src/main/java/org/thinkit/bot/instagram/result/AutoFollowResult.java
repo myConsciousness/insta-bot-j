@@ -63,6 +63,13 @@ public final class AutoFollowResult implements Serializable {
     private List<ActionFollowedUser> actionFollowedUsers;
 
     /**
+     * The action follow failed users
+     */
+    @Getter
+    @NonNull
+    private List<ActionFollowFailedUser> actionFollowFailedUsers;
+
+    /**
      * The action errors
      */
     @Getter

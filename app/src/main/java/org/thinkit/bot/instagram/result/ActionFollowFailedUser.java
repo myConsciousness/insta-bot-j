@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages action followed user.
+ * The class that manages action follow failed user.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -35,17 +35,11 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionFollowedUser implements Serializable {
+public final class ActionFollowFailedUser implements Serializable {
 
     /**
      * The user name
      */
     @Getter
     private String userName;
-
-    /**
-     * The url
-     */
-    @Getter
-    private String url;
 }
