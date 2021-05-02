@@ -156,16 +156,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         log.debug("START");
 
         final ActionSkipRepository actionSkipRepository = this.getMongoCollections().getActionSkipRepository();
-        ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(TaskType.AUTO_LIKE.getCode());
-
-        if (actionSkip == null) {
-            actionSkip = new ActionSkip();
-            actionSkip.setTaskTypeCode(TaskType.AUTO_LIKE.getCode());
-            actionSkip.setCount(0);
-
-            actionSkip = actionSkipRepository.insert(actionSkip);
-            log.debug("Inserted action skip: {}", actionSkip);
-        }
+        final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(TaskType.AUTO_LIKE.getCode());
 
         log.debug("END");
         return actionSkip.getCount();

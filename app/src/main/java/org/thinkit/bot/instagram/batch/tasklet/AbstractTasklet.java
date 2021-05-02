@@ -246,12 +246,21 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private boolean isSkipMood() {
 
-        final ActionSkip actionSkip = this.mongoCollections.getActionSkipRepository()
-                .findByTaskTypeCode(this.task.getTypeCode());
+        final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
+        ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
 
-        if (actionSkip != null && actionSkip.getCount() > 1) {
-            // Prevent too much skipping and too many attemps per execution
-            return false;
+        if (actionSkip == null) {
+            actionSkip = new ActionSkip();
+            actionSkip.setTaskTypeCode(TaskType.AUTO_LIKE.getCode());
+            actionSkip.setCount(0);
+
+            actionSkip = actionSkipRepository.insert(actionSkip);
+            log.debug("Inserted action skip: {}", actionSkip);
+        } else {
+            if (actionSkip.getCount() > 1) {
+                // Prevent too much skipping and too many attemps per execution
+                return false;
+            }
         }
 
         // TODO: To variable
