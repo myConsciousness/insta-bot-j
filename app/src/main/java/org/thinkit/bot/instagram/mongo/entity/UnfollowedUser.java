@@ -18,40 +18,39 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
 /**
- * The entity that manages following user.
+ * The entity that manages unfollowed user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @Data
-@Document("following_user")
-public final class FollowingUser implements Serializable {
+@Document("unfollowed_user")
+public final class UnfollowedUser implements Serializable {
 
     /**
      * The id
      */
     @Id
+    @Indexed(unique = true)
     private String id;
 
     /**
      * The user name
      */
+    @Indexed(unique = true)
     private String userName;
 
     /**
      * The url
      */
+    @Indexed(unique = true)
     private String url;
-
-    /**
-     * The mutual
-     */
-    private boolean mutual;
 
     /**
      * The created datetime
@@ -62,5 +61,4 @@ public final class FollowingUser implements Serializable {
      * The updated datetime
      */
     private Date updatedAt = new Date();
-
 }

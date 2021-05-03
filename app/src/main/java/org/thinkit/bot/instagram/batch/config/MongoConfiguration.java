@@ -26,11 +26,13 @@ import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackPossibilityIndicatorRepository;
+import org.thinkit.bot.instagram.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.UnfollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
@@ -121,6 +123,18 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Autowired
     private MissingUserRepository missingUserRepository;
 
+    /**
+     * The followed user repository
+     */
+    @Autowired
+    private FollowedUserRepository followedUserRepository;
+
+    /**
+     * The unfollowed user repository
+     */
+    @Autowired
+    private UnfollowedUserRepository unfollowedUserRepository;
+
     @Override
     protected String getDatabaseName() {
         return MongoDatabase.INSTAGRAM.getTag();
@@ -147,6 +161,8 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.followBackExpectableUserRepository(this.followBackExpectableUserRepository);
         mongoCollectionsBuilder.followBackPossibilityIndicatorRepository(this.followBackPossibilityIndicatorRepository);
         mongoCollectionsBuilder.missingUserRepository(this.missingUserRepository);
+        mongoCollectionsBuilder.followedUserRepository(this.followedUserRepository);
+        mongoCollectionsBuilder.unfollowedUserRepository(this.unfollowedUserRepository);
 
         return mongoCollectionsBuilder.build();
     }

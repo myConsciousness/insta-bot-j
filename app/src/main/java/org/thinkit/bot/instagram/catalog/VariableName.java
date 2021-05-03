@@ -44,9 +44,29 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     FOLLOW_PER_DAY(100, "FOLLOW_PER_DAY"),
 
     /**
+     * {@code "FOLLOW_INTERVAL"}
+     */
+    FOLLOW_INTERVAL(101, "FOLLOW_INTERVAL"),
+
+    /**
+     * {@code "LAST_DATETIME_ATTEMPTED_AUTO_FOLLOW"}
+     */
+    LAST_DATETIME_ATTEMPTED_AUTO_FOLLOW(102, "LAST_DATETIME_ATTEMPTED_AUTO_FOLLOW"),
+
+    /**
      * {@code "UNFOLLOW_PER_DAY"}
      */
     UNFOLLOW_PER_DAY(200, "UNFOLLOW_PER_DAY"),
+
+    /**
+     * {@code "UNFOLLOW_INTERVAL"}
+     */
+    UNFOLLOW_INTERVAL(201, "UNFOLLOW_INTERVAL"),
+
+    /**
+     * {@code "LAST_DATETIME_ATTEMPTED_AUTO_UNFOLLOW"}
+     */
+    LAST_DATETIME_ATTEMPTED_AUTO_UNFOLLOW(202, "LAST_DATETIME_ATTEMPTED_AUTO_UNFOLLOW"),
 
     /**
      * {@code "BATCH_FLOW_STRATEGY"}

@@ -14,6 +14,9 @@
 
 package org.thinkit.bot.instagram.mongo.repository;
 
+import java.util.List;
+
+import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
@@ -27,5 +30,10 @@ import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
 @Repository
 public interface FollowBackExpectableUserRepository extends MongoRepository<FollowBackExpectableUser, String> {
 
+    public List<FollowBackExpectableUser> findOrderByFollowBackPossibilityCodeAsc();
+
     public FollowBackExpectableUser findByUserName(String userName);
+
+    @DeleteQuery
+    public void deleteByUserName(String userName);
 }

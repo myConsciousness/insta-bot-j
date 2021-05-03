@@ -64,7 +64,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
         final List<AutoLikeResult> autolikeResults = super.getInstaBot().executeAutoLikes(this.getTargetHashtags(),
                 this.getAutoLikeConfig());
-        log.info("The autolike has completed the process successfully.");
+        log.info("The auto like has completed the process successfully.");
 
         final MongoCollections mongoCollection = super.getMongoCollections();
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();

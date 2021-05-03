@@ -17,6 +17,7 @@ package org.thinkit.bot.instagram.mongo.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.FollowedUser;
+import org.thinkit.bot.instagram.param.FollowUser;
 
 /**
  * The interface that manages followed user repository.
@@ -26,4 +27,6 @@ import org.thinkit.bot.instagram.mongo.entity.FollowedUser;
  */
 @Repository
 public interface FollowedUserRepository extends MongoRepository<FollowedUser, String> {
+
+    public FollowUser findByUserName(String userName);
 }

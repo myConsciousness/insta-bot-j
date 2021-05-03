@@ -22,11 +22,13 @@ import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
 import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackPossibilityIndicatorRepository;
+import org.thinkit.bot.instagram.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.UnfollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
@@ -128,4 +130,16 @@ public final class MongoCollections implements Serializable {
      */
     @Getter
     private MissingUserRepository missingUserRepository;
+
+    /**
+     * The followed user repository
+     */
+    @Getter
+    private FollowedUserRepository followedUserRepository;
+
+    /**
+     * The unfollowed user repository
+     */
+    @Getter
+    private UnfollowedUserRepository unfollowedUserRepository;
 }

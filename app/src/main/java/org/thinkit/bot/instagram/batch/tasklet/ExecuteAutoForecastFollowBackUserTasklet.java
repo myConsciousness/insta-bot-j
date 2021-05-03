@@ -125,7 +125,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
     private List<ForecastUser> getForecastUsers() {
         log.debug("START");
 
-        final List<LikedPhoto> likedPhotos = this.getMongoCollections().getLikedPhotoRepository().findAll();
+        final List<LikedPhoto> likedPhotos = super.getMongoCollections().getLikedPhotoRepository().findAll();
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
         Collections.shuffle(likedPhotos);
@@ -151,6 +151,8 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
         log.debug("START");
 
         if (this.isAlreadyForecastedUser(forecastUsers, likedPhoto)) {
+            log.debug("The user {} is already forecasted", likedPhoto.getUserName());
+            log.debug("END");
             return true;
         }
 
@@ -187,7 +189,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
 
     private boolean isAlreadyForecastedUser(@NonNull final List<ForecastUser> forecastUsers,
             @NonNull final LikedPhoto likedPhoto) {
-        final FollowBackExpectableUserRepository followBackExpectableUserRepository = this.getMongoCollections()
+        final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
         return followBackExpectableUserRepository.findByUserName(likedPhoto.getUserName()) != null;
     }

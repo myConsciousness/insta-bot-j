@@ -16,15 +16,16 @@ package org.thinkit.bot.instagram.mongo.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.FollowingUser;
+import org.thinkit.bot.instagram.mongo.entity.UnfollowedUser;
 
 /**
- * The interface that manages following user repository.
+ * The interface that manages unfollowed user repository.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @Repository
-public interface FollowingUserRepository extends MongoRepository<FollowingUser, String> {
+public interface UnfollowedUserRepository extends MongoRepository<UnfollowedUser, String> {
 
+    public UnfollowedUser findByUserName(String userName);
 }
