@@ -14,13 +14,13 @@
 
 package org.thinkit.bot.instagram.content;
 
-import org.thinkit.bot.instagram.catalog.FollowStateType;
 import org.thinkit.bot.instagram.content.entity.FollowState;
 import org.thinkit.zenna.mapper.ContentMapper;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -31,12 +31,12 @@ import lombok.ToString;
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class FollowStateMapper extends ContentMapper<FollowState> {
 
     /**
-     * The follow state type
+     * The follow state type code
      */
-    @Setter
-    private FollowStateType followStateType;
+    private int followStateTypeCode;
 }

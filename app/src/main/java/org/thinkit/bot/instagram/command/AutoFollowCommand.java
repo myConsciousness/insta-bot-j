@@ -18,12 +18,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
+import org.thinkit.bot.instagram.catalog.FollowStateType;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
+import org.thinkit.bot.instagram.content.FollowStateMapper;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionFollowFailedUser;
@@ -59,10 +62,12 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
         final List<ActionFollowFailedUser> actionFollowFailedUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
+        final String followBaclState = this.getFollowBackState();
         String userName = "";
+
         for (final FollowUser followUser : this.followUsers) {
             try {
-                super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+                super.wait(WaitType.FOLLOW);
 
                 if (!actionFollowedUsers.isEmpty()
                         && actionFollowedUsers.size() % autoFollowConfig.getFollowInterval() == 0) {
@@ -73,15 +78,21 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
                 super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), userName));
 
                 super.waitUntilElementClickable(By.xpath(ElementXPath.FOLLOW_BUTTON.getTag()));
-                super.findByXpath(ElementXPath.FOLLOW_BUTTON).click();
+                final WebElement followButton = super.findByXpath(ElementXPath.FOLLOW_BUTTON);
 
-                final ActionFollowedUser.ActionFollowedUserBuilder actionFollowedUserBuilder = ActionFollowedUser
-                        .builder();
-                actionFollowedUserBuilder.userName(userName);
-                actionFollowedUserBuilder.url(super.getCurrentUrl());
+                if (followBaclState.equals(followButton.getText())) {
+                    // Already followed by this user
+                    actionFollowFailedUsers.add(ActionFollowFailedUser.builder().userName(userName).build());
+                } else {
 
-                actionFollowedUsers.add(actionFollowedUserBuilder.build());
+                    followButton.click();
 
+                    final ActionFollowedUser.ActionFollowedUserBuilder actionFollowedUserBuilder = ActionFollowedUser
+                            .builder();
+                    actionFollowedUserBuilder.userName(userName);
+                    actionFollowedUserBuilder.url(super.getCurrentUrl());
+                    actionFollowedUsers.add(actionFollowedUserBuilder.build());
+                }
             } catch (Exception recoverableException) {
                 // The possibility exists that a timeout may occur due to wrong css selector was
                 // located, or the profile is private, etc. Anyway, let's move on to the next
@@ -99,5 +110,9 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
         autoFollowResultBuilder.actionErrors(actionErrors);
 
         return autoFollowResultBuilder.build();
+    }
+
+    private String getFollowBackState() {
+        return FollowStateMapper.from(FollowStateType.FOLLOWER.getCode()).scan().get(0).getState();
     }
 }

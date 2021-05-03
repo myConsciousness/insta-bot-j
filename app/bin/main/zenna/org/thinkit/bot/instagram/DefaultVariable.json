@@ -15,7 +15,7 @@
         {
             "node": {
                 "conditionId": "1",
-                "value": "10"
+                "value": "3"
             }
         },
         {
@@ -26,8 +26,32 @@
         },
         {
             "node": {
+                "conditionId": "101",
+                "value": "3"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "102",
+                "value": "2000-01-01"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "200",
                 "value": "10"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "201",
+                "value": "3"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "202",
+                "value": "2000-01-01"
             }
         },
         {
@@ -39,7 +63,7 @@
         {
             "node": {
                 "conditionId": "801",
-                "value": "15"
+                "value": "5"
             }
         },
         {
@@ -103,6 +127,32 @@
         },
         {
             "node": {
+                "conditionId": "101",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "FOLLOW_INTERVAL"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "102",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "LAST_DATE_ATTEMPTED_AUTO_FOLLOW"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
                 "conditionId": "200",
                 "exclude": false,
                 "conditions": [
@@ -110,6 +160,32 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "UNFOLLOW_PER_DAY"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "201",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "UNFOLLOW_INTERVAL"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "202",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "LAST_DATE_ATTEMPTED_AUTO_UNFOLLOW"
                     }
                 ]
             }

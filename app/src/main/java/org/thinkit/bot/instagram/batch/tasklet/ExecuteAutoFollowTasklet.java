@@ -120,7 +120,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
         final List<FollowBackExpectableUser> followBackExpectableUsers = followBackExpectableUserRepository
-                .findOrderByFollowBackPossibilityCodeAsc();
+                .findByOrderByFollowBackPossibilityCodeAsc();
 
         for (final FollowBackExpectableUser followBackExpectableUser : followBackExpectableUsers) {
             if (!this.isDuplicateUser(followUsers, followBackExpectableUser)) {
@@ -140,7 +140,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
             @NonNull final FollowBackExpectableUser followBackExpectableUser) {
         log.debug("START");
 
-        if (this.isAlreadyForecastedUser(followUsers, followBackExpectableUser)) {
+        if (this.isAlreadyFollowedUser(followUsers, followBackExpectableUser)) {
             log.debug("The user {} is already followed.", followBackExpectableUser.getUserName());
             log.debug("END");
             return true;
@@ -159,7 +159,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
         return false;
     }
 
-    private boolean isAlreadyForecastedUser(@NonNull final List<FollowUser> followUsers,
+    private boolean isAlreadyFollowedUser(@NonNull final List<FollowUser> followUsers,
             @NonNull final FollowBackExpectableUser followBackExpectableUser) {
         final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
         return followedUserRepository.findByUserName(followBackExpectableUser.getUserName()) != null;

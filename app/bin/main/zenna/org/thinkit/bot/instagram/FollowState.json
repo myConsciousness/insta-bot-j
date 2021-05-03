@@ -9,19 +9,19 @@
         {
             "node": {
                 "conditionId": "0",
-                "states": "フォローする"
+                "state": "フォローする"
             }
         },
         {
             "node": {
                 "conditionId": "1",
-                "states": "フォローバックする"
+                "state": "フォローバックする"
             }
         },
         {
             "node": {
                 "conditionId": "2",
-                "states": "フォロー中"
+                "state": "フォロー中"
             }
         }
     ],
@@ -32,7 +32,7 @@
                 "exclude": false,
                 "conditions": [
                     {
-                        "keyName": "followStateType",
+                        "keyName": "followStateTypeCode",
                         "operator": "=",
                         "operand": "0"
                     }
@@ -45,7 +45,7 @@
                 "exclude": false,
                 "conditions": [
                     {
-                        "keyName": "followStateType",
+                        "keyName": "followStateTypeCode",
                         "operator": "=",
                         "operand": "1"
                     }
@@ -58,7 +58,7 @@
                 "exclude": false,
                 "conditions": [
                     {
-                        "keyName": "followStateType",
+                        "keyName": "followStateTypeCode",
                         "operator": "=",
                         "operand": "2"
                     }

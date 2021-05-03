@@ -46,7 +46,8 @@ public final class Task implements Serializable {
     }
 
     public boolean canSendResultMessage() {
-        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.AUTO_FORECAST_FOLLOW_BACK_USER;
+        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.AUTO_FORECAST_FOLLOW_BACK_USER
+                || this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
 
     public boolean isRestrictable() {

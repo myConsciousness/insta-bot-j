@@ -28,44 +28,48 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ElementCssSelector implements BiCatalog<ElementCssSelector, String> {
 
-        /**
-         * The next arrow
-         */
-        NEXT_ARROW(0, "a.coreSpriteRightPaginationArrow"),
+    /**
+     * The next arrow
+     */
+    NEXT_ARROW(0, "a.coreSpriteRightPaginationArrow"),
 
-        /**
-         * The user name on explore
-         */
-        USER_NAME_ON_EXPLORE(1,
-                        "body > div._2dDPU.CkGkG > div.zZYga > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.e1e1d > span > a"),
+    /**
+     * The user name on explore
+     */
+    USER_NAME_ON_EXPLORE(1,
+            "body > div._2dDPU.CkGkG > div.zZYga > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.e1e1d > span > a"),
 
-        /**
-         * The post count on profile
-         */
-        PROFILE_POST_COUNT(2,
-                        "#react-root > section > main > div > header > section > ul > li:nth-child(1) > span > span"),
+    /**
+     * The post count on profile
+     */
+    PROFILE_POST_COUNT(2, "#react-root > section > main > div > header > section > ul > li:nth-child(1) > span > span"),
 
-        /**
-         * The follower count on profile
-         */
-        PROFILE_FOLLOWER_COUNT(3,
-                        "#react-root > section > main > div > header > section > ul > li:nth-child(2) > a > span"),
+    /**
+     * The follower count on profile
+     */
+    PROFILE_FOLLOWER_COUNT(3,
+            "#react-root > section > main > div > header > section > ul > li:nth-child(2) > a > span"),
 
-        /**
-         * The following count on profile
-         */
-        PROFILE_FOLLOWING_COUNT(4,
-                        "#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span");
+    /**
+     * The following count on profile
+     */
+    PROFILE_FOLLOWING_COUNT(4,
+            "#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span"),
 
-        /**
-         * The code
-         */
-        @Getter
-        private final int code;
+    /**
+     * The unfollow button on modal
+     */
+    UNFOLLOW_BUTTON_ON_MODAL(5, "body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.-Cab_");
 
-        /**
-         * The tag
-         */
-        @Getter
-        private final String tag;
+    /**
+     * The code
+     */
+    @Getter
+    private final int code;
+
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }

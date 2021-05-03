@@ -39,6 +39,16 @@ public enum WaitType implements Catalog<WaitType> {
     LIKE(1),
 
     /**
+     * The follow
+     */
+    FOLLOW(2),
+
+    /**
+     * The unfollow
+     */
+    UNFOLLOW(3),
+
+    /**
      * The human-like interval
      */
     HUMAN_LIKE_INTERVAL(900);

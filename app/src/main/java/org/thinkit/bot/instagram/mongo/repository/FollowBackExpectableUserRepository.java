@@ -30,7 +30,7 @@ import org.thinkit.bot.instagram.mongo.entity.FollowBackExpectableUser;
 @Repository
 public interface FollowBackExpectableUserRepository extends MongoRepository<FollowBackExpectableUser, String> {
 
-    public List<FollowBackExpectableUser> findOrderByFollowBackPossibilityCodeAsc();
+    public List<FollowBackExpectableUser> findByOrderByFollowBackPossibilityCodeAsc();
 
     public FollowBackExpectableUser findByUserName(String userName);
 

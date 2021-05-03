@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -62,7 +63,7 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
         String userName = "";
         for (final UnfollowUser unfollowUser : this.unfollowUsers) {
             try {
-                super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+                super.wait(WaitType.UNFOLLOW);
 
                 if (!actionUnfollowedUsers.isEmpty()
                         && actionUnfollowedUsers.size() % autoUnfollowConfig.getUnfollowInterval() == 0) {
@@ -75,8 +76,8 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
                 super.waitUntilElementClickable(By.xpath(ElementXPath.UNFOLLOW_BUTTON.getTag()));
                 super.findByXpath(ElementXPath.FOLLOW_BUTTON).click();
 
-                super.waitUntilElementClickable(By.xpath(ElementXPath.UNFOLLOW_BUTTON_ON_MODAL.getTag()));
-                super.findByXpath(ElementXPath.UNFOLLOW_BUTTON_ON_MODAL).click();
+                super.waitUntilElementClickable(By.cssSelector(ElementCssSelector.UNFOLLOW_BUTTON_ON_MODAL.getTag()));
+                super.findByCssSelector(ElementCssSelector.UNFOLLOW_BUTTON_ON_MODAL).click();
 
                 final ActionUnfollowedUser.ActionUnfollowedUserBuilder actionUnfollowedUserBuilder = ActionUnfollowedUser
                         .builder();

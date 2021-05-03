@@ -33,20 +33,24 @@ public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
     public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
         return jobBuilder.flow(batchStepCollections.getExecuteLoginStep())
-                .next(batchStepCollections.getUpdateAutoLikeConfigStep())
-                .next(batchStepCollections.getExecuteAutoLikeStep())
-                .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
-                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
+                // .next(batchStepCollections.getUpdateAutoLikeConfigStep())
+                // .next(batchStepCollections.getExecuteAutoLikeStep())
+                // .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
+                // .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
+                .next(batchStepCollections.getExecuteAutoFollowStep())
+                .next(batchStepCollections.getExecuteAutoUnfollowStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 
     @Override
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
-        return jobBuilder.flow(batchStepCollections.getUpdateAutoLikeConfigStep())
-                .next(batchStepCollections.getExecuteAutoLikeStep())
-                .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
-                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
+        return jobBuilder.flow(batchStepCollections.getExecuteAutoFollowStep())
+                // .next(batchStepCollections.getExecuteAutoLikeStep())
+                // .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
+                // .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
+                // .next(batchStepCollections.getExecuteAutoFollowStep())
+                .next(batchStepCollections.getExecuteAutoUnfollowStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 }

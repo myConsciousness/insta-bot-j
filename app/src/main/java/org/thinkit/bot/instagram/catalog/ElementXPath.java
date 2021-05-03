@@ -73,12 +73,7 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
      * The unfollow button
      */
     UNFOLLOW_BUTTON(8,
-            "//*[@id=\"react-root\"]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button"),
-
-    /**
-     * The unfollow button on modal
-     */
-    UNFOLLOW_BUTTON_ON_MODAL(9, "/html/body/div[7]/div/div/div/div[3]/button[1]");
+            "//*[@id=\"react-root\"]/section/main/div/header/section/div[1]/div[1]/div/div[2]/div/span/span[1]/button");
 
     /**
      * The code
