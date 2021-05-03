@@ -69,11 +69,13 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        if (this.isAlreadyAttemptedToday()) {
+        final List<FollowUser> followUsers = this.getFollowUsers();
+
+        if (followUsers.isEmpty() || this.isAlreadyAttemptedToday()) {
             return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
         }
 
-        final AutoFollowResult autoFollowResult = this.instaBot.executeAutoFollow(this.getFollowUsers(),
+        final AutoFollowResult autoFollowResult = this.instaBot.executeAutoFollow(followUsers,
                 this.getAutoFollowConfig());
         log.info("The auto follow has completed the process successfully.");
 

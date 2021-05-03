@@ -63,11 +63,13 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        if (this.isAlreadyAttemptedToday()) {
+        final List<UnfollowUser> unfollowUsers = this.getUnfollowUsers();
+
+        if (unfollowUsers.isEmpty() || this.isAlreadyAttemptedToday()) {
             return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
         }
 
-        final AutoUnfollowResult autoUnfollowResult = super.getInstaBot().executeAutoUnfollow(this.getUnfollowUsers(),
+        final AutoUnfollowResult autoUnfollowResult = super.getInstaBot().executeAutoUnfollow(unfollowUsers,
                 this.getAutoUnfollowConfig());
         log.info("The auto unfollow has completed the process successfully.");
 
