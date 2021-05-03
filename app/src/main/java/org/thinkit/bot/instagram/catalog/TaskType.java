@@ -31,32 +31,32 @@ public enum TaskType implements Catalog<TaskType> {
     /**
      * The login task
      */
-    LOGIN(0),
+    LOGIN(000),
 
     /**
      * The auto like task
      */
-    AUTO_LIKE(1),
+    AUTO_LIKE(001),
 
     /**
      * The auto forecast follow back user
      */
-    AUTO_FORECAST_FOLLOW_BACK_USER(2),
+    AUTO_FORECAST_FOLLOW_BACK_USER(002),
 
     /**
      * The auto comment task
      */
-    AUTO_COMMENT(3),
+    AUTO_COMMENT(003),
 
     /**
      * The auto follow task
      */
-    AUTO_FOLLOW(4),
+    AUTO_FOLLOW(004),
 
     /**
      * The auto unfollow task
      */
-    AUTO_UNFOLLOW(5),
+    AUTO_UNFOLLOW(005),
 
     /**
      * The initialize

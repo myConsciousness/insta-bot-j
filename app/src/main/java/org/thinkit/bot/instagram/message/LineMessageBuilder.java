@@ -63,7 +63,7 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
 
         final StringBuilder message = new StringBuilder();
 
-        message.append(this.getActionStatusMessage(messageMeta));
+        message.append(this.getActionStatusMessage(taskType, messageMeta));
         message.append(space());
         message.append(this.getTaskMessage(taskType, messageMeta));
 
@@ -75,6 +75,10 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
         final LineMessagePhrase lineMessagePhrase = lineMessagePhraseMapper.scan().get(0);
 
         return String.format(lineMessagePhrase.getPhrase(), messageMeta.getCount());
+    }
+
+    private String getActionStatusMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
+        return String.format(this.getActionStatusMessage(messageMeta), taskType.getCode());
     }
 
     private String getActionStatusMessage(@NonNull final MessageMeta messageMeta) {

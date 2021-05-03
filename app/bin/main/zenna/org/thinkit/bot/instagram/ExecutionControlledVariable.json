@@ -8,13 +8,13 @@
     "selectionNodes": [
         {
             "node": {
-                "conditionId": "0",
+                "conditionId": "102",
                 "variableCode": 102
             }
         },
         {
             "node": {
-                "conditionId": "1",
+                "conditionId": "202",
                 "variableCode": 202
             }
         }
@@ -22,7 +22,7 @@
     "conditionNodes": [
         {
             "node": {
-                "conditionId": "0",
+                "conditionId": "102",
                 "exclude": false,
                 "conditions": [
                     {
@@ -35,7 +35,7 @@
         },
         {
             "node": {
-                "conditionId": "1",
+                "conditionId": "202",
                 "exclude": false,
                 "conditions": [
                     {

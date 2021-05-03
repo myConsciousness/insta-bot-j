@@ -9,10 +9,10 @@
         {
             "node": {
                 "conditionId": "",
-                "completed": "[COMPLETED]",
-                "interrupted": "[INTERRUPTED]",
-                "skipped": "[SKIPPED]",
-                "skippedByMood": "[SKIPPED_BY_MOOD]"
+                "completed": "[COMPLETED:%s]",
+                "interrupted": "[INTERRUPTED:%s]",
+                "skipped": "[SKIPPED:%s]",
+                "skippedByMood": "[SKIPPED_BY_MOOD:%s]"
             }
         }
     ],
