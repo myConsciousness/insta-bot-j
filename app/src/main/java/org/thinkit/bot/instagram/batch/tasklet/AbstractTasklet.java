@@ -24,14 +24,17 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.thinkit.api.catalog.BiCatalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.policy.Task;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.DateFormat;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.DefaultVariableMapper;
+import org.thinkit.bot.instagram.content.ExecutionControlledVariableMapper;
 import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.mongo.entity.ActionRestriction;
 import org.thinkit.bot.instagram.mongo.entity.ActionSkip;
@@ -131,6 +134,10 @@ public abstract class AbstractTasklet implements Tasklet {
         return this.executeTaskProcess(contribution, chunkContext);
     }
 
+    protected String getVariableValue(@NonNull final VariableName variableName) {
+        return this.getVariable(variableName).getValue();
+    }
+
     protected int getIntVariableValue(@NonNull final VariableName variableName) {
         return Integer.parseInt(this.getVariable(variableName).getValue());
     }
@@ -166,6 +173,19 @@ public abstract class AbstractTasklet implements Tasklet {
         return variable;
     }
 
+    protected void saveVariable(@NonNull final VariableName variableName, @NonNull final String value) {
+        log.debug("START");
+
+        final Variable variable = this.getVariable(variableName);
+        variable.setValue(value);
+        variable.setUpdatedAt(new Date());
+
+        this.mongoCollections.getVariableRepository().save(variable);
+        log.debug("Updated variable: {}", variable);
+
+        log.debug("END");
+    }
+
     private RepeatStatus executeTaskProcess(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
@@ -177,6 +197,10 @@ public abstract class AbstractTasklet implements Tasklet {
         final int actionCount = batchTaskResult.getActionCount();
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
         final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
+
+        if (this.task.isExecutionControlled()) {
+            this.saveExecutionControlledVariable();
+        }
 
         this.saveActionRecord(actionCount, actionStatus);
 
@@ -303,6 +327,15 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("END");
     }
 
+    private void saveExecutionControlledVariable() {
+        log.debug("START");
+
+        final VariableName variableName = BiCatalog.getEnum(VariableName.class, this.getExecutionControlledVariable());
+        this.saveVariable(variableName, DateUtils.toString(new Date(), DateFormat.YYYY_MM_DD));
+
+        log.debug("END");
+    }
+
     private void saveActionRecord(final int actionCount, @NonNull final ActionStatus actionStatus) {
         log.debug("START");
 
@@ -422,5 +455,9 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private int getSkipMoodOccurrenceProbability() {
         return this.getIntVariableValue(VariableName.SKIP_MOOD_OCCURRENCE_PROBABILITY);
+    }
+
+    private int getExecutionControlledVariable() {
+        return ExecutionControlledVariableMapper.from(this.task.getTypeCode()).scan().get(0).getVariableCode();
     }
 }

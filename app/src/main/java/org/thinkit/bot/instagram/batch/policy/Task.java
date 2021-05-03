@@ -57,4 +57,8 @@ public final class Task implements Serializable {
     public boolean canSkip() {
         return this.taskType == TaskType.AUTO_LIKE;
     }
+
+    public boolean isExecutionControlled() {
+        return this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
+    }
 }

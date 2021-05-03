@@ -25,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.DateFormat;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
@@ -36,6 +38,7 @@ import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.result.ActionFollowFailedUser;
 import org.thinkit.bot.instagram.result.ActionFollowedUser;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
+import org.thinkit.bot.instagram.util.DateUtils;
 
 import lombok.EqualsAndHashCode;
 import lombok.NonNull;
@@ -65,6 +68,10 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
     @Override
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
+
+        if (this.isAlreadyAttemptedToday()) {
+            return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
+        }
 
         final AutoFollowResult autoFollowResult = this.instaBot.executeAutoFollow(this.getFollowUsers(),
                 this.getAutoFollowConfig());
@@ -168,11 +175,18 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
         return autoFollowConfigBuilder.build();
     }
 
-    private Date getLastDatetimeAttemptedAutoFollow() {
+    private boolean isAlreadyAttemptedToday() {
         log.debug("START");
 
-        log.debug("END");
-        return null;
+        final String lastDateAttemptedAutoFollow = this.getLastDateAttemptedAutoFollow();
+        final String today = DateUtils.toString(new Date(), DateFormat.YYYY_MM_DD);
+
+        log.debug("START");
+        return lastDateAttemptedAutoFollow.equals(today);
+    }
+
+    private String getLastDateAttemptedAutoFollow() {
+        return super.getVariableValue(VariableName.LAST_DATE_ATTEMPTED_AUTO_FOLLOW);
     }
 
     private int getFollowPerDay() {

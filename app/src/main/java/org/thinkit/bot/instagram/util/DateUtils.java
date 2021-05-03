@@ -14,10 +14,13 @@
 
 package org.thinkit.bot.instagram.util;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import com.mongodb.lang.NonNull;
+
+import org.thinkit.bot.instagram.catalog.DateFormat;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -31,5 +34,10 @@ public final class DateUtils {
         now.add(Calendar.HOUR, -9);
 
         return baseDate.getTime() - now.getTime().getTime() >= elapsedHour;
+    }
+
+    public static String toString(@NonNull final Date date, @NonNull final DateFormat format) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(format.getTag());
+        return dateFormat.format(date);
     }
 }

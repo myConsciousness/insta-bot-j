@@ -64,6 +64,11 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
             try {
                 super.wait(WaitType.HUMAN_LIKE_INTERVAL);
 
+                if (!actionFollowedUsers.isEmpty()
+                        && actionFollowedUsers.size() % autoFollowConfig.getFollowInterval() == 0) {
+                    super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+                }
+
                 userName = followUser.getUserName();
                 super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), userName));
 

@@ -1,0 +1,50 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the execution controlled variable.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.ExecutionControlledVariable"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "0",
+                "variableCode": 102
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "variableCode": 202
+            }
+        }
+    ],
+    "conditionNodes": [
+        {
+            "node": {
+                "conditionId": "0",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "4"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "5"
+                    }
+                ]
+            }
+        }
+    ]
+}
