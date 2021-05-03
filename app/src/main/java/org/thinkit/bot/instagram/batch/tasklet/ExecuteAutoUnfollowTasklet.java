@@ -14,15 +14,34 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.DateFormat;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.catalog.VariableName;
+import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
+import org.thinkit.bot.instagram.mongo.entity.FollowedUser;
+import org.thinkit.bot.instagram.mongo.entity.MissingUser;
+import org.thinkit.bot.instagram.mongo.entity.UnfollowedUser;
+import org.thinkit.bot.instagram.mongo.repository.FollowedUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.UnfollowedUserRepository;
+import org.thinkit.bot.instagram.param.UnfollowUser;
+import org.thinkit.bot.instagram.result.ActionUnfollowFailedUser;
+import org.thinkit.bot.instagram.result.ActionUnfollowedUser;
+import org.thinkit.bot.instagram.result.AutoUnfollowResult;
+import org.thinkit.bot.instagram.util.DateUtils;
 
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +52,7 @@ import lombok.extern.slf4j.Slf4j;
 public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
     private ExecuteAutoUnfollowTasklet() {
-        super(TaskType.AUTO_FOLLOW);
+        super(TaskType.AUTO_UNFOLLOW);
     }
 
     public static Tasklet newInstance() {
@@ -44,9 +63,124 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        super.getInstaBot().executeAutoUnfollow(null, null);
+        if (this.isAlreadyAttemptedToday()) {
+            return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
+        }
+
+        final AutoUnfollowResult autoUnfollowResult = super.getInstaBot().executeAutoUnfollow(this.getUnfollowUsers(),
+                this.getAutoUnfollowConfig());
+        log.info("The auto unfollow has completed the process successfully.");
+
+        final List<ActionUnfollowedUser> actionUnfollowedUsers = autoUnfollowResult.getActionUnfollowedUsers();
+        final List<ActionUnfollowFailedUser> actionUnfollowFailedUsers = autoUnfollowResult
+                .getActionUnfollowFailedUsers();
+
+        final UnfollowedUserRepository unfollowedUserRepository = super.getMongoCollections()
+                .getUnfollowedUserRepository();
+        final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
+        final MissingUserRepository missingUserRepository = super.getMongoCollections().getMissingUserRepository();
+
+        for (final ActionUnfollowedUser actionUnfollowedUser : actionUnfollowedUsers) {
+            UnfollowedUser unfollowedUser = new UnfollowedUser();
+            unfollowedUser.setUserName(actionUnfollowedUser.getUserName());
+            unfollowedUser.setUrl(actionUnfollowedUser.getUrl());
+
+            unfollowedUser = unfollowedUserRepository.insert(unfollowedUser);
+            log.debug("Inserted unfollowed user: {}", unfollowedUser);
+
+            // Delete unfollowed user from followed user repository
+            followedUserRepository.deleteByUserName(actionUnfollowedUser.getUserName());
+        }
+
+        for (final ActionUnfollowFailedUser actionUnfollowFailedUser : actionUnfollowFailedUsers) {
+            MissingUser missingUser = new MissingUser();
+            missingUser.setUserName(actionUnfollowFailedUser.getUserName());
+
+            missingUser = missingUserRepository.insert(missingUser);
+            log.debug("Inserted missing user: {}", missingUser);
+
+            // Delete unfollow failed user from followed user repository
+            followedUserRepository.deleteByUserName(actionUnfollowFailedUser.getUserName());
+        }
+
+        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
+        batchTaskResultBuilder.actionCount(actionUnfollowedUsers.size() + actionUnfollowFailedUsers.size());
+        batchTaskResultBuilder.resultCount(actionUnfollowedUsers.size());
+        batchTaskResultBuilder.actionErrors(autoUnfollowResult.getActionErrors());
 
         log.debug("END");
-        return BatchTaskResult.builder().repeatStatus(RepeatStatus.FINISHED).build();
+        return batchTaskResultBuilder.build();
+    }
+
+    private boolean isAlreadyAttemptedToday() {
+        log.debug("START");
+
+        final String lastDateAttemptedAutoUnfollow = this.getLastDateAttemptedAutoUnfollow();
+        final String today = DateUtils.toString(new Date(), DateFormat.YYYY_MM_DD);
+
+        log.debug("START");
+        return lastDateAttemptedAutoUnfollow.equals(today);
+    }
+
+    private List<UnfollowUser> getUnfollowUsers() {
+        log.debug("START");
+
+        final int unfollowPerDay = this.getUnfollowPerDay();
+        final List<UnfollowUser> unfollowUsers = new ArrayList<>();
+
+        final FollowedUserRepository followedUserRepository = this.getMongoCollections().getFollowedUserRepository();
+        final List<FollowedUser> followedUsers = followedUserRepository.findAll();
+
+        for (final FollowedUser followedUser : followedUsers) {
+            if (!this.isDuplicateUser(unfollowUsers, followedUser)) {
+                unfollowUsers.add(UnfollowUser.from(followedUser.getUserName()));
+            }
+
+            if (unfollowUsers.size() >= unfollowPerDay) {
+                break;
+            }
+        }
+
+        log.debug("END");
+        return unfollowUsers;
+    }
+
+    private boolean isDuplicateUser(@NonNull final List<UnfollowUser> unfollowUsers,
+            @NonNull final FollowedUser followedUser) {
+        log.debug("START");
+
+        for (final UnfollowUser unfollowUser : unfollowUsers) {
+            if (unfollowUser.getUserName().equals(followedUser.getUserName())) {
+                log.debug("The duplicate user has detected.");
+                log.debug("END");
+                return true;
+            }
+        }
+
+        log.debug("The duplicate user has not detected.");
+        log.debug("END");
+        return false;
+    }
+
+    private AutoUnfollowConfig getAutoUnfollowConfig() {
+        log.debug("START");
+
+        final AutoUnfollowConfig.AutoUnfollowConfigBuilder autoUnfollowConfigBuilder = AutoUnfollowConfig.builder();
+        autoUnfollowConfigBuilder.unfollowInterval(this.getUnfollowInterval());
+
+        log.debug("END");
+        return autoUnfollowConfigBuilder.build();
+    }
+
+    private String getLastDateAttemptedAutoUnfollow() {
+        return super.getVariableValue(VariableName.LAST_DATE_ATTEMPTED_AUTO_UNFOLLOW);
+    }
+
+    private int getUnfollowPerDay() {
+        return super.getIntVariableValue(VariableName.UNFOLLOW_PER_DAY);
+    }
+
+    private int getUnfollowInterval() {
+        return super.getIntVariableValue(VariableName.UNFOLLOW_INTERVAL);
     }
 }

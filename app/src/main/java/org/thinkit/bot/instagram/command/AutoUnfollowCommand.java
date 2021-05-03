@@ -64,6 +64,11 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
             try {
                 super.wait(WaitType.HUMAN_LIKE_INTERVAL);
 
+                if (!actionUnfollowedUsers.isEmpty()
+                        && actionUnfollowedUsers.size() % autoUnfollowConfig.getUnfollowInterval() == 0) {
+                    super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+                }
+
                 userName = unfollowUser.getUserName();
                 super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), userName));
 

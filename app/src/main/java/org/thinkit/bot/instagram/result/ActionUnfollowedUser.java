@@ -44,32 +44,8 @@ public final class ActionUnfollowedUser implements Serializable {
     private String userName;
 
     /**
-     * The nickname
-     */
-    @Getter
-    private String nickname;
-
-    /**
      * The url
      */
     @Getter
     private String url;
-
-    /**
-     * The post
-     */
-    @Getter
-    private int post;
-
-    /**
-     * The follower
-     */
-    @Getter
-    private int follower;
-
-    /**
-     * The following
-     */
-    @Getter
-    private int following;
 }
