@@ -132,7 +132,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         final List<FollowedUser> followedUsers = followedUserRepository.findAll();
 
         for (final FollowedUser followedUser : followedUsers) {
-            if (!this.isDuplicateUser(unfollowUsers, followedUser)) {
+            if (this.isFollowExpiredUser(followedUser) && !this.isDuplicateUser(unfollowUsers, followedUser)) {
                 unfollowUsers.add(UnfollowUser.from(followedUser.getUserName()));
             }
 
@@ -143,6 +143,10 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
         log.debug("END");
         return unfollowUsers;
+    }
+
+    private boolean isFollowExpiredUser(@NonNull final FollowedUser followedUser) {
+        return DateUtils.isDayElapsed(followedUser.getCreatedAt(), 7);
     }
 
     private boolean isDuplicateUser(@NonNull final List<UnfollowUser> unfollowUsers,

@@ -28,12 +28,25 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class DateUtils {
 
+    /**
+     * The UTC timezone
+     */
+    private static final int UTC_TIMEZONE = -9;
+
     public static boolean isHourElapsed(@NonNull final Date baseDate, final int elapsedHour) {
 
         final Calendar now = Calendar.getInstance();
-        now.add(Calendar.HOUR, -9);
+        now.add(Calendar.HOUR, UTC_TIMEZONE);
 
-        return baseDate.getTime() - now.getTime().getTime() >= elapsedHour;
+        return MillisecondUtils.toHour(baseDate.getTime() - now.getTime().getTime()) >= elapsedHour;
+    }
+
+    public static boolean isDayElapsed(@NonNull final Date baseDate, final int elapsedDay) {
+
+        final Calendar now = Calendar.getInstance();
+        now.add(Calendar.HOUR, UTC_TIMEZONE);
+
+        return MillisecondUtils.toDay(baseDate.getTime() - now.getTime().getTime()) >= elapsedDay;
     }
 
     public static String toString(@NonNull final Date date, @NonNull final DateFormat format) {
