@@ -17,6 +17,18 @@
                 "conditionId": "2",
                 "phrase": "The %s expectable users were found."
             }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "phrase": "The %s users were followed."
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "phrase": "The %s users were unfollowed."
+            }
         }
     ],
     "conditionNodes": [
@@ -42,6 +54,32 @@
                         "keyName": "taskTypeCode",
                         "operator": "=",
                         "operand": "2"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "4"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "5"
                     }
                 ]
             }

@@ -53,10 +53,7 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
 
         for (final MessageMeta messageMeta : this.messageMetas) {
             final TaskType taskType = Catalog.getEnum(TaskType.class, messageMeta.getTaskTypeCode());
-
-            if (taskType == TaskType.AUTO_LIKE || taskType == TaskType.AUTO_FORECAST_FOLLOW_BACK_USER) {
-                message.append(newline(this.createMessage(taskType, messageMeta)));
-            }
+            message.append(newline(this.createMessage(taskType, messageMeta)));
         }
 
         return message.toString();
