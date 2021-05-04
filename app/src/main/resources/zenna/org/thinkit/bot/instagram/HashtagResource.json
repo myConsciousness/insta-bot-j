@@ -37,14 +37,14 @@
         {
             "node": {
                 "conditionId": "",
-                "tag": "mountain",
+                "tag": "follow4follow",
                 "groupCode": 1
             }
         },
         {
             "node": {
                 "conditionId": "",
-                "tag": "cool",
+                "tag": "nature",
                 "groupCode": 1
             }
         },
@@ -65,7 +65,7 @@
         {
             "node": {
                 "conditionId": "",
-                "tag": "instagood",
+                "tag": "follow4follow",
                 "groupCode": 2
             }
         },
