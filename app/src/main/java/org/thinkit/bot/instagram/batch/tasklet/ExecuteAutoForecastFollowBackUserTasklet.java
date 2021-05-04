@@ -175,13 +175,10 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
         final List<FollowBackPossibilityIndicator> followBackPossibilityIndicators = super.getMongoCollections()
                 .getFollowBackPossibilityIndicatorRepository().findAll();
 
-        if (followBackPossibilityIndicators == null || followBackPossibilityIndicators.isEmpty()) {
-            throw new IllegalStateException();
-        }
-
         final AutoForecastFollowBackUserConfig.AutoForecastFollowBackUserConfigBuilder autoForecastFollowBackUserConfigBuilder = AutoForecastFollowBackUserConfig
                 .builder();
         autoForecastFollowBackUserConfigBuilder.followBackPossibilityIndicator(followBackPossibilityIndicators.get(0));
+        autoForecastFollowBackUserConfigBuilder.followingNearLimit(this.getFollowingNearLimit());
 
         log.debug("END");
         return autoForecastFollowBackUserConfigBuilder.build();
@@ -195,7 +192,10 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
     }
 
     private int getMaxUserCount() {
-        return Integer
-                .parseInt(super.getVariable(VariableName.FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK).getValue());
+        return super.getIntVariableValue(VariableName.FORECAST_FOLLOW_BACK_EXPECTABLE_USER_PER_TASK);
+    }
+
+    private int getFollowingNearLimit() {
+        return super.getIntVariableValue(VariableName.FOLLOWING_NEAR_LIMIT);
     }
 }

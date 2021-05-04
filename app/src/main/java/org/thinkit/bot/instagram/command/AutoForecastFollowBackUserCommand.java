@@ -84,8 +84,8 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
                 final int followerCount = this.fetchFollowerCount();
                 final int followingCount = this.fetchFollowingCount();
 
-                final int followDiff = followerCount - followingCount;
-                final FollowBackPossibility followBackPossibility = this.getFollowBackPossibility(followDiff);
+                final FollowBackPossibility followBackPossibility = this.getFollowBackPossibility(followerCount,
+                        followingCount);
 
                 if (followBackPossibility != FollowBackPossibility.NONE) {
                     final ExpectableUser.ExpectableUserBuilder expectableUserBuilder = ExpectableUser.builder();
@@ -94,7 +94,7 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
                     expectableUserBuilder.post(postCount);
                     expectableUserBuilder.follower(followerCount);
                     expectableUserBuilder.following(followingCount);
-                    expectableUserBuilder.followDiff(followDiff);
+                    expectableUserBuilder.followDiff(followerCount - followingCount);
 
                     expectableUsers.add(expectableUserBuilder.build());
                 } else {
@@ -147,8 +147,15 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
         return StringUtils.remove(number, Delimiter.COMMA.getTag());
     }
 
-    private FollowBackPossibility getFollowBackPossibility(final int indicator) {
+    private FollowBackPossibility getFollowBackPossibility(final int follower, final int following) {
 
+        if (following >= autoForecastFollowBackUserConfig.getFollowingNearLimit()) {
+            // Consider users who are close to the maximum number of following as unlikely
+            // to follow back.
+            return FollowBackPossibility.NONE;
+        }
+
+        final int indicator = follower - following;
         final FollowBackPossibilityIndicator followBackPossibilityIndicator = this.autoForecastFollowBackUserConfig
                 .getFollowBackPossibilityIndicator();
 

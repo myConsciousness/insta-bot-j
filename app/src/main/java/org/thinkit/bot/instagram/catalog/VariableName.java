@@ -94,6 +94,11 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     SKIP_MOOD_OCCURRENCE_PROBABILITY(803, "SKIP_MOOD_OCCURRENCE_PROBABILITY"),
 
     /**
+     * {@code "FOLLOWING_NEAR_LIMIT"}
+     */
+    FOLLOWING_NEAR_LIMIT(804, "FOLLOWING_NEAR_LIMIT"),
+
+    /**
      * {@code "LINE_NOTIFY_TOKEN"}
      */
     LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN"),

@@ -80,6 +80,12 @@
         },
         {
             "node": {
+                "conditionId": "804",
+                "value": "4000"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "900",
                 "value": ""
             }
@@ -238,6 +244,19 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "SKIP_MOOD_OCCURRENCE_PROBABILITY"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "804",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "FOLLOWING_NEAR_LIMIT"
                     }
                 ]
             }

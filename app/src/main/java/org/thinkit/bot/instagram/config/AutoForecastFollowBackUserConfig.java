@@ -45,4 +45,10 @@ public final class AutoForecastFollowBackUserConfig implements Serializable {
      */
     @Getter
     private FollowBackPossibilityIndicator followBackPossibilityIndicator;
+
+    /**
+     * The following near limit
+     */
+    @Getter
+    private int followingNearLimit;
 }
