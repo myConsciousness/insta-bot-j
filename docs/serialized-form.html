@@ -94,32 +94,6 @@ loadScripts(document, 'script');</script>
 </li>
 <li>
 <section class="serialized-package-container">
-<h2 title="パッケージ">パッケージ&nbsp;org.thinkit.bot.instagram.batch</h2>
-<ul class="block-list">
-<li>
-<section class="serialized-class-details" id="org.thinkit.bot.instagram.batch.Task">
-<h3>Class <a href="org/thinkit/bot/instagram/batch/Task.html" title="org.thinkit.bot.instagram.batch内のクラス">org.thinkit.bot.instagram.batch.Task</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
-<ul class="block-list">
-<li>
-<section class="detail">
-<h4>直列化されたフィールド</h4>
-<ul class="block-list">
-<li class="block-list">
-<h5>taskType</h5>
-<pre><a href="org/thinkit/bot/instagram/catalog/TaskType.html" title="org.thinkit.bot.instagram.catalog内の列挙型">TaskType</a> taskType</pre>
-<div class="block">The task type</div>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</section>
-</li>
-<li>
-<section class="serialized-package-container">
 <h2 title="パッケージ">パッケージ&nbsp;org.thinkit.bot.instagram.batch.dto</h2>
 <ul class="block-list">
 <li>
@@ -135,6 +109,10 @@ loadScripts(document, 'script');</script>
 <pre>org.springframework.batch.core.Step executeAutoFollowStep</pre>
 </li>
 <li class="block-list">
+<h5>executeAutoForecastFollowBackUserStep</h5>
+<pre>org.springframework.batch.core.Step executeAutoForecastFollowBackUserStep</pre>
+</li>
+<li class="block-list">
 <h5>executeAutoLikeStep</h5>
 <pre>org.springframework.batch.core.Step executeAutoLikeStep</pre>
 </li>
@@ -147,16 +125,16 @@ loadScripts(document, 'script');</script>
 <pre>org.springframework.batch.core.Step executeLoginStep</pre>
 </li>
 <li class="block-list">
-<h5>forecastFollowBackUserStep</h5>
-<pre>org.springframework.batch.core.Step forecastFollowBackUserStep</pre>
-</li>
-<li class="block-list">
 <h5>notifyResultStep</h5>
 <pre>org.springframework.batch.core.Step notifyResultStep</pre>
 </li>
 <li class="block-list">
-<h5>reversalEntryHashtagStep</h5>
-<pre>org.springframework.batch.core.Step reversalEntryHashtagStep</pre>
+<h5>updateAutoForecastFollowBackUserConfigStep</h5>
+<pre>org.springframework.batch.core.Step updateAutoForecastFollowBackUserConfigStep</pre>
+</li>
+<li class="block-list">
+<h5>updateAutoLikeConfigStep</h5>
+<pre>org.springframework.batch.core.Step updateAutoLikeConfigStep</pre>
 </li>
 </ul>
 </section>
@@ -183,6 +161,11 @@ loadScripts(document, 'script');</script>
 <div class="block">The action restriction repository</div>
 </li>
 <li class="block-list">
+<h5>actionSkipRepository</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/repository/ActionSkipRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">ActionSkipRepository</a> actionSkipRepository</pre>
+<div class="block">The action skip repository</div>
+</li>
+<li class="block-list">
 <h5>errorRepository</h5>
 <pre><a href="org/thinkit/bot/instagram/mongo/repository/ErrorRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">ErrorRepository</a> errorRepository</pre>
 <div class="block">The error repository</div>
@@ -191,6 +174,16 @@ loadScripts(document, 'script');</script>
 <h5>followBackExpectableUserRepository</h5>
 <pre><a href="org/thinkit/bot/instagram/mongo/repository/FollowBackExpectableUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">FollowBackExpectableUserRepository</a> followBackExpectableUserRepository</pre>
 <div class="block">The follow back expectable user repository</div>
+</li>
+<li class="block-list">
+<h5>followBackPossibilityIndicatorRepository</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/repository/FollowBackPossibilityIndicatorRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">FollowBackPossibilityIndicatorRepository</a> followBackPossibilityIndicatorRepository</pre>
+<div class="block">The follow back possibility indicator repository</div>
+</li>
+<li class="block-list">
+<h5>followedUserRepository</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/repository/FollowedUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">FollowedUserRepository</a> followedUserRepository</pre>
+<div class="block">The followed user repository</div>
 </li>
 <li class="block-list">
 <h5>hashtagRepository</h5>
@@ -213,6 +206,16 @@ loadScripts(document, 'script');</script>
 <div class="block">The message meta repository</div>
 </li>
 <li class="block-list">
+<h5>missingUserRepository</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/repository/MissingUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">MissingUserRepository</a> missingUserRepository</pre>
+<div class="block">The missing user repository</div>
+</li>
+<li class="block-list">
+<h5>unfollowedUserRepository</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/repository/UnfollowedUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">UnfollowedUserRepository</a> unfollowedUserRepository</pre>
+<div class="block">The unfollowed user repository</div>
+</li>
+<li class="block-list">
 <h5>userAccountRepository</h5>
 <pre><a href="org/thinkit/bot/instagram/mongo/repository/UserAccountRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">UserAccountRepository</a> userAccountRepository</pre>
 <div class="block">The user account repository</div>
@@ -221,6 +224,32 @@ loadScripts(document, 'script');</script>
 <h5>variableRepository</h5>
 <pre><a href="org/thinkit/bot/instagram/mongo/repository/VariableRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">VariableRepository</a> variableRepository</pre>
 <div class="block">The variable repository</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-package-container">
+<h2 title="パッケージ">パッケージ&nbsp;org.thinkit.bot.instagram.batch.policy</h2>
+<ul class="block-list">
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.batch.policy.Task">
+<h3>Class <a href="org/thinkit/bot/instagram/batch/policy/Task.html" title="org.thinkit.bot.instagram.batch.policy内のクラス">org.thinkit.bot.instagram.batch.policy.Task</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>taskType</h5>
+<pre><a href="org/thinkit/bot/instagram/catalog/TaskType.html" title="org.thinkit.bot.instagram.catalog内の列挙型">TaskType</a> taskType</pre>
+<div class="block">The task type</div>
 </li>
 </ul>
 </section>
@@ -330,6 +359,49 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="serialized-class-details" id="org.thinkit.bot.instagram.command.AutoFollowCommand">
 <h3>Class <a href="org/thinkit/bot/instagram/command/AutoFollowCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.AutoFollowCommand</a> extends <a href="org/thinkit/bot/instagram/command/AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="org/thinkit/bot/instagram/result/AutoFollowResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoFollowResult</a>&gt; implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>autoFollowConfig</h5>
+<pre><a href="org/thinkit/bot/instagram/config/AutoFollowConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoFollowConfig</a> autoFollowConfig</pre>
+<div class="block">The auto follow config</div>
+</li>
+<li class="block-list">
+<h5>followUsers</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/param/FollowUser.html" title="org.thinkit.bot.instagram.param内のクラス">FollowUser</a>&gt; followUsers</pre>
+<div class="block">The follow users</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.command.AutoForecastFollowBackUserCommand">
+<h3>Class <a href="org/thinkit/bot/instagram/command/AutoForecastFollowBackUserCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.AutoForecastFollowBackUserCommand</a> extends <a href="org/thinkit/bot/instagram/command/AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="org/thinkit/bot/instagram/result/ForecastFollowBackResult.html" title="org.thinkit.bot.instagram.result内のクラス">ForecastFollowBackResult</a>&gt; implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>autoForecastFollowBackUserConfig</h5>
+<pre><a href="org/thinkit/bot/instagram/config/AutoForecastFollowBackUserConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoForecastFollowBackUserConfig</a> autoForecastFollowBackUserConfig</pre>
+<div class="block">The auto forecast follow back user config</div>
+</li>
+<li class="block-list">
+<h5>forecastUsers</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/param/ForecastUser.html" title="org.thinkit.bot.instagram.param内のクラス">ForecastUser</a>&gt; forecastUsers</pre>
+<div class="block">The forecast users</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
 </section>
 </li>
 <li>
@@ -368,20 +440,20 @@ loadScripts(document, 'script');</script>
 <li>
 <section class="serialized-class-details" id="org.thinkit.bot.instagram.command.AutoUnfollowCommand">
 <h3>Class <a href="org/thinkit/bot/instagram/command/AutoUnfollowCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.AutoUnfollowCommand</a> extends <a href="org/thinkit/bot/instagram/command/AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="org/thinkit/bot/instagram/result/AutoUnfollowResult.html" title="org.thinkit.bot.instagram.result内のクラス">AutoUnfollowResult</a>&gt; implements Serializable</h3>
-</section>
-</li>
-<li>
-<section class="serialized-class-details" id="org.thinkit.bot.instagram.command.ForecastFollowBackUserCommand">
-<h3>Class <a href="org/thinkit/bot/instagram/command/ForecastFollowBackUserCommand.html" title="org.thinkit.bot.instagram.command内のクラス">org.thinkit.bot.instagram.command.ForecastFollowBackUserCommand</a> extends <a href="org/thinkit/bot/instagram/command/AbstractBotCommand.html" title="org.thinkit.bot.instagram.command内のクラス">AbstractBotCommand</a>&lt;<a href="org/thinkit/bot/instagram/result/ForecastFollowBackResult.html" title="org.thinkit.bot.instagram.result内のクラス">ForecastFollowBackResult</a>&gt; implements Serializable</h3>
 <ul class="block-list">
 <li>
 <section class="detail">
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
 <li class="block-list">
-<h5>forecastUsers</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/param/ForecastUser.html" title="org.thinkit.bot.instagram.param内のクラス">ForecastUser</a>&gt; forecastUsers</pre>
-<div class="block">The forecast users</div>
+<h5>autoUnfollowConfig</h5>
+<pre><a href="org/thinkit/bot/instagram/config/AutoUnfollowConfig.html" title="org.thinkit.bot.instagram.config内のクラス">AutoUnfollowConfig</a> autoUnfollowConfig</pre>
+<div class="block">The auto unfollow config</div>
+</li>
+<li class="block-list">
+<h5>unfollowUsers</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/param/UnfollowUser.html" title="org.thinkit.bot.instagram.param内のクラス">UnfollowUser</a>&gt; unfollowUsers</pre>
+<div class="block">The unfollow users</div>
 </li>
 </ul>
 </section>
@@ -465,10 +537,29 @@ loadScripts(document, 'script');</script>
 <pre>int followInterval</pre>
 <div class="block">The follow interval</div>
 </li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig">
+<h3>Class <a href="org/thinkit/bot/instagram/config/AutoForecastFollowBackUserConfig.html" title="org.thinkit.bot.instagram.config内のクラス">org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
 <li class="block-list">
-<h5>maxFollow</h5>
-<pre>int maxFollow</pre>
-<div class="block">The max follow</div>
+<h5>followBackPossibilityIndicator</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/entity/FollowBackPossibilityIndicator.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">FollowBackPossibilityIndicator</a> followBackPossibilityIndicator</pre>
+<div class="block">The follow back possibility indicator</div>
+</li>
+<li class="block-list">
+<h5>followingNearLimit</h5>
+<pre>int followingNearLimit</pre>
+<div class="block">The following near limit</div>
 </li>
 </ul>
 </section>
@@ -508,11 +599,6 @@ loadScripts(document, 'script');</script>
 <section class="detail">
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
-<li class="block-list">
-<h5>maxUnfollow</h5>
-<pre>int maxUnfollow</pre>
-<div class="block">The max unfollow</div>
-</li>
 <li class="block-list">
 <h5>unfollowInterval</h5>
 <pre>int unfollowInterval</pre>
@@ -600,6 +686,25 @@ loadScripts(document, 'script');</script>
 <h5>value</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> value</pre>
 <div class="block">The value</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.content.entity.ExecutionControlledVariable">
+<h3>Class <a href="org/thinkit/bot/instagram/content/entity/ExecutionControlledVariable.html" title="org.thinkit.bot.instagram.content.entity内のクラス">org.thinkit.bot.instagram.content.entity.ExecutionControlledVariable</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>variableCode</h5>
+<pre>int variableCode</pre>
+<div class="block">The variable code</div>
 </li>
 </ul>
 </section>
@@ -744,6 +849,25 @@ loadScripts(document, 'script');</script>
 <h5>unit2</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> unit2</pre>
 <div class="block">The unit 2</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.content.entity.TaskName">
+<h3>Class <a href="org/thinkit/bot/instagram/content/entity/TaskName.html" title="org.thinkit.bot.instagram.content.entity内のクラス">org.thinkit.bot.instagram.content.entity.TaskName</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>name</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> name</pre>
+<div class="block">The name</div>
 </li>
 </ul>
 </section>
@@ -959,6 +1083,45 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.ActionSkip">
+<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/ActionSkip.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.ActionSkip</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>count</h5>
+<pre>int count</pre>
+<div class="block">The count</div>
+</li>
+<li class="block-list">
+<h5>createdAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
+<div class="block">The created datetime</div>
+</li>
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> id</pre>
+<div class="block">The id</div>
+</li>
+<li class="block-list">
+<h5>taskTypeCode</h5>
+<pre>int taskTypeCode</pre>
+<div class="block">The task type code</div>
+</li>
+<li class="block-list">
+<h5>updatedAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> updatedAt</pre>
+<div class="block">The updated datetime</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
 <section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.Error">
 <h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/Error.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.Error</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
 <ul class="block-list">
@@ -1101,8 +1264,8 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.FollowedUser">
-<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/FollowedUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.FollowedUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator">
+<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/FollowBackPossibilityIndicator.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
 <ul class="block-list">
 <li>
 <section class="detail">
@@ -1114,9 +1277,34 @@ loadScripts(document, 'script');</script>
 <div class="block">The created datetime</div>
 </li>
 <li class="block-list">
+<h5>highestIndicator</h5>
+<pre>int highestIndicator</pre>
+<div class="block">The highest indicator</div>
+</li>
+<li class="block-list">
+<h5>highIndicator</h5>
+<pre>int highIndicator</pre>
+<div class="block">The high indicator</div>
+</li>
+<li class="block-list">
 <h5>id</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> id</pre>
 <div class="block">The id</div>
+</li>
+<li class="block-list">
+<h5>lowestIndicator</h5>
+<pre>int lowestIndicator</pre>
+<div class="block">The lowest indicator</div>
+</li>
+<li class="block-list">
+<h5>lowIndicator</h5>
+<pre>int lowIndicator</pre>
+<div class="block">The low indicator</div>
+</li>
+<li class="block-list">
+<h5>middleIndicator</h5>
+<pre>int middleIndicator</pre>
+<div class="block">The middle indicator</div>
 </li>
 <li class="block-list">
 <h5>updatedAt</h5>
@@ -1130,8 +1318,8 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
-<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.FollowingUser">
-<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/FollowingUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.FollowingUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.FollowedUser">
+<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/FollowedUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.FollowedUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
 <ul class="block-list">
 <li>
 <section class="detail">
@@ -1356,6 +1544,79 @@ loadScripts(document, 'script');</script>
 <h5>updatedAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> updatedAt</pre>
 <div class="block">The updated datetime</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.MissingUser">
+<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/MissingUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.MissingUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>createdAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
+<div class="block">The created datetime</div>
+</li>
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> id</pre>
+<div class="block">The id</div>
+</li>
+<li class="block-list">
+<h5>updatedAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> updatedAt</pre>
+<div class="block">The updated datetime</div>
+</li>
+<li class="block-list">
+<h5>userName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
+<div class="block">The user name</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.UnfollowedUser">
+<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/UnfollowedUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.UnfollowedUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>createdAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
+<div class="block">The created datetime</div>
+</li>
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> id</pre>
+<div class="block">The id</div>
+</li>
+<li class="block-list">
+<h5>updatedAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> updatedAt</pre>
+<div class="block">The updated datetime</div>
+</li>
+<li class="block-list">
+<h5>url</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> url</pre>
+<div class="block">The url</div>
+</li>
+<li class="block-list">
+<h5>userName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
+<div class="block">The user name</div>
 </li>
 </ul>
 </section>
@@ -1627,30 +1888,29 @@ loadScripts(document, 'script');</script>
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
 <li class="block-list">
-<h5>follower</h5>
-<pre>int follower</pre>
-<div class="block">The follower</div>
-</li>
-<li class="block-list">
-<h5>following</h5>
-<pre>int following</pre>
-<div class="block">The following</div>
-</li>
-<li class="block-list">
-<h5>nickname</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> nickname</pre>
-<div class="block">The nickname</div>
-</li>
-<li class="block-list">
-<h5>post</h5>
-<pre>int post</pre>
-<div class="block">The post</div>
-</li>
-<li class="block-list">
 <h5>url</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> url</pre>
 <div class="block">The url</div>
 </li>
+<li class="block-list">
+<h5>userName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
+<div class="block">The user name</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.result.ActionFollowFailedUser">
+<h3>Class <a href="org/thinkit/bot/instagram/result/ActionFollowFailedUser.html" title="org.thinkit.bot.instagram.result内のクラス">org.thinkit.bot.instagram.result.ActionFollowFailedUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
 <li class="block-list">
 <h5>userName</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
@@ -1699,30 +1959,29 @@ loadScripts(document, 'script');</script>
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
 <li class="block-list">
-<h5>follower</h5>
-<pre>int follower</pre>
-<div class="block">The follower</div>
-</li>
-<li class="block-list">
-<h5>following</h5>
-<pre>int following</pre>
-<div class="block">The following</div>
-</li>
-<li class="block-list">
-<h5>nickname</h5>
-<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> nickname</pre>
-<div class="block">The nickname</div>
-</li>
-<li class="block-list">
-<h5>post</h5>
-<pre>int post</pre>
-<div class="block">The post</div>
-</li>
-<li class="block-list">
 <h5>url</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> url</pre>
 <div class="block">The url</div>
 </li>
+<li class="block-list">
+<h5>userName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
+<div class="block">The user name</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.result.ActionUnfollowFailedUser">
+<h3>Class <a href="org/thinkit/bot/instagram/result/ActionUnfollowFailedUser.html" title="org.thinkit.bot.instagram.result内のクラス">org.thinkit.bot.instagram.result.ActionUnfollowFailedUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
 <li class="block-list">
 <h5>userName</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
@@ -1751,6 +2010,11 @@ loadScripts(document, 'script');</script>
 <h5>actionFollowedUsers</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/result/ActionFollowedUser.html" title="org.thinkit.bot.instagram.result内のクラス">ActionFollowedUser</a>&gt; actionFollowedUsers</pre>
 <div class="block">The action followed users</div>
+</li>
+<li class="block-list">
+<h5>actionFollowFailedUsers</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/result/ActionFollowFailedUser.html" title="org.thinkit.bot.instagram.result内のクラス">ActionFollowFailedUser</a>&gt; actionFollowFailedUsers</pre>
+<div class="block">The action follow failed users</div>
 </li>
 <li class="block-list">
 <h5>ActionStatus</h5>
@@ -1821,14 +2085,19 @@ loadScripts(document, 'script');</script>
 <div class="block">The action errors</div>
 </li>
 <li class="block-list">
-<h5>ActionStatus</h5>
-<pre>@NonNull <a href="org/thinkit/bot/instagram/catalog/ActionStatus.html" title="org.thinkit.bot.instagram.catalog内の列挙型">ActionStatus</a> ActionStatus</pre>
+<h5>actionStatus</h5>
+<pre>@NonNull <a href="org/thinkit/bot/instagram/catalog/ActionStatus.html" title="org.thinkit.bot.instagram.catalog内の列挙型">ActionStatus</a> actionStatus</pre>
 <div class="block">The action status</div>
 </li>
 <li class="block-list">
 <h5>actionUnfollowedUsers</h5>
 <pre>@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/result/ActionUnfollowedUser.html" title="org.thinkit.bot.instagram.result内のクラス">ActionUnfollowedUser</a>&gt; actionUnfollowedUsers</pre>
 <div class="block">The action unfollowed users</div>
+</li>
+<li class="block-list">
+<h5>actionUnfollowFailedUsers</h5>
+<pre>@NonNull <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html" title="java.util内のクラスまたはインタフェース" class="external-link">List</a>&lt;<a href="org/thinkit/bot/instagram/result/ActionUnfollowFailedUser.html" title="org.thinkit.bot.instagram.result内のクラス">ActionUnfollowFailedUser</a>&gt; actionUnfollowFailedUsers</pre>
+<div class="block">The action unfollow failed users</div>
 </li>
 <li class="block-list">
 <h5>countUnfollowed</h5>

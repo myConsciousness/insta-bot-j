@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],8:["t4","concrete\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -132,22 +132,22 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 </tr>
 <tr class="row-color" id="i1">
 <td class="col-first"><code>org.springframework.batch.core.step.tasklet.Tasklet</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoLikeTasklet()">executeAutoLikeTasklet</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoForecastFollowBackUserTasklet()">executeAutoForecastFollowBackUserTasklet</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i2">
 <td class="col-first"><code>org.springframework.batch.core.step.tasklet.Tasklet</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoUnfollowTasklet()">executeAutoUnfollowTasklet</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoLikeTasklet()">executeAutoLikeTasklet</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i3">
 <td class="col-first"><code>org.springframework.batch.core.step.tasklet.Tasklet</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeLoginTasklet()">executeLoginTasklet</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeAutoUnfollowTasklet()">executeAutoUnfollowTasklet</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="alt-color" id="i4">
 <td class="col-first"><code>org.springframework.batch.core.step.tasklet.Tasklet</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#forecastFollowBackUserTasklet()">forecastFollowBackUserTasklet</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#executeLoginTasklet()">executeLoginTasklet</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i5">
@@ -157,10 +157,15 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 </tr>
 <tr class="alt-color" id="i6">
 <td class="col-first"><code>org.springframework.batch.core.step.tasklet.Tasklet</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#reversalEntryHashtagTasklet()">reversalEntryHashtagTasklet</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#updateAutoForecastFollowBackUserConfigTasklet()">updateAutoForecastFollowBackUserConfigTasklet</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 <tr class="row-color" id="i7">
+<td class="col-first"><code>org.springframework.batch.core.step.tasklet.Tasklet</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#updateAutoLikeConfigTasklet()">updateAutoLikeConfigTasklet</a></span>()</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+<tr class="alt-color" id="i8">
 <td class="col-first"><code><a href="../../mongo/entity/UserAccount.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">UserAccount</a></code></td>
 <th class="col-second" scope="row"><code><span class="member-name-link"><a href="#userAccount()">userAccount</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
@@ -212,17 +217,17 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 </section>
 </li>
 <li>
-<section class="detail" id="reversalEntryHashtagTasklet()">
-<h3>reversalEntryHashtagTasklet</h3>
+<section class="detail" id="updateAutoLikeConfigTasklet()">
+<h3>updateAutoLikeConfigTasklet</h3>
 <div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.step.tasklet.Tasklet</span>&nbsp;<span class="member-name">reversalEntryHashtagTasklet</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.step.tasklet.Tasklet</span>&nbsp;<span class="member-name">updateAutoLikeConfigTasklet</span>()</div>
 </section>
 </li>
 <li>
-<section class="detail" id="forecastFollowBackUserTasklet()">
-<h3>forecastFollowBackUserTasklet</h3>
+<section class="detail" id="updateAutoForecastFollowBackUserConfigTasklet()">
+<h3>updateAutoForecastFollowBackUserConfigTasklet</h3>
 <div class="member-signature"><span class="annotations">@Bean
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.step.tasklet.Tasklet</span>&nbsp;<span class="member-name">forecastFollowBackUserTasklet</span>()</div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.step.tasklet.Tasklet</span>&nbsp;<span class="member-name">updateAutoForecastFollowBackUserConfigTasklet</span>()</div>
 </section>
 </li>
 <li>
@@ -230,6 +235,13 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 <h3>executeAutoLikeTasklet</h3>
 <div class="member-signature"><span class="annotations">@Bean
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.step.tasklet.Tasklet</span>&nbsp;<span class="member-name">executeAutoLikeTasklet</span>()</div>
+</section>
+</li>
+<li>
+<section class="detail" id="executeAutoForecastFollowBackUserTasklet()">
+<h3>executeAutoForecastFollowBackUserTasklet</h3>
+<div class="member-signature"><span class="annotations">@Bean
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">org.springframework.batch.core.step.tasklet.Tasklet</span>&nbsp;<span class="member-name">executeAutoForecastFollowBackUserTasklet</span>()</div>
 </section>
 </li>
 <li>
