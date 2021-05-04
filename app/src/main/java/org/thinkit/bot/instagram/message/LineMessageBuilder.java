@@ -25,8 +25,10 @@ import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.content.ActionStatusMessageMapper;
 import org.thinkit.bot.instagram.content.LineMessagePhraseMapper;
+import org.thinkit.bot.instagram.content.TaskNameMapper;
 import org.thinkit.bot.instagram.content.entity.ActionStatusMessage;
 import org.thinkit.bot.instagram.content.entity.LineMessagePhrase;
+import org.thinkit.bot.instagram.content.entity.TaskName;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 
 import lombok.AccessLevel;
@@ -78,7 +80,8 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
     }
 
     private String getActionStatusMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
-        return String.format(this.getActionStatusMessage(messageMeta), taskType.getCode());
+        final TaskName taskName = TaskNameMapper.from(taskType.getCode()).scan().get(0);
+        return String.format(this.getActionStatusMessage(messageMeta), taskName.getName());
     }
 
     private String getActionStatusMessage(@NonNull final MessageMeta messageMeta) {

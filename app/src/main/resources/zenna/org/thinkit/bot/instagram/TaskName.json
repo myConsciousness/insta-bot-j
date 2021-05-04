@@ -1,0 +1,88 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the task name.",
+        "resultType": "org.thinkit.bot.instagram.content.entity.TaskName"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "1",
+                "name": "AutoLike"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "name": "AutoForecast"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "name": "AutoFollow"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "name": "AutoUnfollow"
+            }
+        }
+    ],
+    "conditionNodes": [
+        {
+            "node": {
+                "conditionId": "1",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "1"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "2"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "4"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "5"
+                    }
+                ]
+            }
+        }
+    ]
+}
