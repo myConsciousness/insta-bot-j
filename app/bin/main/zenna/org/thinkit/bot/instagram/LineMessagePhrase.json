@@ -9,25 +9,25 @@
         {
             "node": {
                 "conditionId": "1",
-                "phrase": "Liked %s photos."
+                "phrase": "The Auto Like executed for %s photos."
             }
         },
         {
             "node": {
                 "conditionId": "2",
-                "phrase": "Found %s expectable users."
+                "phrase": "The %s expectable users were found."
             }
         },
         {
             "node": {
                 "conditionId": "4",
-                "phrase": "Followed %s users."
+                "phrase": "The %s users followed."
             }
         },
         {
             "node": {
                 "conditionId": "5",
-                "phrase": "Unfollowed %s users."
+                "phrase": "The %s users unfollowed."
             }
         }
     ],
