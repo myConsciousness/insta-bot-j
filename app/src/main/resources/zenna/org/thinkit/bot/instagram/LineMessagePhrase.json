@@ -8,25 +8,25 @@
     "selectionNodes": [
         {
             "node": {
-                "conditionId": "001",
+                "conditionId": "1",
                 "phrase": "The Auto Like executed for %s photos."
             }
         },
         {
             "node": {
-                "conditionId": "002",
+                "conditionId": "2",
                 "phrase": "The %s expectable users were found."
             }
         },
         {
             "node": {
-                "conditionId": "004",
+                "conditionId": "4",
                 "phrase": "The %s users followed."
             }
         },
         {
             "node": {
-                "conditionId": "005",
+                "conditionId": "5",
                 "phrase": "The %s users unfollowed."
             }
         }
@@ -34,52 +34,52 @@
     "conditionNodes": [
         {
             "node": {
-                "conditionId": "001",
+                "conditionId": "1",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "001"
+                        "operand": "1"
                     }
                 ]
             }
         },
         {
             "node": {
-                "conditionId": "002",
+                "conditionId": "2",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "002"
+                        "operand": "2"
                     }
                 ]
             }
         },
         {
             "node": {
-                "conditionId": "004",
+                "conditionId": "4",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "004"
+                        "operand": "4"
                     }
                 ]
             }
         },
         {
             "node": {
-                "conditionId": "005",
+                "conditionId": "5",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "005"
+                        "operand": "5"
                     }
                 ]
             }
