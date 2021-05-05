@@ -15,9 +15,8 @@
 package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
-import java.util.List;
 
-import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.FollowBackPossibility;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,7 +27,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the result of forecast follow back.
+ * The class that manages the action expectable user.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -38,35 +37,41 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ForecastFollowBackResult implements Serializable {
+public final class ActionExpectableUser implements Serializable {
 
     /**
-     * The action status
+     * The user name
      */
     @Getter
-    private ActionStatus actionStatus;
+    private String userName;
 
     /**
-     * The action count
+     * The follow back possibility
      */
     @Getter
-    private int actionCount;
+    private FollowBackPossibility followBackPossibility;
 
     /**
-     * The expectable users
+     * The post
      */
     @Getter
-    private List<ExpectableUser> expectableUsers;
+    private int post;
 
     /**
-     * The unexpectable users
+     * The following
      */
     @Getter
-    private List<UnexpectableUser> unexpectableUsers;
+    private int following;
 
     /**
-     * Tne action errors
+     * The follower
      */
     @Getter
-    private List<ActionError> actionErrors;
+    private int follower;
+
+    /**
+     * The follow diff
+     */
+    @Getter
+    private int followDiff;
 }

@@ -16,6 +16,8 @@ package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
 
+import org.thinkit.bot.instagram.catalog.ActionStatus;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +27,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the unexpectable user.
+ * The class that manages result of auto login command.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -35,11 +37,11 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class UnexpectableUser implements Serializable {
+public final class AutoLoginResult implements Serializable {
 
     /**
-     * The user name
+     * The action status
      */
     @Getter
-    private String userName;
+    private ActionStatus actionStatus;
 }

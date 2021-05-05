@@ -15,6 +15,7 @@
 package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 
@@ -24,18 +25,45 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
+/**
+ * The class that manages the result of auto check follow back command.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
 @ToString
 @EqualsAndHashCode
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class LoginResult implements Serializable {
+public final class AutoCheckFollowBackResult implements Serializable {
 
     /**
      * The action status
      */
     @Getter
+    @NonNull
     private ActionStatus actionStatus;
+
+    /**
+     * The count check
+     */
+    @Getter
+    private int countCheck;
+
+    /**
+     * The action follow backed users
+     */
+    @Getter
+    @NonNull
+    private List<ActionFollowBackedUser> actionFollowBackedUsers;
+
+    /**
+     * The action errors
+     */
+    @Getter
+    private List<ActionError> actionErrors;
 }

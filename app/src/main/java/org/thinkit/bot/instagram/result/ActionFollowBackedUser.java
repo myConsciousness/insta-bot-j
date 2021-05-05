@@ -15,11 +15,6 @@
 package org.thinkit.bot.instagram.result;
 
 import java.io.Serializable;
-import java.util.List;
-
-import com.mongodb.lang.NonNull;
-
-import org.thinkit.bot.instagram.catalog.ActionStatus;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages result of auto like command.
+ * The class that manages the action follow backed user.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -40,38 +35,11 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoLikeResult implements Serializable {
+public final class ActionFollowBackedUser implements Serializable {
 
     /**
-     * The action status
+     * The user name
      */
     @Getter
-    @NonNull
-    private ActionStatus ActionStatus;
-
-    /**
-     * The hashtag
-     */
-    @Getter
-    @NonNull
-    private String hashtag;
-
-    /**
-     * The count likes
-     */
-    @Getter
-    private int countLikes;
-
-    /**
-     * The action liked photos
-     */
-    @Getter
-    @NonNull
-    private List<ActionLikedPhoto> actionLikedPhotos;
-
-    /**
-     * The action errors
-     */
-    @Getter
-    private List<ActionError> actionErrors;
+    private String userName;
 }

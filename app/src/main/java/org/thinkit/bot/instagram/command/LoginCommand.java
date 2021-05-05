@@ -19,7 +19,7 @@ import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.ElementName;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
-import org.thinkit.bot.instagram.result.LoginResult;
+import org.thinkit.bot.instagram.result.AutoLoginResult;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -31,7 +31,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class LoginCommand extends AbstractBotCommand<LoginResult> {
+public final class LoginCommand extends AbstractBotCommand<AutoLoginResult> {
 
     /**
      * The serial version UID
@@ -50,7 +50,7 @@ public final class LoginCommand extends AbstractBotCommand<LoginResult> {
     private String password;
 
     @Override
-    public LoginResult executeBotProcess() {
+    public AutoLoginResult executeBotProcess() {
 
         super.getWebPage(InstagramUrl.LOGIN.getTag());
         super.findElement(By.name(ElementName.USER_NAME.getTag())).sendKeys(this.userName);
@@ -60,6 +60,6 @@ public final class LoginCommand extends AbstractBotCommand<LoginResult> {
         super.findElement(By.xpath(ElementXPath.LOGIN.getTag())).click();
         super.waitUntilElementLocated(By.xpath(ElementXPath.LOGIN_COMPLETED.getTag()));
 
-        return LoginResult.builder().actionStatus(ActionStatus.COMPLETED).build();
+        return AutoLoginResult.builder().actionStatus(ActionStatus.COMPLETED).build();
     }
 }

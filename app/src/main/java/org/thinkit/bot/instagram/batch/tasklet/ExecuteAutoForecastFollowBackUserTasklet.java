@@ -35,9 +35,9 @@ import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.param.ForecastUser;
-import org.thinkit.bot.instagram.result.ExpectableUser;
-import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
-import org.thinkit.bot.instagram.result.UnexpectableUser;
+import org.thinkit.bot.instagram.result.ActionExpectableUser;
+import org.thinkit.bot.instagram.result.ActionUnexpectableUser;
+import org.thinkit.bot.instagram.result.AutoForecastFollowBackResult;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -76,7 +76,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
             return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
         }
 
-        final ForecastFollowBackResult followBackResult = super.getInstaBot()
+        final AutoForecastFollowBackResult autoForecastFollowBackResult = super.getInstaBot()
                 .executeAutoForecastFollowBackUser(forecastUsers, this.getAutoForecastFollowBackUserConfig());
         log.info("The forecast follow back user has completed the process successfully.");
 
@@ -84,10 +84,10 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
                 .getFollowBackExpectableUserRepository();
         final LikedPhotoRepository likedPhotoRepository = this.getMongoCollections().getLikedPhotoRepository();
 
-        final List<ExpectableUser> expectableUsers = followBackResult.getExpectableUsers();
-        final List<UnexpectableUser> unexpectableUsers = followBackResult.getUnexpectableUsers();
+        final List<ActionExpectableUser> expectableUsers = autoForecastFollowBackResult.getExpectableUsers();
+        final List<ActionUnexpectableUser> unexpectableUsers = autoForecastFollowBackResult.getUnexpectableUsers();
 
-        for (final ExpectableUser expectableUser : expectableUsers) {
+        for (final ActionExpectableUser expectableUser : expectableUsers) {
             final FollowBackExpectableUser followBackExpectableUser = new FollowBackExpectableUser();
             followBackExpectableUser.setUserName(expectableUser.getUserName());
             followBackExpectableUser.setFollowBackPossibilityCode(expectableUser.getFollowBackPossibility().getCode());
@@ -103,19 +103,19 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
             likedPhotoRepository.deleteByUserName(expectableUser.getUserName());
         }
 
-        for (final UnexpectableUser unexpectableUser : unexpectableUsers) {
+        for (final ActionUnexpectableUser unexpectableUser : unexpectableUsers) {
             // Delete forecasted unexpectable users
             likedPhotoRepository.deleteByUserName(unexpectableUser.getUserName());
         }
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
-        batchTaskResultBuilder.actionCount(followBackResult.getActionCount());
+        batchTaskResultBuilder.actionCount(autoForecastFollowBackResult.getActionCount());
         batchTaskResultBuilder.resultCount(expectableUsers.size());
-        batchTaskResultBuilder.actionStatus(followBackResult.getActionStatus());
+        batchTaskResultBuilder.actionStatus(autoForecastFollowBackResult.getActionStatus());
 
-        if (followBackResult.getActionErrors() != null) {
+        if (autoForecastFollowBackResult.getActionErrors() != null) {
             log.debug("Forecast follow back user runtime error detected.");
-            batchTaskResultBuilder.actionErrors(followBackResult.getActionErrors());
+            batchTaskResultBuilder.actionErrors(autoForecastFollowBackResult.getActionErrors());
         }
 
         log.debug("END");

@@ -31,9 +31,9 @@ import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
 import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ActionError;
-import org.thinkit.bot.instagram.result.ExpectableUser;
-import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
-import org.thinkit.bot.instagram.result.UnexpectableUser;
+import org.thinkit.bot.instagram.result.ActionExpectableUser;
+import org.thinkit.bot.instagram.result.ActionUnexpectableUser;
+import org.thinkit.bot.instagram.result.AutoForecastFollowBackResult;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -46,7 +46,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<ForecastFollowBackResult> {
+public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<AutoForecastFollowBackResult> {
 
     /**
      * The forecast users
@@ -59,10 +59,10 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
     private AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig;
 
     @Override
-    protected ForecastFollowBackResult executeBotProcess() {
+    protected AutoForecastFollowBackResult executeBotProcess() {
 
-        final List<ExpectableUser> expectableUsers = new ArrayList<>();
-        final List<UnexpectableUser> unexpectableUsers = new ArrayList<>();
+        final List<ActionExpectableUser> expectableUsers = new ArrayList<>();
+        final List<ActionUnexpectableUser> unexpectableUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
         final NumberUnitResource numberUnitResource = this.getNumberUnitResource();
@@ -88,38 +88,39 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
                         followingCount);
 
                 if (followBackPossibility != FollowBackPossibility.NONE) {
-                    final ExpectableUser.ExpectableUserBuilder expectableUserBuilder = ExpectableUser.builder();
-                    expectableUserBuilder.userName(userName);
-                    expectableUserBuilder.followBackPossibility(followBackPossibility);
-                    expectableUserBuilder.post(postCount);
-                    expectableUserBuilder.follower(followerCount);
-                    expectableUserBuilder.following(followingCount);
-                    expectableUserBuilder.followDiff(followerCount - followingCount);
+                    final ActionExpectableUser.ActionExpectableUserBuilder actionExpectableUserBuilder = ActionExpectableUser
+                            .builder();
+                    actionExpectableUserBuilder.userName(userName);
+                    actionExpectableUserBuilder.followBackPossibility(followBackPossibility);
+                    actionExpectableUserBuilder.post(postCount);
+                    actionExpectableUserBuilder.follower(followerCount);
+                    actionExpectableUserBuilder.following(followingCount);
+                    actionExpectableUserBuilder.followDiff(followerCount - followingCount);
 
-                    expectableUsers.add(expectableUserBuilder.build());
+                    expectableUsers.add(actionExpectableUserBuilder.build());
                 } else {
-                    unexpectableUsers.add(UnexpectableUser.builder().userName(userName).build());
+                    unexpectableUsers.add(ActionUnexpectableUser.builder().userName(userName).build());
                 }
             } catch (Exception recoverableException) {
                 // The possibility exists that a timeout may occur due to wrong css selector was
                 // located, etc. Anyway, let's move on to the next profile.
-                unexpectableUsers.add(UnexpectableUser.builder().userName(userName).build());
+                unexpectableUsers.add(ActionUnexpectableUser.builder().userName(userName).build());
                 actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_FORECAST_FOLLOW_BACK_USER));
             }
         }
 
-        final ForecastFollowBackResult.ForecastFollowBackResultBuilder forecastFollowBackResultBuilder = ForecastFollowBackResult
+        final AutoForecastFollowBackResult.AutoForecastFollowBackResultBuilder autoForecastFollowBackResultBuilder = AutoForecastFollowBackResult
                 .builder();
-        forecastFollowBackResultBuilder.actionStatus(ActionStatus.COMPLETED);
-        forecastFollowBackResultBuilder.actionCount(expectableUsers.size() + unexpectableUsers.size());
-        forecastFollowBackResultBuilder.expectableUsers(expectableUsers);
-        forecastFollowBackResultBuilder.unexpectableUsers(unexpectableUsers);
+        autoForecastFollowBackResultBuilder.actionStatus(ActionStatus.COMPLETED);
+        autoForecastFollowBackResultBuilder.actionCount(expectableUsers.size() + unexpectableUsers.size());
+        autoForecastFollowBackResultBuilder.expectableUsers(expectableUsers);
+        autoForecastFollowBackResultBuilder.unexpectableUsers(unexpectableUsers);
 
         if (!actionErrors.isEmpty()) {
-            forecastFollowBackResultBuilder.actionErrors(actionErrors);
+            autoForecastFollowBackResultBuilder.actionErrors(actionErrors);
         }
 
-        return forecastFollowBackResultBuilder.build();
+        return autoForecastFollowBackResultBuilder.build();
     }
 
     private boolean isUserInfluencer(@NonNull final NumberUnitResource numberUnitResource) {

@@ -33,11 +33,12 @@ import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.param.UnfollowUser;
+import org.thinkit.bot.instagram.result.AutoCheckFollowBackResult;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
+import org.thinkit.bot.instagram.result.AutoForecastFollowBackResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
+import org.thinkit.bot.instagram.result.AutoLoginResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
-import org.thinkit.bot.instagram.result.ForecastFollowBackResult;
-import org.thinkit.bot.instagram.result.LoginResult;
 import org.thinkit.common.base.precondition.Preconditions;
 
 import lombok.EqualsAndHashCode;
@@ -97,7 +98,7 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public LoginResult executeLogin(@NonNull final ActionUser actionUser) {
+    public AutoLoginResult executeLogin(@NonNull final ActionUser actionUser) {
         return LoginCommand.from(actionUser.getUserName(), actionUser.getPassword()).execute(super.getWebDriver());
     }
 
@@ -128,12 +129,18 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers,
+    public AutoForecastFollowBackResult executeAutoForecastFollowBackUser(
+            @NonNull final List<ForecastUser> forecastUsers,
             @NonNull final AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig) {
         Preconditions.requireNonEmpty(forecastUsers,
                 "The forecast user is required to execute auto forecast follow back user command.");
         return AutoForecastFollowBackUserCommand.from(forecastUsers, autoForecastFollowBackUserConfig)
                 .execute(super.getWebDriver());
+    }
+
+    @Override
+    public AutoCheckFollowBackResult executeAutoCheckFollowBack() {
+        return null;
     }
 
     @Override
