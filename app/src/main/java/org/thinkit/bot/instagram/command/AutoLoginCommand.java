@@ -31,7 +31,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class LoginCommand extends AbstractBotCommand<AutoLoginResult> {
+public final class AutoLoginCommand extends AbstractBotCommand<AutoLoginResult> {
 
     /**
      * The serial version UID

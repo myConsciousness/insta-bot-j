@@ -21,8 +21,8 @@ import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.command.AutoFollowCommand;
 import org.thinkit.bot.instagram.command.AutoForecastFollowBackUserCommand;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
+import org.thinkit.bot.instagram.command.AutoLoginCommand;
 import org.thinkit.bot.instagram.command.AutoUnfollowCommand;
-import org.thinkit.bot.instagram.command.LoginCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
 import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
@@ -99,7 +99,7 @@ public final class InstaBotJ extends AbstractInstaBot {
 
     @Override
     public AutoLoginResult executeLogin(@NonNull final ActionUser actionUser) {
-        return LoginCommand.from(actionUser.getUserName(), actionUser.getPassword()).execute(super.getWebDriver());
+        return AutoLoginCommand.from(actionUser.getUserName(), actionUser.getPassword()).execute(super.getWebDriver());
     }
 
     @Override
