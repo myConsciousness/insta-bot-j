@@ -23,7 +23,12 @@ plugins {
 
 group = 'org.thinkit.bot.instagram'
 version = '1.0.0-SNAPSHOT'
-sourceCompatibility = '15'
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(15))
+    }
+}
 
 repositories {
     maven {
