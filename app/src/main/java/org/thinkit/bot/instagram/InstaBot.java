@@ -37,7 +37,7 @@ public interface InstaBot {
 
     public LoginResult executeLogin(@NonNull final ActionUser actionUser);
 
-    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags,
+    public List<AutoLikeResult> executeAutoLike(@NonNull final List<TargetHashtag> targetHashtags,
             @NonNull final AutoLikeConfig autoLikeConfig);
 
     public ForecastFollowBackResult executeAutoForecastFollowBackUser(@NonNull final List<ForecastUser> forecastUsers,

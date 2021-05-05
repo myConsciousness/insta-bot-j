@@ -102,7 +102,7 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public List<AutoLikeResult> executeAutoLikes(@NonNull final List<TargetHashtag> targetHashtags,
+    public List<AutoLikeResult> executeAutoLike(@NonNull final List<TargetHashtag> targetHashtags,
             @NonNull final AutoLikeConfig autoLikeConfig) {
         Preconditions.requireNonEmpty(targetHashtags, "The hash tag is required to execute auto like command.");
         Preconditions.requirePositive(autoLikeConfig.getMaxLike(), "The count of max like must not be negative.");

@@ -62,7 +62,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final List<AutoLikeResult> autolikeResults = super.getInstaBot().executeAutoLikes(this.getTargetHashtags(),
+        final List<AutoLikeResult> autolikeResults = super.getInstaBot().executeAutoLike(this.getTargetHashtags(),
                 this.getAutoLikeConfig());
         log.info("The auto like has completed the process successfully.");
 
