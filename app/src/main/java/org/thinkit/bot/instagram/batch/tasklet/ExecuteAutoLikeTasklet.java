@@ -128,7 +128,7 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         final int skippedCount = this.getSkippedCount();
 
         final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder()
-                .maxLike(skippedCount > 0 ? maxLike * (skippedCount + 1) : maxLike).likeInterval(this.getLikeInterval())
+                .maxLike(skippedCount > 0 ? maxLike * (skippedCount + 1) : maxLike).interval(this.getLikeInterval())
                 .build();
         log.debug("The auto like config: {}", autoLikeConfig);
 

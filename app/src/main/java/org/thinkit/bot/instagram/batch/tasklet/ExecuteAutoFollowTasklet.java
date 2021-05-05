@@ -171,7 +171,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
         log.debug("START");
 
         final AutoFollowConfig.AutoFollowConfigBuilder autoFollowConfigBuilder = AutoFollowConfig.builder();
-        autoFollowConfigBuilder.followInterval(this.getFollowInterval());
+        autoFollowConfigBuilder.interval(this.getFollowInterval());
 
         log.debug("END");
         return autoFollowConfigBuilder.build();

@@ -172,7 +172,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         log.debug("START");
 
         final AutoUnfollowConfig.AutoUnfollowConfigBuilder autoUnfollowConfigBuilder = AutoUnfollowConfig.builder();
-        autoUnfollowConfigBuilder.unfollowInterval(this.getUnfollowInterval());
+        autoUnfollowConfigBuilder.interval(this.getUnfollowInterval());
 
         log.debug("END");
         return autoUnfollowConfigBuilder.build();
