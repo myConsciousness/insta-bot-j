@@ -30,6 +30,8 @@ import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UnfollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
+import org.thinkit.bot.instagram.mongo.repository.UserFollowerRepository;
+import org.thinkit.bot.instagram.mongo.repository.UserFollowingRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
 import lombok.AccessLevel;
@@ -142,4 +144,16 @@ public final class MongoCollections implements Serializable {
      */
     @Getter
     private UnfollowedUserRepository unfollowedUserRepository;
+
+    /**
+     * The user follower repository
+     */
+    @Getter
+    private UserFollowerRepository userFollowerRepository;
+
+    /**
+     * The user following repository
+     */
+    @Getter
+    private UserFollowingRepository userFollowingRepository;
 }

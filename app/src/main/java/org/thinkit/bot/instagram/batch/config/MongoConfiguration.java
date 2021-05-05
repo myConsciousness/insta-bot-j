@@ -34,6 +34,8 @@ import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UnfollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
+import org.thinkit.bot.instagram.mongo.repository.UserFollowerRepository;
+import org.thinkit.bot.instagram.mongo.repository.UserFollowingRepository;
 import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 
 /**
@@ -135,6 +137,18 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Autowired
     private UnfollowedUserRepository unfollowedUserRepository;
 
+    /**
+     * The user follower repository
+     */
+    @Autowired
+    private UserFollowerRepository userFollowerRepository;
+
+    /**
+     * The user following repository
+     */
+    @Autowired
+    private UserFollowingRepository userFollowingRepository;
+
     @Override
     protected String getDatabaseName() {
         return MongoDatabase.INSTAGRAM.getTag();
@@ -163,6 +177,8 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.missingUserRepository(this.missingUserRepository);
         mongoCollectionsBuilder.followedUserRepository(this.followedUserRepository);
         mongoCollectionsBuilder.unfollowedUserRepository(this.unfollowedUserRepository);
+        mongoCollectionsBuilder.userFollowerRepository(this.userFollowerRepository);
+        mongoCollectionsBuilder.userFollowingRepository(this.userFollowingRepository);
 
         return mongoCollectionsBuilder.build();
     }
