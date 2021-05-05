@@ -26,6 +26,8 @@ import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.JavaScriptCommand;
+import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionFollower;
@@ -53,26 +55,12 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
     @Override
     protected AutoScrapeUserProfileResult executeBotProcess() {
 
-        final List<ActionFollowingUser> actionFollowingUsers = new ArrayList<>();
         final List<ActionFollower> actionFollowers = new ArrayList<>();
+        final List<ActionFollowingUser> actionFollowingUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
-        super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), this.actionUser.getUserName()));
-
-        final int followerCount = this.fetchFollowerCount();
-        super.findByXpath(ElementXPath.PROFILE_FOLLOWERS_LINK).click();
-
-        for (int i = 1; i < followerCount + 1; i++) {
-            final WebElement row = super.findElement(
-                    By.xpath(String.format(ElementXPath.PROFILE_MODAL_LIST.getTag(), i)));
-            System.out.println(row.getText());
-
-            super.executeScript(JavaScriptCommand.SCROLL_VIEW, row);
-        }
-
-        // this.fetchFollowingCount();
-
-        // super.findByXpath(ElementXPath.PROFILE_FOLLOWING_LINK).click();
+        this.scrapeActionFollowers(actionFollowers, actionErrors);
+        this.scrapeActionFollowingUsers(actionFollowingUsers, actionErrors);
 
         final AutoScrapeUserProfileResult.AutoScrapeUserProfileResultBuilder autoScrapeUserProfileResultBuilder = AutoScrapeUserProfileResult
                 .builder();
@@ -82,6 +70,53 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
         autoScrapeUserProfileResultBuilder.actionErrors(actionErrors);
 
         return autoScrapeUserProfileResultBuilder.build();
+    }
+
+    private void scrapeActionFollowers(@NonNull final List<ActionFollower> actionFollowers,
+            @NonNull final List<ActionError> actionErrors) {
+        this.getProfileUsers(ElementXPath.PROFILE_FOLLOWERS_LINK, actionErrors).forEach(follower -> {
+            actionFollowers.add(ActionFollower.builder().userName(follower).build());
+        });
+    }
+
+    private void scrapeActionFollowingUsers(@NonNull final List<ActionFollowingUser> actionFollowingUsers,
+            @NonNull final List<ActionError> actionErrors) {
+        this.getProfileUsers(ElementXPath.PROFILE_FOLLOWING_LINK, actionErrors).forEach(followingUser -> {
+            actionFollowingUsers.add(ActionFollowingUser.builder().userName(followingUser).build());
+        });
+    }
+
+    private List<String> getProfileUsers(@NonNull final ElementXPath ProfileModalLink,
+            @NonNull final List<ActionError> actionErrors) {
+
+        final List<String> profileUsers = new ArrayList<>();
+
+        super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+        super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), this.actionUser.getUserName()));
+
+        final int loopCount = ProfileModalLink == ElementXPath.PROFILE_FOLLOWERS_LINK ? this.fetchFollowerCount()
+                : this.fetchFollowingCount();
+        super.findByXpath(ProfileModalLink).click();
+
+        for (int i = 1; i <= loopCount; i++) {
+            WebElement row = null;
+            try {
+                row = super.findElement(By.xpath(String.format(ElementXPath.PROFILE_MODAL_LIST.getTag(), i)));
+                profileUsers.add(StringUtils.split(row.getText())[0]);
+            } catch (Exception recoverableException) {
+                actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_SCRAPE_USER_PROFILE));
+
+                if (row != null) {
+                    profileUsers.add(row.getText());
+                } else {
+                    return profileUsers;
+                }
+            }
+
+            super.executeScript(JavaScriptCommand.SCROLL_VIEW, row);
+        }
+
+        return profileUsers;
     }
 
     private int fetchFollowerCount() {

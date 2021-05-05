@@ -23,6 +23,7 @@ import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.param.ActionUser;
+import org.thinkit.bot.instagram.result.AutoScrapeUserProfileResult;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -52,8 +53,14 @@ public final class ExecuteAutoScrapeUserProfileTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        super.getInstaBot()
+        final AutoScrapeUserProfileResult autoScrapeUserProfileResult = super.getInstaBot()
                 .executeAutoScrapeUserProfile(ActionUser.from(userAccount.getUserName(), userAccount.getPassword()));
+
+        System.out.println(autoScrapeUserProfileResult);
+        System.out.println(autoScrapeUserProfileResult.getActionFollowers());
+        System.out.println(autoScrapeUserProfileResult.getActionFollowingUsers());
+        System.out.println(autoScrapeUserProfileResult.getActionFollowers().size());
+        System.out.println(autoScrapeUserProfileResult.getActionFollowingUsers().size());
 
         log.debug("END");
         return BatchTaskResult.builder().build();
