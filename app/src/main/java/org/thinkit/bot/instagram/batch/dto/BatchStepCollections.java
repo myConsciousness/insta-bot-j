@@ -46,13 +46,16 @@ public final class BatchStepCollections implements Serializable {
     private Step updateAutoLikeConfigStep;
 
     @Getter
-    private Step updateAutoForecastFollowBackUserConfigStep;
-
-    @Getter
     private Step executeAutoLikeStep;
 
     @Getter
+    private Step updateAutoForecastFollowBackUserConfigStep;
+
+    @Getter
     private Step executeAutoForecastFollowBackUserStep;
+
+    @Getter
+    private Step executeAutoScrapeUserProfileTasklet;
 
     @Getter
     private Step executeAutoFollowStep;

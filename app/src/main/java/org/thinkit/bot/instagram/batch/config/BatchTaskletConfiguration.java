@@ -22,6 +22,7 @@ import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoFollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoForecastFollowBackUserTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoScrapeUserProfileTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoUnfollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
@@ -54,18 +55,23 @@ public class BatchTaskletConfiguration {
     }
 
     @Bean
-    public Tasklet updateAutoForecastFollowBackUserConfigTasklet() {
-        return UpdateAutoForecastFollowBackUserConfigTasklet.newInstance();
-    }
-
-    @Bean
     public Tasklet executeAutoLikeTasklet() {
         return ExecuteAutoLikeTasklet.newInstance();
     }
 
     @Bean
+    public Tasklet updateAutoForecastFollowBackUserConfigTasklet() {
+        return UpdateAutoForecastFollowBackUserConfigTasklet.newInstance();
+    }
+
+    @Bean
     public Tasklet executeAutoForecastFollowBackUserTasklet() {
         return ExecuteAutoForecastFollowBackUserTasklet.newInstance();
+    }
+
+    @Bean
+    public Tasklet executeAutoScrapeUserProfileTasklet() {
+        return ExecuteAutoScrapeUserProfileTasklet.newInstance();
     }
 
     @Bean

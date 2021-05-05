@@ -44,19 +44,24 @@ public enum TaskType implements Catalog<TaskType> {
     AUTO_FORECAST_FOLLOW_BACK_USER(2),
 
     /**
+     * The auto scrape user profile
+     */
+    AUTO_SCRAPE_USER_PROFILE(3),
+
+    /**
      * The auto comment task
      */
-    AUTO_COMMENT(3),
+    AUTO_COMMENT(4),
 
     /**
      * The auto follow task
      */
-    AUTO_FOLLOW(4),
+    AUTO_FOLLOW(5),
 
     /**
      * The auto unfollow task
      */
-    AUTO_UNFOLLOW(5),
+    AUTO_UNFOLLOW(6),
 
     /**
      * The initialize

@@ -20,13 +20,13 @@
         },
         {
             "node": {
-                "conditionId": "4",
+                "conditionId": "5",
                 "phrase": "Followed %s users."
             }
         },
         {
             "node": {
-                "conditionId": "5",
+                "conditionId": "6",
                 "phrase": "Unfollowed %s users."
             }
         }
@@ -66,7 +66,7 @@
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "4"
+                        "operand": "5"
                     }
                 ]
             }
@@ -79,7 +79,7 @@
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "5"
+                        "operand": "6"
                     }
                 ]
             }

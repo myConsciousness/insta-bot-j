@@ -17,6 +17,7 @@ package org.thinkit.bot.instagram.command;
 import java.io.Serializable;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -24,6 +25,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementName;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
+import org.thinkit.bot.instagram.catalog.JavaScriptCommand;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.result.ActionError;
@@ -62,6 +64,11 @@ public abstract class AbstractBotCommand<R> implements BotCommand<R>, Serializab
     protected final WebElement findElement(@NonNull final By by) {
         this.waitUntilElementLocated(by);
         return webDriver.findElement(by);
+    }
+
+    protected void executeScript(@NonNull final JavaScriptCommand javaScriptCommand,
+            @NonNull final WebElement webElement) {
+        ((JavascriptExecutor) this.webDriver).executeScript(javaScriptCommand.getTag(), webElement);
     }
 
     @Override

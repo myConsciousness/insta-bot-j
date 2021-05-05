@@ -17,7 +17,15 @@ package org.thinkit.bot.instagram.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.Delimiter;
+import org.thinkit.bot.instagram.catalog.ElementCssSelector;
+import org.thinkit.bot.instagram.catalog.ElementXPath;
+import org.thinkit.bot.instagram.catalog.InstagramUrl;
+import org.thinkit.bot.instagram.catalog.JavaScriptCommand;
 import org.thinkit.bot.instagram.param.ActionUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionFollower;
@@ -28,6 +36,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
@@ -48,6 +57,23 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
         final List<ActionFollower> actionFollowers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
+        super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), this.actionUser.getUserName()));
+
+        final int followerCount = this.fetchFollowerCount();
+        super.findByXpath(ElementXPath.PROFILE_FOLLOWERS_LINK).click();
+
+        for (int i = 1; i < followerCount + 1; i++) {
+            final WebElement row = super.findElement(
+                    By.xpath(String.format(ElementXPath.PROFILE_MODAL_LIST.getTag(), i)));
+            System.out.println(row.getText());
+
+            super.executeScript(JavaScriptCommand.SCROLL_VIEW, row);
+        }
+
+        // this.fetchFollowingCount();
+
+        // super.findByXpath(ElementXPath.PROFILE_FOLLOWING_LINK).click();
+
         final AutoScrapeUserProfileResult.AutoScrapeUserProfileResultBuilder autoScrapeUserProfileResultBuilder = AutoScrapeUserProfileResult
                 .builder();
         autoScrapeUserProfileResultBuilder.actionStatus(ActionStatus.COMPLETED);
@@ -56,5 +82,21 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
         autoScrapeUserProfileResultBuilder.actionErrors(actionErrors);
 
         return autoScrapeUserProfileResultBuilder.build();
+    }
+
+    private int fetchFollowerCount() {
+        return Integer.parseInt(this.getNumberText(ElementCssSelector.PROFILE_FOLLOWER_COUNT));
+    }
+
+    private int fetchFollowingCount() {
+        return Integer.parseInt(this.getNumberText(ElementCssSelector.PROFILE_FOLLOWING_COUNT));
+    }
+
+    private String getNumberText(@NonNull final ElementCssSelector elementCssSelector) {
+        return this.removeComma(super.findByCssSelector(elementCssSelector).getText());
+    }
+
+    private String removeComma(@NonNull final String number) {
+        return StringUtils.remove(number, Delimiter.COMMA.getTag());
     }
 }
