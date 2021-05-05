@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.command.AutoCheckFollowBackCommand;
 import org.thinkit.bot.instagram.command.AutoFollowCommand;
 import org.thinkit.bot.instagram.command.AutoForecastFollowBackUserCommand;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
@@ -29,6 +30,7 @@ import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
+import org.thinkit.bot.instagram.param.FollowBackCheckUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
@@ -107,12 +109,11 @@ public final class InstaBotJ extends AbstractInstaBot {
             @NonNull final AutoLikeConfig autoLikeConfig) {
         Preconditions.requireNonEmpty(targetHashtags, "The hash tag is required to execute auto like command.");
         Preconditions.requirePositive(autoLikeConfig.getMaxLike(), "The count of max like must not be negative.");
-        Preconditions.requirePositive(autoLikeConfig.getLikeInterval(),
-                "The count of like interval must not be negative.");
+        Preconditions.requirePositive(autoLikeConfig.getInterval(), "The count of like interval must not be negative.");
 
         final List<AutoLikeResult> autolikeResults = new ArrayList<>();
 
-        final int likeInterval = autoLikeConfig.getLikeInterval();
+        final int likeInterval = autoLikeConfig.getInterval();
         final int maxLikesPerTag = autoLikeConfig.getMaxLike() / targetHashtags.size();
 
         for (final TargetHashtag targetHashtag : targetHashtags) {
@@ -139,15 +140,16 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public AutoCheckFollowBackResult executeAutoCheckFollowBack() {
-        return null;
+    public AutoCheckFollowBackResult executeAutoCheckFollowBack(
+            @NonNull final List<FollowBackCheckUser> followBackCheckUsers) {
+        return AutoCheckFollowBackCommand.from(followBackCheckUsers).execute(super.getWebDriver());
     }
 
     @Override
     public AutoFollowResult executeAutoFollow(@NonNull final List<FollowUser> followUsers,
             @NonNull final AutoFollowConfig autoFollowConfig) {
         Preconditions.requireNonEmpty(followUsers, "The follow user is required to execute auto follow command.");
-        Preconditions.requirePositive(autoFollowConfig.getFollowInterval(),
+        Preconditions.requirePositive(autoFollowConfig.getInterval(),
                 "The count of follow interval must not be negative.");
 
         return AutoFollowCommand.from(followUsers, autoFollowConfig).execute(super.getWebDriver());
@@ -157,7 +159,7 @@ public final class InstaBotJ extends AbstractInstaBot {
     public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
             @NonNull final AutoUnfollowConfig autoUnfollowConfig) {
         Preconditions.requireNonEmpty(unfollowUsers, "The unfollow user is required to execute auto unfollow command.");
-        Preconditions.requirePositive(autoUnfollowConfig.getUnfollowInterval(),
+        Preconditions.requirePositive(autoUnfollowConfig.getInterval(),
                 "The count of unfollow interval must not be negative.");
 
         return AutoUnfollowCommand.from(unfollowUsers, autoUnfollowConfig).execute(super.getWebDriver());

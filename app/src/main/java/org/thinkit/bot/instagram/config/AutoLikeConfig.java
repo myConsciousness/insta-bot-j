@@ -47,5 +47,5 @@ public final class AutoLikeConfig implements Serializable {
      * The like interval
      */
     @Getter
-    private int likeInterval;
+    private int interval;
 }

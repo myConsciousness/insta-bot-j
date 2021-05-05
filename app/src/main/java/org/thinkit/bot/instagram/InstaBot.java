@@ -21,6 +21,7 @@ import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
+import org.thinkit.bot.instagram.param.FollowBackCheckUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
@@ -36,20 +37,21 @@ import lombok.NonNull;
 
 public interface InstaBot {
 
-        public AutoLoginResult executeLogin(@NonNull final ActionUser actionUser);
+    public AutoLoginResult executeLogin(@NonNull final ActionUser actionUser);
 
-        public List<AutoLikeResult> executeAutoLike(@NonNull final List<TargetHashtag> targetHashtags,
-                        @NonNull final AutoLikeConfig autoLikeConfig);
+    public List<AutoLikeResult> executeAutoLike(@NonNull final List<TargetHashtag> targetHashtags,
+            @NonNull final AutoLikeConfig autoLikeConfig);
 
-        public AutoForecastFollowBackResult executeAutoForecastFollowBackUser(
-                        @NonNull final List<ForecastUser> forecastUsers,
-                        @NonNull final AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig);
+    public AutoForecastFollowBackResult executeAutoForecastFollowBackUser(
+            @NonNull final List<ForecastUser> forecastUsers,
+            @NonNull final AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig);
 
-        public AutoCheckFollowBackResult executeAutoCheckFollowBack();
+    public AutoCheckFollowBackResult executeAutoCheckFollowBack(
+            @NonNull final List<FollowBackCheckUser> followBackCheckUsers);
 
-        public AutoFollowResult executeAutoFollow(@NonNull final List<FollowUser> followUsers,
-                        @NonNull final AutoFollowConfig autoFollowConfig);
+    public AutoFollowResult executeAutoFollow(@NonNull final List<FollowUser> followUsers,
+            @NonNull final AutoFollowConfig autoFollowConfig);
 
-        public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
-                        @NonNull final AutoUnfollowConfig autoUnfollowConfig);
+    public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
+            @NonNull final AutoUnfollowConfig autoUnfollowConfig);
 }

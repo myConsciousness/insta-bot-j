@@ -42,5 +42,5 @@ public final class AutoUnfollowConfig implements Serializable {
      * The unfollow interval
      */
     @Getter
-    private int unfollowInterval;
+    private int interval;
 }

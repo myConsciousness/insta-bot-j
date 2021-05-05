@@ -12,34 +12,32 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.config;
+package org.thinkit.bot.instagram.param;
 
 import java.io.Serializable;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the configuration when execution auto follow command.
+ * The entity that manages follow back check user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoFollowConfig implements Serializable {
+@AllArgsConstructor(staticName = "from")
+public class FollowBackCheckUser implements Serializable {
 
     /**
-     * The follow interval
+     * The user name
      */
     @Getter
-    private int interval;
+    private String userName;
 }

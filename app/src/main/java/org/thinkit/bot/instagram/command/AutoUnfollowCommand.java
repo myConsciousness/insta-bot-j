@@ -66,7 +66,7 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
                 super.wait(WaitType.UNFOLLOW);
 
                 if (!actionUnfollowedUsers.isEmpty()
-                        && actionUnfollowedUsers.size() % autoUnfollowConfig.getUnfollowInterval() == 0) {
+                        && actionUnfollowedUsers.size() % autoUnfollowConfig.getInterval() == 0) {
                     super.wait(WaitType.HUMAN_LIKE_INTERVAL);
                 }
 

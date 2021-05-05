@@ -70,7 +70,7 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
                 super.wait(WaitType.FOLLOW);
 
                 if (!actionFollowedUsers.isEmpty()
-                        && actionFollowedUsers.size() % autoFollowConfig.getFollowInterval() == 0) {
+                        && actionFollowedUsers.size() % autoFollowConfig.getInterval() == 0) {
                     super.wait(WaitType.HUMAN_LIKE_INTERVAL);
                 }
 
