@@ -29,7 +29,7 @@ import lombok.NonNull;
 import lombok.ToString;
 
 /**
- * The class that manages the result of auto check follow back command.
+ * The class that manages the result of auto scrape user profile command.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -39,7 +39,7 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoCheckFollowBackResult implements Serializable {
+public final class AutoScrapeUserProfileResult implements Serializable {
 
     /**
      * The action status
@@ -49,17 +49,18 @@ public final class AutoCheckFollowBackResult implements Serializable {
     private ActionStatus actionStatus;
 
     /**
-     * The count check
-     */
-    @Getter
-    private int countCheck;
-
-    /**
-     * The action follow backed users
+     * The action following users
      */
     @Getter
     @NonNull
-    private List<ActionFollowBackedUser> actionFollowBackedUsers;
+    private List<ActionFollowingUser> actionFollowingUsers;
+
+    /**
+     * The action followers
+     */
+    @Getter
+    @NonNull
+    private List<ActionFollower> actionFollowers;
 
     /**
      * The action errors

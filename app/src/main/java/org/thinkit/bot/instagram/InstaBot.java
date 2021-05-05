@@ -21,16 +21,15 @@ import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
-import org.thinkit.bot.instagram.param.FollowBackCheckUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.param.UnfollowUser;
-import org.thinkit.bot.instagram.result.AutoCheckFollowBackResult;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoForecastFollowBackResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.AutoLoginResult;
+import org.thinkit.bot.instagram.result.AutoScrapeUserProfileResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 
 import lombok.NonNull;
@@ -46,8 +45,7 @@ public interface InstaBot {
             @NonNull final List<ForecastUser> forecastUsers,
             @NonNull final AutoForecastFollowBackUserConfig autoForecastFollowBackUserConfig);
 
-    public AutoCheckFollowBackResult executeAutoCheckFollowBack(
-            @NonNull final List<FollowBackCheckUser> followBackCheckUsers);
+    public AutoScrapeUserProfileResult executeAutoScrapeUserProfile(@NonNull final ActionUser actionUser);
 
     public AutoFollowResult executeAutoFollow(@NonNull final List<FollowUser> followUsers,
             @NonNull final AutoFollowConfig autoFollowConfig);

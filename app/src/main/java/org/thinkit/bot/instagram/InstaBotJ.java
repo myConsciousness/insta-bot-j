@@ -18,11 +18,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.command.AutoCheckFollowBackCommand;
 import org.thinkit.bot.instagram.command.AutoFollowCommand;
 import org.thinkit.bot.instagram.command.AutoForecastFollowBackUserCommand;
 import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.AutoLoginCommand;
+import org.thinkit.bot.instagram.command.AutoScrapeUserProfileCommand;
 import org.thinkit.bot.instagram.command.AutoUnfollowCommand;
 import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
@@ -30,16 +30,15 @@ import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.ActionUser;
-import org.thinkit.bot.instagram.param.FollowBackCheckUser;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.param.UnfollowUser;
-import org.thinkit.bot.instagram.result.AutoCheckFollowBackResult;
 import org.thinkit.bot.instagram.result.AutoFollowResult;
 import org.thinkit.bot.instagram.result.AutoForecastFollowBackResult;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
 import org.thinkit.bot.instagram.result.AutoLoginResult;
+import org.thinkit.bot.instagram.result.AutoScrapeUserProfileResult;
 import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 import org.thinkit.common.base.precondition.Preconditions;
 
@@ -140,9 +139,8 @@ public final class InstaBotJ extends AbstractInstaBot {
     }
 
     @Override
-    public AutoCheckFollowBackResult executeAutoCheckFollowBack(
-            @NonNull final List<FollowBackCheckUser> followBackCheckUsers) {
-        return AutoCheckFollowBackCommand.from(followBackCheckUsers).execute(super.getWebDriver());
+    public AutoScrapeUserProfileResult executeAutoScrapeUserProfile(@NonNull final ActionUser actionUser) {
+        return AutoScrapeUserProfileCommand.from(actionUser).execute(super.getWebDriver());
     }
 
     @Override

@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the action follow backed user.
+ * The class that manages the action follower.
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -35,7 +35,7 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class ActionFollowBackedUser implements Serializable {
+public final class ActionFollower implements Serializable {
 
     /**
      * The user name
