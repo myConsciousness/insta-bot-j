@@ -26,6 +26,7 @@ import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.JavaScriptCommand;
+import org.thinkit.bot.instagram.catalog.Separator;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.param.ActionUser;
@@ -86,7 +87,7 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
         });
     }
 
-    private List<String> getProfileUsers(@NonNull final ElementXPath ProfileModalLink,
+    private List<String> getProfileUsers(@NonNull final ElementXPath profileModalLink,
             @NonNull final List<ActionError> actionErrors) {
 
         final List<String> profileUsers = new ArrayList<>();
@@ -94,23 +95,28 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
         super.wait(WaitType.HUMAN_LIKE_INTERVAL);
         super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), this.actionUser.getUserName()));
 
-        final int loopCount = ProfileModalLink == ElementXPath.PROFILE_FOLLOWERS_LINK ? this.fetchFollowerCount()
+        final int loopCount = profileModalLink == ElementXPath.PROFILE_FOLLOWERS_LINK ? this.fetchFollowerCount()
                 : this.fetchFollowingCount();
-        super.findByXpath(ProfileModalLink).click();
+        super.findByXpath(profileModalLink).click();
 
         for (int i = 1; i <= loopCount; i++) {
             WebElement row = null;
             try {
                 row = super.findElement(By.xpath(String.format(ElementXPath.PROFILE_MODAL_LIST.getTag(), i)));
-                profileUsers.add(StringUtils.split(row.getText())[0]);
-            } catch (Exception recoverableException) {
-                actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_SCRAPE_USER_PROFILE));
+                final String userText = row.getText();
 
-                if (row != null) {
-                    profileUsers.add(row.getText());
+                if (userText.contains(Separator.WHITESPACE.getTag())) {
+                    profileUsers.add(StringUtils.split(userText)[0]);
                 } else {
-                    return profileUsers;
+                    profileUsers.add(userText);
                 }
+            } catch (Exception recoverableException) {
+                // There is an inconsistency between the number of followers shown in profile
+                // and the actual number of followers. This exception is mainly caused by the
+                // inconsistency in the number of followers. At least, once this exception is
+                // reached, the data of all users is considered to have been scraped.
+                actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_SCRAPE_USER_PROFILE));
+                return profileUsers;
             }
 
             super.executeScript(JavaScriptCommand.SCROLL_VIEW, row);
