@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.List;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -22,7 +24,11 @@ import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.mongo.entity.UserAccount;
+import org.thinkit.bot.instagram.mongo.entity.UserFollowing;
+import org.thinkit.bot.instagram.mongo.repository.UserFollowingRepository;
 import org.thinkit.bot.instagram.param.ActionUser;
+import org.thinkit.bot.instagram.result.ActionFollower;
+import org.thinkit.bot.instagram.result.ActionFollowingUser;
 import org.thinkit.bot.instagram.result.AutoScrapeUserProfileResult;
 
 import lombok.EqualsAndHashCode;
@@ -54,15 +60,31 @@ public final class ExecuteAutoScrapeUserProfileTasklet extends AbstractTasklet {
         log.debug("START");
 
         final AutoScrapeUserProfileResult autoScrapeUserProfileResult = super.getInstaBot()
-                .executeAutoScrapeUserProfile(ActionUser.from(userAccount.getUserName(), userAccount.getPassword()));
+                .executeAutoScrapeUserProfile(
+                        ActionUser.from(this.userAccount.getUserName(), this.userAccount.getPassword()));
+        final List<ActionFollowingUser> actionFollowingUsers = autoScrapeUserProfileResult.getActionFollowingUsers();
+        final List<ActionFollower> actionFollowers = autoScrapeUserProfileResult.getActionFollowers();
 
-        System.out.println(autoScrapeUserProfileResult);
-        System.out.println(autoScrapeUserProfileResult.getActionFollowers());
-        System.out.println(autoScrapeUserProfileResult.getActionFollowingUsers());
-        System.out.println(autoScrapeUserProfileResult.getActionFollowers().size());
-        System.out.println(autoScrapeUserProfileResult.getActionFollowingUsers().size());
+        final UserFollowingRepository userFollowingRepository = super.getMongoCollections()
+                .getUserFollowingRepository();
+        userFollowingRepository.deleteByChargeUserName(this.userAccount.getUserName());
+
+        for (final ActionFollowingUser actionFollowingUser : actionFollowingUsers) {
+            UserFollowing userFollowing = new UserFollowing();
+            userFollowing.setUserName(actionFollowingUser.getUserName());
+            userFollowing.setChargeUserName(this.userAccount.getUserName());
+
+            userFollowing = userFollowingRepository.insert(userFollowing);
+            log.debug("Inserted user following: {}", userFollowing);
+        }
+
+        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
+        batchTaskResultBuilder.actionCount(actionFollowingUsers.size() + actionFollowers.size());
+        batchTaskResultBuilder.resultCount(actionFollowingUsers.size() + actionFollowers.size());
+        batchTaskResultBuilder.actionErrors(autoScrapeUserProfileResult.getActionErrors());
 
         log.debug("END");
-        return BatchTaskResult.builder().build();
+        return batchTaskResultBuilder.build();
     }
+
 }

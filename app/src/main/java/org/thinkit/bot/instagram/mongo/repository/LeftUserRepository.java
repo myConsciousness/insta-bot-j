@@ -14,22 +14,18 @@
 
 package org.thinkit.bot.instagram.mongo.repository;
 
-import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.mongo.entity.UserFollowing;
+import org.thinkit.bot.instagram.mongo.entity.LeftUser;
 
 /**
- * The interface that manages user following repository.
+ * The interface that manages left user repository.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @Repository
-public interface UserFollowingRepository extends MongoRepository<UserFollowing, String> {
+public interface LeftUserRepository extends MongoRepository<LeftUser, String> {
 
-    public UserFollowing findByUserNameAndChargeUserName(String userName, String chargeUserName);
-
-    @DeleteQuery
-    public void deleteByChargeUserName(String chargeUserName);
+    public LeftUser findByUserName(String userName);
 }

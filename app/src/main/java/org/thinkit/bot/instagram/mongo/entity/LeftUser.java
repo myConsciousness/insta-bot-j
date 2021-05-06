@@ -15,28 +15,26 @@
 package org.thinkit.bot.instagram.mongo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
-import lombok.ToString;
 
 /**
- * The entity that manages user account.
+ * The entity that manages the left user.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @Data
-@Document("user_account")
-public final class UserAccount implements Serializable {
+@Document("left_user")
+public final class LeftUser implements Serializable {
 
     /**
      * The id
      */
-    @Id
     @Indexed(unique = true)
     private String id;
 
@@ -47,8 +45,12 @@ public final class UserAccount implements Serializable {
     private String userName;
 
     /**
-     * The password
+     * The created datetime
      */
-    @ToString.Exclude
-    private String password;
+    private Date createdAt;
+
+    /**
+     * The updated datetime
+     */
+    private Date updatedAt;
 }

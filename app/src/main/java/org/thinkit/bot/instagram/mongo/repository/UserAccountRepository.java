@@ -26,4 +26,6 @@ import org.thinkit.bot.instagram.mongo.entity.UserAccount;
  */
 @Repository
 public interface UserAccountRepository extends MongoRepository<UserAccount, String> {
+
+    public UserAccount findByUserName(String userName);
 }
