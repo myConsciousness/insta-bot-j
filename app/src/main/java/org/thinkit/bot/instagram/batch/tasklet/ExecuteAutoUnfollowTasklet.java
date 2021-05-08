@@ -135,7 +135,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         final List<UnfollowUser> unfollowUsers = new ArrayList<>();
 
         final FollowedUserRepository followedUserRepository = this.getMongoCollections().getFollowedUserRepository();
-        final List<FollowedUser> followedUsers = followedUserRepository.findAll();
+        final List<FollowedUser> followedUsers = followedUserRepository.findByChargeUserName(super.getChargeUserName());
 
         for (final FollowedUser followedUser : followedUsers) {
             if (this.isFollowExpiredUser(followedUser) && !this.isDuplicateUser(unfollowUsers, followedUser)) {
@@ -152,7 +152,11 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
     }
 
     private boolean isFollowExpiredUser(@NonNull final FollowedUser followedUser) {
-        return DateUtils.isDayElapsed(followedUser.getCreatedAt(), 7);
+        return DateUtils.toString(new Date()).equals(this.getFollowExpiredDate(followedUser));
+    }
+
+    private String getFollowExpiredDate(@NonNull final FollowedUser followedUser) {
+        return followedUser.isMutual() ? followedUser.getMutualExpiredDate() : followedUser.getExpiredDate();
     }
 
     private boolean isDuplicateUser(@NonNull final List<UnfollowUser> unfollowUsers,

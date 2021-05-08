@@ -54,6 +54,9 @@ public class BatchStepConfiguration {
     private Tasklet executeAutoScrapeUserProfileTasklet;
 
     @Autowired
+    private Tasklet executeAutoDiagnoseFollowTasklet;
+
+    @Autowired
     private Tasklet executeAutoFollowTasklet;
 
     @Autowired
@@ -74,6 +77,7 @@ public class BatchStepConfiguration {
                 .updateAutoForecastFollowBackUserConfigStep(this.updateAutoForecastFollowBackUserConfigStep());
         batchStepCollectionsBuilder.executeAutoForecastFollowBackUserStep(this.executeAutoForecastFollowBackUserStep());
         batchStepCollectionsBuilder.executeAutoScrapeUserProfileTasklet(this.executeAutoScrapeUserProfileStep());
+        batchStepCollectionsBuilder.executeAutoDiagnoseFollowTasklet(this.executeAutoDiagnoseFollowStep());
         batchStepCollectionsBuilder.executeAutoFollowStep(this.executeAutoFollowStep());
         batchStepCollectionsBuilder.executeAutoUnfollowStep(this.executeAutoUnfollowStep());
         batchStepCollectionsBuilder.notifyResultStep(this.notifyResultStep());
@@ -113,6 +117,11 @@ public class BatchStepConfiguration {
     private Step executeAutoScrapeUserProfileStep() {
         return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_SCRAPE_USER_PROFILE.getTag())
                 .tasklet(this.executeAutoScrapeUserProfileTasklet).build();
+    }
+
+    private Step executeAutoDiagnoseFollowStep() {
+        return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_DIAGNOSE_FOLLOW.getTag())
+                .tasklet(this.executeAutoDiagnoseFollowTasklet).build();
     }
 
     private Step executeAutoFollowStep() {

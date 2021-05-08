@@ -54,14 +54,19 @@ public enum BatchStep implements BiCatalog<BatchStep, String> {
     EXECUTE_AUTO_SCRAPE_USER_PROFILE(3, "ExecuteAutoScrapeUserProfile"),
 
     /**
+     * The execute auto diagnose follow step
+     */
+    EXECUTE_AUTO_DIAGNOSE_FOLLOW(4, "executeAutoDiagnoseFollow"),
+
+    /**
      * The execute auto follow step
      */
-    EXECUTE_AUTO_FOLLOW(4, "ExecuteAutoFollow"),
+    EXECUTE_AUTO_FOLLOW(5, "ExecuteAutoFollow"),
 
     /**
      * The execute auto unfollow step
      */
-    EXECUTE_AUTO_UNFOLLOW(5, "ExecuteAutoUnfollow"),
+    EXECUTE_AUTO_UNFOLLOW(6, "ExecuteAutoUnfollow"),
 
     /**
      * The update auto like config step

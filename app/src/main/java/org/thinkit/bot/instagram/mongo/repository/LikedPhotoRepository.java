@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.mongo.repository;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
@@ -28,6 +30,8 @@ import org.thinkit.bot.instagram.mongo.entity.LikedPhoto;
 @Repository
 public interface LikedPhotoRepository extends MongoRepository<LikedPhoto, String> {
 
+    public List<LikedPhoto> findByChargeUserName(String chargeUserName);
+
     @DeleteQuery
-    public void deleteByUserName(String userName);
+    public void deleteByUserNameAndChargeUserName(String userName, String chargeUserName);
 }

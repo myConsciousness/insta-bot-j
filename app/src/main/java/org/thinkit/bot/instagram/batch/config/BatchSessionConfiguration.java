@@ -18,6 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -36,6 +37,12 @@ import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
 @Configuration
 @EnableScheduling
 public class BatchSessionConfiguration {
+
+    /**
+     * The configurable application context
+     */
+    @Autowired
+    private ConfigurableApplicationContext context;
 
     /**
      * The mongo collection
@@ -76,7 +83,7 @@ public class BatchSessionConfiguration {
     }
 
     @Scheduled(cron = "${spring.batch.schedule.session.cron}", zone = "${spring.batch.schedule.timezone}")
-    public void performScheduledRefreshSession() throws Exception {
+    public void performScheduledCloseSession() throws Exception {
         final SessionRepository sessionRepository = this.mongoCollections.getSessionRepository();
         final Session session = sessionRepository.findByUserName(this.userAccount.getUserName());
 
@@ -84,6 +91,6 @@ public class BatchSessionConfiguration {
         session.setUpdatedAt(new Date());
         sessionRepository.save(session);
 
-        System.exit(0);
+        context.close();
     }
 }

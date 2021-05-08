@@ -84,6 +84,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
                 .getFollowBackExpectableUserRepository();
         final LikedPhotoRepository likedPhotoRepository = this.getMongoCollections().getLikedPhotoRepository();
 
+        final String chargeUserName = super.getChargeUserName();
         final List<ActionExpectableUser> expectableUsers = autoForecastFollowBackResult.getExpectableUsers();
         final List<ActionUnexpectableUser> unexpectableUsers = autoForecastFollowBackResult.getUnexpectableUsers();
 
@@ -100,12 +101,12 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
             log.debug("Interted follow back expectable user: {}", followBackExpectableUser);
 
             // Delete forecasted expectable users
-            likedPhotoRepository.deleteByUserName(expectableUser.getUserName());
+            likedPhotoRepository.deleteByUserNameAndChargeUserName(expectableUser.getUserName(), chargeUserName);
         }
 
         for (final ActionUnexpectableUser unexpectableUser : unexpectableUsers) {
             // Delete forecasted unexpectable users
-            likedPhotoRepository.deleteByUserName(unexpectableUser.getUserName());
+            likedPhotoRepository.deleteByUserNameAndChargeUserName(unexpectableUser.getUserName(), chargeUserName);
         }
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
@@ -125,7 +126,8 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
     private List<ForecastUser> getForecastUsers() {
         log.debug("START");
 
-        final List<LikedPhoto> likedPhotos = super.getMongoCollections().getLikedPhotoRepository().findAll();
+        final List<LikedPhoto> likedPhotos = super.getMongoCollections().getLikedPhotoRepository()
+                .findByChargeUserName(super.getChargeUserName());
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
         Collections.shuffle(likedPhotos);
