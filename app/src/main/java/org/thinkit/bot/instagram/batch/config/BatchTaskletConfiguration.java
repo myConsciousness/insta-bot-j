@@ -15,33 +15,25 @@
 package org.thinkit.bot.instagram.batch.config;
 
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoFollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoForecastFollowBackUserTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoScrapeUserProfileTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoUnfollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.InitializeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.UpdateAutoForecastFollowBackUserConfigTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.UpdateAutoLikeConfigTasklet;
-import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 
 @Configuration
 public class BatchTaskletConfiguration {
 
-    /**
-     * The mongo collection
-     */
-    @Autowired
-    private MongoCollections mongoCollection;
-
     @Bean
-    public UserAccount userAccount() {
-        return this.mongoCollection.getUserAccountRepository().findAll().get(0);
+    public Tasklet initialize() {
+        return InitializeTasklet.newInstance();
     }
 
     @Bean

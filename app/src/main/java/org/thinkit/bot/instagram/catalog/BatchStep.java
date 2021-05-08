@@ -29,9 +29,14 @@ import lombok.RequiredArgsConstructor;
 public enum BatchStep implements BiCatalog<BatchStep, String> {
 
     /**
-     * The login step
+     * The initialize step
      */
-    LOGIN(0, "LoginStep"),
+    INITIALIZE(-1, "InitializeStep"),
+
+    /**
+     * The execute auto login step
+     */
+    EXECUTE_AUTO_LOGIN(0, "ExecuteAutoLoginStep"),
 
     /**
      * The execute auto like step

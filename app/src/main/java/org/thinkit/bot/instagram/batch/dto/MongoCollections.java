@@ -28,6 +28,7 @@ import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
 import org.thinkit.bot.instagram.mongo.repository.UnfollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserFollowerRepository;
@@ -156,4 +157,10 @@ public final class MongoCollections implements Serializable {
      */
     @Getter
     private UserFollowingRepository userFollowingRepository;
+
+    /**
+     * The session repository
+     */
+    @Getter
+    private SessionRepository sessionRepository;
 }

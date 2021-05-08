@@ -33,7 +33,10 @@ public class BatchStepConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    private Tasklet executeLoginTasklet;
+    private Tasklet initializeTasklet;
+
+    @Autowired
+    private Tasklet executeAutoLoginTasklet;
 
     @Autowired
     private Tasklet updateAutoLikeConfigTasklet;
@@ -63,7 +66,8 @@ public class BatchStepConfiguration {
     public BatchStepCollections batchStepCollections() {
         final BatchStepCollections.BatchStepCollectionsBuilder batchStepCollectionsBuilder = BatchStepCollections
                 .builder();
-        batchStepCollectionsBuilder.executeLoginStep(this.executeLoginStep());
+        batchStepCollectionsBuilder.initializeStep(this.initializeStep());
+        batchStepCollectionsBuilder.executeAutoLoginStep(this.executeAutoLoginStep());
         batchStepCollectionsBuilder.updateAutoLikeConfigStep(this.updateAutoLikeConfigStep());
         batchStepCollectionsBuilder.executeAutoLikeStep(this.executeAutoLikeStep());
         batchStepCollectionsBuilder
@@ -77,8 +81,13 @@ public class BatchStepConfiguration {
         return batchStepCollectionsBuilder.build();
     }
 
-    private Step executeLoginStep() {
-        return this.stepBuilderFactory.get(BatchStep.LOGIN.getTag()).tasklet(this.executeLoginTasklet).build();
+    private Step initializeStep() {
+        return this.stepBuilderFactory.get(BatchStep.INITIALIZE.getTag()).tasklet(this.initializeTasklet).build();
+    }
+
+    private Step executeAutoLoginStep() {
+        return this.stepBuilderFactory.get(BatchStep.EXECUTE_AUTO_LOGIN.getTag()).tasklet(this.executeAutoLoginTasklet)
+                .build();
     }
 
     private Step updateAutoLikeConfigStep() {

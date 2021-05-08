@@ -32,6 +32,7 @@ import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
+import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
 import org.thinkit.bot.instagram.mongo.repository.UnfollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.mongo.repository.UserFollowerRepository;
@@ -149,6 +150,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Autowired
     private UserFollowingRepository userFollowingRepository;
 
+    /**
+     * The session repository
+     */
+    @Autowired
+    private SessionRepository sessionRepository;
+
     @Override
     protected String getDatabaseName() {
         return MongoDatabase.INSTAGRAM.getTag();
@@ -179,6 +186,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.unfollowedUserRepository(this.unfollowedUserRepository);
         mongoCollectionsBuilder.userFollowerRepository(this.userFollowerRepository);
         mongoCollectionsBuilder.userFollowingRepository(this.userFollowingRepository);
+        mongoCollectionsBuilder.sessionRepository(this.sessionRepository);
 
         return mongoCollectionsBuilder.build();
     }
