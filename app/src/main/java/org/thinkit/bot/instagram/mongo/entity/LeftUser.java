@@ -39,9 +39,15 @@ public final class LeftUser implements Serializable {
     private String id;
 
     /**
-     * The user name
+     * The charge user name
      */
     @Indexed(unique = true)
+    private String chargeUserName;
+
+    /**
+     * The user name
+     */
+    @Indexed
     private String userName;
 
     /**

@@ -29,6 +29,7 @@ import org.thinkit.bot.instagram.mongo.repository.FollowBackPossibilityIndicator
 import org.thinkit.bot.instagram.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
+import org.thinkit.bot.instagram.mongo.repository.LeftUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
@@ -151,6 +152,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     private UserFollowingRepository userFollowingRepository;
 
     /**
+     * The left user repository
+     */
+    @Autowired
+    private LeftUserRepository leftUserRepository;
+
+    /**
      * The session repository
      */
     @Autowired
@@ -186,6 +193,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.unfollowedUserRepository(this.unfollowedUserRepository);
         mongoCollectionsBuilder.userFollowerRepository(this.userFollowerRepository);
         mongoCollectionsBuilder.userFollowingRepository(this.userFollowingRepository);
+        mongoCollectionsBuilder.leftUserRepository(this.leftUserRepository);
         mongoCollectionsBuilder.sessionRepository(this.sessionRepository);
 
         return mongoCollectionsBuilder.build();

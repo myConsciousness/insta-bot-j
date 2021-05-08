@@ -188,7 +188,8 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
             @NonNull final LikedPhoto likedPhoto) {
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
-        return followBackExpectableUserRepository.findByUserName(likedPhoto.getUserName()) != null;
+        return followBackExpectableUserRepository.findByUserNameAndChargeUserName(likedPhoto.getUserName(),
+                super.getChargeUserName()) != null;
     }
 
     private int getMaxUserCount() {

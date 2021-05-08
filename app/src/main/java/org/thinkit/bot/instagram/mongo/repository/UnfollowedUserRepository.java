@@ -27,5 +27,5 @@ import org.thinkit.bot.instagram.mongo.entity.UnfollowedUser;
 @Repository
 public interface UnfollowedUserRepository extends MongoRepository<UnfollowedUser, String> {
 
-    public UnfollowedUser findByUserName(String userName);
+    public UnfollowedUser findByUserNameAndChargeUserName(String userName, String chargeUserName);
 }

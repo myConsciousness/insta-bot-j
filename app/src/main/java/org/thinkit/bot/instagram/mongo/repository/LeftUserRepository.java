@@ -27,5 +27,5 @@ import org.thinkit.bot.instagram.mongo.entity.LeftUser;
 @Repository
 public interface LeftUserRepository extends MongoRepository<LeftUser, String> {
 
-    public LeftUser findByUserName(String userName);
+    public LeftUser findByUserNameAndChargeUserName(String userName, String chargeUserName);
 }

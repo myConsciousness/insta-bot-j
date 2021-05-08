@@ -47,6 +47,12 @@ public final class UnfollowedUser implements Serializable {
     private String userName;
 
     /**
+     * The charge user name
+     */
+    @Indexed(unique = true)
+    private String chargeUserName;
+
+    /**
      * The url
      */
     @Indexed(unique = true)

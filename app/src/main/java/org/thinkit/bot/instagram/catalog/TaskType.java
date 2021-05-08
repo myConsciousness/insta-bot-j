@@ -49,19 +49,24 @@ public enum TaskType implements Catalog<TaskType> {
     AUTO_SCRAPE_USER_PROFILE(3),
 
     /**
+     * The auto diagnose follow
+     */
+    AUTO_DIAGNOSE_FOLLOW(4),
+
+    /**
      * The auto comment task
      */
-    AUTO_COMMENT(4),
+    AUTO_COMMENT(5),
 
     /**
      * The auto follow task
      */
-    AUTO_FOLLOW(5),
+    AUTO_FOLLOW(6),
 
     /**
      * The auto unfollow task
      */
-    AUTO_UNFOLLOW(6),
+    AUTO_UNFOLLOW(7),
 
     /**
      * The initialize

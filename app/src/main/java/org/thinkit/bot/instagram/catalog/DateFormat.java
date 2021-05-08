@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public enum DateFormat implements BiCatalog<DateFormat, String> {
 
     /**
-     * {@code "yyyy-MM-dd"}
+     * {@code "yyyy/MM/dd"}
      */
-    YYYY_MM_DD(0, "yyyy-MM-dd");
+    YYYY_MM_DD(0, "yyyy/MM/dd");
 
     /**
      * The code

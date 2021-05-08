@@ -25,6 +25,7 @@ import org.thinkit.bot.instagram.mongo.repository.FollowBackPossibilityIndicator
 import org.thinkit.bot.instagram.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
+import org.thinkit.bot.instagram.mongo.repository.LeftUserRepository;
 import org.thinkit.bot.instagram.mongo.repository.LikedPhotoRepository;
 import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.mongo.repository.MissingUserRepository;
@@ -157,6 +158,12 @@ public final class MongoCollections implements Serializable {
      */
     @Getter
     private UserFollowingRepository userFollowingRepository;
+
+    /**
+     * The left user repository
+     */
+    @Getter
+    private LeftUserRepository leftUserRepository;
 
     /**
      * The session repository

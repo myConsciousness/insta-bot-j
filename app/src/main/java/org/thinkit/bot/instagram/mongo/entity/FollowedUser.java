@@ -18,6 +18,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
@@ -36,22 +37,41 @@ public final class FollowedUser implements Serializable {
      * The id
      */
     @Id
+    @Indexed(unique = true)
     private String id;
 
     /**
      * The user name
      */
+    @Indexed
     private String userName;
+
+    /**
+     * The charge user name
+     */
+    @Indexed(unique = true)
+    private String chargeUserName;
 
     /**
      * The url
      */
+    @Indexed(unique = true)
     private String url;
 
     /**
      * The mutual
      */
     private boolean mutual;
+
+    /**
+     * The expired date
+     */
+    private String expiredDate;
+
+    /**
+     * The mutual expired date
+     */
+    private String mutualExpiredDate;
 
     /**
      * The created datetime

@@ -47,6 +47,12 @@ public final class MissingUser implements Serializable {
     private String userName;
 
     /**
+     * The charge user name
+     */
+    @Indexed(unique = true)
+    private String chargeUserName;
+
+    /**
      * The created datetime
      */
     private Date createdAt = new Date();

@@ -30,7 +30,6 @@ import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.policy.Task;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.catalog.DateFormat;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.DefaultVariableMapper;
@@ -41,6 +40,7 @@ import org.thinkit.bot.instagram.mongo.entity.ActionSkip;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
@@ -81,6 +81,13 @@ public abstract class AbstractTasklet implements Tasklet {
     @Autowired
     @Getter(AccessLevel.PROTECTED)
     private InstaBot instaBot;
+
+    /**
+     * The user account
+     */
+    @Autowired
+    @Getter(AccessLevel.PROTECTED)
+    private UserAccount userAccount;
 
     /**
      * The mongo collections
@@ -184,6 +191,10 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("Updated variable: {}", variable);
 
         log.debug("END");
+    }
+
+    protected String getChargeUserName() {
+        return this.userAccount.getUserName();
     }
 
     private RepeatStatus executeTaskProcess(StepContribution contribution, ChunkContext chunkContext) {
@@ -331,7 +342,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final VariableName variableName = BiCatalog.getEnum(VariableName.class, this.getExecutionControlledVariable());
-        this.saveVariable(variableName, DateUtils.toString(new Date(), DateFormat.YYYY_MM_DD));
+        this.saveVariable(variableName, DateUtils.toString(new Date()));
 
         log.debug("END");
     }

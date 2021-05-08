@@ -21,12 +21,9 @@ import java.util.List;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.catalog.DateFormat;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
@@ -51,12 +48,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
 
-    /**
-     * The insta bot
-     */
-    @Autowired
-    private InstaBot instaBot;
-
     private ExecuteAutoFollowTasklet() {
         super(TaskType.AUTO_FOLLOW);
     }
@@ -75,7 +66,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
             return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
         }
 
-        final AutoFollowResult autoFollowResult = this.instaBot.executeAutoFollow(followUsers,
+        final AutoFollowResult autoFollowResult = super.getInstaBot().executeAutoFollow(followUsers,
                 this.getAutoFollowConfig());
         log.info("The auto follow has completed the process successfully.");
 
@@ -86,22 +77,29 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
                 .getFollowBackExpectableUserRepository();
         final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
 
+        final String chargeUserName = super.getChargeUserName();
+        final String expiredDate = DateUtils.getDateAfter(7);
+
         for (final ActionFollowedUser actionFollowedUser : actionFollowedUsers) {
             FollowedUser followedUser = new FollowedUser();
+            followedUser.setChargeUserName(chargeUserName);
             followedUser.setUserName(actionFollowedUser.getUserName());
             followedUser.setUrl(actionFollowedUser.getUrl());
             followedUser.setMutual(false);
+            followedUser.setExpiredDate(expiredDate);
 
             followedUser = followedUserRepository.insert(followedUser);
             log.debug("Inserted followed user: {}", followedUser);
 
             // Delete followed user from expectable user repository
-            followBackExpectableUserRepository.deleteByUserName(actionFollowedUser.getUserName());
+            followBackExpectableUserRepository.deleteByUserNameAndChargeUserName(actionFollowedUser.getUserName(),
+                    chargeUserName);
         }
 
         for (final ActionFollowFailedUser actionFollowFailedUser : actionFollowFailedUsers) {
             // Delete follow failed user from expectable user repository
-            followBackExpectableUserRepository.deleteByUserName(actionFollowFailedUser.getUserName());
+            followBackExpectableUserRepository.deleteByUserNameAndChargeUserName(actionFollowFailedUser.getUserName(),
+                    chargeUserName);
         }
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
@@ -122,7 +120,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
         final List<FollowBackExpectableUser> followBackExpectableUsers = followBackExpectableUserRepository
-                .findByOrderByFollowBackPossibilityCodeAsc();
+                .findByChargeUserNameOrderByFollowBackPossibilityCodeAsc(super.getChargeUserName());
 
         for (final FollowBackExpectableUser followBackExpectableUser : followBackExpectableUsers) {
             if (!this.isDuplicateUser(followUsers, followBackExpectableUser)) {
@@ -163,8 +161,13 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
 
     private boolean isAlreadyFollowedUser(@NonNull final List<FollowUser> followUsers,
             @NonNull final FollowBackExpectableUser followBackExpectableUser) {
+        log.debug("START");
+
         final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
-        return followedUserRepository.findByUserName(followBackExpectableUser.getUserName()) != null;
+
+        log.debug("END");
+        return followedUserRepository.findByUserNameAndChargeUserName(followBackExpectableUser.getUserName(),
+                super.getUserAccount().getUserName()) != null;
     }
 
     private AutoFollowConfig getAutoFollowConfig() {
@@ -181,7 +184,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
         log.debug("START");
 
         final String lastDateAttemptedAutoFollow = this.getLastDateAttemptedAutoFollow();
-        final String today = DateUtils.toString(new Date(), DateFormat.YYYY_MM_DD);
+        final String today = DateUtils.toString(new Date());
 
         log.debug("START");
         return lastDateAttemptedAutoFollow.equals(today);

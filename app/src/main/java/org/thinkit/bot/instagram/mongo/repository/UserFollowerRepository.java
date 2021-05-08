@@ -20,7 +20,6 @@ import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.UserFollower;
-import org.thinkit.bot.instagram.mongo.entity.UserFollowing;
 
 /**
  * The interface that manages user follower repository.
@@ -31,9 +30,9 @@ import org.thinkit.bot.instagram.mongo.entity.UserFollowing;
 @Repository
 public interface UserFollowerRepository extends MongoRepository<UserFollower, String> {
 
-    public List<UserFollowing> findByUserName(String userName);
+    public List<UserFollower> findByUserName(String userName);
 
-    public List<UserFollowing> findByChargeUserName(String chargeUserName);
+    public UserFollower findByUserNameAndChargeUserName(String userName, String chargeUserName);
 
     @DeleteQuery
     public void deleteByChargeUserName(String chargeUserName);

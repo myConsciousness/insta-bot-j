@@ -24,7 +24,6 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.catalog.DateFormat;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
@@ -77,6 +76,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         final List<ActionUnfollowFailedUser> actionUnfollowFailedUsers = autoUnfollowResult
                 .getActionUnfollowFailedUsers();
 
+        final String chargeUserName = super.getUserAccount().getUserName();
         final UnfollowedUserRepository unfollowedUserRepository = super.getMongoCollections()
                 .getUnfollowedUserRepository();
         final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
@@ -85,24 +85,28 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         for (final ActionUnfollowedUser actionUnfollowedUser : actionUnfollowedUsers) {
             UnfollowedUser unfollowedUser = new UnfollowedUser();
             unfollowedUser.setUserName(actionUnfollowedUser.getUserName());
+            unfollowedUser.setChargeUserName(chargeUserName);
             unfollowedUser.setUrl(actionUnfollowedUser.getUrl());
 
             unfollowedUser = unfollowedUserRepository.insert(unfollowedUser);
             log.debug("Inserted unfollowed user: {}", unfollowedUser);
 
             // Delete unfollowed user from followed user repository
-            followedUserRepository.deleteByUserName(actionUnfollowedUser.getUserName());
+            followedUserRepository.deleteByUserNameAndChargeUserName(actionUnfollowedUser.getUserName(),
+                    chargeUserName);
         }
 
         for (final ActionUnfollowFailedUser actionUnfollowFailedUser : actionUnfollowFailedUsers) {
             MissingUser missingUser = new MissingUser();
             missingUser.setUserName(actionUnfollowFailedUser.getUserName());
+            missingUser.setChargeUserName(chargeUserName);
 
             missingUser = missingUserRepository.insert(missingUser);
             log.debug("Inserted missing user: {}", missingUser);
 
             // Delete unfollow failed user from followed user repository
-            followedUserRepository.deleteByUserName(actionUnfollowFailedUser.getUserName());
+            followedUserRepository.deleteByUserNameAndChargeUserName(actionUnfollowFailedUser.getUserName(),
+                    chargeUserName);
         }
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
@@ -118,7 +122,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         log.debug("START");
 
         final String lastDateAttemptedAutoUnfollow = this.getLastDateAttemptedAutoUnfollow();
-        final String today = DateUtils.toString(new Date(), DateFormat.YYYY_MM_DD);
+        final String today = DateUtils.toString(new Date());
 
         log.debug("START");
         return lastDateAttemptedAutoUnfollow.equals(today);

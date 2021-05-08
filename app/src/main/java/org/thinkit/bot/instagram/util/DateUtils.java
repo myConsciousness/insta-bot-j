@@ -34,23 +34,27 @@ public final class DateUtils {
     private static final int UTC_TIMEZONE = -9;
 
     public static boolean isHourElapsed(@NonNull final Date baseDate, final int elapsedHour) {
-
-        final Calendar now = Calendar.getInstance();
-        now.add(Calendar.HOUR, UTC_TIMEZONE);
-
-        return MillisecondUtils.toHour(baseDate.getTime() - now.getTime().getTime()) >= elapsedHour;
+        return MillisecondUtils.toHour(baseDate.getTime() - getNow().getTime().getTime()) >= elapsedHour;
     }
 
     public static boolean isDayElapsed(@NonNull final Date baseDate, final int elapsedDay) {
-
-        final Calendar now = Calendar.getInstance();
-        now.add(Calendar.HOUR, UTC_TIMEZONE);
-
-        return MillisecondUtils.toDay(baseDate.getTime() - now.getTime().getTime()) >= elapsedDay;
+        return MillisecondUtils.toDay(baseDate.getTime() - getNow().getTime().getTime()) >= elapsedDay;
     }
 
-    public static String toString(@NonNull final Date date, @NonNull final DateFormat format) {
-        final SimpleDateFormat dateFormat = new SimpleDateFormat(format.getTag());
+    public static String getDateAfter(final int days) {
+        final Calendar now = getNow();
+        now.add(Calendar.DATE, days);
+        return toString(now.getTime());
+    }
+
+    public static String toString(@NonNull final Date date) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YYYY_MM_DD.getTag());
         return dateFormat.format(date);
+    }
+
+    private static Calendar getNow() {
+        final Calendar now = Calendar.getInstance();
+        now.add(Calendar.HOUR, UTC_TIMEZONE);
+        return now;
     }
 }

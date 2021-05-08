@@ -20,13 +20,13 @@
         },
         {
             "node": {
-                "conditionId": "5",
+                "conditionId": "6",
                 "phrase": "Followed %s users."
             }
         },
         {
             "node": {
-                "conditionId": "6",
+                "conditionId": "7",
                 "phrase": "Unfollowed %s users."
             }
         }
@@ -60,26 +60,26 @@
         },
         {
             "node": {
-                "conditionId": "4",
-                "exclude": false,
-                "conditions": [
-                    {
-                        "keyName": "taskTypeCode",
-                        "operator": "=",
-                        "operand": "5"
-                    }
-                ]
-            }
-        },
-        {
-            "node": {
-                "conditionId": "5",
+                "conditionId": "6",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
                         "operand": "6"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "7",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "7"
                     }
                 ]
             }

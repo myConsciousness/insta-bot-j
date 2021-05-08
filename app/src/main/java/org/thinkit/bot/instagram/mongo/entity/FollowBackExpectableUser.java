@@ -43,8 +43,14 @@ public final class FollowBackExpectableUser implements Serializable {
     /**
      * The user name
      */
-    @Indexed(unique = true)
+    @Indexed
     private String userName;
+
+    /**
+     * The charge user name
+     */
+    @Indexed(unique = true)
+    private String chargeUserName;
 
     /**
      * The follow back possibility code
