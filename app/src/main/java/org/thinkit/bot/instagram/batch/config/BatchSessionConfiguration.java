@@ -26,6 +26,7 @@ import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.mongo.entity.Session;
 import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
+import org.thinkit.bot.instagram.util.RuntimeMxUtils;
 
 /**
  *
@@ -64,6 +65,18 @@ public class BatchSessionConfiguration {
 
             if (!session.isRunning()) {
                 session.setRunning(true);
+                session.setPid(RuntimeMxUtils.getPid());
+                session.setJvmName(RuntimeMxUtils.getJvmName());
+                session.setVmName(RuntimeMxUtils.getVmName());
+                session.setVmVersion(RuntimeMxUtils.getVmVersion());
+                session.setVmVendor(RuntimeMxUtils.getVmVendor());
+                session.setSpecName(RuntimeMxUtils.getSpecName());
+                session.setSpecVersion(RuntimeMxUtils.getSpecVersion());
+                session.setManagementSpecVersion(RuntimeMxUtils.getManagementSpecVersion());
+                session.setInputArgs(RuntimeMxUtils.getInputArgs());
+                session.setClassPath(RuntimeMxUtils.getClassPath());
+                session.setLibraryPath(RuntimeMxUtils.getLibraryPath());
+                session.setBootClassPath(RuntimeMxUtils.getBootClassPath());
                 sessionRepository.save(session);
 
                 return userAccount;

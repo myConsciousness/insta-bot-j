@@ -50,6 +50,66 @@ public final class Session implements Serializable {
     private boolean running;
 
     /**
+     * The pid
+     */
+    private long pid;
+
+    /**
+     * The JVM name
+     */
+    private String jvmName;
+
+    /**
+     * The VM name
+     */
+    private String vmName;
+
+    /**
+     * The VM version
+     */
+    private String vmVersion;
+
+    /**
+     * The VM vendor
+     */
+    private String vmVendor;
+
+    /**
+     * The spec name
+     */
+    private String specName;
+
+    /**
+     * The spec version
+     */
+    private String specVersion;
+
+    /**
+     * The management spec version
+     */
+    private String managementSpecVersion;
+
+    /**
+     * The input args
+     */
+    private String inputArgs;
+
+    /**
+     * The class path
+     */
+    private String classPath;
+
+    /**
+     * The library path
+     */
+    private String libraryPath;
+
+    /**
+     * The boot class path
+     */
+    private String bootClassPath;
+
+    /**
      * The created datetime
      */
     private Date createdAt = new Date();

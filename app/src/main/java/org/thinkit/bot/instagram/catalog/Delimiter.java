@@ -41,7 +41,12 @@ public enum Delimiter implements BiCatalog<Delimiter, String> {
     /**
      * The comma {@code ","}
      */
-    COMMA(2, ",");
+    COMMA(2, ","),
+
+    /**
+     * The at-mark {@code "@"}
+     */
+    AT_MARK(3, "@");
 
     /**
      * The code
