@@ -91,5 +91,19 @@
             }
         }
     ],
-    "conditionNodes": []
+    "conditionNodes": [
+        {
+            "node": {
+                "conditionId": "0",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "chargeUserName",
+                        "operator": "=",
+                        "operand": "thinkit_shinya"
+                    }
+                ]
+            }
+        }
+    ]
 }

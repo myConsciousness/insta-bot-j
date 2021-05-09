@@ -16,6 +16,7 @@ package org.thinkit.bot.instagram.mongo.repository;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.mongo.entity.Hashtag;
@@ -30,4 +31,7 @@ import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 public interface HashtagRepository extends MongoRepository<Hashtag, String> {
 
     public List<Hashtag> findByChargeUserNameAndGroupCode(String chargeUserName, int groupCode);
+
+    @DeleteQuery
+    public void deleteByChargeUserName(String chargeUserName);
 }
