@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.config;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
@@ -35,6 +37,7 @@ import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
 import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
+import org.thinkit.bot.instagram.catalog.BatchFlowType;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.DefaultVariableMapper;
@@ -90,7 +93,7 @@ public class BatchJobConfiguration {
         final JobParameters param = new JobParametersBuilder()
                 .addString(BatchJob.INSTA_BOT.getTag(), String.valueOf(System.currentTimeMillis())).toJobParameters();
 
-        this.simpleJobLauncher.run(this.createInstaBotJob(), param);
+        this.simpleJobLauncher.run(this.createInstaBotJob(BatchFlowType.BOOT), param);
     }
 
     @Scheduled(cron = "${spring.batch.schedule.session.cron}", zone = "${spring.batch.schedule.timezone}")
@@ -99,14 +102,17 @@ public class BatchJobConfiguration {
         final JobParameters param = new JobParametersBuilder()
                 .addString(BatchJob.INSTA_BOT.getTag(), String.valueOf(System.currentTimeMillis())).toJobParameters();
 
-        this.simpleJobLauncher.run(null, param);
+        this.simpleJobLauncher.run(this.createInstaBotJob(BatchFlowType.CLOSE), param);
     }
 
-    private Job createInstaBotJob() {
-        return this.createInstaBotFlowBuilder().end().build();
+    private Job createInstaBotJob(@NonNull final BatchFlowType batchFlowType) {
+        return switch (batchFlowType) {
+            case BOOT -> this.createBootJobFlowBuilder().end().build();
+            case CLOSE -> this.createCloseJobFlowBuilder().end().build();
+        };
     }
 
-    private FlowBuilder<FlowJobBuilder> createInstaBotFlowBuilder() {
+    private FlowBuilder<FlowJobBuilder> createBootJobFlowBuilder() {
 
         final JobBuilder jobBuilder = this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
         final BatchFlowStrategy batchFlowStrategy = BatchFlowContext.from(this.getBatchFlowStrategyPattern())
@@ -118,6 +124,11 @@ public class BatchJobConfiguration {
         }
 
         return batchFlowStrategy.createJobFlowBuilder(jobBuilder, this.batchStepCollections);
+    }
+
+    private FlowBuilder<FlowJobBuilder> createCloseJobFlowBuilder() {
+        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag())
+                .flow(this.batchStepCollections.getCloseSessionStep());
     }
 
     private BatchFlowStrategyPattern getBatchFlowStrategyPattern() {
