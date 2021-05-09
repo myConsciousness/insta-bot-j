@@ -62,4 +62,8 @@ public final class Task implements Serializable {
     public boolean isExecutionControlled() {
         return this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
+
+    public boolean isClosable() {
+        return this.taskType == TaskType.CLOSE_SESSION;
+    }
 }

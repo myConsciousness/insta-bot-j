@@ -14,17 +14,15 @@
 
 package org.thinkit.bot.instagram.batch.config;
 
-import java.util.Date;
 import java.util.List;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.exception.AvailableUserAccountNotFoundException;
 import org.thinkit.bot.instagram.mongo.entity.Session;
 import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
@@ -39,27 +37,21 @@ import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
 public class BatchSessionConfiguration {
 
     /**
-     * The configurable application context
-     */
-    @Autowired
-    private ConfigurableApplicationContext context;
-
-    /**
      * The mongo collection
      */
     @Autowired
     private MongoCollections mongoCollections;
 
-    /**
-     * The user account
-     */
-    @Autowired
-    private UserAccount userAccount;
-
     @Bean
     public UserAccount userAccount() {
         final List<UserAccount> userAccounts = this.mongoCollections.getUserAccountRepository().findAll();
         final SessionRepository sessionRepository = this.mongoCollections.getSessionRepository();
+
+        return this.getAvailableUserAccount(userAccounts, sessionRepository);
+    }
+
+    private UserAccount getAvailableUserAccount(@NonNull final List<UserAccount> userAccounts,
+            @NonNull final SessionRepository sessionRepository) {
 
         for (final UserAccount userAccount : userAccounts) {
             Session session = sessionRepository.findByUserName(userAccount.getUserName());
@@ -78,19 +70,6 @@ public class BatchSessionConfiguration {
             }
         }
 
-        throw new AvailableUserAccountNotFoundException(
-                "All registered user accounts are running, or there are no valid user accounts registered.");
-    }
-
-    @Scheduled(cron = "${spring.batch.schedule.session.cron}", zone = "${spring.batch.schedule.timezone}")
-    public void performScheduledCloseSession() throws Exception {
-        final SessionRepository sessionRepository = this.mongoCollections.getSessionRepository();
-        final Session session = sessionRepository.findByUserName(this.userAccount.getUserName());
-
-        session.setRunning(false);
-        session.setUpdatedAt(new Date());
-        sessionRepository.save(session);
-
-        context.close();
+        return null;
     }
 }

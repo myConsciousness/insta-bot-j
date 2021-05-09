@@ -17,13 +17,14 @@ package org.thinkit.bot.instagram.batch.config;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thinkit.bot.instagram.batch.tasklet.CloseSessionTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoDiagnoseFollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoFollowTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoForecastFollowBackUserTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLikeTasklet;
+import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoScrapeUserProfileTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.ExecuteAutoUnfollowTasklet;
-import org.thinkit.bot.instagram.batch.tasklet.ExecuteLoginTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.InitializeTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.NotifyResultTasklet;
 import org.thinkit.bot.instagram.batch.tasklet.UpdateAutoForecastFollowBackUserConfigTasklet;
@@ -33,13 +34,13 @@ import org.thinkit.bot.instagram.batch.tasklet.UpdateAutoLikeConfigTasklet;
 public class BatchTaskletConfiguration {
 
     @Bean
-    public Tasklet initialize() {
+    public Tasklet initializeTasklet() {
         return InitializeTasklet.newInstance();
     }
 
     @Bean
-    public Tasklet executeLoginTasklet() {
-        return ExecuteLoginTasklet.newInstance();
+    public Tasklet executeAutoLoginTasklet() {
+        return ExecuteAutoLoginTasklet.newInstance();
     }
 
     @Bean
@@ -85,5 +86,10 @@ public class BatchTaskletConfiguration {
     @Bean
     public Tasklet notifyResultTasklet() {
         return NotifyResultTasklet.newInstance();
+    }
+
+    @Bean
+    public Tasklet closeSessionTasklet() {
+        return CloseSessionTasklet.newInstance();
     }
 }

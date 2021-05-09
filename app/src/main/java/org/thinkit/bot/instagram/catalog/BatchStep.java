@@ -81,7 +81,12 @@ public enum BatchStep implements BiCatalog<BatchStep, String> {
     /**
      * The notify result
      */
-    NOTIFY_RESULT(900, "NotifyResult");
+    NOTIFY_RESULT(900, "NotifyResult"),
+
+    /**
+     * The close session
+     */
+    CLOSE_SESSION(999, "CloseSession");
 
     /**
      * The code

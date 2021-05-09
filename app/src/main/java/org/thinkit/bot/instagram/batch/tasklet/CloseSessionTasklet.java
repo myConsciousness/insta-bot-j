@@ -14,14 +14,16 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.Date;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.mongo.entity.UserAccount;
-import org.thinkit.bot.instagram.param.ActionUser;
+import org.thinkit.bot.instagram.mongo.entity.Session;
+import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -31,26 +33,33 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class ExecuteLoginTasklet extends AbstractTasklet {
+public final class CloseSessionTasklet extends AbstractTasklet {
 
-    private ExecuteLoginTasklet() {
-        super(TaskType.LOGIN);
+    private CloseSessionTasklet() {
+        super(TaskType.CLOSE_SESSION);
     }
 
     public static Tasklet newInstance() {
-        return new ExecuteLoginTasklet();
+        return new CloseSessionTasklet();
     }
 
     @Override
-    public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
+    protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final UserAccount userAccount = super.getUserAccount();
+        final SessionRepository sessionRepository = super.getMongoCollections().getSessionRepository();
+        final Session session = sessionRepository.findByUserName(super.getChargeUserName());
 
-        super.getInstaBot().executeLogin(ActionUser.from(userAccount.getUserName(), userAccount.getPassword()));
-        log.info("The login to Instagram has been successfully completed.");
+        session.setRunning(false);
+        session.setUpdatedAt(new Date());
+        sessionRepository.save(session);
+        log.debug("Updated session: {}", session);
+
+        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
+        batchTaskResultBuilder.actionCount(1);
+        batchTaskResultBuilder.resultCount(1);
 
         log.debug("END");
-        return BatchTaskResult.builder().actionCount(1).build();
+        return batchTaskResultBuilder.build();
     }
 }

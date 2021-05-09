@@ -87,10 +87,19 @@ public class BatchJobConfiguration {
     @Scheduled(cron = "${spring.batch.schedule.cron}", zone = "${spring.batch.schedule.timezone}")
     public void performScheduledJob() throws Exception {
 
-        JobParameters param = new JobParametersBuilder()
+        final JobParameters param = new JobParametersBuilder()
                 .addString(BatchJob.INSTA_BOT.getTag(), String.valueOf(System.currentTimeMillis())).toJobParameters();
 
         this.simpleJobLauncher.run(this.createInstaBotJob(), param);
+    }
+
+    @Scheduled(cron = "${spring.batch.schedule.session.cron}", zone = "${spring.batch.schedule.timezone}")
+    public void performScheduledCloseSession() throws Exception {
+
+        final JobParameters param = new JobParametersBuilder()
+                .addString(BatchJob.INSTA_BOT.getTag(), String.valueOf(System.currentTimeMillis())).toJobParameters();
+
+        this.simpleJobLauncher.run(null, param);
     }
 
     private Job createInstaBotJob() {

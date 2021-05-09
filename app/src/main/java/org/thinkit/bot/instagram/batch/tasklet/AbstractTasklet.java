@@ -24,6 +24,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.thinkit.api.catalog.BiCatalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
@@ -76,6 +77,12 @@ public abstract class AbstractTasklet implements Tasklet {
     private final Task task;
 
     /**
+     * The configurable application context
+     */
+    @Autowired
+    private ConfigurableApplicationContext context;
+
+    /**
      * The insta bot
      */
     @Autowired
@@ -85,7 +92,7 @@ public abstract class AbstractTasklet implements Tasklet {
     /**
      * The user account
      */
-    @Autowired
+    @Autowired(required = false)
     @Getter(AccessLevel.PROTECTED)
     private UserAccount userAccount;
 
@@ -232,6 +239,10 @@ public abstract class AbstractTasklet implements Tasklet {
         }
 
         this.updateEndAction();
+
+        if (this.task.isClosable()) {
+            this.context.close();
+        }
 
         log.debug("END");
         return batchTaskResult.getRepeatStatus();

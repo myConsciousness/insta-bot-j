@@ -29,6 +29,11 @@ import lombok.RequiredArgsConstructor;
 public enum TaskType implements Catalog<TaskType> {
 
     /**
+     * The initialize
+     */
+    INITIALIZE(-1),
+
+    /**
      * The login task
      */
     LOGIN(0),
@@ -69,24 +74,24 @@ public enum TaskType implements Catalog<TaskType> {
     AUTO_UNFOLLOW(7),
 
     /**
-     * The initialize
-     */
-    INITIALIZE(800),
-
-    /**
      * The update auto like config
      */
-    UPDATE_AUTO_LIKE_CONFIG(801),
+    UPDATE_AUTO_LIKE_CONFIG(800),
 
     /**
      * The update auto forecast follow back user config
      */
-    UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG(802),
+    UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG(801),
 
     /**
      * The notify result
      */
-    NOTIFY_RESULT(900);
+    NOTIFY_RESULT(900),
+
+    /**
+     * The close session
+     */
+    CLOSE_SESSION(999);
 
     /**
      * The code

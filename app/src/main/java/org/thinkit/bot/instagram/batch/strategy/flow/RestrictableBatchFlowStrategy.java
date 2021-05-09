@@ -38,7 +38,8 @@ public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
                 .next(batchStepCollections.getExecuteAutoLikeStep())
                 .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
                 .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
-                // .next(batchStepCollections.getExecuteAutoScrapeUserProfileTasklet())
+                .next(batchStepCollections.getExecuteAutoScrapeUserProfileTasklet())
+                .next(batchStepCollections.getExecuteAutoDiagnoseFollowTasklet())
                 .next(batchStepCollections.getExecuteAutoFollowStep())
                 .next(batchStepCollections.getExecuteAutoUnfollowStep())
                 .next(batchStepCollections.getNotifyResultStep());
@@ -51,9 +52,6 @@ public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
                 .next(batchStepCollections.getExecuteAutoLikeStep())
                 .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
                 .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
-                // .next(batchStepCollections.getExecuteAutoScrapeUserProfileTasklet())
-                .next(batchStepCollections.getExecuteAutoFollowStep())
-                .next(batchStepCollections.getExecuteAutoUnfollowStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 }

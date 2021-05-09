@@ -20,7 +20,8 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.exception.AvailableUserAccountNotFoundException;
+import org.thinkit.bot.instagram.mongo.entity.UserAccount;
+import org.thinkit.bot.instagram.param.ActionUser;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,25 +31,24 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class InitializeTasklet extends AbstractTasklet {
+public final class ExecuteAutoLoginTasklet extends AbstractTasklet {
 
-    private InitializeTasklet() {
-        super(TaskType.INITIALIZE);
+    private ExecuteAutoLoginTasklet() {
+        super(TaskType.LOGIN);
     }
 
     public static Tasklet newInstance() {
-        return new InitializeTasklet();
+        return new ExecuteAutoLoginTasklet();
     }
 
     @Override
-    protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
+    public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        if (super.getUserAccount() == null) {
-            throw new AvailableUserAccountNotFoundException("""
-                    There are no available users to run the process.
-                    All users are already running or no valid user information has been defined.""");
-        }
+        final UserAccount userAccount = super.getUserAccount();
+
+        super.getInstaBot().executeLogin(ActionUser.from(userAccount.getUserName(), userAccount.getPassword()));
+        log.info("The login to Instagram has been successfully completed.");
 
         log.debug("END");
         return BatchTaskResult.builder().actionCount(1).build();
