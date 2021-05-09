@@ -105,11 +105,6 @@ public final class Session implements Serializable {
     private String libraryPath;
 
     /**
-     * The boot class path
-     */
-    private String bootClassPath;
-
-    /**
      * The created datetime
      */
     private Date createdAt = new Date();

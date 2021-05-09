@@ -76,7 +76,6 @@ public class BatchSessionConfiguration {
                 session.setInputArgs(RuntimeMxUtils.getInputArgs());
                 session.setClassPath(RuntimeMxUtils.getClassPath());
                 session.setLibraryPath(RuntimeMxUtils.getLibraryPath());
-                session.setBootClassPath(RuntimeMxUtils.getBootClassPath());
                 sessionRepository.save(session);
 
                 return userAccount;

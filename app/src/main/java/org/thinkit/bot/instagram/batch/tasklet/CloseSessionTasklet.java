@@ -86,7 +86,6 @@ public final class CloseSessionTasklet extends AbstractTasklet {
         session.setInputArgs("");
         session.setClassPath("");
         session.setLibraryPath("");
-        session.setBootClassPath("");
         session.setUpdatedAt(new Date());
 
         log.debug("END");

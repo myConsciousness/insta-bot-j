@@ -70,8 +70,4 @@ public final class RuntimeMxUtils {
     public static String getLibraryPath() {
         return RUNTIME_MX_BEAN.getLibraryPath();
     }
-
-    public static String getBootClassPath() {
-        return RUNTIME_MX_BEAN.getBootClassPath();
-    }
 }
