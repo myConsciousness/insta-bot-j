@@ -105,6 +105,14 @@ loadScripts(document, 'script');</script>
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
 <li class="block-list">
+<h5>closeSessionStep</h5>
+<pre>org.springframework.batch.core.Step closeSessionStep</pre>
+</li>
+<li class="block-list">
+<h5>executeAutoDiagnoseFollowTasklet</h5>
+<pre>org.springframework.batch.core.Step executeAutoDiagnoseFollowTasklet</pre>
+</li>
+<li class="block-list">
 <h5>executeAutoFollowStep</h5>
 <pre>org.springframework.batch.core.Step executeAutoFollowStep</pre>
 </li>
@@ -117,6 +125,10 @@ loadScripts(document, 'script');</script>
 <pre>org.springframework.batch.core.Step executeAutoLikeStep</pre>
 </li>
 <li class="block-list">
+<h5>executeAutoLoginStep</h5>
+<pre>org.springframework.batch.core.Step executeAutoLoginStep</pre>
+</li>
+<li class="block-list">
 <h5>executeAutoScrapeUserProfileTasklet</h5>
 <pre>org.springframework.batch.core.Step executeAutoScrapeUserProfileTasklet</pre>
 </li>
@@ -125,8 +137,8 @@ loadScripts(document, 'script');</script>
 <pre>org.springframework.batch.core.Step executeAutoUnfollowStep</pre>
 </li>
 <li class="block-list">
-<h5>executeLoginStep</h5>
-<pre>org.springframework.batch.core.Step executeLoginStep</pre>
+<h5>initializeStep</h5>
+<pre>org.springframework.batch.core.Step initializeStep</pre>
 </li>
 <li class="block-list">
 <h5>notifyResultStep</h5>
@@ -200,6 +212,11 @@ loadScripts(document, 'script');</script>
 <div class="block">The last action</div>
 </li>
 <li class="block-list">
+<h5>leftUserRepository</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/repository/LeftUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">LeftUserRepository</a> leftUserRepository</pre>
+<div class="block">The left user repository</div>
+</li>
+<li class="block-list">
 <h5>likedPhotoRepository</h5>
 <pre><a href="org/thinkit/bot/instagram/mongo/repository/LikedPhotoRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">LikedPhotoRepository</a> likedPhotoRepository</pre>
 <div class="block">The liked photo repository</div>
@@ -213,6 +230,11 @@ loadScripts(document, 'script');</script>
 <h5>missingUserRepository</h5>
 <pre><a href="org/thinkit/bot/instagram/mongo/repository/MissingUserRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">MissingUserRepository</a> missingUserRepository</pre>
 <div class="block">The missing user repository</div>
+</li>
+<li class="block-list">
+<h5>sessionRepository</h5>
+<pre><a href="org/thinkit/bot/instagram/mongo/repository/SessionRepository.html" title="org.thinkit.bot.instagram.mongo.repository内のインタフェース">SessionRepository</a> sessionRepository</pre>
+<div class="block">The session repository</div>
 </li>
 <li class="block-list">
 <h5>unfollowedUserRepository</h5>
@@ -913,6 +935,22 @@ loadScripts(document, 'script');</script>
 </li>
 <li>
 <section class="serialized-package-container">
+<h2 title="パッケージ">パッケージ&nbsp;org.thinkit.bot.instagram.exception</h2>
+<ul class="block-list">
+<li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.exception.AvailableUserAccountNotFoundException">
+<h3>Class <a href="org/thinkit/bot/instagram/exception/AvailableUserAccountNotFoundException.html" title="org.thinkit.bot.instagram.exception内のクラス">org.thinkit.bot.instagram.exception.AvailableUserAccountNotFoundException</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/RuntimeException.html" title="java.lang内のクラスまたはインタフェース" class="external-link">RuntimeException</a> implements Serializable</h3>
+<dl class="name-value">
+<dt>serialVersionUID:</dt>
+<dd>0L</dd>
+</dl>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
+<section class="serialized-package-container">
 <h2 title="パッケージ">パッケージ&nbsp;org.thinkit.bot.instagram.exception.http</h2>
 <ul class="block-list">
 <li>
@@ -1246,6 +1284,11 @@ loadScripts(document, 'script');</script>
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
 <li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The charge user name</div>
+</li>
+<li class="block-list">
 <h5>createdAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
 <div class="block">The created datetime</div>
@@ -1359,9 +1402,19 @@ loadScripts(document, 'script');</script>
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
 <li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The charge user name</div>
+</li>
+<li class="block-list">
 <h5>createdAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
 <div class="block">The created datetime</div>
+</li>
+<li class="block-list">
+<h5>expiredDate</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> expiredDate</pre>
+<div class="block">The expired date</div>
 </li>
 <li class="block-list">
 <h5>id</h5>
@@ -1372,6 +1425,11 @@ loadScripts(document, 'script');</script>
 <h5>mutual</h5>
 <pre>boolean mutual</pre>
 <div class="block">The mutual</div>
+</li>
+<li class="block-list">
+<h5>mutualExpiredDate</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> mutualExpiredDate</pre>
+<div class="block">The mutual expired date</div>
 </li>
 <li class="block-list">
 <h5>updatedAt</h5>
@@ -1402,6 +1460,11 @@ loadScripts(document, 'script');</script>
 <section class="detail">
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
+<li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The charge user name</div>
+</li>
 <li class="block-list">
 <h5>createdAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
@@ -1478,6 +1541,45 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.LeftUser">
+<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/LeftUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.LeftUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The charge user name</div>
+</li>
+<li class="block-list">
+<h5>createdAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
+<div class="block">The created datetime</div>
+</li>
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> id</pre>
+<div class="block">The id</div>
+</li>
+<li class="block-list">
+<h5>updatedAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> updatedAt</pre>
+<div class="block">The updated datetime</div>
+</li>
+<li class="block-list">
+<h5>userName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
+<div class="block">The user name</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
 <section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.LikedPhoto">
 <h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/LikedPhoto.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.LikedPhoto</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
 <dl class="name-value">
@@ -1489,6 +1591,11 @@ loadScripts(document, 'script');</script>
 <section class="detail">
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
+<li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The user name</div>
+</li>
 <li class="block-list">
 <h5>createdAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
@@ -1537,6 +1644,11 @@ loadScripts(document, 'script');</script>
 <h5>alreadySent</h5>
 <pre>boolean alreadySent</pre>
 <div class="block">The send flag</div>
+</li>
+<li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The charge user name</div>
 </li>
 <li class="block-list">
 <h5>count</h5>
@@ -1593,6 +1705,11 @@ loadScripts(document, 'script');</script>
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
 <li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The charge user name</div>
+</li>
+<li class="block-list">
 <h5>createdAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
 <div class="block">The created datetime</div>
@@ -1619,6 +1736,45 @@ loadScripts(document, 'script');</script>
 </section>
 </li>
 <li>
+<section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.Session">
+<h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/Session.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.Session</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
+<ul class="block-list">
+<li>
+<section class="detail">
+<h4>直列化されたフィールド</h4>
+<ul class="block-list">
+<li class="block-list">
+<h5>createdAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>
+<div class="block">The created datetime</div>
+</li>
+<li class="block-list">
+<h5>id</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> id</pre>
+<div class="block">The id</div>
+</li>
+<li class="block-list">
+<h5>running</h5>
+<pre>boolean running</pre>
+<div class="block">The session state</div>
+</li>
+<li class="block-list">
+<h5>updatedAt</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> updatedAt</pre>
+<div class="block">The updated datetime</div>
+</li>
+<li class="block-list">
+<h5>userName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> userName</pre>
+<div class="block">The user name</div>
+</li>
+</ul>
+</section>
+</li>
+</ul>
+</section>
+</li>
+<li>
 <section class="serialized-class-details" id="org.thinkit.bot.instagram.mongo.entity.UnfollowedUser">
 <h3>Class <a href="org/thinkit/bot/instagram/mongo/entity/UnfollowedUser.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">org.thinkit.bot.instagram.mongo.entity.UnfollowedUser</a> extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Object.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Object</a> implements Serializable</h3>
 <ul class="block-list">
@@ -1626,6 +1782,11 @@ loadScripts(document, 'script');</script>
 <section class="detail">
 <h4>直列化されたフィールド</h4>
 <ul class="block-list">
+<li class="block-list">
+<h5>chargeUserName</h5>
+<pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a> chargeUserName</pre>
+<div class="block">The charge user name</div>
+</li>
 <li class="block-list">
 <h5>createdAt</h5>
 <pre><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/Date.html" title="java.util内のクラスまたはインタフェース" class="external-link">Date</a> createdAt</pre>

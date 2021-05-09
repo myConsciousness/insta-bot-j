@@ -15,7 +15,13 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var pathtoroot = "../../../../../../";
+<script type="text/javascript">var data = {"i0":6};
+var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],4:["t3","abstract\u30E1\u30BD\u30C3\u30C9"]};
+var altColor = "alt-color";
+var rowColor = "row-color";
+var tableTab = "table-tab";
+var activeTableTab = "active-table-tab";
+var pathtoroot = "../../../../../../";
 loadScripts(document, 'script');</script>
 <noscript>
 <div>ブラウザのJavaScriptが無効になっています。</div>
@@ -49,7 +55,7 @@ loadScripts(document, 'script');</script>
 <li>詳細:&nbsp;</li>
 <li>フィールド&nbsp;|&nbsp;</li>
 <li>コンストラクタ&nbsp;|&nbsp;</li>
-<li>メソッド</li>
+<li><a href="#method.detail">メソッド</a></li>
 </ul>
 </div>
 <div class="nav-list-search"><label for="search">SEARCH:</label>
@@ -90,6 +96,27 @@ extends org.springframework.data.mongodb.repository.MongoRepository&lt;<a href="
 <li>
 <section class="method-summary" id="method.summary">
 <h2>メソッドの概要</h2>
+<div class="member-summary" id="method-summary-table">
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="active-table-tab">すべてのメソッド</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t2" class="table-tab" onclick="show(2);">インスタンス・メソッド</button><button role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" id="t3" class="table-tab" onclick="show(4);">abstractメソッド</button></div>
+<div id="method-summary-table.tabpanel" role="tabpanel">
+<table class="summary-table" aria-labelledby="t0">
+<thead>
+<tr>
+<th class="col-first" scope="col">修飾子とタイプ</th>
+<th class="col-second" scope="col">メソッド</th>
+<th class="col-last" scope="col">説明</th>
+</tr>
+</thead>
+<tbody>
+<tr class="alt-color" id="i0">
+<td class="col-first"><code><a href="../entity/UserAccount.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">UserAccount</a></code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#findByUserName(java.lang.String)">findByUserName</a></span>&#8203;(<a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;userName)</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.org.springframework.data.repository.CrudRepository">インタフェースから継承されたメソッド&nbsp;org.springframework.data.repository.CrudRepository</h3>
 <code>count, delete, deleteAll, deleteAll, deleteById, existsById, findAllById, findById, save</code></div>
@@ -102,6 +129,24 @@ extends org.springframework.data.mongodb.repository.MongoRepository&lt;<a href="
 <div class="inherited-list">
 <h3 id="methods.inherited.from.class.org.springframework.data.repository.query.QueryByExampleExecutor">インタフェースから継承されたメソッド&nbsp;org.springframework.data.repository.query.QueryByExampleExecutor</h3>
 <code>count, exists, findAll, findOne</code></div>
+</section>
+</li>
+</ul>
+</section>
+<section class="details">
+<ul class="details-list">
+<!-- ============ METHOD DETAIL ========== -->
+<li>
+<section class="method-details" id="method.detail">
+<h2>メソッドの詳細</h2>
+<ul class="member-list">
+<li>
+<section class="detail" id="findByUserName(java.lang.String)">
+<h3>findByUserName</h3>
+<div class="member-signature"><span class="return-type"><a href="../entity/UserAccount.html" title="org.thinkit.bot.instagram.mongo.entity内のクラス">UserAccount</a></span>&nbsp;<span class="member-name">findByUserName</span>&#8203;(<span class="parameters"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html" title="java.lang内のクラスまたはインタフェース" class="external-link">String</a>&nbsp;userName)</span></div>
+</section>
+</li>
+</ul>
 </section>
 </li>
 </ul>
@@ -136,7 +181,7 @@ extends org.springframework.data.mongodb.repository.MongoRepository&lt;<a href="
 <li>詳細:&nbsp;</li>
 <li>フィールド&nbsp;|&nbsp;</li>
 <li>コンストラクタ&nbsp;|&nbsp;</li>
-<li>メソッド</li>
+<li><a href="#method.detail">メソッド</a></li>
 </ul>
 </div>
 </div>

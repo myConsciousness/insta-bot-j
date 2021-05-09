@@ -12,6 +12,7 @@ org.thinkit.bot.instagram.command
 org.thinkit.bot.instagram.config
 org.thinkit.bot.instagram.content
 org.thinkit.bot.instagram.content.entity
+org.thinkit.bot.instagram.exception
 org.thinkit.bot.instagram.exception.http
 org.thinkit.bot.instagram.http
 org.thinkit.bot.instagram.message
