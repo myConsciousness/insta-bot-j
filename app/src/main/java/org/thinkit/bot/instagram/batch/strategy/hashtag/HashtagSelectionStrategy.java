@@ -24,5 +24,5 @@ import lombok.NonNull;
 public interface HashtagSelectionStrategy {
 
     public List<TargetHashtag> getTargetHashtags(@NonNull final HashtagRepository hashtagRepository,
-            final int groupCode);
+            @NonNull final String chargeUserName, final int groupCode);
 }

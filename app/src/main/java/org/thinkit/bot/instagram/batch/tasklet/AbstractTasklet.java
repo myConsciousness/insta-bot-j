@@ -411,6 +411,7 @@ public abstract class AbstractTasklet implements Tasklet {
         Preconditions.requirePositive(resultCount);
 
         MessageMeta messageMeta = new MessageMeta();
+        messageMeta.setChargeUserName(this.getChargeUserName());
         messageMeta.setTaskTypeCode(this.task.getTypeCode());
         messageMeta.setCount(resultCount);
 

@@ -35,10 +35,10 @@ public final class FocusHashtagSelectionStrategy implements HashtagSelectionStra
 
     @Override
     public List<TargetHashtag> getTargetHashtags(@NonNull final HashtagRepository hashtagRepository,
-            final int groupCode) {
+            @NonNull final String chargeUserName, final int groupCode) {
         log.debug("START");
 
-        final List<Hashtag> hashtags = hashtagRepository.findByGroupCode(groupCode);
+        final List<Hashtag> hashtags = hashtagRepository.findByChargeUserNameAndGroupCode(chargeUserName, groupCode);
 
         Collections.shuffle(hashtags);
         log.debug("Shuffled hashtags: {}", hashtags);

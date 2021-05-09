@@ -37,10 +37,10 @@ public final class DefaultHashtagSelectionStrategy implements HashtagSelectionSt
 
     @Override
     public List<TargetHashtag> getTargetHashtags(@NonNull final HashtagRepository hashtagRepository,
-            final int groupCode) {
+            @NonNull final String chargeUserName, final int groupCode) {
         log.debug("START");
 
-        final List<Hashtag> hashtags = hashtagRepository.findByGroupCode(groupCode);
+        final List<Hashtag> hashtags = hashtagRepository.findByChargeUserNameAndGroupCode(chargeUserName, groupCode);
         final List<TargetHashtag> targetHashtags = new ArrayList<>(hashtags.size());
 
         hashtags.forEach(hashtag -> {

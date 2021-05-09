@@ -29,5 +29,5 @@ import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 @Repository
 public interface MessageMetaRepository extends MongoRepository<MessageMeta, String> {
 
-    public List<MessageMeta> findByAlreadySentFalse();
+    public List<MessageMeta> findByChargeUserNameAndAlreadySentFalse(String chargeUserName);
 }

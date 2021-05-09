@@ -29,5 +29,5 @@ import org.thinkit.bot.instagram.mongo.entity.Hashtag;
 @Repository
 public interface HashtagRepository extends MongoRepository<Hashtag, String> {
 
-    public List<Hashtag> findByGroupCode(int groupCode);
+    public List<Hashtag> findByChargeUserNameAndGroupCode(String chargeUserName, int groupCode);
 }

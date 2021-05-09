@@ -14,6 +14,7 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.batch.core.StepContribution;
@@ -51,7 +52,8 @@ public final class NotifyResultTasklet extends AbstractTasklet {
         log.debug("START");
 
         final MessageMetaRepository messageMetaRepository = this.getMongoCollections().getMessageMetaRepository();
-        final List<MessageMeta> messageMetas = messageMetaRepository.findByAlreadySentFalse();
+        final List<MessageMeta> messageMetas = messageMetaRepository
+                .findByChargeUserNameAndAlreadySentFalse(super.getChargeUserName());
 
         final String token = super.getMongoCollections().getVariableRepository()
                 .findByName(VariableName.LINE_NOTIFY_TOKEN.getTag()).getValue();
@@ -61,6 +63,7 @@ public final class NotifyResultTasklet extends AbstractTasklet {
 
         for (final MessageMeta messageMeta : messageMetas) {
             messageMeta.setAlreadySent(true);
+            messageMeta.setUpdatedAt(new Date());
             messageMetaRepository.save(messageMeta);
             log.debug("Updated message meta: {}", messageMeta);
         }
