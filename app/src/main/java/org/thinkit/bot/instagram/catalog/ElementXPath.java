@@ -93,7 +93,7 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The button contains text
      */
-    BUTTON_CONTAINS_TEXT(11, "//button[contains(., '%s')]");
+    BUTTON_CONTAINS_TEXT(11, "//button[contains(text(),'%s')]");
 
     /**
      * The code
