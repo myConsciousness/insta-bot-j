@@ -16,6 +16,7 @@ package org.thinkit.bot.instagram.config;
 
 import java.io.Serializable;
 
+import org.thinkit.bot.instagram.batch.data.content.entity.NumberUnitResource;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackPossibilityIndicator;
 
 import lombok.AccessLevel;
@@ -51,4 +52,10 @@ public final class AutoForecastFollowBackUserConfig implements Serializable {
      */
     @Getter
     private int followingNearLimit;
+
+    /**
+     * The number unit resource
+     */
+    @Getter
+    private NumberUnitResource numberUnitResource;
 }

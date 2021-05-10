@@ -24,6 +24,8 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.data.content.entity.NumberUnitResource;
+import org.thinkit.bot.instagram.batch.data.content.mapper.NumberUnitResourceMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackExpectableUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.LikedPhoto;
@@ -181,6 +183,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
                 .builder();
         autoForecastFollowBackUserConfigBuilder.followBackPossibilityIndicator(followBackPossibilityIndicators.get(0));
         autoForecastFollowBackUserConfigBuilder.followingNearLimit(this.getFollowingNearLimit());
+        autoForecastFollowBackUserConfigBuilder.numberUnitResource(this.getNumberUnitResource());
 
         log.debug("END");
         return autoForecastFollowBackUserConfigBuilder.build();
@@ -200,5 +203,9 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
 
     private int getFollowingNearLimit() {
         return super.getIntVariableValue(VariableName.FOLLOWING_NEAR_LIMIT);
+    }
+
+    private NumberUnitResource getNumberUnitResource() {
+        return NumberUnitResourceMapper.newInstance().scan().get(0);
     }
 }

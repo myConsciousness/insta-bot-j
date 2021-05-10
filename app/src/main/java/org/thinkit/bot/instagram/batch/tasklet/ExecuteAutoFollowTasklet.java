@@ -22,12 +22,15 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.data.content.entity.FollowState;
+import org.thinkit.bot.instagram.batch.data.content.mapper.FollowStateMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackExpectableUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowedUser;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
+import org.thinkit.bot.instagram.catalog.FollowStateType;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
@@ -175,6 +178,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
 
         final AutoFollowConfig.AutoFollowConfigBuilder autoFollowConfigBuilder = AutoFollowConfig.builder();
         autoFollowConfigBuilder.interval(this.getFollowInterval());
+        autoFollowConfigBuilder.followBackState(this.getFollowBackState());
 
         log.debug("END");
         return autoFollowConfigBuilder.build();
@@ -200,5 +204,9 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
 
     private int getFollowInterval() {
         return super.getIntVariableValue(VariableName.FOLLOW_INTERVAL);
+    }
+
+    private FollowState getFollowBackState() {
+        return FollowStateMapper.from(FollowStateType.FOLLOWER.getCode()).scan().get(0);
     }
 }

@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.thinkit.bot.instagram.batch.data.content.entity.NumberUnitResource;
-import org.thinkit.bot.instagram.batch.data.content.mapper.NumberUnitResourceMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.Delimiter;
@@ -65,10 +64,10 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
         final List<ActionUnexpectableUser> unexpectableUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
-        final NumberUnitResource numberUnitResource = this.getNumberUnitResource();
+        final NumberUnitResource numberUnitResource = this.autoForecastFollowBackUserConfig.getNumberUnitResource();
 
-        String userName = "";
         for (final ForecastUser forecastUser : this.forecastUsers) {
+            String userName = "";
             try {
                 super.wait(WaitType.HUMAN_LIKE_INTERVAL);
 
@@ -175,9 +174,5 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
         }
 
         return FollowBackPossibility.LOWEST;
-    }
-
-    private NumberUnitResource getNumberUnitResource() {
-        return NumberUnitResourceMapper.newInstance().scan().get(0);
     }
 }

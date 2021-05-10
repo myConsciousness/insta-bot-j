@@ -19,10 +19,8 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.thinkit.bot.instagram.batch.data.content.mapper.FollowStateMapper;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
-import org.thinkit.bot.instagram.catalog.FollowStateType;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
@@ -62,10 +60,10 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
         final List<ActionFollowFailedUser> actionFollowFailedUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
-        final String followBaclState = this.getFollowBackState();
-        String userName = "";
+        final String followBackState = this.autoFollowConfig.getFollowBackState().getState();
 
         for (final FollowUser followUser : this.followUsers) {
+            String userName = "";
             try {
                 super.wait(WaitType.FOLLOW);
 
@@ -80,7 +78,7 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
                 super.waitUntilElementClickable(By.xpath(ElementXPath.FOLLOW_BUTTON.getTag()));
                 final WebElement followButton = super.findByXpath(ElementXPath.FOLLOW_BUTTON);
 
-                if (followBaclState.equals(followButton.getText())) {
+                if (followBackState.equals(followButton.getText())) {
                     // Already followed by this user
                     actionFollowFailedUsers.add(ActionFollowFailedUser.builder().userName(userName).build());
                 } else {
@@ -110,9 +108,5 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
         autoFollowResultBuilder.actionErrors(actionErrors);
 
         return autoFollowResultBuilder.build();
-    }
-
-    private String getFollowBackState() {
-        return FollowStateMapper.from(FollowStateType.FOLLOWER.getCode()).scan().get(0).getState();
     }
 }

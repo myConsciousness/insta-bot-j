@@ -16,6 +16,8 @@ package org.thinkit.bot.instagram.config;
 
 import java.io.Serializable;
 
+import org.thinkit.bot.instagram.batch.data.content.entity.FollowState;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,4 +44,10 @@ public final class AutoFollowConfig implements Serializable {
      */
     @Getter
     private int interval;
+
+    /**
+     * The follow back state
+     */
+    @Getter
+    private FollowState followBackState;
 }
