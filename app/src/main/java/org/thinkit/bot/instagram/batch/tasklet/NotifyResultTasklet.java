@@ -53,7 +53,7 @@ public final class NotifyResultTasklet extends AbstractTasklet {
 
         final MessageMetaRepository messageMetaRepository = this.getMongoCollections().getMessageMetaRepository();
         final List<MessageMeta> messageMetas = messageMetaRepository
-                .findByChargeUserNameAndAlreadySentFalse(super.getChargeUserName());
+                .findByChargeUserNameAndAlreadySentFalse(super.getRunningUserName());
 
         final String token = super.getMongoCollections().getVariableRepository()
                 .findByName(VariableName.LINE_NOTIFY_TOKEN.getTag()).getValue();

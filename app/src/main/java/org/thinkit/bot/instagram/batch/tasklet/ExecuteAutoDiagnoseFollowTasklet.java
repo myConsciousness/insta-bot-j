@@ -56,9 +56,10 @@ public final class ExecuteAutoDiagnoseFollowTasklet extends AbstractTasklet {
         final UserFollowerRepository userFollowerRepository = super.getMongoCollections().getUserFollowerRepository();
         final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
         final LeftUserRepository leftUserRepository = super.getMongoCollections().getLeftUserRepository();
-        final List<FollowedUser> followedUsers = followedUserRepository.findByChargeUserName(super.getChargeUserName());
+        final List<FollowedUser> followedUsers = followedUserRepository
+                .findByChargeUserName(super.getRunningUserName());
 
-        final String chargeUserName = super.getChargeUserName();
+        final String chargeUserName = super.getRunningUserName();
         final String mutualExpiredDate = DateUtils.getDateAfter(30);
 
         for (final FollowedUser followedUser : followedUsers) {

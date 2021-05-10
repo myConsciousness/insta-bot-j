@@ -77,7 +77,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
                 .getFollowBackExpectableUserRepository();
         final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
 
-        final String chargeUserName = super.getChargeUserName();
+        final String chargeUserName = super.getRunningUserName();
         final String expiredDate = DateUtils.getDateAfter(7);
 
         for (final ActionFollowedUser actionFollowedUser : actionFollowedUsers) {
@@ -120,7 +120,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
         final List<FollowBackExpectableUser> followBackExpectableUsers = followBackExpectableUserRepository
-                .findByChargeUserNameOrderByFollowBackPossibilityCodeAsc(super.getChargeUserName());
+                .findByChargeUserNameOrderByFollowBackPossibilityCodeAsc(super.getRunningUserName());
 
         for (final FollowBackExpectableUser followBackExpectableUser : followBackExpectableUsers) {
             if (!this.isDuplicateUser(followUsers, followBackExpectableUser)) {
@@ -167,7 +167,7 @@ public final class ExecuteAutoFollowTasklet extends AbstractTasklet {
 
         log.debug("END");
         return followedUserRepository.findByUserNameAndChargeUserName(followBackExpectableUser.getUserName(),
-                super.getUserAccount().getUserName()) != null;
+                super.getRunningUserName()) != null;
     }
 
     private AutoFollowConfig getAutoFollowConfig() {

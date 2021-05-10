@@ -76,7 +76,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         final List<ActionUnfollowFailedUser> actionUnfollowFailedUsers = autoUnfollowResult
                 .getActionUnfollowFailedUsers();
 
-        final String chargeUserName = super.getUserAccount().getUserName();
+        final String chargeUserName = super.getRunningUserName();
         final UnfollowedUserRepository unfollowedUserRepository = super.getMongoCollections()
                 .getUnfollowedUserRepository();
         final FollowedUserRepository followedUserRepository = super.getMongoCollections().getFollowedUserRepository();
@@ -135,7 +135,8 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
         final List<UnfollowUser> unfollowUsers = new ArrayList<>();
 
         final FollowedUserRepository followedUserRepository = this.getMongoCollections().getFollowedUserRepository();
-        final List<FollowedUser> followedUsers = followedUserRepository.findByChargeUserName(super.getChargeUserName());
+        final List<FollowedUser> followedUsers = followedUserRepository
+                .findByChargeUserName(super.getRunningUserName());
 
         for (final FollowedUser followedUser : followedUsers) {
             if (this.isFollowExpiredUser(followedUser) && !this.isDuplicateUser(unfollowUsers, followedUser)) {

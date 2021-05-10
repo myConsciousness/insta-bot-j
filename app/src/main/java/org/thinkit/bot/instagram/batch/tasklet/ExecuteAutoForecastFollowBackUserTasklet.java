@@ -84,7 +84,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
                 .getFollowBackExpectableUserRepository();
         final LikedPhotoRepository likedPhotoRepository = this.getMongoCollections().getLikedPhotoRepository();
 
-        final String chargeUserName = super.getChargeUserName();
+        final String chargeUserName = super.getRunningUserName();
         final List<ActionExpectableUser> expectableUsers = autoForecastFollowBackResult.getExpectableUsers();
         final List<ActionUnexpectableUser> unexpectableUsers = autoForecastFollowBackResult.getUnexpectableUsers();
 
@@ -127,7 +127,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
         log.debug("START");
 
         final List<LikedPhoto> likedPhotos = super.getMongoCollections().getLikedPhotoRepository()
-                .findByChargeUserName(super.getChargeUserName());
+                .findByChargeUserName(super.getRunningUserName());
         final List<ForecastUser> forecastUsers = new ArrayList<>(likedPhotos.size());
 
         Collections.shuffle(likedPhotos);
@@ -191,7 +191,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
         final FollowBackExpectableUserRepository followBackExpectableUserRepository = super.getMongoCollections()
                 .getFollowBackExpectableUserRepository();
         return followBackExpectableUserRepository.findByUserNameAndChargeUserName(likedPhoto.getUserName(),
-                super.getChargeUserName()) != null;
+                super.getRunningUserName()) != null;
     }
 
     private int getMaxUserCount() {

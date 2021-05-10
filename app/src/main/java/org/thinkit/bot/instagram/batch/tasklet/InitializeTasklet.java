@@ -44,7 +44,7 @@ public final class InitializeTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        if (super.getUserAccount() == null) {
+        if (!super.hasRunningUser()) {
             throw new AvailableUserAccountNotFoundException("""
                     There are no available users to run the process.
                     All users are already running or no valid user information has been defined.""");

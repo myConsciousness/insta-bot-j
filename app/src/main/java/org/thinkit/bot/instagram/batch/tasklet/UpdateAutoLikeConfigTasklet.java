@@ -62,7 +62,7 @@ public final class UpdateAutoLikeConfigTasklet extends AbstractTasklet {
     private void updateHashtag() {
         log.debug("START");
 
-        final String chargeUserName = super.getChargeUserName();
+        final String chargeUserName = super.getRunningUserName();
         final HashtagRepository hashtagRepository = super.getMongoCollections().getHashtagRepository();
         hashtagRepository.deleteByChargeUserName(chargeUserName);
 

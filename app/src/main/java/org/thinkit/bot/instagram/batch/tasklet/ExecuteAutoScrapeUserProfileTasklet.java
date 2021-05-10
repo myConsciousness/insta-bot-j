@@ -24,7 +24,6 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.mongo.entity.UserFollower;
 import org.thinkit.bot.instagram.mongo.entity.UserFollowing;
 import org.thinkit.bot.instagram.mongo.repository.UserFollowerRepository;
@@ -56,14 +55,14 @@ public final class ExecuteAutoScrapeUserProfileTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final UserAccount userAccount = super.getUserAccount();
         final AutoScrapeUserProfileResult autoScrapeUserProfileResult = super.getInstaBot()
-                .executeAutoScrapeUserProfile(ActionUser.from(userAccount.getUserName(), userAccount.getPassword()));
+                .executeAutoScrapeUserProfile(
+                        ActionUser.from(super.getRunningUserName(), super.getRunningUserPassword()));
 
         final List<ActionFollowingUser> actionFollowingUsers = autoScrapeUserProfileResult.getActionFollowingUsers();
         final List<ActionFollower> actionFollowers = autoScrapeUserProfileResult.getActionFollowers();
-        this.saveFollowingUsers(actionFollowingUsers, userAccount);
-        this.saveFollowers(actionFollowers, userAccount);
+        this.saveFollowingUsers(actionFollowingUsers);
+        this.saveFollowers(actionFollowers);
 
         final int sumCount = actionFollowingUsers.size() + actionFollowers.size();
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
@@ -75,18 +74,18 @@ public final class ExecuteAutoScrapeUserProfileTasklet extends AbstractTasklet {
         return batchTaskResultBuilder.build();
     }
 
-    public void saveFollowingUsers(@NonNull final List<ActionFollowingUser> actionFollowingUsers,
-            @NonNull final UserAccount userAccount) {
+    public void saveFollowingUsers(@NonNull final List<ActionFollowingUser> actionFollowingUsers) {
         log.debug("START");
 
+        final String chargeUserName = super.getRunningUserName();
         final UserFollowingRepository userFollowingRepository = super.getMongoCollections()
                 .getUserFollowingRepository();
-        userFollowingRepository.deleteByChargeUserName(userAccount.getUserName());
+        userFollowingRepository.deleteByChargeUserName(chargeUserName);
 
         for (final ActionFollowingUser actionFollowingUser : actionFollowingUsers) {
             UserFollowing userFollowing = new UserFollowing();
             userFollowing.setUserName(actionFollowingUser.getUserName());
-            userFollowing.setChargeUserName(userAccount.getUserName());
+            userFollowing.setChargeUserName(chargeUserName);
 
             userFollowing = userFollowingRepository.insert(userFollowing);
             log.debug("Inserted user following: {}", userFollowing);
@@ -95,17 +94,17 @@ public final class ExecuteAutoScrapeUserProfileTasklet extends AbstractTasklet {
         log.debug("END");
     }
 
-    public void saveFollowers(@NonNull final List<ActionFollower> actionFollowers,
-            @NonNull final UserAccount userAccount) {
+    public void saveFollowers(@NonNull final List<ActionFollower> actionFollowers) {
         log.debug("START");
 
+        final String chargeUserName = super.getRunningUserName();
         final UserFollowerRepository userFollowerRepository = super.getMongoCollections().getUserFollowerRepository();
-        userFollowerRepository.deleteByChargeUserName(userAccount.getUserName());
+        userFollowerRepository.deleteByChargeUserName(chargeUserName);
 
         for (final ActionFollower actionFollower : actionFollowers) {
             UserFollower userFollower = new UserFollower();
             userFollower.setUserName(actionFollower.getUserName());
-            userFollower.setChargeUserName(userAccount.getUserName());
+            userFollower.setChargeUserName(chargeUserName);
 
             userFollower = userFollowerRepository.insert(userFollower);
             log.debug("Inserted user follower: {}", userFollower);

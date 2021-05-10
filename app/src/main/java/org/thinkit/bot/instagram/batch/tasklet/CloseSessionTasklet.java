@@ -14,19 +14,12 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
-import java.util.Date;
-
-import com.mongodb.lang.NonNull;
-
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.exception.SessionInconsistencyFoundException;
-import org.thinkit.bot.instagram.mongo.entity.Session;
-import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -50,18 +43,7 @@ public final class CloseSessionTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final SessionRepository sessionRepository = super.getMongoCollections().getSessionRepository();
-        final Session session = sessionRepository.findByUserName(super.getChargeUserName());
-
-        if (session == null) {
-            throw new SessionInconsistencyFoundException(String
-                    .format("Could not find the session linked to the user name [%s].", super.getChargeUserName()));
-        }
-
-        this.clearSession(session);
-
-        sessionRepository.save(session);
-        log.debug("Updated session: {}", session);
+        super.closeSession();
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
         batchTaskResultBuilder.actionCount(1);
@@ -69,25 +51,5 @@ public final class CloseSessionTasklet extends AbstractTasklet {
 
         log.debug("END");
         return batchTaskResultBuilder.build();
-    }
-
-    public void clearSession(@NonNull final Session session) {
-        log.debug("START");
-
-        session.setRunning(false);
-        session.setPid(0L);
-        session.setJvmName("");
-        session.setVmName("");
-        session.setVmVersion("");
-        session.setVmVendor("");
-        session.setSpecName("");
-        session.setSpecVersion("");
-        session.setManagementSpecVersion("");
-        session.setInputArgs("");
-        session.setClassPath("");
-        session.setLibraryPath("");
-        session.setUpdatedAt(new Date());
-
-        log.debug("END");
     }
 }

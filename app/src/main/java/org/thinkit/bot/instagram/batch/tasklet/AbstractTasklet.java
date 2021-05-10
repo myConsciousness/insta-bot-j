@@ -28,6 +28,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.thinkit.api.catalog.BiCatalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import org.thinkit.bot.instagram.batch.policy.RunningUser;
 import org.thinkit.bot.instagram.batch.policy.Task;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
@@ -41,7 +42,6 @@ import org.thinkit.bot.instagram.mongo.entity.ActionSkip;
 import org.thinkit.bot.instagram.mongo.entity.Error;
 import org.thinkit.bot.instagram.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
-import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.mongo.entity.Variable;
 import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
@@ -90,11 +90,10 @@ public abstract class AbstractTasklet implements Tasklet {
     private InstaBot instaBot;
 
     /**
-     * The user account
+     * The running user
      */
-    @Autowired(required = false)
-    @Getter(AccessLevel.PROTECTED)
-    private UserAccount userAccount;
+    @Autowired
+    private RunningUser runningUser;
 
     /**
      * The mongo collections
@@ -200,8 +199,20 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("END");
     }
 
-    protected String getChargeUserName() {
-        return this.userAccount.getUserName();
+    protected boolean hasRunningUser() {
+        return this.runningUser.isAvailable();
+    }
+
+    protected String getRunningUserName() {
+        return this.runningUser.getUserName();
+    }
+
+    protected String getRunningUserPassword() {
+        return this.runningUser.getPassword();
+    }
+
+    protected void closeSession() {
+        this.runningUser.closeSession();
     }
 
     private RepeatStatus executeTaskProcess(StepContribution contribution, ChunkContext chunkContext) {
@@ -411,7 +422,7 @@ public abstract class AbstractTasklet implements Tasklet {
         Preconditions.requirePositive(resultCount);
 
         MessageMeta messageMeta = new MessageMeta();
-        messageMeta.setChargeUserName(this.getChargeUserName());
+        messageMeta.setChargeUserName(this.getRunningUserName());
         messageMeta.setTaskTypeCode(this.task.getTypeCode());
         messageMeta.setCount(resultCount);
 

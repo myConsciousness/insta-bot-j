@@ -20,7 +20,6 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.param.ActionUser;
 
 import lombok.EqualsAndHashCode;
@@ -45,9 +44,7 @@ public final class ExecuteAutoLoginTasklet extends AbstractTasklet {
     public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final UserAccount userAccount = super.getUserAccount();
-
-        super.getInstaBot().executeLogin(ActionUser.from(userAccount.getUserName(), userAccount.getPassword()));
+        super.getInstaBot().executeLogin(ActionUser.from(super.getRunningUserName(), super.getRunningUserPassword()));
         log.info("The login to Instagram has been successfully completed.");
 
         log.debug("END");
