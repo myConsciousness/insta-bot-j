@@ -107,6 +107,8 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
 
                 if (userText.contains(Separator.WHITESPACE.getTag())) {
                     profileUsers.add(StringUtils.split(userText)[0]);
+                } else if (userText.contains(Separator.NEWLINE.getTag())) {
+                    profileUsers.add(StringUtils.split(userText, Separator.NEWLINE.getTag())[0]);
                 } else {
                     profileUsers.add(userText);
                 }

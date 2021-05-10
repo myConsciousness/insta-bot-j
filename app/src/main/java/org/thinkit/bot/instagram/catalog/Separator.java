@@ -31,7 +31,12 @@ public enum Separator implements BiCatalog<Separator, String> {
     /**
      * The whitespace
      */
-    WHITESPACE(0, " ");
+    WHITESPACE(0, " "),
+
+    /**
+     * The newline
+     */
+    NEWLINE(1, System.getProperty("line.separator"));
 
     /**
      * The code
