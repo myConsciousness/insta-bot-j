@@ -3,7 +3,7 @@
         "author": "Kato Shinya",
         "encoding": "UTF-8",
         "description": "The content that manages the hashtag group.",
-        "resultType": "org.thinkit.bot.instagram.content.entity.HashtagGroup"
+        "resultType": "org.thinkit.bot.instagram.batch.data.content.entity.HashtagGroup"
     },
     "selectionNodes": [
         {

@@ -3,7 +3,7 @@
         "author": "Kato Shinya",
         "encoding": "UTF-8",
         "description": "The content that manages the default variable.",
-        "resultType": "org.thinkit.bot.instagram.content.entity.DefaultVariable"
+        "resultType": "org.thinkit.bot.instagram.batch.data.content.entity.DefaultVariable"
     },
     "selectionNodes": [
         {
