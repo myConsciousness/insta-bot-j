@@ -25,7 +25,7 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.SessionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.exception.SessionInconsistencyFoundException;
-import org.thinkit.bot.instagram.util.RuntimeMxUtils;
+import org.thinkit.bot.instagram.batch.util.RuntimeMxUtils;
 
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;

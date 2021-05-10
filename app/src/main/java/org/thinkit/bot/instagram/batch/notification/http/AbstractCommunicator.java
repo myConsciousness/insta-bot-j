@@ -33,9 +33,9 @@ import org.thinkit.bot.instagram.batch.exception.http.NotAcceptableException;
 import org.thinkit.bot.instagram.batch.exception.http.NotFoundException;
 import org.thinkit.bot.instagram.batch.exception.http.ServiceUnavailableException;
 import org.thinkit.bot.instagram.batch.exception.http.UserUnauthorizedException;
+import org.thinkit.bot.instagram.batch.util.LineNotifyApiUtils;
+import org.thinkit.bot.instagram.batch.util.SecuritySchemeUtils;
 import org.thinkit.bot.instagram.catalog.ContentType;
-import org.thinkit.bot.instagram.util.LineNotifyApiUtils;
-import org.thinkit.bot.instagram.util.SecuritySchemeUtils;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
