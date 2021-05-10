@@ -112,6 +112,9 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
                 } else {
                     profileUsers.add(userText);
                 }
+
+                super.executeScript(JavaScriptCommand.SCROLL_VIEW, row);
+
             } catch (Exception recoverableException) {
                 // There is an inconsistency between the number of followers shown in profile
                 // and the actual number of followers. This exception is mainly caused by the
@@ -120,8 +123,6 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
                 actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_SCRAPE_USER_PROFILE));
                 return profileUsers;
             }
-
-            super.executeScript(JavaScriptCommand.SCROLL_VIEW, row);
         }
 
         return profileUsers;
