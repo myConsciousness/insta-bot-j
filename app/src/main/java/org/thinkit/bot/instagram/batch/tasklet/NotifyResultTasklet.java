@@ -23,11 +23,11 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
+import org.thinkit.bot.instagram.batch.notification.LineNotify;
+import org.thinkit.bot.instagram.batch.notification.message.LineMessageBuilder;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
-import org.thinkit.bot.instagram.message.LineMessageBuilder;
-import org.thinkit.bot.instagram.notification.LineNotify;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

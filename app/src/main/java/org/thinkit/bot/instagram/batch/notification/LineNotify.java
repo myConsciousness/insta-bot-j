@@ -12,14 +12,14 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.notification;
+package org.thinkit.bot.instagram.batch.notification;
 
 import java.io.Serializable;
 
 import com.google.api.client.http.GenericUrl;
 
+import org.thinkit.bot.instagram.batch.notification.http.HttpCommunicator;
 import org.thinkit.bot.instagram.catalog.NotificationApi;
-import org.thinkit.bot.instagram.notification.http.HttpCommunicator;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.notification.http;
+package org.thinkit.bot.instagram.batch.notification.http;
 
 import java.io.IOException;
 

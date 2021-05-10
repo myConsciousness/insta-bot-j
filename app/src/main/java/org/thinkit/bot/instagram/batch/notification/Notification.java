@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.notification;
+package org.thinkit.bot.instagram.batch.notification;
 
 import com.mongodb.lang.NonNull;
 
