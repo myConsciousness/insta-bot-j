@@ -28,7 +28,7 @@
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "4"
+                        "operand": "6"
                     }
                 ]
             }
@@ -41,7 +41,7 @@
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "5"
+                        "operand": "7"
                     }
                 ]
             }
