@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
+import org.thinkit.bot.instagram.batch.catalog.MongoDatabase;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepository;
@@ -38,7 +39,6 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.UserFollowerReposit
 import org.thinkit.bot.instagram.batch.data.mongo.repository.UserFollowingRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.catalog.MongoDatabase;
 
 /**
  * The configuration class for MongoDB.

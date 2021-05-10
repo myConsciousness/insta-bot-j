@@ -12,71 +12,35 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.batch.catalog;
 
-import org.thinkit.api.catalog.BiCatalog;
+import org.thinkit.api.catalog.Catalog;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages error http status.
+ * The catalog that manages login strategy pattern.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum ErrorHttpStatus implements BiCatalog<ErrorHttpStatus, Integer> {
+public enum LoginStrategyPattern implements Catalog<LoginStrategyPattern> {
 
     /**
-     * Bad Request
+     * The basic login (user name + password)
      */
-    BAD_REQUEST(0, 400),
+    BASIC(0),
 
     /**
-     * Unauthorized
+     * The two factor login (user name + password + secret token)
      */
-    UNAUTHORIZED(1, 401),
-
-    /**
-     * Forbidden
-     */
-    FORBIDDEN(2, 403),
-
-    /**
-     * Not found
-     */
-    NOT_FOUND(3, 404),
-
-    /**
-     * Not acceptable
-     */
-    NOT_ACCEPTABLE(4, 406),
-
-    /**
-     * Internal server error
-     */
-    INTERNAL_SERVER_ERROR(5, 500),
-
-    /**
-     * Bad gateway
-     */
-    BAD_GATEWAY(6, 502),
-
-    /**
-     * Service unavailable
-     */
-    SERVICE_UNAVAILABLE(7, 503);
+    TWO_FACTOR(1);
 
     /**
      * The code
      */
     @Getter
     private final int code;
-
-    /**
-     * The tag
-     */
-    @Getter
-    private final Integer tag;
 }

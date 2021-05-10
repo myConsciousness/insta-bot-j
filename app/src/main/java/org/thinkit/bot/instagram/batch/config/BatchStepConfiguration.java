@@ -20,8 +20,8 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.thinkit.bot.instagram.batch.catalog.BatchStep;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
-import org.thinkit.bot.instagram.catalog.BatchStep;
 
 @Configuration
 public class BatchStepConfiguration {

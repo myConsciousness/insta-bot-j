@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.batch.catalog;
 
 import org.thinkit.api.catalog.BiCatalog;
 
@@ -20,18 +20,18 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages batch job.
+ * The catalog that manages line notify parameter.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum BatchJob implements BiCatalog<BatchJob, String> {
+public enum LineNotifyParameter implements BiCatalog<LineNotifyParameter, String> {
 
     /**
-     * The insta bot
+     * The message
      */
-    INSTA_BOT(0, "InstaBotJob");
+    MESSAGE(0, "message");
 
     /**
      * The code

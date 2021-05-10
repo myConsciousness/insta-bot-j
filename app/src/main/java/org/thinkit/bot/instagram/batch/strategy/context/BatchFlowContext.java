@@ -14,10 +14,10 @@
 
 package org.thinkit.bot.instagram.batch.strategy.context;
 
+import org.thinkit.bot.instagram.batch.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
 import org.thinkit.bot.instagram.batch.strategy.flow.RestrictableBatchFlowStrategy;
 import org.thinkit.bot.instagram.batch.strategy.flow.UnrestrictableBatchFlowStrategy;
-import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,8 +39,8 @@ public final class BatchFlowContext implements Context<BatchFlowStrategy> {
     @Override
     public BatchFlowStrategy evaluate() {
         return switch (this.batchFlowStrategyPattern) {
-        case RESTRICTABLE -> RestrictableBatchFlowStrategy.newInstance();
-        case UNRESTRICTABLE -> UnrestrictableBatchFlowStrategy.newInstance();
+            case RESTRICTABLE -> RestrictableBatchFlowStrategy.newInstance();
+            case UNRESTRICTABLE -> UnrestrictableBatchFlowStrategy.newInstance();
         };
     }
 }

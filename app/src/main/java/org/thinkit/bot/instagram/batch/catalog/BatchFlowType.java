@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.batch.catalog;
 
 import org.thinkit.api.catalog.Catalog;
 
@@ -20,23 +20,23 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages login strategy pattern.
+ * The catalog that manages batch flow type.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum LoginStrategyPattern implements Catalog<LoginStrategyPattern> {
+public enum BatchFlowType implements Catalog<BatchFlowType> {
 
     /**
-     * The basic login (user name + password)
+     * The boot
      */
-    BASIC(0),
+    BOOT(0),
 
     /**
-     * The two factor login (user name + password + secret token)
+     * The close
      */
-    TWO_FACTOR(1);
+    CLOSE(1);
 
     /**
      * The code

@@ -12,35 +12,36 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.batch.catalog;
 
-import org.thinkit.api.catalog.Catalog;
+import org.thinkit.api.catalog.BiCatalog;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages batch flow type.
+ * The catalog that manages batch job.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum BatchFlowType implements Catalog<BatchFlowType> {
+public enum BatchJob implements BiCatalog<BatchJob, String> {
 
     /**
-     * The boot
+     * The insta bot
      */
-    BOOT(0),
-
-    /**
-     * The close
-     */
-    CLOSE(1);
+    INSTA_BOT(0, "InstaBotJob");
 
     /**
      * The code
      */
     @Getter
     private final int code;
+
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }

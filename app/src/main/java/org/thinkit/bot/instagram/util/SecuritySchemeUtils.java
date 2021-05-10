@@ -17,8 +17,8 @@ package org.thinkit.bot.instagram.util;
 import java.util.StringJoiner;
 
 import org.apache.commons.lang3.StringUtils;
+import org.thinkit.bot.instagram.batch.catalog.SecurityScheme;
 import org.thinkit.bot.instagram.catalog.Delimiter;
-import org.thinkit.bot.instagram.catalog.SecurityScheme;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

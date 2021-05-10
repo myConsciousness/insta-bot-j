@@ -18,8 +18,8 @@ import java.io.Serializable;
 
 import com.google.api.client.http.GenericUrl;
 
+import org.thinkit.bot.instagram.batch.catalog.NotificationApi;
 import org.thinkit.bot.instagram.batch.notification.http.HttpCommunicator;
-import org.thinkit.bot.instagram.catalog.NotificationApi;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
