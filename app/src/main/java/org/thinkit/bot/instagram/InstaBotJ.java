@@ -107,16 +107,15 @@ public final class InstaBotJ extends AbstractInstaBot {
     public List<AutoLikeResult> executeAutoLike(@NonNull final List<TargetHashtag> targetHashtags,
             @NonNull final AutoLikeConfig autoLikeConfig) {
         Preconditions.requireNonEmpty(targetHashtags, "The hash tag is required to execute auto like command.");
-        Preconditions.requirePositive(autoLikeConfig.getMaxLike(), "The count of max like must not be negative.");
+        Preconditions.requirePositive(autoLikeConfig.getMaxLikePerHashtag(),
+                "The count of max like must not be negative.");
         Preconditions.requirePositive(autoLikeConfig.getInterval(), "The count of like interval must not be negative.");
+        Preconditions.requireNonNull(autoLikeConfig.getCompletedLikeState(), "The completed like state is required.");
 
         final List<AutoLikeResult> autolikeResults = new ArrayList<>();
 
-        final int likeInterval = autoLikeConfig.getInterval();
-        final int maxLikesPerTag = autoLikeConfig.getMaxLike() / targetHashtags.size();
-
         for (final TargetHashtag targetHashtag : targetHashtags) {
-            final AutoLikeResult autolikeResult = AutoLikeCommand.from(targetHashtag, maxLikesPerTag, likeInterval)
+            final AutoLikeResult autolikeResult = AutoLikeCommand.from(targetHashtag, autoLikeConfig)
                     .execute(super.getWebDriver());
             autolikeResults.add(autolikeResult);
 

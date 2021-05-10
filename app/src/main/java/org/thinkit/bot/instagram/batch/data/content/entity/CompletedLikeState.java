@@ -41,5 +41,5 @@ public final class CompletedLikeState implements ContentEntity, Serializable {
      * The completed like state
      */
     @Getter
-    private String completedLikeState;
+    private String state;
 }

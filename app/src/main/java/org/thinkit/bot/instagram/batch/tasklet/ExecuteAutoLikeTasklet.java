@@ -17,11 +17,15 @@ package org.thinkit.bot.instagram.batch.tasklet;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mongodb.lang.NonNull;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.api.catalog.Catalog;
+import org.thinkit.bot.instagram.batch.data.content.entity.CompletedLikeState;
+import org.thinkit.bot.instagram.batch.data.content.mapper.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionSkip;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.LikedPhoto;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepository;
@@ -62,8 +66,9 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
+        final List<TargetHashtag> targetHashtags = this.getTargetHashtags();
         final List<AutoLikeResult> autolikeResults = super.getInstaBot().executeAutoLike(this.getTargetHashtags(),
-                this.getAutoLikeConfig());
+                this.getAutoLikeConfig(targetHashtags));
         log.info("The auto like has completed the process successfully.");
 
         final MongoCollections mongoCollection = super.getMongoCollections();
@@ -121,15 +126,12 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
                 super.getRunningUserName(), this.getTargetGroupCode());
     }
 
-    private AutoLikeConfig getAutoLikeConfig() {
+    private AutoLikeConfig getAutoLikeConfig(@NonNull final List<TargetHashtag> targetHashtags) {
         log.debug("START");
 
-        final int maxLike = this.getMaxLike();
-        final int skippedCount = this.getSkippedCount();
-
         final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder()
-                .maxLike(skippedCount > 0 ? maxLike * (skippedCount + 1) : maxLike).interval(this.getLikeInterval())
-                .build();
+                .maxLikePerHashtag(this.getMaxLikePerHashtag(targetHashtags.size())).interval(this.getLikeInterval())
+                .completedLikeState(this.getCompletedLikeState()).build();
         log.debug("The auto like config: {}", autoLikeConfig);
 
         log.debug("END");
@@ -160,5 +162,15 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
         log.debug("END");
         return actionSkip.getCount();
+    }
+
+    private CompletedLikeState getCompletedLikeState() {
+        return CompletedLikeStateMapper.newInstance().scan().get(0);
+    }
+
+    private int getMaxLikePerHashtag(final int hashtagCount) {
+        final int maxLike = this.getMaxLike();
+        final int skippedCount = this.getSkippedCount();
+        return (skippedCount > 0 ? maxLike * (skippedCount + 1) : maxLike) / hashtagCount;
     }
 }

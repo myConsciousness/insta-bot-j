@@ -9,7 +9,7 @@
         {
             "node": {
                 "conditionId": "",
-                "completedLikeState": "取り消す"
+                "state": "取り消す"
             }
         }
     ],

@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.thinkit.bot.instagram.batch.data.content.mapper.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.ElementAttribute;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
@@ -28,6 +27,7 @@ import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
+import org.thinkit.bot.instagram.config.AutoLikeConfig;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
@@ -56,14 +56,9 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
     private TargetHashtag targetHashtag;
 
     /**
-     * The count of max like
+     * The auto like config
      */
-    private int maxLikes;
-
-    /**
-     * The like interval
-     */
-    private int likeInterval;
+    private AutoLikeConfig autoLikeConfig;
 
     @Override
     public AutoLikeResult executeBotProcess() {
@@ -88,13 +83,15 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         final List<ActionLikedPhoto> actionedLikedPhotos = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
+        final int maxLike = this.autoLikeConfig.getMaxLikePerHashtag();
+        final int interval = this.autoLikeConfig.getInterval();
+        final String completedLikeState = this.autoLikeConfig.getCompletedLikeState().getState();
+
         int countLikes = 0;
         boolean likedPhoto = false;
-        final String completedLikeState = this.getCompletedLikeState();
-
-        while (countLikes < maxLikes) {
+        while (countLikes < maxLike) {
             try {
-                if (countLikes != 0 && countLikes % this.likeInterval == 0) {
+                if (countLikes != 0 && countLikes % interval == 0) {
                     super.wait(WaitType.LIKE);
                 } else {
                     if (likedPhoto) {
@@ -157,10 +154,6 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         }
 
         return autolikeResultBuilder.build();
-    }
-
-    private String getCompletedLikeState() {
-        return CompletedLikeStateMapper.newInstance().scan().get(0).getCompletedLikeState();
     }
 
     private WebElement findFirstElement() {

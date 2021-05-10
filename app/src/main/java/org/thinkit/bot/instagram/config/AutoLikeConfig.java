@@ -16,6 +16,8 @@ package org.thinkit.bot.instagram.config;
 
 import java.io.Serializable;
 
+import org.thinkit.bot.instagram.batch.data.content.entity.CompletedLikeState;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,14 +40,20 @@ import lombok.ToString;
 public final class AutoLikeConfig implements Serializable {
 
     /**
-     * The max like
+     * The max like per hashtag
      */
     @Getter
-    private int maxLike;
+    private int maxLikePerHashtag;
 
     /**
      * The like interval
      */
     @Getter
     private int interval;
+
+    /**
+     * The completed like state
+     */
+    @Getter
+    private CompletedLikeState completedLikeState;
 }
