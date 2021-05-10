@@ -18,6 +18,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.content.entity.HashtagGroup;
 import org.thinkit.bot.instagram.batch.data.content.entity.HashtagResource;
 import org.thinkit.bot.instagram.batch.data.content.mapper.HashtagGroupMapper;
@@ -28,7 +29,6 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.catalog.VariableName;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

@@ -22,6 +22,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowedUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MissingUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.UnfollowedUser;
@@ -31,7 +32,6 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.UnfollowedUserRepos
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoUnfollowConfig;
 import org.thinkit.bot.instagram.param.UnfollowUser;
 import org.thinkit.bot.instagram.result.ActionUnfollowFailedUser;

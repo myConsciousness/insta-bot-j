@@ -14,10 +14,10 @@
 
 package org.thinkit.bot.instagram.batch.strategy.context;
 
+import org.thinkit.bot.instagram.batch.catalog.HashtagSelectionStrategyPattern;
 import org.thinkit.bot.instagram.batch.strategy.hashtag.DefaultHashtagSelectionStrategy;
 import org.thinkit.bot.instagram.batch.strategy.hashtag.FocusHashtagSelectionStrategy;
 import org.thinkit.bot.instagram.batch.strategy.hashtag.HashtagSelectionStrategy;
-import org.thinkit.bot.instagram.catalog.HashtagSelectionStrategyPattern;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -39,8 +39,8 @@ public final class HashtagSelectionContext implements Context<HashtagSelectionSt
     @Override
     public HashtagSelectionStrategy evaluate() {
         return switch (this.hashtagSelectionStrategyPattern) {
-        case DEFAULT -> DefaultHashtagSelectionStrategy.newInstance();
-        case FOCUS -> FocusHashtagSelectionStrategy.newInstance();
+            case DEFAULT -> DefaultHashtagSelectionStrategy.newInstance();
+            case FOCUS -> FocusHashtagSelectionStrategy.newInstance();
         };
     }
 }

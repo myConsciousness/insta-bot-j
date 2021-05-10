@@ -24,6 +24,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.content.entity.NumberUnitResource;
 import org.thinkit.bot.instagram.batch.data.content.mapper.NumberUnitResourceMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackExpectableUser;
@@ -34,7 +35,6 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.LikedPhotoRepositor
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ActionExpectableUser;

@@ -35,6 +35,7 @@ import org.thinkit.bot.instagram.InstaBotJ;
 import org.thinkit.bot.instagram.batch.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.BatchFlowType;
 import org.thinkit.bot.instagram.batch.catalog.BatchJob;
+import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultVariableMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
@@ -42,7 +43,6 @@ import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
-import org.thinkit.bot.instagram.catalog.VariableName;
 
 /**
  *
