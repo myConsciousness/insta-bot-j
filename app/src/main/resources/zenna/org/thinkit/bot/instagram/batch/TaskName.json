@@ -20,13 +20,13 @@
         },
         {
             "node": {
-                "conditionId": "4",
+                "conditionId": "6",
                 "name": "AutoFollow"
             }
         },
         {
             "node": {
-                "conditionId": "5",
+                "conditionId": "7",
                 "name": "AutoUnfollow"
             }
         }
@@ -60,26 +60,26 @@
         },
         {
             "node": {
-                "conditionId": "4",
+                "conditionId": "6",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "4"
+                        "operand": "6"
                     }
                 ]
             }
         },
         {
             "node": {
-                "conditionId": "5",
+                "conditionId": "7",
                 "exclude": false,
                 "conditions": [
                     {
                         "keyName": "taskTypeCode",
                         "operator": "=",
-                        "operand": "5"
+                        "operand": "7"
                     }
                 ]
             }
