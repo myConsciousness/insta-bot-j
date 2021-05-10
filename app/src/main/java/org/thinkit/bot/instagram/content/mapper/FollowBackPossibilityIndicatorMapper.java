@@ -12,31 +12,24 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.DefaultVariable;
+import org.thinkit.bot.instagram.content.entity.FollowBackPossibilityIndicator;
 import org.thinkit.zenna.mapper.ContentMapper;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "DefaultVariable"} .
+ * The mapper class that manages the content
+ * {@code "FollowBackPossibilityIndicator"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class DefaultVariableMapper extends ContentMapper<DefaultVariable> {
-
-    /**
-     * The variable name
-     */
-    private String variableName;
+@NoArgsConstructor(staticName = "newInstance")
+public final class FollowBackPossibilityIndicatorMapper extends ContentMapper<FollowBackPossibilityIndicator> {
 }

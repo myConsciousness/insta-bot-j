@@ -12,23 +12,31 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.ActionStatusMessage;
+import org.thinkit.bot.instagram.content.entity.LineMessagePhrase;
 import org.thinkit.zenna.mapper.ContentMapper;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "ActionStatusMessage"} .
+ * The mapper class that manages the content {@code "LineMessagePhrase"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
-public final class ActionStatusMessageMapper extends ContentMapper<ActionStatusMessage> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
+public final class LineMessagePhraseMapper extends ContentMapper<LineMessagePhrase> {
+
+    /**
+     * The task type code
+     */
+    private int taskTypeCode;
 }

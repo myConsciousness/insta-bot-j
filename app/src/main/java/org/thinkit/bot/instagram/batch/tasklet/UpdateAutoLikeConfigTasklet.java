@@ -25,10 +25,10 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
-import org.thinkit.bot.instagram.content.HashtagGroupMapper;
-import org.thinkit.bot.instagram.content.HashtagResourceMapper;
 import org.thinkit.bot.instagram.content.entity.HashtagGroup;
 import org.thinkit.bot.instagram.content.entity.HashtagResource;
+import org.thinkit.bot.instagram.content.mapper.HashtagGroupMapper;
+import org.thinkit.bot.instagram.content.mapper.HashtagResourceMapper;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

@@ -12,9 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.FollowBackPossibilityIndicator;
+import org.thinkit.bot.instagram.content.entity.HashtagGroup;
 import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.EqualsAndHashCode;
@@ -22,8 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content
- * {@code "FollowBackPossibilityIndicator"} .
+ * The mapper class that manages the content {@code "HashtagGroup"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -31,5 +30,5 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(staticName = "newInstance")
-public final class FollowBackPossibilityIndicatorMapper extends ContentMapper<FollowBackPossibilityIndicator> {
+public final class HashtagGroupMapper extends ContentMapper<HashtagGroup> {
 }

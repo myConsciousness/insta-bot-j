@@ -26,7 +26,7 @@ import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
-import org.thinkit.bot.instagram.content.FollowStateMapper;
+import org.thinkit.bot.instagram.content.mapper.FollowStateMapper;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionFollowFailedUser;

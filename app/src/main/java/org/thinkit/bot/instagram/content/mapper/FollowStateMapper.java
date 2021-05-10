@@ -12,9 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.HashtagResource;
+import org.thinkit.bot.instagram.content.entity.FollowState;
 import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.AccessLevel;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "HashtagResource"} .
+ * The mapper class that manages the content {@code "FollowState"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -33,10 +33,10 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class HashtagResourceMapper extends ContentMapper<HashtagResource> {
+public final class FollowStateMapper extends ContentMapper<FollowState> {
 
     /**
-     * The charge user name
+     * The follow state type code
      */
-    private String chargeUserName;
+    private int followStateTypeCode;
 }

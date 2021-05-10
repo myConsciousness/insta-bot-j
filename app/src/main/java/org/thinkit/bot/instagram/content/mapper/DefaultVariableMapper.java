@@ -12,9 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.ExecutionControlledVariable;
+import org.thinkit.bot.instagram.content.entity.DefaultVariable;
 import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.AccessLevel;
@@ -24,8 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content
- * {@code "ExecutionControlledVariable"} .
+ * The mapper class that manages the content {@code "DefaultVariable"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -34,10 +33,10 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class ExecutionControlledVariableMapper extends ContentMapper<ExecutionControlledVariable> {
+public final class DefaultVariableMapper extends ContentMapper<DefaultVariable> {
 
     /**
-     * The task type code
+     * The variable name
      */
-    private int taskTypeCode;
+    private String variableName;
 }

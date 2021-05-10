@@ -27,7 +27,7 @@ import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
-import org.thinkit.bot.instagram.content.CompletedLikeStateMapper;
+import org.thinkit.bot.instagram.content.mapper.CompletedLikeStateMapper;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;

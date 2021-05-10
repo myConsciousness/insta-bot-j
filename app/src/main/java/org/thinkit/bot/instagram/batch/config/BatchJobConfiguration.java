@@ -42,7 +42,7 @@ import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.catalog.BatchFlowType;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.VariableName;
-import org.thinkit.bot.instagram.content.DefaultVariableMapper;
+import org.thinkit.bot.instagram.content.mapper.DefaultVariableMapper;
 
 /**
  *

@@ -22,7 +22,7 @@ import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackPossibilityIn
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackPossibilityIndicatorRepository;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.content.FollowBackPossibilityIndicatorMapper;
+import org.thinkit.bot.instagram.content.mapper.FollowBackPossibilityIndicatorMapper;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

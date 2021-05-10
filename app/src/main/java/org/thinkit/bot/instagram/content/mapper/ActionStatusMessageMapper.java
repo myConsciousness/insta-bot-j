@@ -12,9 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content;
+package org.thinkit.bot.instagram.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.CompletedLikeState;
+import org.thinkit.bot.instagram.content.entity.ActionStatusMessage;
 import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.EqualsAndHashCode;
@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "CompletedLikeState"} .
+ * The mapper class that manages the content {@code "ActionStatusMessage"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
@@ -30,5 +30,5 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(staticName = "newInstance")
-public final class CompletedLikeStateMapper extends ContentMapper<CompletedLikeState> {
+public final class ActionStatusMessageMapper extends ContentMapper<ActionStatusMessage> {
 }
