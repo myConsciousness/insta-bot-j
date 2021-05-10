@@ -19,7 +19,6 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
-import org.thinkit.bot.instagram.catalog.ElementCssSelector;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -76,8 +75,10 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
                 super.waitUntilElementClickable(By.xpath(ElementXPath.UNFOLLOW_BUTTON.getTag()));
                 super.findByXpath(ElementXPath.UNFOLLOW_BUTTON).click();
 
-                super.waitUntilElementClickable(By.cssSelector(ElementCssSelector.UNFOLLOW_BUTTON_ON_MODAL.getTag()));
-                super.findByCssSelector(ElementCssSelector.UNFOLLOW_BUTTON_ON_MODAL).click();
+                final String xpathButtonContainsUnfollow = String.format(ElementXPath.BUTTON_CONTAINS_TEXT.getTag(),
+                        "フォローをやめる");
+                super.waitUntilElementClickable(By.xpath(xpathButtonContainsUnfollow));
+                super.findElement(By.xpath(xpathButtonContainsUnfollow)).click();
 
                 final ActionUnfollowedUser.ActionUnfollowedUserBuilder actionUnfollowedUserBuilder = ActionUnfollowedUser
                         .builder();

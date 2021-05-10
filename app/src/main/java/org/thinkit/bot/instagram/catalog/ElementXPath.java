@@ -88,7 +88,12 @@ public enum ElementXPath implements BiCatalog<ElementXPath, String> {
     /**
      * The profile modal list
      */
-    PROFILE_MODAL_LIST(10, "/html/body/div[5]/div/div/div[2]/ul/div/li[%s]");
+    PROFILE_MODAL_LIST(10, "/html/body/div[5]/div/div/div[2]/ul/div/li[%s]"),
+
+    /**
+     * The button contains text
+     */
+    BUTTON_CONTAINS_TEXT(11, "//button[contains(., '%s')]");
 
     /**
      * The code

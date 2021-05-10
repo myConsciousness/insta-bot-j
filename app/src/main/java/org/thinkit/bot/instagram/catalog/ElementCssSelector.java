@@ -54,12 +54,7 @@ public enum ElementCssSelector implements BiCatalog<ElementCssSelector, String> 
      * The following count on profile
      */
     PROFILE_FOLLOWING_COUNT(4,
-            "#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span"),
-
-    /**
-     * The unfollow button on modal
-     */
-    UNFOLLOW_BUTTON_ON_MODAL(5, "body > div.RnEpo.Yx5HN > div > div > div > div.mt3GC > button.aOOlW.-Cab_");
+            "#react-root > section > main > div > header > section > ul > li:nth-child(3) > a > span");
 
     /**
      * The code
