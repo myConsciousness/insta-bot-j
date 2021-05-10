@@ -60,8 +60,8 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
         final List<ActionUnfollowFailedUser> actionUnfollowFailedUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
-        String userName = "";
         for (final UnfollowUser unfollowUser : this.unfollowUsers) {
+            String userName = "";
             try {
                 super.wait(WaitType.UNFOLLOW);
 
@@ -74,7 +74,7 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
                 super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), userName));
 
                 super.waitUntilElementClickable(By.xpath(ElementXPath.UNFOLLOW_BUTTON.getTag()));
-                super.findByXpath(ElementXPath.FOLLOW_BUTTON).click();
+                super.findByXpath(ElementXPath.UNFOLLOW_BUTTON).click();
 
                 super.waitUntilElementClickable(By.cssSelector(ElementCssSelector.UNFOLLOW_BUTTON_ON_MODAL.getTag()));
                 super.findByCssSelector(ElementCssSelector.UNFOLLOW_BUTTON_ON_MODAL).click();
