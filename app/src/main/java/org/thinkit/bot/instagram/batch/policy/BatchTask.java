@@ -34,7 +34,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class Task implements Serializable {
+public final class BatchTask implements Serializable {
 
     /**
      * The task type

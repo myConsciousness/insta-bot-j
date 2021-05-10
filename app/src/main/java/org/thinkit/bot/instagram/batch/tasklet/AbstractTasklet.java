@@ -43,8 +43,8 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import org.thinkit.bot.instagram.batch.policy.BatchTask;
 import org.thinkit.bot.instagram.batch.policy.RunningUser;
-import org.thinkit.bot.instagram.batch.policy.Task;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
@@ -72,9 +72,9 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class AbstractTasklet implements Tasklet {
 
     /**
-     * The task
+     * The batch task
      */
-    private final Task task;
+    private final BatchTask batchTask;
 
     /**
      * The configurable application context
@@ -110,7 +110,7 @@ public abstract class AbstractTasklet implements Tasklet {
      * @exception NullPointerException If {@code null} is passed as an argument
      */
     protected AbstractTasklet(@NonNull final TaskType taskType) {
-        this.task = Task.from(taskType);
+        this.batchTask = BatchTask.from(taskType);
     }
 
     /**
@@ -133,12 +133,12 @@ public abstract class AbstractTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        if (this.task.isRestrictable() && this.isActionRestricted()) {
+        if (this.batchTask.isRestrictable() && this.isActionRestricted()) {
             log.debug("END");
             return this.executeRestrictedProcess();
         }
 
-        if (this.task.canSkip() && this.isSkipMood()) {
+        if (this.batchTask.canSkip() && this.isSkipMood()) {
             log.debug("END");
             return this.executeSkipMoodProcess();
         }
@@ -231,7 +231,7 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
         final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
 
-        if (this.task.isExecutionControlled()) {
+        if (this.batchTask.isExecutionControlled()) {
             this.saveExecutionControlledVariable();
         }
 
@@ -245,17 +245,17 @@ public abstract class AbstractTasklet implements Tasklet {
             this.saveActionRestriction();
         }
 
-        if (this.task.canSendResultMessage()) {
+        if (this.batchTask.canSendResultMessage()) {
             this.saveMessageMeta(batchTaskResult.getResultCount(), actionStatus);
         }
 
-        if (this.task.canSkip()) {
+        if (this.batchTask.canSkip()) {
             this.resetSkippedCount();
         }
 
         this.updateEndAction();
 
-        if (this.task.isClosable()) {
+        if (this.batchTask.isClosable()) {
             this.context.close();
         }
 
@@ -280,7 +280,7 @@ public abstract class AbstractTasklet implements Tasklet {
             log.info("The waiting time for the action restriction has passed.");
         }
 
-        if (this.task.canSendResultMessage()) {
+        if (this.batchTask.canSendResultMessage()) {
             this.saveMessageMeta(0, ActionStatus.SKIP);
         }
 
@@ -295,7 +295,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
         this.updateStartAction();
 
-        if (this.task.canSendResultMessage()) {
+        if (this.batchTask.canSendResultMessage()) {
             this.saveMessageMeta(0, ActionStatus.SKIP_MOOD);
         }
 
@@ -314,7 +314,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("STRAT");
 
         final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
-        ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
+        ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.batchTask.getTypeCode());
 
         if (actionSkip == null) {
             actionSkip = new ActionSkip();
@@ -340,7 +340,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
-        final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
+        final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.batchTask.getTypeCode());
         actionSkip.setCount(actionSkip.getCount() + 1);
         actionSkip.setUpdatedAt(new Date());
 
@@ -354,7 +354,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final ActionSkipRepository actionSkipRepository = this.mongoCollections.getActionSkipRepository();
-        final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.task.getTypeCode());
+        final ActionSkip actionSkip = actionSkipRepository.findByTaskTypeCode(this.batchTask.getTypeCode());
         actionSkip.setCount(0);
         actionSkip.setUpdatedAt(new Date());
 
@@ -377,7 +377,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final ActionRecord actionRecord = new ActionRecord();
-        actionRecord.setTaskTypeCode(this.task.getTypeCode());
+        actionRecord.setTaskTypeCode(this.batchTask.getTypeCode());
         actionRecord.setCount(actionCount);
         actionRecord.setActionStatusCode(actionStatus.getCode());
 
@@ -413,7 +413,7 @@ public abstract class AbstractTasklet implements Tasklet {
                 .getActionRestrictionRepository();
 
         final ActionRestriction actionRestriction = new ActionRestriction();
-        actionRestriction.setTaskTypeCode(this.task.getTypeCode());
+        actionRestriction.setTaskTypeCode(this.batchTask.getTypeCode());
 
         actionRestrictionRepository.insert(actionRestriction);
         log.debug("Inserted action restriction: {}", actionRestriction);
@@ -427,7 +427,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
         MessageMeta messageMeta = new MessageMeta();
         messageMeta.setChargeUserName(this.getRunningUserName());
-        messageMeta.setTaskTypeCode(this.task.getTypeCode());
+        messageMeta.setTaskTypeCode(this.batchTask.getTypeCode());
         messageMeta.setCount(resultCount);
 
         if (actionStatus == ActionStatus.INTERRUPTED) {
@@ -450,11 +450,11 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final LastActionRepository lastActionRepository = this.mongoCollections.getLastActionRepository();
-        LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.task.getTypeCode());
+        LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.batchTask.getTypeCode());
 
         if (lastAction == null) {
             lastAction = new LastAction();
-            lastAction.setTaskTypeCode(this.task.getTypeCode());
+            lastAction.setTaskTypeCode(this.batchTask.getTypeCode());
         }
 
         lastAction.setStart(new Date());
@@ -471,7 +471,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         final LastActionRepository lastActionRepository = this.mongoCollections.getLastActionRepository();
-        final LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.task.getTypeCode());
+        final LastAction lastAction = lastActionRepository.findByTaskTypeCode(this.batchTask.getTypeCode());
 
         lastAction.setEnd(new Date());
         lastAction.setUpdatedAt(new Date());
@@ -496,6 +496,6 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private int getExecutionControlledVariable() {
-        return ExecutionControlledVariableMapper.from(this.task.getTypeCode()).scan().get(0).getVariableCode();
+        return ExecutionControlledVariableMapper.from(this.batchTask.getTypeCode()).scan().get(0).getVariableCode();
     }
 }
