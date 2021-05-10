@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.http;
+package org.thinkit.bot.instagram.notification.http;
 
 import java.io.IOException;
 
@@ -114,15 +114,15 @@ public abstract class AbstractCommunicator implements Communicator {
         }
 
         switch (errorHttpStatus) {
-        case BAD_REQUEST -> throw new BadRequestException(this.getStatusMessage(httpResponse));
-        case UNAUTHORIZED -> throw new UserUnauthorizedException(this.getStatusMessage(httpResponse));
-        case FORBIDDEN -> throw new AccessForbiddenException(this.getStatusMessage(httpResponse));
-        case NOT_FOUND -> throw new NotFoundException(this.getStatusMessage(httpResponse));
-        case NOT_ACCEPTABLE -> throw new NotAcceptableException(this.getStatusMessage(httpResponse));
-        case INTERNAL_SERVER_ERROR -> throw new InternalServerErrorException(this.getStatusMessage(httpResponse));
-        case BAD_GATEWAY -> throw new BadGatewayException(this.getStatusMessage(httpResponse));
-        case SERVICE_UNAVAILABLE -> throw new ServiceUnavailableException(this.getStatusMessage(httpResponse));
-        default -> throw new IllegalStateException(); // It will never happen
+            case BAD_REQUEST -> throw new BadRequestException(this.getStatusMessage(httpResponse));
+            case UNAUTHORIZED -> throw new UserUnauthorizedException(this.getStatusMessage(httpResponse));
+            case FORBIDDEN -> throw new AccessForbiddenException(this.getStatusMessage(httpResponse));
+            case NOT_FOUND -> throw new NotFoundException(this.getStatusMessage(httpResponse));
+            case NOT_ACCEPTABLE -> throw new NotAcceptableException(this.getStatusMessage(httpResponse));
+            case INTERNAL_SERVER_ERROR -> throw new InternalServerErrorException(this.getStatusMessage(httpResponse));
+            case BAD_GATEWAY -> throw new BadGatewayException(this.getStatusMessage(httpResponse));
+            case SERVICE_UNAVAILABLE -> throw new ServiceUnavailableException(this.getStatusMessage(httpResponse));
+            default -> throw new IllegalStateException(); // It will never happen
         }
     }
 }

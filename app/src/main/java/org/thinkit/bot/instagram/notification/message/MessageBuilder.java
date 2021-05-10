@@ -12,15 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.message;
+package org.thinkit.bot.instagram.notification.message;
 
-import java.io.Serializable;
+public interface MessageBuilder {
 
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-
-@ToString
-@EqualsAndHashCode
-public abstract class AbstractMessageBuilder implements MessageBuilder, Serializable {
-
+    public String build();
 }

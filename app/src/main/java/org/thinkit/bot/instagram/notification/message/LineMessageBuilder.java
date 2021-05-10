@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.message;
+package org.thinkit.bot.instagram.notification.message;
 
 import static org.thinkit.bot.instagram.util.IndentUtils.newline;
 import static org.thinkit.bot.instagram.util.IndentUtils.space;

@@ -12,21 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.http;
+package org.thinkit.bot.instagram.notification.message;
 
-import com.google.api.client.http.GenericUrl;
+import java.io.Serializable;
 
-import lombok.NonNull;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
-public interface Communicator {
+@ToString
+@EqualsAndHashCode
+public abstract class AbstractMessageBuilder implements MessageBuilder, Serializable {
 
-    /**
-     * Sends a post request to the request URL.
-     *
-     * @param genericUrl The request url object
-     * @param message    The message
-     *
-     * @exception NullPointerException if {@code null} is passed as an argument
-     */
-    public void post(@NonNull final GenericUrl genericUrl, @NonNull final String message);
 }

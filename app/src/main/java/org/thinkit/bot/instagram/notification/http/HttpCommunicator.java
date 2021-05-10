@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.http;
+package org.thinkit.bot.instagram.notification.http;
 
 import java.io.IOException;
 import java.io.Serializable;
