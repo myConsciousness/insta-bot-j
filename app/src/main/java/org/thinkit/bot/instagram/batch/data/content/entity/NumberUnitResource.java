@@ -12,31 +12,35 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.mapper;
+package org.thinkit.bot.instagram.batch.data.content.entity;
 
-import org.thinkit.bot.instagram.content.entity.DefaultVariable;
-import org.thinkit.zenna.mapper.ContentMapper;
+import java.io.Serializable;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import org.thinkit.zenna.entity.ContentEntity;
+
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "DefaultVariable"} .
+ * The entity that manages the content {@code "NumberUnitResource"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
-@EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(staticName = "from")
-public final class DefaultVariableMapper extends ContentMapper<DefaultVariable> {
+@EqualsAndHashCode
+public final class NumberUnitResource implements ContentEntity, Serializable {
 
     /**
-     * The variable name
+     * The unit 1
      */
-    private String variableName;
+    @Getter
+    private String unit1;
+
+    /**
+     * The unit 2
+     */
+    @Getter
+    private String unit2;
 }

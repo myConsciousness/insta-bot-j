@@ -19,6 +19,7 @@ import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.thinkit.bot.instagram.batch.data.content.mapper.FollowStateMapper;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.ElementXPath;
 import org.thinkit.bot.instagram.catalog.FollowStateType;
@@ -26,7 +27,6 @@ import org.thinkit.bot.instagram.catalog.InstagramUrl;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
-import org.thinkit.bot.instagram.content.mapper.FollowStateMapper;
 import org.thinkit.bot.instagram.param.FollowUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionFollowFailedUser;

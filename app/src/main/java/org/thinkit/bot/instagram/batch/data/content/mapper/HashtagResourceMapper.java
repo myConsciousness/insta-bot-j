@@ -12,29 +12,31 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.batch.data.content.mapper;
 
-import java.io.Serializable;
+import org.thinkit.bot.instagram.batch.data.content.entity.HashtagResource;
+import org.thinkit.zenna.mapper.ContentMapper;
 
-import org.thinkit.zenna.entity.ContentEntity;
-
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The entity that manages the content {@code "LineMessagePhrase"} .
+ * The mapper class that manages the content {@code "HashtagResource"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
-@EqualsAndHashCode
-public final class LineMessagePhrase implements ContentEntity, Serializable {
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
+public final class HashtagResourceMapper extends ContentMapper<HashtagResource> {
 
     /**
-     * The phrase
+     * The charge user name
      */
-    @Getter
-    private String phrase;
+    private String chargeUserName;
 }

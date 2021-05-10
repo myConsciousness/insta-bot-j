@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.batch.data.content.entity;
 
 import java.io.Serializable;
 
@@ -23,24 +23,18 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The entity that manages the content {@code "HashtagResource"} .
+ * The entity that manages the content {@code "ExecutionControlledVariable"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-public final class HashtagResource implements ContentEntity, Serializable {
+public final class ExecutionControlledVariable implements ContentEntity, Serializable {
 
     /**
-     * The tag
+     * The variable code
      */
     @Getter
-    private String tag;
-
-    /**
-     * The group code
-     */
-    @Getter
-    private int groupCode;
+    private int variableCode;
 }

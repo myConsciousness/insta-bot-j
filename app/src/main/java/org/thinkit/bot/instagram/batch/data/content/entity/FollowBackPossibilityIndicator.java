@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.batch.data.content.entity;
 
 import java.io.Serializable;
 
@@ -23,24 +23,43 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The entity that manages the content {@code "NumberUnitResource"} .
+ * The entity that manages the content {@code "FollowBackPossibilityIndicator"}
+ * .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-public final class NumberUnitResource implements ContentEntity, Serializable {
+public final class FollowBackPossibilityIndicator implements ContentEntity, Serializable {
 
     /**
-     * The unit 1
+     * The highest indicator
      */
     @Getter
-    private String unit1;
+    private int highest;
 
     /**
-     * The unit 2
+     * The high indicator
      */
     @Getter
-    private String unit2;
+    private int high;
+
+    /**
+     * The middle indicator
+     */
+    @Getter
+    private int middle;
+
+    /**
+     * The low indicator
+     */
+    @Getter
+    private int low;
+
+    /**
+     * The lowest indicator
+     */
+    @Getter
+    private int lowest;
 }

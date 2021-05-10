@@ -12,9 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.mapper;
+package org.thinkit.bot.instagram.batch.data.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.FollowState;
+import org.thinkit.bot.instagram.batch.data.content.entity.FollowState;
 import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.AccessLevel;

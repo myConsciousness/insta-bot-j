@@ -12,47 +12,23 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.batch.data.content.mapper;
 
-import java.io.Serializable;
-
-import org.thinkit.zenna.entity.ContentEntity;
+import org.thinkit.bot.instagram.batch.data.content.entity.HashtagGroup;
+import org.thinkit.zenna.mapper.ContentMapper;
 
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The entity that manages the content {@code "ActionStatusMessage"} .
+ * The mapper class that manages the content {@code "HashtagGroup"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
-@EqualsAndHashCode
-public final class ActionStatusMessage implements ContentEntity, Serializable {
-
-    /**
-     * The completed
-     */
-    @Getter
-    private String completed;
-
-    /**
-     * The interrupted
-     */
-    @Getter
-    private String interrupted;
-
-    /**
-     * The skipped
-     */
-    @Getter
-    private String skipped;
-
-    /**
-     * The skipped by mood
-     */
-    @Getter
-    private String skippedByMood;
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(staticName = "newInstance")
+public final class HashtagGroupMapper extends ContentMapper<HashtagGroup> {
 }

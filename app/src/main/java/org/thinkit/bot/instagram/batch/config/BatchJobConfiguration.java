@@ -32,6 +32,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
+import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultVariableMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
@@ -42,7 +43,6 @@ import org.thinkit.bot.instagram.catalog.BatchFlowStrategyPattern;
 import org.thinkit.bot.instagram.catalog.BatchFlowType;
 import org.thinkit.bot.instagram.catalog.BatchJob;
 import org.thinkit.bot.instagram.catalog.VariableName;
-import org.thinkit.bot.instagram.content.mapper.DefaultVariableMapper;
 
 /**
  *

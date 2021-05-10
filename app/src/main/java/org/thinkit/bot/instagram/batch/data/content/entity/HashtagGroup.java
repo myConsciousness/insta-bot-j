@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.batch.data.content.entity;
 
 import java.io.Serializable;
 
@@ -23,23 +23,18 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The entity that manages the content {@code "CompletedLikeState"} .
+ * The entity that manages the content {@code "HashtagGroup"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-public final class CompletedLikeState implements ContentEntity, Serializable {
+public final class HashtagGroup implements ContentEntity, Serializable {
 
     /**
-     * The serial version UID
-     */
-    private static final long serialVersionUID = -778755327586077350L;
-
-    /**
-     * The completed like state
+     * The count
      */
     @Getter
-    private String completedLikeState;
+    private int count;
 }

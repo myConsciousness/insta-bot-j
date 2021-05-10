@@ -12,23 +12,32 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.mapper;
+package org.thinkit.bot.instagram.batch.data.content.mapper;
 
-import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
+import org.thinkit.bot.instagram.batch.data.content.entity.ExecutionControlledVariable;
 import org.thinkit.zenna.mapper.ContentMapper;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content {@code "NumberUnitResource"} .
+ * The mapper class that manages the content
+ * {@code "ExecutionControlledVariable"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
-public final class NumberUnitResourceMapper extends ContentMapper<NumberUnitResource> {
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
+public final class ExecutionControlledVariableMapper extends ContentMapper<ExecutionControlledVariable> {
+
+    /**
+     * The task type code
+     */
+    private int taskTypeCode;
 }

@@ -12,54 +12,31 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.batch.data.content.mapper;
 
-import java.io.Serializable;
+import org.thinkit.bot.instagram.batch.data.content.entity.DefaultVariable;
+import org.thinkit.zenna.mapper.ContentMapper;
 
-import org.thinkit.zenna.entity.ContentEntity;
-
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The entity that manages the content {@code "FollowBackPossibilityIndicator"}
- * .
+ * The mapper class that manages the content {@code "DefaultVariable"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
-@EqualsAndHashCode
-public final class FollowBackPossibilityIndicator implements ContentEntity, Serializable {
+@EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
+public final class DefaultVariableMapper extends ContentMapper<DefaultVariable> {
 
     /**
-     * The highest indicator
+     * The variable name
      */
-    @Getter
-    private int highest;
-
-    /**
-     * The high indicator
-     */
-    @Getter
-    private int high;
-
-    /**
-     * The middle indicator
-     */
-    @Getter
-    private int middle;
-
-    /**
-     * The low indicator
-     */
-    @Getter
-    private int low;
-
-    /**
-     * The lowest indicator
-     */
-    @Getter
-    private int lowest;
+    private String variableName;
 }

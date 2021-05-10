@@ -22,14 +22,14 @@ import java.util.List;
 import com.mongodb.lang.NonNull;
 
 import org.thinkit.api.catalog.Catalog;
+import org.thinkit.bot.instagram.batch.data.content.entity.ActionStatusMessage;
+import org.thinkit.bot.instagram.batch.data.content.entity.LineMessagePhrase;
+import org.thinkit.bot.instagram.batch.data.content.entity.TaskName;
+import org.thinkit.bot.instagram.batch.data.content.mapper.ActionStatusMessageMapper;
+import org.thinkit.bot.instagram.batch.data.content.mapper.LineMessagePhraseMapper;
+import org.thinkit.bot.instagram.batch.data.content.mapper.TaskNameMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.catalog.TaskType;
-import org.thinkit.bot.instagram.content.entity.ActionStatusMessage;
-import org.thinkit.bot.instagram.content.entity.LineMessagePhrase;
-import org.thinkit.bot.instagram.content.entity.TaskName;
-import org.thinkit.bot.instagram.content.mapper.ActionStatusMessageMapper;
-import org.thinkit.bot.instagram.content.mapper.LineMessagePhraseMapper;
-import org.thinkit.bot.instagram.content.mapper.TaskNameMapper;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

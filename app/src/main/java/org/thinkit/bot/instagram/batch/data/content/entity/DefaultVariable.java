@@ -12,24 +12,29 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.mapper;
+package org.thinkit.bot.instagram.batch.data.content.entity;
 
-import org.thinkit.bot.instagram.content.entity.FollowBackPossibilityIndicator;
-import org.thinkit.zenna.mapper.ContentMapper;
+import java.io.Serializable;
+
+import org.thinkit.zenna.entity.ContentEntity;
 
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The mapper class that manages the content
- * {@code "FollowBackPossibilityIndicator"} .
+ * The entity that manages the content {@code "DefaultVariable"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
-@EqualsAndHashCode(callSuper = false)
-@NoArgsConstructor(staticName = "newInstance")
-public final class FollowBackPossibilityIndicatorMapper extends ContentMapper<FollowBackPossibilityIndicator> {
+@EqualsAndHashCode
+public final class DefaultVariable implements ContentEntity, Serializable {
+
+    /**
+     * The value
+     */
+    @Getter
+    private String value;
 }

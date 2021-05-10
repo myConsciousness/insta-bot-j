@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.content.entity;
+package org.thinkit.bot.instagram.batch.data.content.entity;
 
 import java.io.Serializable;
 
@@ -23,18 +23,36 @@ import lombok.Getter;
 import lombok.ToString;
 
 /**
- * The entity that manages the content {@code "DefaultVariable"} .
+ * The entity that manages the content {@code "ActionStatusMessage"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-public final class DefaultVariable implements ContentEntity, Serializable {
+public final class ActionStatusMessage implements ContentEntity, Serializable {
 
     /**
-     * The value
+     * The completed
      */
     @Getter
-    private String value;
+    private String completed;
+
+    /**
+     * The interrupted
+     */
+    @Getter
+    private String interrupted;
+
+    /**
+     * The skipped
+     */
+    @Getter
+    private String skipped;
+
+    /**
+     * The skipped by mood
+     */
+    @Getter
+    private String skippedByMood;
 }
