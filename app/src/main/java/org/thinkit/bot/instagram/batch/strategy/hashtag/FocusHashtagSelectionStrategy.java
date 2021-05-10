@@ -17,8 +17,8 @@ package org.thinkit.bot.instagram.batch.strategy.hashtag;
 import java.util.Collections;
 import java.util.List;
 
-import org.thinkit.bot.instagram.mongo.entity.Hashtag;
-import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.Hashtag;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 
 import lombok.EqualsAndHashCode;

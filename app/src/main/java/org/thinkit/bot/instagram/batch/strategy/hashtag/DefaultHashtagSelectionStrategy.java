@@ -20,8 +20,8 @@ import java.util.List;
 
 import com.mongodb.lang.NonNull;
 
-import org.thinkit.bot.instagram.mongo.entity.Hashtag;
-import org.thinkit.bot.instagram.mongo.repository.HashtagRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.Hashtag;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.param.TargetHashtag;
 
 import lombok.EqualsAndHashCode;

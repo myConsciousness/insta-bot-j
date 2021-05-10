@@ -12,17 +12,22 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.strategy.hashtag;
+package org.thinkit.bot.instagram.batch.data.mongo.repository;
 
-import java.util.List;
+import com.mongodb.lang.NonNull;
 
-import org.thinkit.bot.instagram.batch.data.mongo.repository.HashtagRepository;
-import org.thinkit.bot.instagram.param.TargetHashtag;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 
-import lombok.NonNull;
+/**
+ * The interface that manages variable repository.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@Repository
+public interface VariableRepository extends MongoRepository<Variable, String> {
 
-public interface HashtagSelectionStrategy {
-
-    public List<TargetHashtag> getTargetHashtags(@NonNull final HashtagRepository hashtagRepository,
-            @NonNull final String chargeUserName, final int groupCode);
+    public Variable findByName(@NonNull final String name);
 }

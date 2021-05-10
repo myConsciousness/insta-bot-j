@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.Delimiter;
 import org.thinkit.bot.instagram.catalog.ElementCssSelector;
@@ -28,7 +29,6 @@ import org.thinkit.bot.instagram.catalog.WaitType;
 import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.content.NumberUnitResourceMapper;
 import org.thinkit.bot.instagram.content.entity.NumberUnitResource;
-import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
 import org.thinkit.bot.instagram.param.ForecastUser;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionExpectableUser;

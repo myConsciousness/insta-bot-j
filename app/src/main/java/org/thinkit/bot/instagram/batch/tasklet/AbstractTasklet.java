@@ -27,6 +27,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.thinkit.api.catalog.BiCatalog;
 import org.thinkit.bot.instagram.InstaBot;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionRecord;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionRestriction;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionSkip;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.Error;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.LastAction;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRestrictionRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.LastActionRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.policy.RunningUser;
 import org.thinkit.bot.instagram.batch.policy.Task;
@@ -36,18 +48,6 @@ import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.content.DefaultVariableMapper;
 import org.thinkit.bot.instagram.content.ExecutionControlledVariableMapper;
-import org.thinkit.bot.instagram.mongo.entity.ActionRecord;
-import org.thinkit.bot.instagram.mongo.entity.ActionRestriction;
-import org.thinkit.bot.instagram.mongo.entity.ActionSkip;
-import org.thinkit.bot.instagram.mongo.entity.Error;
-import org.thinkit.bot.instagram.mongo.entity.LastAction;
-import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
-import org.thinkit.bot.instagram.mongo.entity.Variable;
-import org.thinkit.bot.instagram.mongo.repository.ActionRestrictionRepository;
-import org.thinkit.bot.instagram.mongo.repository.ActionSkipRepository;
-import org.thinkit.bot.instagram.mongo.repository.ErrorRepository;
-import org.thinkit.bot.instagram.mongo.repository.LastActionRepository;
-import org.thinkit.bot.instagram.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.util.DateUtils;
 import org.thinkit.bot.instagram.util.RandomUtils;
@@ -197,6 +197,10 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("Updated variable: {}", variable);
 
         log.debug("END");
+    }
+
+    protected void createSession() {
+        this.runningUser.createSession();
     }
 
     protected boolean hasRunningUser() {

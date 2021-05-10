@@ -16,7 +16,7 @@ package org.thinkit.bot.instagram.config;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.mongo.entity.FollowBackPossibilityIndicator;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackPossibilityIndicator;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -12,17 +12,20 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.strategy.hashtag;
+package org.thinkit.bot.instagram.batch.data.mongo.repository;
 
-import java.util.List;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.UnfollowedUser;
 
-import org.thinkit.bot.instagram.batch.data.mongo.repository.HashtagRepository;
-import org.thinkit.bot.instagram.param.TargetHashtag;
+/**
+ * The interface that manages unfollowed user repository.
+ *
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
+@Repository
+public interface UnfollowedUserRepository extends MongoRepository<UnfollowedUser, String> {
 
-import lombok.NonNull;
-
-public interface HashtagSelectionStrategy {
-
-    public List<TargetHashtag> getTargetHashtags(@NonNull final HashtagRepository hashtagRepository,
-            @NonNull final String chargeUserName, final int groupCode);
+    public UnfollowedUser findByUserNameAndChargeUserName(String userName, String chargeUserName);
 }

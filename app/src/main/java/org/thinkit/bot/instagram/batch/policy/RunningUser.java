@@ -16,19 +16,21 @@ package org.thinkit.bot.instagram.batch.policy;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.Session;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.UserAccount;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.SessionRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.UserAccountRepository;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.exception.SessionInconsistencyFoundException;
-import org.thinkit.bot.instagram.mongo.entity.Session;
-import org.thinkit.bot.instagram.mongo.entity.UserAccount;
-import org.thinkit.bot.instagram.mongo.repository.SessionRepository;
-import org.thinkit.bot.instagram.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.util.RuntimeMxUtils;
 
+import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
@@ -36,6 +38,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @ToString
 @EqualsAndHashCode
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Component
 public final class RunningUser implements Serializable {
 
@@ -43,32 +46,27 @@ public final class RunningUser implements Serializable {
      * The session
      */
     @Getter
-    private final Session session;
+    private Session session;
 
     /**
      * The user account
      */
     @Getter
-    private final UserAccount userAccount;
+    private UserAccount userAccount;
 
     /**
-     * The user acccount repository
+     * The mongo collections
      */
     @Autowired
-    private UserAccountRepository userAccountRepository;
+    private MongoCollections mongoCollections;
 
-    /**
-     * The session repository
-     */
-    @Autowired
-    private SessionRepository sessionRepository;
-
-    private RunningUser() {
+    public void createSession() {
         log.debug("START");
 
-        final List<UserAccount> userAccounts = this.userAccountRepository.findAll();
+        final SessionRepository sessionRepository = this.mongoCollections.getSessionRepository();
+        final UserAccountRepository userAccountRepository = this.mongoCollections.getUserAccountRepository();
 
-        for (final UserAccount userAccount : userAccounts) {
+        for (final UserAccount userAccount : userAccountRepository.findAll()) {
             Session session = sessionRepository.findByUserName(userAccount.getUserName());
 
             if (session == null) {
@@ -112,10 +110,6 @@ public final class RunningUser implements Serializable {
         log.debug("END");
     }
 
-    public static RunningUser newInstance() {
-        return new RunningUser();
-    }
-
     public void closeSession() {
         log.debug("START");
 
@@ -126,7 +120,7 @@ public final class RunningUser implements Serializable {
 
         this.clearSession(session);
 
-        sessionRepository.save(session);
+        this.mongoCollections.getSessionRepository().save(session);
         log.debug("Updated session: {}", session);
 
         log.info("The session was closed successfully.");

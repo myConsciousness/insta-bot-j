@@ -22,6 +22,7 @@ import java.util.List;
 import com.mongodb.lang.NonNull;
 
 import org.thinkit.api.catalog.Catalog;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.content.ActionStatusMessageMapper;
 import org.thinkit.bot.instagram.content.LineMessagePhraseMapper;
@@ -29,7 +30,6 @@ import org.thinkit.bot.instagram.content.TaskNameMapper;
 import org.thinkit.bot.instagram.content.entity.ActionStatusMessage;
 import org.thinkit.bot.instagram.content.entity.LineMessagePhrase;
 import org.thinkit.bot.instagram.content.entity.TaskName;
-import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -21,12 +21,12 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.catalog.VariableName;
 import org.thinkit.bot.instagram.message.LineMessageBuilder;
-import org.thinkit.bot.instagram.mongo.entity.MessageMeta;
-import org.thinkit.bot.instagram.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.notification.LineNotify;
 
 import lombok.EqualsAndHashCode;
