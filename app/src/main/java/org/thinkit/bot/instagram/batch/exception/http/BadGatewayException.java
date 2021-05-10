@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception.http;
+package org.thinkit.bot.instagram.batch.exception.http;
 
 /**
- * Thrown to indicate that the internal server error was happened.
+ * Thrown to indicate that accessed the bad gateway.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class InternalServerErrorException extends RuntimeException {
+public final class BadGatewayException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,20 +28,19 @@ public final class InternalServerErrorException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>InternalServerErrorException</code> with no detail
-     * message.
+     * Constructs an <code>BadGatewayException</code> with no detail message.
      */
-    public InternalServerErrorException() {
+    public BadGatewayException() {
         super();
     }
 
     /**
-     * Constructs an <code>InternalServerErrorException</code> with the specified
-     * detail message.
+     * Constructs an <code>BadGatewayException</code> with the specified detail
+     * message.
      *
      * @param s the detail message.
      */
-    public InternalServerErrorException(String s) {
+    public BadGatewayException(String s) {
         super(s);
     }
 
@@ -59,7 +58,7 @@ public final class InternalServerErrorException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public InternalServerErrorException(String message, Throwable cause) {
+    public BadGatewayException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -74,7 +73,7 @@ public final class InternalServerErrorException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public InternalServerErrorException(Throwable cause) {
+    public BadGatewayException(Throwable cause) {
         super(cause);
     }
 }

@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception;
+package org.thinkit.bot.instagram.batch.exception.http;
 
 /**
- * Thrown to indicate that the session inconsistency is found.
+ * Thrown to indicate that send the bad request.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class SessionInconsistencyFoundException extends RuntimeException {
+public final class BadRequestException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,20 +28,19 @@ public final class SessionInconsistencyFoundException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>SessionInconsistencyFoundException</code> with no detail
-     * message.
+     * Constructs an <code>BadRequestException</code> with no detail message.
      */
-    public SessionInconsistencyFoundException() {
+    public BadRequestException() {
         super();
     }
 
     /**
-     * Constructs an <code>SessionInconsistencyFoundException</code> with the
-     * specified detail message.
+     * Constructs an <code>BadRequestException</code> with the specified detail
+     * message.
      *
      * @param s the detail message.
      */
-    public SessionInconsistencyFoundException(String s) {
+    public BadRequestException(String s) {
         super(s);
     }
 
@@ -59,7 +58,7 @@ public final class SessionInconsistencyFoundException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public SessionInconsistencyFoundException(String message, Throwable cause) {
+    public BadRequestException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -74,7 +73,7 @@ public final class SessionInconsistencyFoundException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public SessionInconsistencyFoundException(Throwable cause) {
+    public BadRequestException(Throwable cause) {
         super(cause);
     }
 }

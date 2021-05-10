@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception.http;
+package org.thinkit.bot.instagram.batch.exception.http;
 
 /**
- * Thrown to indicate that the resource is not found.
+ * Thrown to indicate that the service is unavailable now.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class NotFoundException extends RuntimeException {
+public final class ServiceUnavailableException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,19 +28,20 @@ public final class NotFoundException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>NotFoundException</code> with no detail message.
+     * Constructs an <code>ServiceUnavailableException</code> with no detail
+     * message.
      */
-    public NotFoundException() {
+    public ServiceUnavailableException() {
         super();
     }
 
     /**
-     * Constructs an <code>NotFoundException</code> with the specified detail
-     * message.
+     * Constructs an <code>ServiceUnavailableException</code> with the specified
+     * detail message.
      *
      * @param s the detail message.
      */
-    public NotFoundException(String s) {
+    public ServiceUnavailableException(String s) {
         super(s);
     }
 
@@ -58,7 +59,7 @@ public final class NotFoundException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public NotFoundException(String message, Throwable cause) {
+    public ServiceUnavailableException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -73,7 +74,7 @@ public final class NotFoundException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public NotFoundException(Throwable cause) {
+    public ServiceUnavailableException(Throwable cause) {
         super(cause);
     }
 }

@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception.http;
+package org.thinkit.bot.instagram.batch.exception.http;
 
 /**
- * Thrown to indicate that the access is forbidden.
+ * Thrown to indicate that the access is not acceptable.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class AccessForbiddenException extends RuntimeException {
+public final class NotAcceptableException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,19 +28,19 @@ public final class AccessForbiddenException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>AccessForbiddenException</code> with no detail message.
+     * Constructs an <code>NotAcceptableException</code> with no detail message.
      */
-    public AccessForbiddenException() {
+    public NotAcceptableException() {
         super();
     }
 
     /**
-     * Constructs an <code>AccessForbiddenException</code> with the specified detail
+     * Constructs an <code>NotAcceptableException</code> with the specified detail
      * message.
      *
      * @param s the detail message.
      */
-    public AccessForbiddenException(String s) {
+    public NotAcceptableException(String s) {
         super(s);
     }
 
@@ -58,7 +58,7 @@ public final class AccessForbiddenException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public AccessForbiddenException(String message, Throwable cause) {
+    public NotAcceptableException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -73,7 +73,7 @@ public final class AccessForbiddenException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public AccessForbiddenException(Throwable cause) {
+    public NotAcceptableException(Throwable cause) {
         super(cause);
     }
 }

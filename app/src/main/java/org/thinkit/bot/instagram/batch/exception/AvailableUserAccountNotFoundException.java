@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception;
+package org.thinkit.bot.instagram.batch.exception;
 
 /**
  * Thrown to indicate that the available user account does not found.

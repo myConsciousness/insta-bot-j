@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception.http;
+package org.thinkit.bot.instagram.batch.exception;
 
 /**
- * Thrown to indicate that the access is not acceptable.
+ * Thrown to indicate that the session inconsistency is found.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class NotAcceptableException extends RuntimeException {
+public final class SessionInconsistencyFoundException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,19 +28,20 @@ public final class NotAcceptableException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>NotAcceptableException</code> with no detail message.
+     * Constructs an <code>SessionInconsistencyFoundException</code> with no detail
+     * message.
      */
-    public NotAcceptableException() {
+    public SessionInconsistencyFoundException() {
         super();
     }
 
     /**
-     * Constructs an <code>NotAcceptableException</code> with the specified detail
-     * message.
+     * Constructs an <code>SessionInconsistencyFoundException</code> with the
+     * specified detail message.
      *
      * @param s the detail message.
      */
-    public NotAcceptableException(String s) {
+    public SessionInconsistencyFoundException(String s) {
         super(s);
     }
 
@@ -58,7 +59,7 @@ public final class NotAcceptableException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public NotAcceptableException(String message, Throwable cause) {
+    public SessionInconsistencyFoundException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -73,7 +74,7 @@ public final class NotAcceptableException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public NotAcceptableException(Throwable cause) {
+    public SessionInconsistencyFoundException(Throwable cause) {
         super(cause);
     }
 }

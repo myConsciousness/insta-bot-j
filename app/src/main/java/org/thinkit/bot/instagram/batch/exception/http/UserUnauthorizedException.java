@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception.http;
+package org.thinkit.bot.instagram.batch.exception.http;
 
 /**
- * Thrown to indicate that the service is unavailable now.
+ * Thrown to indicate that the user is unauthorized.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class ServiceUnavailableException extends RuntimeException {
+public final class UserUnauthorizedException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,20 +28,19 @@ public final class ServiceUnavailableException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>ServiceUnavailableException</code> with no detail
-     * message.
+     * Constructs an <code>UserUnauthorizedException</code> with no detail message.
      */
-    public ServiceUnavailableException() {
+    public UserUnauthorizedException() {
         super();
     }
 
     /**
-     * Constructs an <code>ServiceUnavailableException</code> with the specified
+     * Constructs an <code>UserUnauthorizedException</code> with the specified
      * detail message.
      *
      * @param s the detail message.
      */
-    public ServiceUnavailableException(String s) {
+    public UserUnauthorizedException(String s) {
         super(s);
     }
 
@@ -59,7 +58,7 @@ public final class ServiceUnavailableException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public ServiceUnavailableException(String message, Throwable cause) {
+    public UserUnauthorizedException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -74,7 +73,7 @@ public final class ServiceUnavailableException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public ServiceUnavailableException(Throwable cause) {
+    public UserUnauthorizedException(Throwable cause) {
         super(cause);
     }
 }

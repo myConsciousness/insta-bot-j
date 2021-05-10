@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception.http;
+package org.thinkit.bot.instagram.batch.exception.http;
 
 /**
- * Thrown to indicate that accessed the bad gateway.
+ * Thrown to indicate that the internal server error was happened.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class BadGatewayException extends RuntimeException {
+public final class InternalServerErrorException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,19 +28,20 @@ public final class BadGatewayException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>BadGatewayException</code> with no detail message.
+     * Constructs an <code>InternalServerErrorException</code> with no detail
+     * message.
      */
-    public BadGatewayException() {
+    public InternalServerErrorException() {
         super();
     }
 
     /**
-     * Constructs an <code>BadGatewayException</code> with the specified detail
-     * message.
+     * Constructs an <code>InternalServerErrorException</code> with the specified
+     * detail message.
      *
      * @param s the detail message.
      */
-    public BadGatewayException(String s) {
+    public InternalServerErrorException(String s) {
         super(s);
     }
 
@@ -58,7 +59,7 @@ public final class BadGatewayException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public BadGatewayException(String message, Throwable cause) {
+    public InternalServerErrorException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -73,7 +74,7 @@ public final class BadGatewayException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public BadGatewayException(Throwable cause) {
+    public InternalServerErrorException(Throwable cause) {
         super(cause);
     }
 }

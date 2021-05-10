@@ -12,15 +12,15 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.exception.http;
+package org.thinkit.bot.instagram.batch.exception.http;
 
 /**
- * Thrown to indicate that send the bad request.
+ * Thrown to indicate that the access is forbidden.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
-public final class BadRequestException extends RuntimeException {
+public final class AccessForbiddenException extends RuntimeException {
 
     /**
      * serialVersionUID
@@ -28,19 +28,19 @@ public final class BadRequestException extends RuntimeException {
     private static final long serialVersionUID = 0L;
 
     /**
-     * Constructs an <code>BadRequestException</code> with no detail message.
+     * Constructs an <code>AccessForbiddenException</code> with no detail message.
      */
-    public BadRequestException() {
+    public AccessForbiddenException() {
         super();
     }
 
     /**
-     * Constructs an <code>BadRequestException</code> with the specified detail
+     * Constructs an <code>AccessForbiddenException</code> with the specified detail
      * message.
      *
      * @param s the detail message.
      */
-    public BadRequestException(String s) {
+    public AccessForbiddenException(String s) {
         super(s);
     }
 
@@ -58,7 +58,7 @@ public final class BadRequestException extends RuntimeException {
      *                permitted, and indicates that the cause is nonexistent or
      *                unknown.)
      */
-    public BadRequestException(String message, Throwable cause) {
+    public AccessForbiddenException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -73,7 +73,7 @@ public final class BadRequestException extends RuntimeException {
      *              {@link Throwable#getCause()} method). (A nullvalue is permitted,
      *              and indicates that the cause is nonexistent or unknown.)
      */
-    public BadRequestException(Throwable cause) {
+    public AccessForbiddenException(Throwable cause) {
         super(cause);
     }
 }
