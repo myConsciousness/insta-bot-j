@@ -19,13 +19,11 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.thinkit.bot.instagram.config.ActionConfig;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.ToString;
 
 /**
@@ -49,10 +47,6 @@ public abstract class AbstractInstaBot implements InstaBot, Serializable {
     private WebDriver webDriver;
 
     protected AbstractInstaBot() {
-        this.setupWebDriver();
-    }
-
-    protected AbstractInstaBot(@NonNull final ActionConfig actionConfig) {
         this.setupWebDriver();
     }
 

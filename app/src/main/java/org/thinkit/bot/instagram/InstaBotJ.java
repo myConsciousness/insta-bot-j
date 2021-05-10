@@ -24,7 +24,6 @@ import org.thinkit.bot.instagram.command.AutoLikeCommand;
 import org.thinkit.bot.instagram.command.AutoLoginCommand;
 import org.thinkit.bot.instagram.command.AutoScrapeUserProfileCommand;
 import org.thinkit.bot.instagram.command.AutoUnfollowCommand;
-import org.thinkit.bot.instagram.config.ActionConfig;
 import org.thinkit.bot.instagram.config.AutoFollowConfig;
 import org.thinkit.bot.instagram.config.AutoForecastFollowBackUserConfig;
 import org.thinkit.bot.instagram.config.AutoLikeConfig;
@@ -43,60 +42,19 @@ import org.thinkit.bot.instagram.result.AutoUnfollowResult;
 import org.thinkit.common.base.precondition.Preconditions;
 
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode(callSuper = false)
+@NoArgsConstructor(staticName = "newInstance")
 public final class InstaBotJ extends AbstractInstaBot {
 
     /**
      * The serial version UID
      */
     private static final long serialVersionUID = -7380913294460202882L;
-
-    /**
-     * The constructor.
-     *
-     * @exception NullPointerException If {@code null} is passed as an argument
-     */
-    private InstaBotJ() {
-        super();
-    }
-
-    /**
-     * Returns the new instance of {@link InstaBotJ} based on the arguments.
-     *
-     * @return The new instance of {@link InstaBotJ}
-     *
-     * @exception NullPointerException If {@code null} is passed as an argument
-     */
-    public static InstaBot newInstance() {
-        return new InstaBotJ();
-    }
-
-    /**
-     * The constructor.
-     *
-     * @param actionConfig The action config
-     *
-     * @exception NullPointerException If {@code null} is passed as an argument
-     */
-    private InstaBotJ(@NonNull final ActionConfig actionConfig) {
-        super(actionConfig);
-    }
-
-    /**
-     * Returns the new instance of {@link InstaBotJ} based on the arguments.
-     *
-     * @param botConfig The bot config
-     * @return The new instance of {@link InstaBotJ}
-     *
-     * @exception NullPointerException If {@code null} is passed as an argument
-     */
-    public static InstaBot from(@NonNull final ActionConfig botConfig) {
-        return new InstaBotJ(botConfig);
-    }
 
     @Override
     public AutoLoginResult executeLogin(@NonNull final ActionUser actionUser) {
