@@ -55,4 +55,9 @@ public abstract class AbstractInstaBot implements InstaBot, Serializable {
         this.webDriver = new ChromeDriver();
         this.webDriver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
+
+    @Override
+    public void closeWebBrowser() {
+        this.webDriver.close();
+    }
 }

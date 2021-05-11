@@ -217,7 +217,7 @@ public abstract class AbstractTasklet implements Tasklet {
         return this.runningUser.getPassword();
     }
 
-    protected void closeSession() {
+    protected void closeRunningSession() {
         this.runningUser.closeSession();
     }
 
@@ -258,7 +258,7 @@ public abstract class AbstractTasklet implements Tasklet {
         this.updateEndAction();
 
         if (this.batchTask.isClosable()) {
-            this.context.close();
+            this.closeBatchSession();
         }
 
         log.debug("END");
@@ -482,6 +482,11 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("Updated last action: {}", lastAction);
 
         log.debug("END");
+    }
+
+    private void closeBatchSession() {
+        this.instaBot.closeWebBrowser();
+        this.context.close();
     }
 
     private String getDefaultVariableValue(@NonNull final VariableName variableName) {

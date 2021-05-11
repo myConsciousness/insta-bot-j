@@ -52,4 +52,6 @@ public interface InstaBot {
 
     public AutoUnfollowResult executeAutoUnfollow(@NonNull final List<UnfollowUser> unfollowUsers,
             @NonNull final AutoUnfollowConfig autoUnfollowConfig);
+
+    public void closeWebBrowser();
 }

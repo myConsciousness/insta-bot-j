@@ -43,7 +43,7 @@ public final class CloseSessionTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        super.closeSession();
+        super.closeRunningSession();
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
         batchTaskResultBuilder.actionCount(1);
