@@ -29,14 +29,14 @@ import lombok.RequiredArgsConstructor;
 public enum TaskType implements Catalog<TaskType> {
 
     /**
-     * The initialize
+     * The initialize session
      */
-    INITIALIZE(-1),
+    INITIALIZE_SESSION(-1),
 
     /**
-     * The login task
+     * The auto login task
      */
-    LOGIN(0),
+    AUTO_LOGIN(0),
 
     /**
      * The auto like task

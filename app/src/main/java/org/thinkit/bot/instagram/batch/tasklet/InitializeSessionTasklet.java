@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public final class InitializeSessionTasklet extends AbstractTasklet {
 
     private InitializeSessionTasklet() {
-        super(TaskType.INITIALIZE);
+        super(TaskType.INITIALIZE_SESSION);
     }
 
     public static Tasklet newInstance() {

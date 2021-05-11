@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 public final class ExecuteAutoLoginTasklet extends AbstractTasklet {
 
     private ExecuteAutoLoginTasklet() {
-        super(TaskType.LOGIN);
+        super(TaskType.AUTO_LOGIN);
     }
 
     public static Tasklet newInstance() {
