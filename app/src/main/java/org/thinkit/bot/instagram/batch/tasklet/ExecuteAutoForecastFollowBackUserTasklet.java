@@ -25,7 +25,9 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
+import org.thinkit.bot.instagram.batch.data.content.entity.NotNumberText;
 import org.thinkit.bot.instagram.batch.data.content.entity.NumberUnitResource;
+import org.thinkit.bot.instagram.batch.data.content.mapper.NotNumberTextMapper;
 import org.thinkit.bot.instagram.batch.data.content.mapper.NumberUnitResourceMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackExpectableUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowBackPossibilityIndicator;
@@ -184,6 +186,7 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
         autoForecastFollowBackUserConfigBuilder.followBackPossibilityIndicator(followBackPossibilityIndicators.get(0));
         autoForecastFollowBackUserConfigBuilder.followingNearLimit(this.getFollowingNearLimit());
         autoForecastFollowBackUserConfigBuilder.numberUnitResource(this.getNumberUnitResource());
+        autoForecastFollowBackUserConfigBuilder.notNumberText(this.getNotNumberText());
 
         log.debug("END");
         return autoForecastFollowBackUserConfigBuilder.build();
@@ -207,5 +210,9 @@ public final class ExecuteAutoForecastFollowBackUserTasklet extends AbstractTask
 
     private NumberUnitResource getNumberUnitResource() {
         return NumberUnitResourceMapper.newInstance().scan().get(0);
+    }
+
+    private NotNumberText getNotNumberText() {
+        return NotNumberTextMapper.newInstance().scan().get(0);
     }
 }

@@ -146,8 +146,9 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
     private String getNumberText(@NonNull final ElementCssSelector elementCssSelector) {
 
         final String numberText = super.findByCssSelector(elementCssSelector).getText();
+        final String notNumberText = this.autoForecastFollowBackUserConfig.getNotNumberText().getText();
 
-        if ("NaN".equals(numberText)) {
+        if (notNumberText.equals(numberText)) {
             return NUMBER_TEXT_NAN;
         }
 

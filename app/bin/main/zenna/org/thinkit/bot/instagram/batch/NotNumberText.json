@@ -1,0 +1,17 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the not number text.",
+        "resultType": "org.thinkit.bot.instagram.batch.data.content.entity.NotNumberText"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "",
+                "text": "NaN"
+            }
+        }
+    ],
+    "conditionNodes": []
+}
