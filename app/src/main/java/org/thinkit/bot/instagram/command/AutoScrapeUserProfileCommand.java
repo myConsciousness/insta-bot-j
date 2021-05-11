@@ -94,6 +94,7 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
 
         super.wait(WaitType.HUMAN_LIKE_INTERVAL);
         super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), this.actionUser.getUserName()));
+        super.wait(WaitType.HUMAN_LIKE_INTERVAL);
 
         final int loopCount = profileModalLink == ElementXPath.PROFILE_FOLLOWERS_LINK ? this.fetchFollowerCount()
                 : this.fetchFollowingCount();
@@ -121,7 +122,6 @@ public final class AutoScrapeUserProfileCommand extends AbstractBotCommand<AutoS
                 // inconsistency in the number of followers. At least, once this exception is
                 // reached, the data of all users is considered to have been scraped.
                 actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_SCRAPE_USER_PROFILE));
-                return profileUsers;
             }
         }
 

@@ -63,7 +63,6 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
         final String followBackState = this.autoFollowConfig.getFollowBackState().getState();
 
         for (final FollowUser followUser : this.followUsers) {
-            String userName = "";
             try {
                 super.wait(WaitType.FOLLOW);
 
@@ -72,7 +71,7 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
                     super.wait(WaitType.HUMAN_LIKE_INTERVAL);
                 }
 
-                userName = followUser.getUserName();
+                final String userName = followUser.getUserName();
                 super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), userName));
 
                 super.waitUntilElementClickable(By.xpath(ElementXPath.FOLLOW_BUTTON.getTag()));
@@ -95,7 +94,8 @@ public final class AutoFollowCommand extends AbstractBotCommand<AutoFollowResult
                 // The possibility exists that a timeout may occur due to wrong css selector was
                 // located, or the profile is private, etc. Anyway, let's move on to the next
                 // follow action.
-                actionFollowFailedUsers.add(ActionFollowFailedUser.builder().userName(userName).build());
+                actionFollowFailedUsers
+                        .add(ActionFollowFailedUser.builder().userName(followUser.getUserName()).build());
                 actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_FOLLOW));
             }
         }

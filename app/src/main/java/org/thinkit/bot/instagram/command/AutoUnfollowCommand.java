@@ -60,7 +60,6 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
         final List<ActionError> actionErrors = new ArrayList<>();
 
         for (final UnfollowUser unfollowUser : this.unfollowUsers) {
-            String userName = "";
             try {
                 super.wait(WaitType.UNFOLLOW);
 
@@ -69,7 +68,7 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
                     super.wait(WaitType.HUMAN_LIKE_INTERVAL);
                 }
 
-                userName = unfollowUser.getUserName();
+                final String userName = unfollowUser.getUserName();
                 super.getWebPage(String.format(InstagramUrl.USER_PROFILE.getTag(), userName));
 
                 super.waitUntilElementClickable(By.xpath(ElementXPath.UNFOLLOW_BUTTON.getTag()));
@@ -91,7 +90,8 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
                 // The possibility exists that a timeout may occur due to wrong css selector was
                 // located, etc. Anyway, let's move on to the next
                 // unfollow action.
-                actionUnfollowFailedUsers.add(ActionUnfollowFailedUser.builder().userName(userName).build());
+                actionUnfollowFailedUsers
+                        .add(ActionUnfollowFailedUser.builder().userName(unfollowUser.getUserName()).build());
                 actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_UNFOLLOW));
             }
         }

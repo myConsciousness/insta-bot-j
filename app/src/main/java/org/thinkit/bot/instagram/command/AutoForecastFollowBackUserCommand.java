@@ -48,6 +48,11 @@ import lombok.ToString;
 public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<AutoForecastFollowBackResult> {
 
     /**
+     * The number text for NaN
+     */
+    private static final String NUMBER_TEXT_NAN = "0";
+
+    /**
      * The forecast users
      */
     private List<ForecastUser> forecastUsers;
@@ -67,11 +72,10 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
         final NumberUnitResource numberUnitResource = this.autoForecastFollowBackUserConfig.getNumberUnitResource();
 
         for (final ForecastUser forecastUser : this.forecastUsers) {
-            String userName = "";
             try {
                 super.wait(WaitType.HUMAN_LIKE_INTERVAL);
 
-                userName = forecastUser.getUserName();
+                final String userName = forecastUser.getUserName();
                 final String userProfileUrl = String.format(InstagramUrl.USER_PROFILE.getTag(), userName);
                 super.getWebPage(userProfileUrl);
 
@@ -103,7 +107,7 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
             } catch (Exception recoverableException) {
                 // The possibility exists that a timeout may occur due to wrong css selector was
                 // located, etc. Anyway, let's move on to the next profile.
-                unexpectableUsers.add(ActionUnexpectableUser.builder().userName(userName).build());
+                unexpectableUsers.add(ActionUnexpectableUser.builder().userName(forecastUser.getUserName()).build());
                 actionErrors.add(super.getActionError(recoverableException, TaskType.AUTO_FORECAST_FOLLOW_BACK_USER));
             }
         }
@@ -140,7 +144,14 @@ public final class AutoForecastFollowBackUserCommand extends AbstractBotCommand<
     }
 
     private String getNumberText(@NonNull final ElementCssSelector elementCssSelector) {
-        return this.removeComma(super.findByCssSelector(elementCssSelector).getText());
+
+        final String numberText = super.findByCssSelector(elementCssSelector).getText();
+
+        if ("NaN".equals(numberText)) {
+            return NUMBER_TEXT_NAN;
+        }
+
+        return this.removeComma(numberText);
     }
 
     private String removeComma(@NonNull final String number) {
