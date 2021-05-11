@@ -17,7 +17,7 @@ package org.thinkit.bot.instagram.batch.strategy.context;
 import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
 import org.thinkit.bot.instagram.batch.strategy.flow.RestrictableBatchMainStreamFlowStrategy;
-import org.thinkit.bot.instagram.batch.strategy.flow.UnrestrictableBatchFlowStrategy;
+import org.thinkit.bot.instagram.batch.strategy.flow.UnrestrictableBatchMainStreamFlowStrategy;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,7 +40,7 @@ public final class BatchMainStreamFlowContext implements Context<BatchFlowStrate
     public BatchFlowStrategy evaluate() {
         return switch (this.batchFlowStrategyPattern) {
             case RESTRICTABLE -> RestrictableBatchMainStreamFlowStrategy.newInstance();
-            case UNRESTRICTABLE -> UnrestrictableBatchFlowStrategy.newInstance();
+            case UNRESTRICTABLE -> UnrestrictableBatchMainStreamFlowStrategy.newInstance();
         };
     }
 }

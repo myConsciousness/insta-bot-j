@@ -27,7 +27,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(staticName = "newInstance")
-public final class UnrestrictableBatchFlowStrategy implements BatchFlowStrategy {
+public final class UnrestrictableBatchMainStreamFlowStrategy implements BatchFlowStrategy {
 
     @Override
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
