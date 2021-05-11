@@ -42,7 +42,6 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchMainStreamFlowContext;
-import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
 
 /**
  *
@@ -133,24 +132,23 @@ public class BatchJobConfiguration {
     }
 
     private FlowBuilder<FlowJobBuilder> createInitializeSessionJobFlowBuilder() {
-        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag())
-                .flow(this.batchStepCollections.getInitializeSessionStep())
+        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getInitializeSessionStep())
                 .next(this.batchStepCollections.getExecuteAutoLoginStep())
                 .next(this.batchStepCollections.getExecuteAutoScrapeUserProfileTasklet())
                 .next(this.batchStepCollections.getExecuteAutoDiagnoseFollowTasklet());
     }
 
     private FlowBuilder<FlowJobBuilder> createMainStreamJobFlowBuilder() {
-        final JobBuilder jobBuilder = this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
-        final BatchFlowStrategy batchFlowStrategy = BatchMainStreamFlowContext
-                .from(this.getBatchMainStreamFlowStrategyPattern()).evaluate();
-
-        return batchFlowStrategy.createJobFlowBuilder(jobBuilder, this.batchStepCollections);
+        return BatchMainStreamFlowContext.from(this.getBatchMainStreamFlowStrategyPattern(),
+                this.getInstaBotJobBuilder(), this.batchStepCollections).evaluate();
     }
 
     private FlowBuilder<FlowJobBuilder> createCloseSessionJobFlowBuilder() {
-        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag())
-                .flow(this.batchStepCollections.getCloseSessionStep());
+        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getCloseSessionStep());
+    }
+
+    private JobBuilder getInstaBotJobBuilder() {
+        return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
     }
 
     private BatchMainStreamFlowStrategyPattern getBatchMainStreamFlowStrategyPattern() {

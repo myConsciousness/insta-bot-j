@@ -14,8 +14,11 @@
 
 package org.thinkit.bot.instagram.batch.strategy.context;
 
+import org.springframework.batch.core.job.builder.FlowBuilder;
+import org.springframework.batch.core.job.builder.FlowJobBuilder;
+import org.springframework.batch.core.job.builder.JobBuilder;
 import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
-import org.thinkit.bot.instagram.batch.strategy.flow.BatchFlowStrategy;
+import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 import org.thinkit.bot.instagram.batch.strategy.flow.RestrictableBatchMainStreamFlowStrategy;
 import org.thinkit.bot.instagram.batch.strategy.flow.UnrestrictableBatchMainStreamFlowStrategy;
 
@@ -29,18 +32,30 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class BatchMainStreamFlowContext implements Context<BatchFlowStrategy> {
+public final class BatchMainStreamFlowContext implements Context<FlowBuilder<FlowJobBuilder>> {
 
     /**
      * The batch flow strategy pattern
      */
     private BatchMainStreamFlowStrategyPattern batchFlowStrategyPattern;
 
+    /**
+     * The job builder
+     */
+    private JobBuilder jobBuilder;
+
+    /**
+     * The batch step collections
+     */
+    private BatchStepCollections batchStepCollections;
+
     @Override
-    public BatchFlowStrategy evaluate() {
+    public FlowBuilder<FlowJobBuilder> evaluate() {
         return switch (this.batchFlowStrategyPattern) {
-            case RESTRICTABLE -> RestrictableBatchMainStreamFlowStrategy.newInstance();
-            case UNRESTRICTABLE -> UnrestrictableBatchMainStreamFlowStrategy.newInstance();
+            case RESTRICTABLE -> RestrictableBatchMainStreamFlowStrategy.newInstance().createJobFlowBuilder(jobBuilder,
+                    batchStepCollections);
+            case UNRESTRICTABLE -> UnrestrictableBatchMainStreamFlowStrategy.newInstance()
+                    .createJobFlowBuilder(jobBuilder, batchStepCollections);
         };
     }
 }
