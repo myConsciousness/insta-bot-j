@@ -59,6 +59,8 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
         final List<ActionUnfollowFailedUser> actionUnfollowFailedUsers = new ArrayList<>();
         final List<ActionError> actionErrors = new ArrayList<>();
 
+        final String unfollowText = this.autoUnfollowConfig.getUnfollowText().getText();
+
         for (final UnfollowUser unfollowUser : this.unfollowUsers) {
             try {
                 super.wait(WaitType.UNFOLLOW);
@@ -75,7 +77,7 @@ public final class AutoUnfollowCommand extends AbstractBotCommand<AutoUnfollowRe
                 super.findByXpath(ElementXPath.UNFOLLOW_BUTTON).click();
 
                 final String xpathButtonContainsUnfollow = String.format(ElementXPath.BUTTON_CONTAINS_TEXT.getTag(),
-                        "フォローをやめる");
+                        unfollowText);
                 super.waitUntilElementClickable(By.xpath(xpathButtonContainsUnfollow));
                 super.findElement(By.xpath(xpathButtonContainsUnfollow)).click();
 

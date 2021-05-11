@@ -12,43 +12,29 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.config;
+package org.thinkit.bot.instagram.batch.data.content.entity;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.batch.data.content.entity.UnfollowText;
+import org.thinkit.zenna.entity.ContentEntity;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * The class that manages the configuration when execution auto unfollow
- * command.
+ * The entity that manages the content {@code "UnfollowText"} .
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @ToString
 @EqualsAndHashCode
-@Builder(toBuilder = true)
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
-public final class AutoUnfollowConfig implements Serializable {
+public final class UnfollowText implements ContentEntity, Serializable {
 
     /**
-     * The unfollow interval
+     * The text
      */
     @Getter
-    private int interval;
-
-    /**
-     * The unfollow text
-     */
-    @Getter
-    private UnfollowText unfollowText;
+    private String text;
 }

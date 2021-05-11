@@ -23,6 +23,8 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
+import org.thinkit.bot.instagram.batch.data.content.entity.UnfollowText;
+import org.thinkit.bot.instagram.batch.data.content.mapper.UnfollowTextMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowedUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MissingUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.UnfollowedUser;
@@ -182,6 +184,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
         final AutoUnfollowConfig.AutoUnfollowConfigBuilder autoUnfollowConfigBuilder = AutoUnfollowConfig.builder();
         autoUnfollowConfigBuilder.interval(this.getUnfollowInterval());
+        autoUnfollowConfigBuilder.unfollowText(this.getUnfollowText());
 
         log.debug("END");
         return autoUnfollowConfigBuilder.build();
@@ -197,5 +200,9 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
     private int getUnfollowInterval() {
         return super.getIntVariableValue(VariableName.UNFOLLOW_INTERVAL);
+    }
+
+    private UnfollowText getUnfollowText() {
+        return UnfollowTextMapper.newInstance().scan().get(0);
     }
 }
