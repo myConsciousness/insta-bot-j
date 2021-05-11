@@ -32,7 +32,7 @@ public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
     @Override
     public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
-        return jobBuilder.flow(batchStepCollections.getInitializeStep())
+        return jobBuilder.flow(batchStepCollections.getInitializeSessionStep())
                 .next(batchStepCollections.getExecuteAutoLoginStep())
                 .next(batchStepCollections.getUpdateAutoLikeConfigStep())
                 .next(batchStepCollections.getExecuteAutoLikeStep())

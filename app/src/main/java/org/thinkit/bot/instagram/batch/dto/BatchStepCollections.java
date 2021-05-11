@@ -40,7 +40,7 @@ import lombok.ToString;
 public final class BatchStepCollections implements Serializable {
 
     @Getter
-    private Step initializeStep;
+    private Step initializeSessionStep;
 
     @Getter
     private Step executeAutoLoginStep;

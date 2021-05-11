@@ -32,14 +32,14 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class InitializeTasklet extends AbstractTasklet {
+public final class InitializeSessionTasklet extends AbstractTasklet {
 
-    private InitializeTasklet() {
+    private InitializeSessionTasklet() {
         super(TaskType.INITIALIZE);
     }
 
     public static Tasklet newInstance() {
-        return new InitializeTasklet();
+        return new InitializeSessionTasklet();
     }
 
     @Override

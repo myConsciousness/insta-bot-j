@@ -33,7 +33,7 @@ public class BatchStepConfiguration {
     private StepBuilderFactory stepBuilderFactory;
 
     @Autowired
-    private Tasklet initializeTasklet;
+    private Tasklet initializeSessionTasklet;
 
     @Autowired
     private Tasklet executeAutoLoginTasklet;
@@ -72,7 +72,7 @@ public class BatchStepConfiguration {
     public BatchStepCollections batchStepCollections() {
         final BatchStepCollections.BatchStepCollectionsBuilder batchStepCollectionsBuilder = BatchStepCollections
                 .builder();
-        batchStepCollectionsBuilder.initializeStep(this.initializeStep());
+        batchStepCollectionsBuilder.initializeSessionStep(this.initializeSessionStep());
         batchStepCollectionsBuilder.executeAutoLoginStep(this.executeAutoLoginStep());
         batchStepCollectionsBuilder.updateAutoLikeConfigStep(this.updateAutoLikeConfigStep());
         batchStepCollectionsBuilder.executeAutoLikeStep(this.executeAutoLikeStep());
@@ -89,8 +89,9 @@ public class BatchStepConfiguration {
         return batchStepCollectionsBuilder.build();
     }
 
-    private Step initializeStep() {
-        return this.stepBuilderFactory.get(BatchStep.INITIALIZE.getTag()).tasklet(this.initializeTasklet).build();
+    private Step initializeSessionStep() {
+        return this.stepBuilderFactory.get(BatchStep.INITIALIZE_SESSION.getTag()).tasklet(this.initializeSessionTasklet)
+                .build();
     }
 
     private Step executeAutoLoginStep() {
