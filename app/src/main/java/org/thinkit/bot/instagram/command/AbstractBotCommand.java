@@ -95,11 +95,11 @@ public abstract class AbstractBotCommand<R> implements BotCommand<R>, Serializab
     }
 
     protected final void waitUntilElementLocated(@NonNull final By by) {
-        new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.presenceOfElementLocated(by));
+        new WebDriverWait(this.webDriver, 20).until(ExpectedConditions.presenceOfElementLocated(by));
     }
 
     protected final void waitUntilElementClickable(@NonNull final By by) {
-        new WebDriverWait(this.webDriver, 10).until(ExpectedConditions.elementToBeClickable(by));
+        new WebDriverWait(this.webDriver, 20).until(ExpectedConditions.elementToBeClickable(by));
     }
 
     protected ActionError getActionError(@NonNull final Exception exception, @NonNull final TaskType taskType) {
