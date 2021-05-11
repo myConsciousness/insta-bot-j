@@ -30,15 +30,6 @@ import lombok.ToString;
 public final class UnrestrictableBatchFlowStrategy implements BatchFlowStrategy {
 
     @Override
-    public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
-            @NonNull final BatchStepCollections batchStepCollections) {
-        return jobBuilder.flow(batchStepCollections.getExecuteAutoLoginStep())
-                .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
-                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
-                .next(batchStepCollections.getNotifyResultStep());
-    }
-
-    @Override
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
         return jobBuilder.flow(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())

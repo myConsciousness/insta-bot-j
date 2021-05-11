@@ -33,7 +33,7 @@
         {
             "node": {
                 "conditionId": "102",
-                "value": "2000-01-01"
+                "value": "2000/01/01"
             }
         },
         {
@@ -51,7 +51,13 @@
         {
             "node": {
                 "conditionId": "202",
-                "value": "2000-01-01"
+                "value": "2000/01/01"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "700",
+                "value": "0"
             }
         },
         {
@@ -192,6 +198,19 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "LAST_DATE_ATTEMPTED_AUTO_UNFOLLOW"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "700",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "BATCH_MAIN_STREAM_FLOW_STRATEGY"
                     }
                 ]
             }

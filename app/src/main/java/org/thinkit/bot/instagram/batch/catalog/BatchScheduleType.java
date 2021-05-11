@@ -20,23 +20,28 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages batch flow strategy pattern.
+ * The catalog that manages batch schedule type.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum BatchFlowStrategyPattern implements Catalog<BatchFlowStrategyPattern> {
+public enum BatchScheduleType implements Catalog<BatchScheduleType> {
 
     /**
-     * The default
+     * The initialize session
      */
-    RESTRICTABLE(0),
+    INITIALIZE_SESSION(0),
 
     /**
-     * The unrestrictable
+     * The main stream
      */
-    UNRESTRICTABLE(1);
+    MAIN_STREAM(1),
+
+    /**
+     * The close session
+     */
+    CLOSE_SESSION(2);
 
     /**
      * The code

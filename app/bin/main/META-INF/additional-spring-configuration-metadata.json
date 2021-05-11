@@ -1,17 +1,22 @@
 {
     "properties": [
         {
-            "name": "spring.batch.schedule.cron",
+            "name": "spring.batch.schedule.cron.initialize",
+            "type": "java.lang.String",
+            "description": ""
+        },
+        {
+            "name": "spring.batch.schedule.cron.mainstream",
+            "type": "java.lang.String",
+            "description": ""
+        },
+        {
+            "name": "spring.batch.schedule.cron.close",
             "type": "java.lang.String",
             "description": ""
         },
         {
             "name": "spring.batch.schedule.timezone",
-            "type": "java.lang.String",
-            "description": ""
-        },
-        {
-            "name": "spring.batch.schedule.session.cron",
             "type": "java.lang.String",
             "description": ""
         }

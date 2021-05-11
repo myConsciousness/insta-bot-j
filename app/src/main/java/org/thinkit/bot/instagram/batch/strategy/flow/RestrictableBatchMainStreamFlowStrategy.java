@@ -27,23 +27,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(staticName = "newInstance")
-public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
-
-    @Override
-    public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
-            @NonNull final BatchStepCollections batchStepCollections) {
-        return jobBuilder.flow(batchStepCollections.getInitializeSessionStep())
-                .next(batchStepCollections.getExecuteAutoLoginStep())
-                .next(batchStepCollections.getUpdateAutoLikeConfigStep())
-                .next(batchStepCollections.getExecuteAutoLikeStep())
-                .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
-                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
-                .next(batchStepCollections.getExecuteAutoScrapeUserProfileTasklet())
-                .next(batchStepCollections.getExecuteAutoDiagnoseFollowTasklet())
-                .next(batchStepCollections.getExecuteAutoFollowStep())
-                .next(batchStepCollections.getExecuteAutoUnfollowStep())
-                .next(batchStepCollections.getNotifyResultStep());
-    }
+public final class RestrictableBatchMainStreamFlowStrategy implements BatchFlowStrategy {
 
     @Override
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
@@ -52,6 +36,8 @@ public final class RestrictableBatchFlowStrategy implements BatchFlowStrategy {
                 .next(batchStepCollections.getExecuteAutoLikeStep())
                 .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
                 .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
+                .next(batchStepCollections.getExecuteAutoFollowStep())
+                .next(batchStepCollections.getExecuteAutoUnfollowStep())
                 .next(batchStepCollections.getNotifyResultStep());
     }
 }

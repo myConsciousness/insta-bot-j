@@ -23,9 +23,6 @@ import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 
 public interface BatchFlowStrategy {
 
-    public FlowBuilder<FlowJobBuilder> createLoginJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
-            @NonNull final BatchStepCollections batchStepCollections);
-
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections);
 }

@@ -69,9 +69,9 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     LAST_DATE_ATTEMPTED_AUTO_UNFOLLOW(202, "LAST_DATE_ATTEMPTED_AUTO_UNFOLLOW"),
 
     /**
-     * {@code "BATCH_FLOW_STRATEGY"}
+     * {@code "BATCH_MAIN_STREAM_FLOW_STRATEGY"}
      */
-    BATCH_FLOW_STRATEGY(700, "BATCH_FLOW_STRATEGY"),
+    BATCH_MAIN_STREAM_FLOW_STRATEGY(700, "BATCH_MAIN_STREAM_FLOW_STRATEGY"),
 
     /**
      * {@code "HASHTAG_GROUP_COUNT"}
