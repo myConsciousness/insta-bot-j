@@ -24,6 +24,7 @@ import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
 import org.thinkit.api.catalog.BiCatalog;
+import org.thinkit.bot.instagram.batch.catalog.ContentType;
 import org.thinkit.bot.instagram.batch.catalog.ErrorHttpStatus;
 import org.thinkit.bot.instagram.batch.exception.http.AccessForbiddenException;
 import org.thinkit.bot.instagram.batch.exception.http.BadGatewayException;
@@ -35,7 +36,6 @@ import org.thinkit.bot.instagram.batch.exception.http.ServiceUnavailableExceptio
 import org.thinkit.bot.instagram.batch.exception.http.UserUnauthorizedException;
 import org.thinkit.bot.instagram.batch.util.LineNotifyApiUtils;
 import org.thinkit.bot.instagram.batch.util.SecuritySchemeUtils;
-import org.thinkit.bot.instagram.catalog.ContentType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

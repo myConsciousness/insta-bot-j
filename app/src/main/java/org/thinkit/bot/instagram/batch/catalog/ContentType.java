@@ -12,35 +12,36 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.catalog;
+package org.thinkit.bot.instagram.batch.catalog;
 
-import org.thinkit.api.catalog.Catalog;
+import org.thinkit.api.catalog.BiCatalog;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages language.
+ * The catalog that manages content type.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum Language implements Catalog<Language> {
+public enum ContentType implements BiCatalog<ContentType, String> {
 
     /**
-     * English
+     * {@code "application/x-www-form-urlencoded"}
      */
-    ENGLISH(0),
-
-    /**
-     * Japanese
-     */
-    JAPANESE(1);
+    APPLICATION_X_WWWW_FORM_URLENCODED(0, "application/x-www-form-urlencoded");
 
     /**
      * The code
      */
     @Getter
     private final int code;
+
+    /**
+     * The tag
+     */
+    @Getter
+    private final String tag;
 }
