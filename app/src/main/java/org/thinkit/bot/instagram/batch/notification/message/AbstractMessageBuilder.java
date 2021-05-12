@@ -22,5 +22,4 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public abstract class AbstractMessageBuilder implements MessageBuilder, Serializable {
-
 }
