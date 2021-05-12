@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.Date;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
@@ -23,6 +25,7 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.MissingUserReposito
 import org.thinkit.bot.instagram.batch.exception.AvailableUserAccountNotFoundException;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.util.DateUtils;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -60,7 +63,7 @@ public final class InitializeSessionTasklet extends AbstractTasklet {
             final FollowedUser followedUser = new FollowedUser();
             followedUser.setUserName(missingUser.getUserName());
             followedUser.setChargeUserName(super.getRunningUserName());
-            followedUser.setExpiredDate("2021/05/11");
+            followedUser.setExpiredDate(DateUtils.toString(new Date()));
 
             super.getMongoCollections().getFollowedUserRepository().insert(followedUser);
             missingUserRepository.delete(missingUser);
