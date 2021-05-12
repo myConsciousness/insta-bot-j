@@ -66,7 +66,7 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
         final List<UnfollowUser> unfollowUsers = this.getUnfollowUsers();
 
-        if (unfollowUsers.isEmpty() || this.isAlreadyAttemptedToday()) {
+        if (unfollowUsers.isEmpty() && this.isAlreadyAttemptedToday()) {
             return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
         }
 

@@ -134,8 +134,8 @@ public class BatchJobConfiguration {
     private FlowBuilder<FlowJobBuilder> createInitializeSessionJobFlowBuilder() {
         return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getInitializeSessionStep())
                 .next(this.batchStepCollections.getExecuteAutoLoginStep())
-                .next(this.batchStepCollections.getExecuteAutoScrapeUserProfileTasklet())
-                .next(this.batchStepCollections.getExecuteAutoDiagnoseFollowTasklet())
+                .next(this.batchStepCollections.getExecuteAutoScrapeUserProfileStep())
+                .next(this.batchStepCollections.getExecuteAutoDiagnoseFollowStep())
                 .next(this.batchStepCollections.getNotifyResultReportStep());
     }
 

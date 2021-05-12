@@ -58,10 +58,13 @@ public final class BatchStepCollections implements Serializable {
     private Step executeAutoForecastFollowBackUserStep;
 
     @Getter
-    private Step executeAutoScrapeUserProfileTasklet;
+    private Step executeAutoScrapeUserProfileStep;
 
     @Getter
-    private Step executeAutoDiagnoseFollowTasklet;
+    private Step executeAutoDiagnoseFollowStep;
+
+    @Getter
+    private Step executeAutoRefreshRetryStep;
 
     @Getter
     private Step executeAutoFollowStep;
