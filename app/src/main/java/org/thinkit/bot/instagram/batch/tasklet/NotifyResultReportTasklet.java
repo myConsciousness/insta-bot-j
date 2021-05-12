@@ -26,6 +26,7 @@ import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.notification.LineNotify;
 import org.thinkit.bot.instagram.batch.notification.message.LineMessageBuilder;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
@@ -53,12 +54,15 @@ public final class NotifyResultReportTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final MessageMetaRepository messageMetaRepository = this.getMongoCollections().getMessageMetaRepository();
-        final List<MessageMeta> messageMetas = messageMetaRepository
-                .findByChargeUserNameAndAlreadySentFalse(super.getRunningUserName());
+        final String runningUserName = super.getRunningUserName();
+        final MongoCollections mongoCollections = super.getMongoCollections();
 
-        LineNotify.from(this.getLineNotifyToken())
-                .sendMessage(LineMessageBuilder.from(this.getProcessingBatchScheduleType(), messageMetas).build());
+        final MessageMetaRepository messageMetaRepository = mongoCollections.getMessageMetaRepository();
+        final List<MessageMeta> messageMetas = messageMetaRepository
+                .findByChargeUserNameAndAlreadySentFalse(runningUserName);
+
+        LineNotify.from(this.getLineNotifyToken()).sendMessage(LineMessageBuilder
+                .from(this.getProcessingBatchScheduleType(), runningUserName, mongoCollections).build());
         log.info("The message has been sent.");
 
         for (final MessageMeta messageMeta : messageMetas) {

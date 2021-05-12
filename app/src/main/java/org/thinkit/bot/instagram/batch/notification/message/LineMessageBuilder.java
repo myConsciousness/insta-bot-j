@@ -14,10 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.notification.message;
 
-import java.util.List;
-
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
-import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.strategy.context.ReportBuildContext;
 
 import lombok.AccessLevel;
@@ -38,12 +36,17 @@ public final class LineMessageBuilder extends AbstractMessageBuilder {
     private BatchScheduleType batchScheduleType;
 
     /**
-     * The message metas
+     * The running user name
      */
-    private List<MessageMeta> messageMetas;
+    private String runningUserName;
+
+    /**
+     * The mongo collections
+     */
+    private MongoCollections mongoCollections;
 
     @Override
     public String build() {
-        return ReportBuildContext.from(batchScheduleType, messageMetas).evaluate();
+        return ReportBuildContext.from(this.batchScheduleType, this.runningUserName, this.mongoCollections).evaluate();
     }
 }

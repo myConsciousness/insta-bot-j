@@ -14,10 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.strategy.context;
 
-import java.util.List;
-
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
-import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.strategy.report.CloseSessionReportBuildStrategy;
 import org.thinkit.bot.instagram.batch.strategy.report.InitializeSessionReportBuildStrategy;
 import org.thinkit.bot.instagram.batch.strategy.report.MainStreamReportBuildStrategy;
@@ -39,16 +37,24 @@ public final class ReportBuildContext implements Context<String> {
     private BatchScheduleType batchScheduleType;
 
     /**
-     * The message metas
+     * The running user name
      */
-    private List<MessageMeta> messageMetas;
+    private String runningUserName;
+
+    /**
+     * The mongo collections
+     */
+    private MongoCollections mongoCollections;
 
     @Override
     public String evaluate() {
         return switch (batchScheduleType) {
-            case INITIALIZE_SESSION -> InitializeSessionReportBuildStrategy.newInstance().buildReport(messageMetas);
-            case MAIN_STREAM -> MainStreamReportBuildStrategy.newInstance().buildReport(messageMetas);
-            case CLOSE_SESSION -> CloseSessionReportBuildStrategy.newInstance().buildReport(messageMetas);
+            case INITIALIZE_SESSION -> InitializeSessionReportBuildStrategy
+                    .from(this.runningUserName, this.mongoCollections).buildReport();
+            case MAIN_STREAM -> MainStreamReportBuildStrategy.from(this.runningUserName, this.mongoCollections)
+                    .buildReport();
+            case CLOSE_SESSION -> CloseSessionReportBuildStrategy.from(this.runningUserName, this.mongoCollections)
+                    .buildReport();
         };
     }
 }

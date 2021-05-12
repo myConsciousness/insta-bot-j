@@ -28,9 +28,12 @@ import org.thinkit.bot.instagram.batch.data.content.mapper.ActionStatusMessageMa
 import org.thinkit.bot.instagram.batch.data.content.mapper.LineMessagePhraseMapper;
 import org.thinkit.bot.instagram.batch.data.content.mapper.TaskNameMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.policy.BatchTask;
 import org.thinkit.bot.instagram.catalog.TaskType;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -38,13 +41,26 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor(staticName = "newInstance")
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class MainStreamReportBuildStrategy implements ReportBuildStrategy, Serializable {
 
+    /**
+     * The running user name
+     */
+    private String runningUserName;
+
+    /**
+     * The mongo collections
+     */
+    private MongoCollections mongoCollections;
+
     @Override
-    public String buildReport(@NonNull final List<MessageMeta> messageMetas) {
+    public String buildReport() {
 
         final StringBuilder message = new StringBuilder(newline());
+        final List<MessageMeta> messageMetas = this.mongoCollections.getMessageMetaRepository()
+                .findByChargeUserNameAndAlreadySentFalse(this.runningUserName);
 
         for (final MessageMeta messageMeta : messageMetas) {
             final BatchTask batchTask = BatchTask.from(Catalog.getEnum(TaskType.class, messageMeta.getTaskTypeCode()));

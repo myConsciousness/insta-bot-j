@@ -14,43 +14,34 @@
 
 package org.thinkit.bot.instagram.batch.strategy.report;
 
-import static org.thinkit.bot.instagram.util.IndentUtils.newline;
-
 import java.io.Serializable;
-import java.util.List;
 
-import org.thinkit.api.catalog.Catalog;
-import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
-import org.thinkit.bot.instagram.batch.policy.BatchTask;
-import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor(staticName = "newInstance")
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor(staticName = "from")
 public final class InitializeSessionReportBuildStrategy implements ReportBuildStrategy, Serializable {
 
+    /**
+     * The running user name
+     */
+    private String runningUserName;
+
+    /**
+     * The mongo collections
+     */
+    private MongoCollections mongoCollections;
+
     @Override
-    public String buildReport(@NonNull final List<MessageMeta> messageMetas) {
-
-        final StringBuilder message = new StringBuilder(newline());
-
-        for (final MessageMeta messageMeta : messageMetas) {
-            final BatchTask batchTask = BatchTask.from(Catalog.getEnum(TaskType.class, messageMeta.getTaskTypeCode()));
-
-            if (batchTask.isInitializeSessionTask()) {
-                message.append(newline(this.createMessage(batchTask, messageMeta)));
-            }
-        }
-
-        return message.toString();
-    }
-
-    private String createMessage(@NonNull final BatchTask batchTask, @NonNull final MessageMeta messageMeta) {
+    public String buildReport() {
         return "Initialized session.";
     }
 }
