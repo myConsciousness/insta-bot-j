@@ -488,13 +488,17 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private void updateProcessingBatchSchedule() {
+        this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, this.getProcessingBatchSchedule().getCode());
+    }
+
+    private BatchScheduleType getProcessingBatchSchedule() {
         if (this.batchTask.isInitializeSessionTask()) {
-            this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, BatchScheduleType.INITIALIZE_SESSION.getClass());
+            return BatchScheduleType.INITIALIZE_SESSION;
         } else if (this.batchTask.isMainStreamTask()) {
-            this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, BatchScheduleType.MAIN_STREAM.getClass());
-        } else {
-            this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, BatchScheduleType.CLOSE_SESSION.getClass());
+            return BatchScheduleType.MAIN_STREAM;
         }
+
+        return BatchScheduleType.CLOSE_SESSION;
     }
 
     private void closeBatchSession() {

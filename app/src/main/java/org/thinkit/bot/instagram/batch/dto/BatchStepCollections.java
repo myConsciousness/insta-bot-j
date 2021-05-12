@@ -70,7 +70,7 @@ public final class BatchStepCollections implements Serializable {
     private Step executeAutoUnfollowStep;
 
     @Getter
-    private Step notifyResultStep;
+    private Step notifyResultReportStep;
 
     @Getter
     private Step closeSessionStep;

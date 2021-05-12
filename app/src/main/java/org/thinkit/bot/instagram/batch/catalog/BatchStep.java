@@ -79,9 +79,9 @@ public enum BatchStep implements BiCatalog<BatchStep, String> {
     UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG(800, "UpdateAutoForecastFollowBackUserConfig"),
 
     /**
-     * The notify result
+     * The notify result report
      */
-    NOTIFY_RESULT(900, "NotifyResult"),
+    NOTIFY_RESULT_REPORT(900, "NotifyResultReport"),
 
     /**
      * The close session

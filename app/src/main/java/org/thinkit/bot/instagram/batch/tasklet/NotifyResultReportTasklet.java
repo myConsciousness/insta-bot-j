@@ -39,14 +39,14 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class NotifyResultTasklet extends AbstractTasklet {
+public final class NotifyResultReportTasklet extends AbstractTasklet {
 
-    private NotifyResultTasklet() {
-        super(TaskType.NOTIFY_RESULT);
+    private NotifyResultReportTasklet() {
+        super(TaskType.NOTIFY_RESULT_REPORT);
     }
 
     public static Tasklet newInstance() {
-        return new NotifyResultTasklet();
+        return new NotifyResultReportTasklet();
     }
 
     @Override

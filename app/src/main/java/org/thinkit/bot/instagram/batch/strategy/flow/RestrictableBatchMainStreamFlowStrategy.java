@@ -38,6 +38,6 @@ public final class RestrictableBatchMainStreamFlowStrategy implements BatchFlowS
                 .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
                 .next(batchStepCollections.getExecuteAutoFollowStep())
                 .next(batchStepCollections.getExecuteAutoUnfollowStep())
-                .next(batchStepCollections.getNotifyResultStep());
+                .next(batchStepCollections.getNotifyResultReportStep());
     }
 }

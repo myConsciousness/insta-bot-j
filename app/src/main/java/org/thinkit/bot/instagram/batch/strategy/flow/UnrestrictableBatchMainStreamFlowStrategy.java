@@ -34,6 +34,6 @@ public final class UnrestrictableBatchMainStreamFlowStrategy implements BatchFlo
             @NonNull final BatchStepCollections batchStepCollections) {
         return jobBuilder.flow(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
                 .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
-                .next(batchStepCollections.getNotifyResultStep());
+                .next(batchStepCollections.getNotifyResultReportStep());
     }
 }
