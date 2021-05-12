@@ -16,7 +16,10 @@ package org.thinkit.bot.instagram.batch.strategy.report;
 
 import java.io.Serializable;
 
-import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import com.mongodb.lang.NonNull;
+
+import org.thinkit.bot.instagram.batch.data.mongo.entity.Session;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.SessionRepository;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,12 +39,31 @@ public final class InitializeSessionReportBuildStrategy implements ReportBuildSt
     private String runningUserName;
 
     /**
-     * The mongo collections
+     * The session repository
      */
-    private MongoCollections mongoCollections;
+    private SessionRepository sessionRepository;
 
     @Override
     public String buildReport() {
-        return "Initialized session.";
+        return this.createMessage(this.sessionRepository.findByUserName(this.runningUserName));
+    }
+
+    private String createMessage(@NonNull final Session session) {
+        return """
+                Initialized session.
+                -------------------
+                Running User
+                -------------------
+                Name: [%s]
+                PID: [%s]
+                JVM Name: [%s]
+                VM Name: [%s]
+                VM Version: [%s]
+                VM vendor: [%s]
+                Spec Name: [%s]
+                Spec Version: [%s]
+                        """.formatted(session.getUserName(), session.getPid(), session.getJvmName(),
+                session.getVmName(), session.getVmVersion(), session.getVmVendor(), session.getSpecName(),
+                session.getSpecVersion());
     }
 }

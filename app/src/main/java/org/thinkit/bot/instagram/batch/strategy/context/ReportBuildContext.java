@@ -50,9 +50,9 @@ public final class ReportBuildContext implements Context<String> {
     public String evaluate() {
         return switch (batchScheduleType) {
             case INITIALIZE_SESSION -> InitializeSessionReportBuildStrategy
-                    .from(this.runningUserName, this.mongoCollections).buildReport();
-            case MAIN_STREAM -> MainStreamReportBuildStrategy.from(this.runningUserName, this.mongoCollections)
-                    .buildReport();
+                    .from(this.runningUserName, mongoCollections.getSessionRepository()).buildReport();
+            case MAIN_STREAM -> MainStreamReportBuildStrategy
+                    .from(this.runningUserName, this.mongoCollections.getMessageMetaRepository()).buildReport();
             case CLOSE_SESSION -> CloseSessionReportBuildStrategy.from(this.runningUserName, this.mongoCollections)
                     .buildReport();
         };

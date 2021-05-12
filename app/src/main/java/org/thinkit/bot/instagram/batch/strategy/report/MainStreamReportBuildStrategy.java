@@ -28,7 +28,7 @@ import org.thinkit.bot.instagram.batch.data.content.mapper.ActionStatusMessageMa
 import org.thinkit.bot.instagram.batch.data.content.mapper.LineMessagePhraseMapper;
 import org.thinkit.bot.instagram.batch.data.content.mapper.TaskNameMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
-import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.batch.policy.BatchTask;
 import org.thinkit.bot.instagram.catalog.TaskType;
 
@@ -51,15 +51,15 @@ public final class MainStreamReportBuildStrategy implements ReportBuildStrategy,
     private String runningUserName;
 
     /**
-     * The mongo collections
+     * The message meta repository
      */
-    private MongoCollections mongoCollections;
+    private MessageMetaRepository messageMetaRepository;
 
     @Override
     public String buildReport() {
 
         final StringBuilder message = new StringBuilder(newline());
-        final List<MessageMeta> messageMetas = this.mongoCollections.getMessageMetaRepository()
+        final List<MessageMeta> messageMetas = this.messageMetaRepository
                 .findByChargeUserNameAndAlreadySentFalse(this.runningUserName);
 
         for (final MessageMeta messageMeta : messageMetas) {
