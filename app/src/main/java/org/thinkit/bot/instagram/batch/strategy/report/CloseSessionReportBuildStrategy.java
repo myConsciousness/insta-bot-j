@@ -51,6 +51,6 @@ public final class CloseSessionReportBuildStrategy implements ReportBuildStrateg
     }
 
     private String createMessage(@NonNull final BatchTask batchTask, @NonNull final MessageMeta messageMeta) {
-        return "Closed session.";
+        return "Close session.";
     }
 }

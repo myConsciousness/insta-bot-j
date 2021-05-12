@@ -84,7 +84,7 @@ public enum TaskType implements Catalog<TaskType> {
     UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG(801),
 
     /**
-     * The notify result report
+     * The notify result
      */
     NOTIFY_RESULT_REPORT(900),
 
