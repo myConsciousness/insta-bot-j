@@ -28,6 +28,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.thinkit.api.catalog.BiCatalog;
 import org.thinkit.bot.instagram.InstaBot;
+import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultVariableMapper;
 import org.thinkit.bot.instagram.batch.data.content.mapper.ExecutionControlledVariableMapper;
@@ -135,6 +136,8 @@ public abstract class AbstractTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
+        this.updateProcessingBatchSchedule();
+
         if (this.batchTask.isRestrictable() && this.isActionRestricted()) {
             log.debug("END");
             return this.executeRestrictedProcess();
@@ -188,11 +191,11 @@ public abstract class AbstractTasklet implements Tasklet {
         return variable;
     }
 
-    protected void saveVariable(@NonNull final VariableName variableName, @NonNull final String value) {
+    protected void saveVariable(@NonNull final VariableName variableName, @NonNull final Object value) {
         log.debug("START");
 
         final Variable variable = this.getVariable(variableName);
-        variable.setValue(value);
+        variable.setValue(String.valueOf(value));
         variable.setUpdatedAt(new Date());
 
         this.mongoCollections.getVariableRepository().save(variable);
@@ -482,6 +485,16 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("Updated last action: {}", lastAction);
 
         log.debug("END");
+    }
+
+    private void updateProcessingBatchSchedule() {
+        if (this.batchTask.isInitializeSessionTask()) {
+            this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, BatchScheduleType.INITIALIZE_SESSION.getClass());
+        } else if (this.batchTask.isMainStreamTask()) {
+            this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, BatchScheduleType.MAIN_STREAM.getClass());
+        } else {
+            this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, BatchScheduleType.CLOSE_SESSION.getClass());
+        }
     }
 
     private void closeBatchSession() {
