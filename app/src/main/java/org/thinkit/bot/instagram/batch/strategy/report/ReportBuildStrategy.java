@@ -14,7 +14,13 @@
 
 package org.thinkit.bot.instagram.batch.strategy.report;
 
+import java.util.List;
+
+import com.mongodb.lang.NonNull;
+
+import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
+
 public interface ReportBuildStrategy {
 
-    public String buildReport();
+    public String buildReport(@NonNull final List<MessageMeta> messageMetas);
 }

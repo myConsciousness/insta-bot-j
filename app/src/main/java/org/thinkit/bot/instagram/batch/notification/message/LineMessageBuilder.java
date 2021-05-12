@@ -14,22 +14,11 @@
 
 package org.thinkit.bot.instagram.batch.notification.message;
 
-import static org.thinkit.bot.instagram.util.IndentUtils.newline;
-import static org.thinkit.bot.instagram.util.IndentUtils.space;
-
 import java.util.List;
 
-import com.mongodb.lang.NonNull;
-
-import org.thinkit.api.catalog.Catalog;
-import org.thinkit.bot.instagram.batch.data.content.entity.ActionStatusMessage;
-import org.thinkit.bot.instagram.batch.data.content.entity.LineMessagePhrase;
-import org.thinkit.bot.instagram.batch.data.content.entity.TaskName;
-import org.thinkit.bot.instagram.batch.data.content.mapper.ActionStatusMessageMapper;
-import org.thinkit.bot.instagram.batch.data.content.mapper.LineMessagePhraseMapper;
-import org.thinkit.bot.instagram.batch.data.content.mapper.TaskNameMapper;
+import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
-import org.thinkit.bot.instagram.catalog.TaskType;
+import org.thinkit.bot.instagram.batch.strategy.context.ReportBuildContext;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -44,58 +33,17 @@ import lombok.ToString;
 public final class LineMessageBuilder extends AbstractMessageBuilder {
 
     /**
+     * The batch schedule type
+     */
+    private BatchScheduleType batchScheduleType;
+
+    /**
      * The message metas
      */
     private List<MessageMeta> messageMetas;
 
     @Override
     public String build() {
-
-        final StringBuilder message = new StringBuilder(newline());
-
-        for (final MessageMeta messageMeta : this.messageMetas) {
-            final TaskType taskType = Catalog.getEnum(TaskType.class, messageMeta.getTaskTypeCode());
-            message.append(newline(this.createMessage(taskType, messageMeta)));
-        }
-
-        return message.toString();
-    }
-
-    private String createMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
-
-        final StringBuilder message = new StringBuilder();
-
-        message.append(this.getActionStatusMessage(taskType, messageMeta));
-        message.append(space());
-        message.append(this.getTaskMessage(taskType, messageMeta));
-
-        return message.toString();
-    }
-
-    private String getTaskMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
-        final LineMessagePhraseMapper lineMessagePhraseMapper = LineMessagePhraseMapper.from(taskType.getCode());
-        final LineMessagePhrase lineMessagePhrase = lineMessagePhraseMapper.scan().get(0);
-
-        return String.format(lineMessagePhrase.getPhrase(), messageMeta.getCount());
-    }
-
-    private String getActionStatusMessage(@NonNull final TaskType taskType, @NonNull final MessageMeta messageMeta) {
-        final TaskName taskName = TaskNameMapper.from(taskType.getCode()).scan().get(0);
-        return String.format(this.getActionStatusMessage(messageMeta), taskName.getName());
-    }
-
-    private String getActionStatusMessage(@NonNull final MessageMeta messageMeta) {
-
-        final ActionStatusMessage actionStatusMessage = ActionStatusMessageMapper.newInstance().scan().get(0);
-
-        if (messageMeta.isInterrupted()) {
-            return actionStatusMessage.getInterrupted();
-        } else if (messageMeta.isSkipped()) {
-            return actionStatusMessage.getSkipped();
-        } else if (messageMeta.isSkippedByMood()) {
-            return actionStatusMessage.getSkippedByMood();
-        }
-
-        return actionStatusMessage.getCompleted();
+        return ReportBuildContext.from(batchScheduleType, messageMetas).evaluate();
     }
 }

@@ -99,6 +99,11 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     FOLLOWING_NEAR_LIMIT(804, "FOLLOWING_NEAR_LIMIT"),
 
     /**
+     * {@code "PROCESSING_BATCH_SCHEDULE"}
+     */
+    PROCESSING_BATCH_SCHEDULE(805, "PROCESSING_BATCH_SCHEDULE"),
+
+    /**
      * {@code "LINE_NOTIFY_TOKEN"}
      */
     LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN"),

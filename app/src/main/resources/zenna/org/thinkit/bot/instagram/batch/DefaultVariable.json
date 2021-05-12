@@ -92,6 +92,12 @@
         },
         {
             "node": {
+                "conditionId": "805",
+                "value": "0"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "900",
                 "value": ""
             }
@@ -282,7 +288,20 @@
         },
         {
             "node": {
-                "conditionId": "5",
+                "conditionId": "805",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "PROCESSING_BATCH_SCHEDULE"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "900",
                 "exclude": false,
                 "conditions": [
                     {
