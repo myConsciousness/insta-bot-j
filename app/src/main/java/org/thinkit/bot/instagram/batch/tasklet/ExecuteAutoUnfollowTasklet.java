@@ -66,7 +66,8 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
         final List<UnfollowUser> unfollowUsers = this.getUnfollowUsers();
 
-        if (unfollowUsers.isEmpty() && this.isAlreadyAttemptedToday()) {
+        // Do unfollow until there is no target user.
+        if (unfollowUsers.isEmpty()) {
             return BatchTaskResult.builder().actionStatus(ActionStatus.SKIP).build();
         }
 
@@ -118,16 +119,6 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
         log.debug("END");
         return batchTaskResultBuilder.build();
-    }
-
-    private boolean isAlreadyAttemptedToday() {
-        log.debug("START");
-
-        final String lastDateAttemptedAutoUnfollow = this.getLastDateAttemptedAutoUnfollow();
-        final String today = DateUtils.toString(new Date());
-
-        log.debug("START");
-        return lastDateAttemptedAutoUnfollow.equals(today);
     }
 
     private List<UnfollowUser> getUnfollowUsers() {
@@ -188,10 +179,6 @@ public final class ExecuteAutoUnfollowTasklet extends AbstractTasklet {
 
         log.debug("END");
         return autoUnfollowConfigBuilder.build();
-    }
-
-    private String getLastDateAttemptedAutoUnfollow() {
-        return super.getVariableValue(VariableName.LAST_DATE_ATTEMPTED_AUTO_UNFOLLOW);
     }
 
     private int getUnfollowPerDay() {

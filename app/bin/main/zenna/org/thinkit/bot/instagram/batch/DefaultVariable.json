@@ -50,12 +50,6 @@
         },
         {
             "node": {
-                "conditionId": "202",
-                "value": "2000/01/01"
-            }
-        },
-        {
-            "node": {
                 "conditionId": "700",
                 "value": "0"
             }
@@ -191,19 +185,6 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "UNFOLLOW_INTERVAL"
-                    }
-                ]
-            }
-        },
-        {
-            "node": {
-                "conditionId": "202",
-                "exclude": false,
-                "conditions": [
-                    {
-                        "keyName": "variableName",
-                        "operator": "=",
-                        "operand": "LAST_DATE_ATTEMPTED_AUTO_UNFOLLOW"
                     }
                 ]
             }
