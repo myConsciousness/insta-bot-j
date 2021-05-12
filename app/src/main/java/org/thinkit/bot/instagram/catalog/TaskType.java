@@ -64,14 +64,19 @@ public enum TaskType implements Catalog<TaskType> {
     AUTO_COMMENT(5),
 
     /**
+     * The auto refresh retry user
+     */
+    AUTO_REFRESH_RETRY_USER(6),
+
+    /**
      * The auto follow task
      */
-    AUTO_FOLLOW(6),
+    AUTO_FOLLOW(7),
 
     /**
      * The auto unfollow task
      */
-    AUTO_UNFOLLOW(7),
+    AUTO_UNFOLLOW(8),
 
     /**
      * The update auto like config

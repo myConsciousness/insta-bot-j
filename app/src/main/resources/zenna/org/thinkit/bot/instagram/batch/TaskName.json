@@ -9,25 +9,25 @@
         {
             "node": {
                 "conditionId": "1",
-                "name": "AutoLike"
+                "name": "AUTO_LIKE"
             }
         },
         {
             "node": {
                 "conditionId": "2",
-                "name": "AutoForecast"
-            }
-        },
-        {
-            "node": {
-                "conditionId": "6",
-                "name": "AutoFollow"
+                "name": "AUTO_FORECAST"
             }
         },
         {
             "node": {
                 "conditionId": "7",
-                "name": "AutoUnfollow"
+                "name": "AUTO_FOLLOW"
+            }
+        },
+        {
+            "node": {
+                "conditionId": "8",
+                "name": "AUTO_UNFOLLOW"
             }
         }
     ],
@@ -60,19 +60,6 @@
         },
         {
             "node": {
-                "conditionId": "6",
-                "exclude": false,
-                "conditions": [
-                    {
-                        "keyName": "taskTypeCode",
-                        "operator": "=",
-                        "operand": "6"
-                    }
-                ]
-            }
-        },
-        {
-            "node": {
                 "conditionId": "7",
                 "exclude": false,
                 "conditions": [
@@ -80,6 +67,19 @@
                         "keyName": "taskTypeCode",
                         "operator": "=",
                         "operand": "7"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "8",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "8"
                     }
                 ]
             }
