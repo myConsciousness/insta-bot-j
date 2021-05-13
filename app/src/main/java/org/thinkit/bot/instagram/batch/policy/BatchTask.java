@@ -68,12 +68,16 @@ public final class BatchTask implements Serializable {
     }
 
     public boolean isInitializeSessionTask() {
-        return this.taskType == TaskType.INITIALIZE_SESSION;
+        return this.taskType == TaskType.INITIALIZE_SESSION || this.taskType == TaskType.AUTO_LOGIN
+                || this.taskType == TaskType.AUTO_SCRAPE_USER_PROFILE || this.taskType == TaskType.AUTO_DIAGNOSE_FOLLOW;
     }
 
     public boolean isMainStreamTask() {
-        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.AUTO_FORECAST_FOLLOW_BACK_USER
-                || this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
+        return this.taskType == TaskType.UPDATE_AUTO_LIKE_CONFIG || this.taskType == TaskType.AUTO_LIKE
+                || this.taskType == TaskType.UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG
+                || this.taskType == TaskType.AUTO_FORECAST_FOLLOW_BACK_USER
+                || this.taskType == TaskType.AUTO_REFRESH_RETRY_USER || this.taskType == TaskType.AUTO_FOLLOW
+                || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
 
     public boolean isCloseSessionTask() {

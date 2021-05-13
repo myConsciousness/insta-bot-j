@@ -502,8 +502,8 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private void closeBatchSession() {
-        // this.instaBot.closeWebBrowser();
-        // this.context.close();
+        this.instaBot.closeWebBrowser();
+        this.context.close();
     }
 
     private String getDefaultVariableValue(@NonNull final VariableName variableName) {
