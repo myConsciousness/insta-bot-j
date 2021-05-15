@@ -1,0 +1,278 @@
+{
+    "meta": {
+        "author": "Kato Shinya",
+        "encoding": "UTF-8",
+        "description": "The content that manages the default task execution rule.",
+        "resultType": "org.thinkit.bot.instagram.batch.data.content.entity.DefaultTaskExecutionRule"
+    },
+    "selectionNodes": [
+        {
+            "node": {
+                "conditionId": "-1",
+                "active": true
+            }
+        },
+        {
+            "node": {
+                "conditionId": "0",
+                "active": true
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "active": true
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "active": false
+            }
+        },
+        {
+            "node": {
+                "conditionId": "3",
+                "active": false
+            }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "active": false
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "active": false
+            }
+        },
+        {
+            "node": {
+                "conditionId": "6",
+                "active": false
+            }
+        },
+        {
+            "node": {
+                "conditionId": "7",
+                "active": false
+            }
+        },
+        {
+            "node": {
+                "conditionId": "8",
+                "active": false
+            }
+        },
+        {
+            "node": {
+                "conditionId": "800",
+                "active": true
+            }
+        },
+        {
+            "node": {
+                "conditionId": "801",
+                "active": true
+            }
+        },
+        {
+            "node": {
+                "conditionId": "900",
+                "active": true
+            }
+        },
+        {
+            "node": {
+                "conditionId": "999",
+                "active": true
+            }
+        }
+    ],
+    "conditionNodes": [
+        {
+            "node": {
+                "conditionId": "-1",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "-1"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "0",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "0"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "1",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "1"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "2",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "2"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "3",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "3"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "4",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "4"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "5",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "5"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "6",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "6"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "7",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "7"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "8",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "8"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "800",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "800"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "801",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "801"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "900",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "900"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "999",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "999"
+                    }
+                ]
+            }
+        }
+    ]
+}

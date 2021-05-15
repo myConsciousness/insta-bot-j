@@ -30,6 +30,7 @@ import org.thinkit.api.catalog.BiCatalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
+import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultTaskExecutionRuleMapper;
 import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultVariableMapper;
 import org.thinkit.bot.instagram.batch.data.content.mapper.ExecutionControlledVariableMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionRecord;
@@ -38,11 +39,13 @@ import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionSkip;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Error;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.TaskExecutionControl;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.LastActionRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.TaskExecutionControlRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.policy.BatchTask;
@@ -135,6 +138,10 @@ public abstract class AbstractTasklet implements Tasklet {
     @Override
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
+
+        if (this.isTaskActivated()) {
+            return RepeatStatus.FINISHED;
+        }
 
         this.updateProcessingBatchSchedule();
 
@@ -501,9 +508,29 @@ public abstract class AbstractTasklet implements Tasklet {
         return BatchScheduleType.CLOSE_SESSION;
     }
 
+    private boolean isTaskActivated() {
+
+        final TaskExecutionControlRepository taskExecutionControlRepository = this.mongoCollections
+                .getTaskExecutionControlRepository();
+        TaskExecutionControl taskExecutionControl = taskExecutionControlRepository
+                .findByChargeUserNameAndTaskTypeCode(this.batchTask.getTypeCode(), this.getRunningUserName());
+
+        if (taskExecutionControl == null) {
+            taskExecutionControl = new TaskExecutionControl();
+            taskExecutionControl.setTaskTypeCode(this.batchTask.getTypeCode());
+            taskExecutionControl.setChargeUserName(this.getRunningUserName());
+            taskExecutionControl.setActive(this.getDefaultTaskExecutionRule());
+
+            taskExecutionControl = taskExecutionControlRepository.insert(taskExecutionControl);
+            log.debug("Inserted task execution control: {}", taskExecutionControl);
+        }
+
+        return taskExecutionControl.isActive();
+    }
+
     private void closeBatchSession() {
-        // this.instaBot.closeWebBrowser();
-        // this.context.close();
+        this.instaBot.closeWebBrowser();
+        this.context.close();
     }
 
     private String getDefaultVariableValue(@NonNull final VariableName variableName) {
@@ -521,5 +548,9 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private int getExecutionControlledVariable() {
         return ExecutionControlledVariableMapper.from(this.batchTask.getTypeCode()).scan().get(0).getVariableCode();
+    }
+
+    private boolean getDefaultTaskExecutionRule() {
+        return DefaultTaskExecutionRuleMapper.from(this.batchTask.getTypeCode()).scan().get(0).isActive();
     }
 }

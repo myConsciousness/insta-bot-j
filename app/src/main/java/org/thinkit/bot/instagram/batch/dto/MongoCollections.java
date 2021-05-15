@@ -30,6 +30,7 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.LikedPhotoRepositor
 import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.MissingUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.SessionRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.TaskExecutionControlRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.UnfollowedUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.UserFollowerRepository;
@@ -170,4 +171,10 @@ public final class MongoCollections implements Serializable {
      */
     @Getter
     private SessionRepository sessionRepository;
+
+    /**
+     * The task execution control repository
+     */
+    @Getter
+    private TaskExecutionControlRepository taskExecutionControlRepository;
 }
