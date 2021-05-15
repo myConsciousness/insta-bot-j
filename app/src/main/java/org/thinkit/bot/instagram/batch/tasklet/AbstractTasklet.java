@@ -139,7 +139,7 @@ public abstract class AbstractTasklet implements Tasklet {
     public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
         log.debug("START");
 
-        if (this.isTaskActivated()) {
+        if (!this.isTaskActivated()) {
             return RepeatStatus.FINISHED;
         }
 
@@ -495,6 +495,12 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private void updateProcessingBatchSchedule() {
+
+        if (!this.batchTask.isCommonSchedule()) {
+            // The common schedule is excluded from the update peocessing batch schedule.
+            return;
+        }
+
         this.saveVariable(VariableName.PROCESSING_BATCH_SCHEDULE, this.getProcessingBatchSchedule().getCode());
     }
 
