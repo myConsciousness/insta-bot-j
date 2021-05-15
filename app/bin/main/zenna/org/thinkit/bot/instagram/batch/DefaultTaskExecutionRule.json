@@ -8,12 +8,6 @@
     "selectionNodes": [
         {
             "node": {
-                "conditionId": "-1",
-                "active": true
-            }
-        },
-        {
-            "node": {
                 "conditionId": "0",
                 "active": true
             }
@@ -92,19 +86,6 @@
         }
     ],
     "conditionNodes": [
-        {
-            "node": {
-                "conditionId": "-1",
-                "exclude": false,
-                "conditions": [
-                    {
-                        "keyName": "taskTypeCode",
-                        "operator": "=",
-                        "operand": "-1"
-                    }
-                ]
-            }
-        },
         {
             "node": {
                 "conditionId": "0",
