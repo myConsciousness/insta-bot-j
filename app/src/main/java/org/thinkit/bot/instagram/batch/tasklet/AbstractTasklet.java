@@ -510,6 +510,13 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private boolean isTaskActivated() {
 
+        if (this.batchTask.isInitialize()) {
+            // Before the initialization process, the session of the running user has not
+            // been created yet, so the process of judging the effectiveness of the task
+            // cannot be performed. The initialization process must be performed.
+            return true;
+        }
+
         final TaskExecutionControlRepository taskExecutionControlRepository = this.mongoCollections
                 .getTaskExecutionControlRepository();
         TaskExecutionControl taskExecutionControl = taskExecutionControlRepository
