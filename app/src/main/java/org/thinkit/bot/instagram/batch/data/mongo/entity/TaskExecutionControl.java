@@ -19,6 +19,7 @@ import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Data;
 
@@ -29,6 +30,7 @@ import lombok.Data;
  * @since 1.0.0
  */
 @Data
+@Document("task_execution_control")
 public final class TaskExecutionControl implements Serializable {
 
     /**
