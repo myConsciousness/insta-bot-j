@@ -80,6 +80,12 @@
         },
         {
             "node": {
+                "conditionId": "998",
+                "active": true
+            }
+        },
+        {
+            "node": {
                 "conditionId": "999",
                 "active": true
             }
@@ -238,6 +244,19 @@
                         "keyName": "taskTypeCode",
                         "operator": "=",
                         "operand": "900"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "998",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "taskTypeCode",
+                        "operator": "=",
+                        "operand": "998"
                     }
                 ]
             }

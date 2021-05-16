@@ -145,7 +145,9 @@ public class BatchJobConfiguration {
     }
 
     private FlowBuilder<FlowJobBuilder> createCloseSessionJobFlowBuilder() {
-        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getCloseSessionStep());
+        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getClearSessionStep())
+                .next(this.batchStepCollections.getNotifyResultReportStep())
+                .next(this.batchStepCollections.getCloseSessionStep());
     }
 
     private JobBuilder getInstaBotJobBuilder() {
