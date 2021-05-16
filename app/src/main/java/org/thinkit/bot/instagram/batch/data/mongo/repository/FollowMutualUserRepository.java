@@ -16,6 +16,7 @@ package org.thinkit.bot.instagram.batch.data.mongo.repository;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowMutualUser;
@@ -32,4 +33,7 @@ public interface FollowMutualUserRepository extends MongoRepository<FollowMutual
     public List<FollowMutualUser> findByChargeUserName(String chargeUserName);
 
     public FollowMutualUser findByUserNameAndChargeUserName(String userName, String chargeUserName);
+
+    @DeleteQuery
+    public void deleteByChargeUserName(String chargeUserName);
 }
