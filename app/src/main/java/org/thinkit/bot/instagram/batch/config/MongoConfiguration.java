@@ -25,6 +25,8 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepositor
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackPossibilityIndicatorRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowMutualUserRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowUnmutualUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.LastActionRepository;
@@ -170,6 +172,18 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Autowired
     private TaskExecutionControlRepository taskExecutionControlRepository;
 
+    /**
+     * The follow mutual repository
+     */
+    @Autowired
+    private FollowMutualUserRepository followMutualUserRepository;
+
+    /**
+     * The follow unmutual repository
+     */
+    @Autowired
+    private FollowUnmutualUserRepository followUnmutualUserRepository;
+
     @Override
     protected String getDatabaseName() {
         return MongoDatabase.INSTAGRAM.getTag();
@@ -203,6 +217,8 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.leftUserRepository(this.leftUserRepository);
         mongoCollectionsBuilder.sessionRepository(this.sessionRepository);
         mongoCollectionsBuilder.taskExecutionControlRepository(this.taskExecutionControlRepository);
+        mongoCollectionsBuilder.followMutualUserRepository(this.followMutualUserRepository);
+        mongoCollectionsBuilder.followUnmutualUserRepository(this.followUnmutualUserRepository);
 
         return mongoCollectionsBuilder.build();
     }

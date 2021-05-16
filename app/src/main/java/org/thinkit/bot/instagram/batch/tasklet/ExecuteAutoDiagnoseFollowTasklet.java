@@ -21,17 +21,25 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowMutualUser;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowUnmutualUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowedUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.LeftUser;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.UserFollower;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.UserFollowing;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowMutualUserRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowUnmutualUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.LeftUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.UserFollowerRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.UserFollowingRepository;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.util.DateUtils;
 
 import lombok.EqualsAndHashCode;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -51,6 +59,21 @@ public final class ExecuteAutoDiagnoseFollowTasklet extends AbstractTasklet {
 
     @Override
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
+        log.debug("START");
+
+        int attemptCount = 0;
+        attemptCount += this.diagnoseFollowBack();
+        attemptCount += this.diagnoseFollowMutuality();
+
+        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
+        batchTaskResultBuilder.actionCount(attemptCount);
+        batchTaskResultBuilder.resultCount(attemptCount);
+
+        log.debug("END");
+        return batchTaskResultBuilder.build();
+    }
+
+    private int diagnoseFollowBack() {
         log.debug("START");
 
         final UserFollowerRepository userFollowerRepository = super.getMongoCollections().getUserFollowerRepository();
@@ -102,11 +125,61 @@ public final class ExecuteAutoDiagnoseFollowTasklet extends AbstractTasklet {
             }
         }
 
-        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
-        batchTaskResultBuilder.actionCount(followedUsers.size());
-        batchTaskResultBuilder.resultCount(followedUsers.size());
+        log.debug("END");
+        return followedUsers.size();
+    }
+
+    private int diagnoseFollowMutuality() {
+        log.debug("START");
+
+        final MongoCollections mongoCollections = super.getMongoCollections();
+        final UserFollowerRepository userFollowerRepository = mongoCollections.getUserFollowerRepository();
+        final UserFollowingRepository userFollowingRepository = mongoCollections.getUserFollowingRepository();
+        final FollowMutualUserRepository followMutualUserRepository = mongoCollections.getFollowMutualUserRepository();
+        final FollowUnmutualUserRepository followUnmutualUserRepository = mongoCollections
+                .getFollowUnmutualUserRepository();
+
+        final String chargeUserName = super.getRunningUserName();
+        followMutualUserRepository.deleteByChargeUserName(chargeUserName);
+        followUnmutualUserRepository.deleteByChargeUserName(chargeUserName);
+
+        final List<UserFollowing> userFollowings = userFollowingRepository.findByChargeUserName(chargeUserName);
+        final List<UserFollower> userFollowers = userFollowerRepository.findByChargeUserName(chargeUserName);
+
+        for (final UserFollowing userFollowing : userFollowings) {
+            if (this.isFollowMutual(userFollowing, userFollowers)) {
+                final FollowMutualUser followMutualUser = new FollowMutualUser();
+                followMutualUser.setUserName(userFollowing.getUserName());
+                followMutualUser.setChargeUserName(chargeUserName);
+                followMutualUserRepository.insert(followMutualUser);
+                log.debug("Inserted follow mutual user: {}", followMutualUser);
+            } else {
+                final FollowUnmutualUser followUnmutualUser = new FollowUnmutualUser();
+                followUnmutualUser.setUserName(userFollowing.getUserName());
+                followUnmutualUser.setChargeUserName(chargeUserName);
+                followUnmutualUserRepository.insert(followUnmutualUser);
+                log.debug("Inserted follow unmutual user: {}", followUnmutualUser);
+            }
+        }
 
         log.debug("END");
-        return batchTaskResultBuilder.build();
+        return userFollowings.size();
+    }
+
+    private boolean isFollowMutual(@NonNull final UserFollowing userFollowing,
+            @NonNull final List<UserFollower> userFollowers) {
+        log.debug("START");
+
+        final String followingUser = userFollowing.getUserName();
+
+        for (final UserFollower userFollower : userFollowers) {
+            if (followingUser.equals(userFollower.getUserName())) {
+                log.debug("END");
+                return true;
+            }
+        }
+
+        log.debug("END");
+        return false;
     }
 }

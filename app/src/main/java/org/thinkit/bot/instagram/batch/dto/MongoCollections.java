@@ -22,6 +22,8 @@ import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepositor
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackPossibilityIndicatorRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowMutualUserRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowUnmutualUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowedUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.HashtagRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.LastActionRepository;
@@ -177,4 +179,16 @@ public final class MongoCollections implements Serializable {
      */
     @Getter
     private TaskExecutionControlRepository taskExecutionControlRepository;
+
+    /**
+     * The follow mutual repository
+     */
+    @Getter
+    private FollowMutualUserRepository followMutualUserRepository;
+
+    /**
+     * The follow unmutual repository
+     */
+    @Getter
+    private FollowUnmutualUserRepository followUnmutualUserRepository;
 }
