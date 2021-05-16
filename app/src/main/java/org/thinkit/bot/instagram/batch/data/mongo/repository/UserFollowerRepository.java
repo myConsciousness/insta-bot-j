@@ -30,7 +30,7 @@ import org.thinkit.bot.instagram.batch.data.mongo.entity.UserFollower;
 @Repository
 public interface UserFollowerRepository extends MongoRepository<UserFollower, String> {
 
-    public List<UserFollower> findByUserName(String userName);
+    public List<UserFollower> findByChargeUserName(String chargeUserName);
 
     public UserFollower findByUserNameAndChargeUserName(String userName, String chargeUserName);
 

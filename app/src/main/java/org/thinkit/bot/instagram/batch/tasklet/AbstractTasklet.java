@@ -496,7 +496,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private void updateProcessingBatchSchedule() {
 
-        if (!this.batchTask.isCommonSchedule()) {
+        if (this.batchTask.isCommonSchedule()) {
             // The common schedule is excluded from the update peocessing batch schedule.
             return;
         }

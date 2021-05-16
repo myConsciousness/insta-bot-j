@@ -19,20 +19,20 @@ import java.util.List;
 import org.springframework.data.mongodb.repository.DeleteQuery;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-import org.thinkit.bot.instagram.batch.data.mongo.entity.UserFollowing;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.FollowUnmutualUser;
 
 /**
- * The interface that manages user following repository.
+ * The interface that manages follow umutual user repository.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @Repository
-public interface UserFollowingRepository extends MongoRepository<UserFollowing, String> {
+public interface FollowUnmutualUserRepository extends MongoRepository<FollowUnmutualUser, String> {
 
-    public List<UserFollowing> findByChargeUserName(String chargeUserName);
+    public List<FollowUnmutualUser> findByChargeUserName(String chargeUserName);
 
-    public UserFollowing findByUserNameAndChargeUserName(String userName, String chargeUserName);
+    public FollowUnmutualUser findByUserNameAndChargeUserName(String userName, String chargeUserName);
 
     @DeleteQuery
     public void deleteByChargeUserName(String chargeUserName);
