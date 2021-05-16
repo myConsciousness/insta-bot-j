@@ -94,6 +94,11 @@ public enum TaskType implements Catalog<TaskType> {
     NOTIFY_RESULT_REPORT(900),
 
     /**
+     * The clear session
+     */
+    CLEAR_SESSION(998),
+
+    /**
      * The close session
      */
     CLOSE_SESSION(999);

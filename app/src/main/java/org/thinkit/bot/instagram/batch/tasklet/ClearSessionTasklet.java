@@ -29,19 +29,21 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class CloseSessionTasklet extends AbstractTasklet {
+public final class ClearSessionTasklet extends AbstractTasklet {
 
-    private CloseSessionTasklet() {
-        super(TaskType.CLOSE_SESSION);
+    private ClearSessionTasklet() {
+        super(TaskType.CLEAR_SESSION);
     }
 
     public static Tasklet newInstance() {
-        return new CloseSessionTasklet();
+        return new ClearSessionTasklet();
     }
 
     @Override
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
+
+        super.closeRunningSession();
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
         batchTaskResultBuilder.actionCount(1);

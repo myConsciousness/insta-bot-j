@@ -69,6 +69,9 @@ public class BatchStepConfiguration {
     private Tasklet notifyResultReportTasklet;
 
     @Autowired
+    private Tasklet clearSessionTasklet;
+
+    @Autowired
     private Tasklet closeSessionTasklet;
 
     @Bean
@@ -88,6 +91,7 @@ public class BatchStepConfiguration {
         batchStepCollectionsBuilder.executeAutoFollowStep(this.executeAutoFollowStep());
         batchStepCollectionsBuilder.executeAutoUnfollowStep(this.executeAutoUnfollowStep());
         batchStepCollectionsBuilder.notifyResultReportStep(this.notifyResultReportStep());
+        batchStepCollectionsBuilder.clearSessionStep(this.clearSessionStep());
         batchStepCollectionsBuilder.closeSessionStep(this.closeSessionStep());
 
         return batchStepCollectionsBuilder.build();
@@ -151,6 +155,10 @@ public class BatchStepConfiguration {
     private Step notifyResultReportStep() {
         return this.stepBuilderFactory.get(BatchStep.NOTIFY_RESULT_REPORT.getTag())
                 .tasklet(this.notifyResultReportTasklet).build();
+    }
+
+    private Step clearSessionStep() {
+        return this.stepBuilderFactory.get(BatchStep.CLEAR_SESSION.getTag()).tasklet(this.clearSessionTasklet).build();
     }
 
     private Step closeSessionStep() {
