@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.notification.message;
+package org.thinkit.bot.instagram.batch.report;
 
 public interface MessageBuilder {
 

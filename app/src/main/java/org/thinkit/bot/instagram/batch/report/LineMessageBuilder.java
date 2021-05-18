@@ -12,7 +12,7 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.notification.message;
+package org.thinkit.bot.instagram.batch.report;
 
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
