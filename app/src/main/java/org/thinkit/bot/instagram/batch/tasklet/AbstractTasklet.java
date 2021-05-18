@@ -140,6 +140,7 @@ public abstract class AbstractTasklet implements Tasklet {
         log.debug("START");
 
         if (!this.isTaskActivated()) {
+            log.debug("END");
             return RepeatStatus.FINISHED;
         }
 
