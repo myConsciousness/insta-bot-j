@@ -28,7 +28,7 @@ import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.batch.notification.message.LineMessageBuilder;
+import org.thinkit.bot.instagram.batch.report.LineMessageBuilder;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 
