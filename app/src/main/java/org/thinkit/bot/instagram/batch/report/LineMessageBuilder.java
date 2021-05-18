@@ -12,14 +12,11 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.notification;
+package org.thinkit.bot.instagram.batch.report;
 
-import java.io.Serializable;
-
-import com.google.api.client.http.GenericUrl;
-
-import org.thinkit.bot.instagram.batch.catalog.NotificationApi;
-import org.thinkit.bot.instagram.batch.notification.http.HttpCommunicator;
+import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
+import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import org.thinkit.bot.instagram.batch.strategy.context.ReportBuildContext;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,19 +25,28 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class LineNotify implements Notification, Serializable {
+public final class LineMessageBuilder implements MessageBuilder {
 
     /**
-     * The token
+     * The batch schedule type
      */
-    @ToString.Exclude
-    private String token;
+    private BatchScheduleType batchScheduleType;
+
+    /**
+     * The running user name
+     */
+    private String runningUserName;
+
+    /**
+     * The mongo collections
+     */
+    private MongoCollections mongoCollections;
 
     @Override
-    public void sendMessage(String message) {
-        HttpCommunicator.from(this.token).post(new GenericUrl(NotificationApi.LINE_NOTIFY.getTag()), message);
+    public String build() {
+        return ReportBuildContext.from(this.batchScheduleType, this.runningUserName, this.mongoCollections).evaluate();
     }
 }

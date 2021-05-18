@@ -22,13 +22,13 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
 import org.thinkit.api.catalog.Catalog;
+import org.thinkit.api.line.factory.LineApiJFactory;
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.batch.notification.LineNotify;
-import org.thinkit.bot.instagram.batch.notification.message.LineMessageBuilder;
+import org.thinkit.bot.instagram.batch.report.LineMessageBuilder;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 
@@ -61,7 +61,7 @@ public final class NotifyResultReportTasklet extends AbstractTasklet {
         final List<MessageMeta> messageMetas = messageMetaRepository
                 .findByChargeUserNameAndAlreadySentFalse(runningUserName);
 
-        LineNotify.from(this.getLineNotifyToken()).sendMessage(LineMessageBuilder
+        LineApiJFactory.getInstance().createLineNotify(this.getLineNotifyToken()).sendMessage(LineMessageBuilder
                 .from(this.getProcessingBatchScheduleType(), runningUserName, mongoCollections).build());
         log.info("The message has been sent.");
 

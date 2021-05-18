@@ -12,17 +12,9 @@
  * the License.
  */
 
-package org.thinkit.bot.instagram.batch.notification;
+package org.thinkit.bot.instagram.batch.report;
 
-import com.mongodb.lang.NonNull;
+public interface MessageBuilder {
 
-/**
- * The interfaces that represents notification.
- *
- * @author Kato Shinya
- * @since 1.0.0
- */
-public interface Notification {
-
-    public void sendMessage(@NonNull final String message);
+    public String build();
 }
