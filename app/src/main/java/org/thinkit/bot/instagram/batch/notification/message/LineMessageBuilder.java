@@ -28,7 +28,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false)
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class LineMessageBuilder extends AbstractMessageBuilder {
+public final class LineMessageBuilder implements MessageBuilder {
 
     /**
      * The batch schedule type
