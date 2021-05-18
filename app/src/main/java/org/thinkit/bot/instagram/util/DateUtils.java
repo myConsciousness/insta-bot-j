@@ -33,12 +33,13 @@ public final class DateUtils {
      */
     private static final int UTC_TIMEZONE = -9;
 
-    public static boolean isHourElapsed(@NonNull final Date baseDate, final int elapsedHour) {
-        return MillisecondUtils.toHour(baseDate.getTime() - getNow().getTime().getTime()) >= elapsedHour;
-    }
+    public static boolean isHourElapsed(@NonNull final Date date, final int elapsedHour) {
 
-    public static boolean isDayElapsed(@NonNull final Date baseDate, final int elapsedDay) {
-        return MillisecondUtils.toDay(baseDate.getTime() - getNow().getTime().getTime()) >= elapsedDay;
+        final Calendar baseDate = Calendar.getInstance();
+        baseDate.setTime(date);
+        baseDate.add(Calendar.HOUR, elapsedHour);
+
+        return baseDate.before(getNow().getTime());
     }
 
     public static String getDateAfter(final int days) {
