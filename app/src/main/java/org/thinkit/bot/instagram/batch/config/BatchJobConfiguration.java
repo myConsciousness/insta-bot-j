@@ -37,6 +37,7 @@ import org.thinkit.bot.instagram.batch.catalog.BatchJob;
 import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
+import org.thinkit.bot.instagram.batch.data.content.entity.DefaultVariable;
 import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultVariableMapper;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
@@ -156,48 +157,48 @@ public class BatchJobConfiguration {
     }
 
     private BatchMainStreamFlowStrategyPattern getBatchMainStreamFlowStrategyPattern() {
-
-        final VariableRepository variableRepository = mongoCollections.getVariableRepository();
-        Variable variable = variableRepository.findByName(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY.getTag());
-
-        if (variable == null) {
-            variable = new Variable();
-            variable.setName(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY.getTag());
-            variable.setValue(this.getDefaultBatchMainStreamFlowStrategy());
-            variable = variableRepository.insert(variable);
-        }
-
-        final BatchMainStreamFlowStrategyPattern batchFlowStrategyPattern = Catalog
-                .getEnum(BatchMainStreamFlowStrategyPattern.class, Integer.parseInt(variable.getValue()));
-
-        return batchFlowStrategyPattern;
+        return Catalog.getEnum(BatchMainStreamFlowStrategyPattern.class,
+                Integer.parseInt(this.getVariable(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY).getValue()));
     }
 
     private BatchCloseSessionFlowStrategyPattern getBatchCloseSessionFlowStrategyPattern() {
+        return Catalog.getEnum(BatchCloseSessionFlowStrategyPattern.class,
+                Integer.parseInt(this.getVariable(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY).getValue()));
+    }
+
+    private Variable getVariable(@NonNull final VariableName variableName) {
 
         final VariableRepository variableRepository = mongoCollections.getVariableRepository();
-        Variable variable = variableRepository.findByName(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY.getTag());
+        Variable variable = variableRepository.findByName(variableName.getTag());
 
         if (variable == null) {
             variable = new Variable();
-            variable.setName(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY.getTag());
-            variable.setValue(this.getDefaultBatchCloseSessionFlowStrategy());
+            variable.setName(variableName.getTag());
+            variable.setValue(this.getDefaultBatchFlowStrategy(variableName));
             variable = variableRepository.insert(variable);
         }
 
-        final BatchCloseSessionFlowStrategyPattern batchCloseSessionFlowStrategyPattern = Catalog
-                .getEnum(BatchCloseSessionFlowStrategyPattern.class, Integer.parseInt(variable.getValue()));
+        return variable;
+    }
 
-        return batchCloseSessionFlowStrategyPattern;
+    private String getDefaultBatchFlowStrategy(@NonNull final VariableName variableName) {
+
+        if (variableName == VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY) {
+            return this.getDefaultBatchMainStreamFlowStrategy();
+        }
+
+        return this.getDefaultBatchCloseSessionFlowStrategy();
     }
 
     private String getDefaultBatchMainStreamFlowStrategy() {
-        return DefaultVariableMapper.from(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY.getTag()).scan().get(0)
-                .getValue();
+        return this.getDefaultVariable(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY).getValue();
     }
 
     private String getDefaultBatchCloseSessionFlowStrategy() {
-        return DefaultVariableMapper.from(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY.getTag()).scan().get(0)
-                .getValue();
+        return this.getDefaultVariable(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY).getValue();
+    }
+
+    private DefaultVariable getDefaultVariable(@NonNull final VariableName variableName) {
+        return DefaultVariableMapper.from(variableName.getTag()).scan().get(0);
     }
 }
