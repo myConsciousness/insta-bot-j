@@ -32,16 +32,24 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
+import org.thinkit.bot.instagram.batch.catalog.BatchCloseSessionFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.BatchJob;
 import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
+import org.thinkit.bot.instagram.batch.catalog.BatchStartSessionFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
+import org.thinkit.bot.instagram.batch.data.content.entity.DefaultVariable;
 import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultVariableMapper;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import org.thinkit.bot.instagram.batch.exception.SessionInconsistencyFoundException;
+import org.thinkit.bot.instagram.batch.policy.RunningUser;
+import org.thinkit.bot.instagram.batch.strategy.context.BatchCloseSessionFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchMainStreamFlowContext;
+import org.thinkit.bot.instagram.batch.strategy.context.BatchStartSessionFlowContext;
 
 /**
  *
@@ -53,9 +61,9 @@ import org.thinkit.bot.instagram.batch.strategy.context.BatchMainStreamFlowConte
 public class BatchJobConfiguration {
 
     /**
-     * The schedule cron of initialize session
+     * The schedule cron of start session
      */
-    private static final String SCHEDULE_CRON_INITIALIZE_SESSION = "${spring.batch.schedule.cron.initialize}";
+    private static final String SCHEDULE_CRON_START_SESSION = "${spring.batch.schedule.cron.start}";
 
     /**
      * The schedule cron of main stream
@@ -91,6 +99,12 @@ public class BatchJobConfiguration {
     private BatchStepCollections batchStepCollections;
 
     /**
+     * The running user
+     */
+    @Autowired
+    private RunningUser runningUser;
+
+    /**
      * The mongo collections
      */
     @Autowired
@@ -101,9 +115,9 @@ public class BatchJobConfiguration {
         return InstaBotJ.newInstance();
     }
 
-    @Scheduled(cron = SCHEDULE_CRON_INITIALIZE_SESSION, zone = TIME_ZONE)
+    @Scheduled(cron = SCHEDULE_CRON_START_SESSION, zone = TIME_ZONE)
     public void performScheduledInitializeSession() throws Exception {
-        this.runJobLauncher(BatchScheduleType.INITIALIZE_SESSION);
+        this.runJobLauncher(BatchScheduleType.START_SESSION);
     }
 
     @Scheduled(cron = SCHEDULE_CRON_MAIN_STREAM, zone = TIME_ZONE)
@@ -125,18 +139,15 @@ public class BatchJobConfiguration {
 
     private Job createInstaBotJob(@NonNull final BatchScheduleType batchScheduleType) {
         return switch (batchScheduleType) {
-            case INITIALIZE_SESSION -> this.createInitializeSessionJobFlowBuilder().end().build();
+            case START_SESSION -> this.createStartSessionJobFlowBuilder().end().build();
             case MAIN_STREAM -> this.createMainStreamJobFlowBuilder().end().build();
             case CLOSE_SESSION -> this.createCloseSessionJobFlowBuilder().end().build();
         };
     }
 
-    private FlowBuilder<FlowJobBuilder> createInitializeSessionJobFlowBuilder() {
-        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getInitializeSessionStep())
-                .next(this.batchStepCollections.getExecuteAutoLoginStep())
-                .next(this.batchStepCollections.getExecuteAutoScrapeUserProfileStep())
-                .next(this.batchStepCollections.getExecuteAutoDiagnoseFollowStep())
-                .next(this.batchStepCollections.getNotifyResultReportStep());
+    private FlowBuilder<FlowJobBuilder> createStartSessionJobFlowBuilder() {
+        return BatchStartSessionFlowContext.from(this.deduceBatchStartSessionFlowStrategyPattern(),
+                this.getInstaBotJobBuilder(), this.batchStepCollections).evaluate();
     }
 
     private FlowBuilder<FlowJobBuilder> createMainStreamJobFlowBuilder() {
@@ -145,35 +156,78 @@ public class BatchJobConfiguration {
     }
 
     private FlowBuilder<FlowJobBuilder> createCloseSessionJobFlowBuilder() {
-        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getClearSessionStep())
-                .next(this.batchStepCollections.getNotifyResultReportStep())
-                .next(this.batchStepCollections.getCloseSessionStep());
+        return BatchCloseSessionFlowContext.from(this.getBatchCloseSessionFlowStrategyPattern(),
+                this.getInstaBotJobBuilder(), this.batchStepCollections).evaluate();
     }
 
     private JobBuilder getInstaBotJobBuilder() {
         return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
     }
 
+    private BatchStartSessionFlowStrategyPattern deduceBatchStartSessionFlowStrategyPattern() {
+
+        if (!this.runningUser.isAvailable()) {
+            // When the session has not been created
+            return BatchStartSessionFlowStrategyPattern.NOT_LOGGED_IN;
+        }
+
+        final UserAccount userAccount = this.mongoCollections.getUserAccountRepository()
+                .findByUserName(this.runningUser.getUserName());
+
+        if (userAccount == null) {
+            throw new SessionInconsistencyFoundException("""
+                    Could not find the running user information of '%s' from the user account.
+                    The user account information may have been deleted after the session started.
+                    """.formatted(this.runningUser.getUserName()));
+        }
+
+        return userAccount.isLoggedIn() ? BatchStartSessionFlowStrategyPattern.LOGGED_IN
+                : BatchStartSessionFlowStrategyPattern.NOT_LOGGED_IN;
+    }
+
     private BatchMainStreamFlowStrategyPattern getBatchMainStreamFlowStrategyPattern() {
+        return Catalog.getEnum(BatchMainStreamFlowStrategyPattern.class,
+                Integer.parseInt(this.getVariable(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY).getValue()));
+    }
+
+    private BatchCloseSessionFlowStrategyPattern getBatchCloseSessionFlowStrategyPattern() {
+        return Catalog.getEnum(BatchCloseSessionFlowStrategyPattern.class,
+                Integer.parseInt(this.getVariable(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY).getValue()));
+    }
+
+    private Variable getVariable(@NonNull final VariableName variableName) {
 
         final VariableRepository variableRepository = mongoCollections.getVariableRepository();
-        Variable variable = variableRepository.findByName(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY.getTag());
+        Variable variable = variableRepository.findByName(variableName.getTag());
 
         if (variable == null) {
             variable = new Variable();
-            variable.setName(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY.getTag());
-            variable.setValue(this.getDefaultBatchMainStreamFlowStrategy());
+            variable.setName(variableName.getTag());
+            variable.setValue(this.getDefaultBatchFlowStrategy(variableName));
             variable = variableRepository.insert(variable);
         }
 
-        final BatchMainStreamFlowStrategyPattern batchFlowStrategyPattern = Catalog
-                .getEnum(BatchMainStreamFlowStrategyPattern.class, Integer.parseInt(variable.getValue()));
+        return variable;
+    }
 
-        return batchFlowStrategyPattern;
+    private String getDefaultBatchFlowStrategy(@NonNull final VariableName variableName) {
+
+        if (variableName == VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY) {
+            return this.getDefaultBatchMainStreamFlowStrategy();
+        }
+
+        return this.getDefaultBatchCloseSessionFlowStrategy();
     }
 
     private String getDefaultBatchMainStreamFlowStrategy() {
-        return DefaultVariableMapper.from(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY.getTag()).scan().get(0)
-                .getValue();
+        return this.getDefaultVariable(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY).getValue();
+    }
+
+    private String getDefaultBatchCloseSessionFlowStrategy() {
+        return this.getDefaultVariable(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY).getValue();
+    }
+
+    private DefaultVariable getDefaultVariable(@NonNull final VariableName variableName) {
+        return DefaultVariableMapper.from(variableName.getTag()).scan().get(0);
     }
 }

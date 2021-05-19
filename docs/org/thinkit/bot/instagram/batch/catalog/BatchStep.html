@@ -121,9 +121,21 @@ implements org.thinkit.api.catalog.BiCatalog&lt;<a href="BatchStep.html" title="
 </thead>
 <tbody>
 <tr class="alt-color">
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#CLEAR_SESSION">CLEAR_SESSION</a></span></code></th>
+<td class="col-last">
+<div class="block">The clear session</div>
+</td>
+</tr>
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#CLOSE_SESSION">CLOSE_SESSION</a></span></code></th>
 <td class="col-last">
 <div class="block">The close session</div>
+</td>
+</tr>
+<tr class="alt-color">
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#CONTINUE_SESSION">CONTINUE_SESSION</a></span></code></th>
+<td class="col-last">
+<div class="block">The continue session</div>
 </td>
 </tr>
 <tr class="row-color">
@@ -157,36 +169,42 @@ implements org.thinkit.api.catalog.BiCatalog&lt;<a href="BatchStep.html" title="
 </td>
 </tr>
 <tr class="alt-color">
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#EXECUTE_AUTO_REFRESH_RETRY_USER">EXECUTE_AUTO_REFRESH_RETRY_USER</a></span></code></th>
+<td class="col-last">
+<div class="block">The execute auto refresh retry user step</div>
+</td>
+</tr>
+<tr class="row-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#EXECUTE_AUTO_SCRAPE_USER_PROFILE">EXECUTE_AUTO_SCRAPE_USER_PROFILE</a></span></code></th>
 <td class="col-last">
 <div class="block">The execute auto scrape user profile step</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#EXECUTE_AUTO_UNFOLLOW">EXECUTE_AUTO_UNFOLLOW</a></span></code></th>
 <td class="col-last">
 <div class="block">The execute auto unfollow step</div>
 </td>
 </tr>
-<tr class="alt-color">
-<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#INITIALIZE_SESSION">INITIALIZE_SESSION</a></span></code></th>
+<tr class="row-color">
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#NOTIFY_RESULT_REPORT">NOTIFY_RESULT_REPORT</a></span></code></th>
 <td class="col-last">
-<div class="block">The initialize session step</div>
+<div class="block">The notify result report</div>
+</td>
+</tr>
+<tr class="alt-color">
+<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#START_SESSION">START_SESSION</a></span></code></th>
+<td class="col-last">
+<div class="block">The start session step</div>
 </td>
 </tr>
 <tr class="row-color">
-<th class="col-first" scope="row"><code><span class="member-name-link"><a href="#NOTIFY_RESULT">NOTIFY_RESULT</a></span></code></th>
-<td class="col-last">
-<div class="block">The notify result</div>
-</td>
-</tr>
-<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG">UPDATE_AUTO_FORECAST_FOLLOW_BACK_USER_CONFIG</a></span></code></th>
 <td class="col-last">
 <div class="block">The update auto forecast follow back user config step</div>
 </td>
 </tr>
-<tr class="row-color">
+<tr class="alt-color">
 <th class="col-first" scope="row"><code><span class="member-name-link"><a href="#UPDATE_AUTO_LIKE_CONFIG">UPDATE_AUTO_LIKE_CONFIG</a></span></code></th>
 <td class="col-last">
 <div class="block">The update auto like config step</div>
@@ -253,10 +271,10 @@ implements org.thinkit.api.catalog.BiCatalog&lt;<a href="BatchStep.html" title="
 <h2>列挙型定数の詳細</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="INITIALIZE_SESSION">
-<h3>INITIALIZE_SESSION</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">INITIALIZE_SESSION</span></div>
-<div class="block">The initialize session step</div>
+<section class="detail" id="START_SESSION">
+<h3>START_SESSION</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">START_SESSION</span></div>
+<div class="block">The start session step</div>
 </section>
 </li>
 <li>
@@ -295,6 +313,13 @@ implements org.thinkit.api.catalog.BiCatalog&lt;<a href="BatchStep.html" title="
 </section>
 </li>
 <li>
+<section class="detail" id="EXECUTE_AUTO_REFRESH_RETRY_USER">
+<h3>EXECUTE_AUTO_REFRESH_RETRY_USER</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">EXECUTE_AUTO_REFRESH_RETRY_USER</span></div>
+<div class="block">The execute auto refresh retry user step</div>
+</section>
+</li>
+<li>
 <section class="detail" id="EXECUTE_AUTO_FOLLOW">
 <h3>EXECUTE_AUTO_FOLLOW</h3>
 <div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">EXECUTE_AUTO_FOLLOW</span></div>
@@ -323,10 +348,24 @@ implements org.thinkit.api.catalog.BiCatalog&lt;<a href="BatchStep.html" title="
 </section>
 </li>
 <li>
-<section class="detail" id="NOTIFY_RESULT">
-<h3>NOTIFY_RESULT</h3>
-<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">NOTIFY_RESULT</span></div>
-<div class="block">The notify result</div>
+<section class="detail" id="NOTIFY_RESULT_REPORT">
+<h3>NOTIFY_RESULT_REPORT</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">NOTIFY_RESULT_REPORT</span></div>
+<div class="block">The notify result report</div>
+</section>
+</li>
+<li>
+<section class="detail" id="CONTINUE_SESSION">
+<h3>CONTINUE_SESSION</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">CONTINUE_SESSION</span></div>
+<div class="block">The continue session</div>
+</section>
+</li>
+<li>
+<section class="detail" id="CLEAR_SESSION">
+<h3>CLEAR_SESSION</h3>
+<div class="member-signature"><span class="modifiers">public static final</span>&nbsp;<span class="return-type"><a href="BatchStep.html" title="org.thinkit.bot.instagram.batch.catalog内の列挙型">BatchStep</a></span>&nbsp;<span class="member-name">CLEAR_SESSION</span></div>
+<div class="block">The clear session</div>
 </section>
 </li>
 <li>

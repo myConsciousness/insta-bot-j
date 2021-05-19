@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":6,"i1":6};
+<script type="text/javascript">var data = {"i0":6};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],4:["t3","abstract\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -78,7 +78,7 @@ loadScripts(document, 'script');</script>
 <section class="description">
 <dl class="notes">
 <dt>既知の実装クラスのリスト:</dt>
-<dd><code><a href="RestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">RestrictableBatchFlowStrategy</a></code>, <code><a href="UnrestrictableBatchFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">UnrestrictableBatchFlowStrategy</a></code></dd>
+<dd><code><a href="BatchCloseSessionContinueFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">BatchCloseSessionContinueFlowStrategy</a></code>, <code><a href="BatchCloseSessionFinishFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">BatchCloseSessionFinishFlowStrategy</a></code>, <code><a href="BatchMainStreamRestrictableFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">BatchMainStreamRestrictableFlowStrategy</a></code>, <code><a href="BatchMainStreamUnrestrictableFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">BatchMainStreamUnrestrictableFlowStrategy</a></code>, <code><a href="BatchStartSessionLoggedInFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">BatchStartSessionLoggedInFlowStrategy</a></code>, <code><a href="BatchStartSessionNotLoggedInFlowStrategy.html" title="org.thinkit.bot.instagram.batch.strategy.flow内のクラス">BatchStartSessionNotLoggedInFlowStrategy</a></code></dd>
 </dl>
 <hr>
 <pre>public interface <span class="type-name-label">BatchFlowStrategy</span></pre>
@@ -107,12 +107,6 @@ loadScripts(document, 'script');</script>
 <a href="../../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a>&nbsp;batchStepCollections)</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
-<tr class="row-color" id="i1">
-<td class="col-first"><code>org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#createLoginJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">createLoginJobFlowBuilder</a></span>&#8203;(org.springframework.batch.core.job.builder.JobBuilder&nbsp;jobBuilder,
-<a href="../../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a>&nbsp;batchStepCollections)</code></th>
-<td class="col-last">&nbsp;</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -128,15 +122,6 @@ loadScripts(document, 'script');</script>
 <section class="method-details" id="method.detail">
 <h2>メソッドの詳細</h2>
 <ul class="member-list">
-<li>
-<section class="detail" id="createLoginJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">
-<h3>createLoginJobFlowBuilder</h3>
-<div class="member-signature"><span class="return-type">org.springframework.batch.core.job.builder.FlowBuilder&lt;org.springframework.batch.core.job.builder.FlowJobBuilder&gt;</span>&nbsp;<span class="member-name">createLoginJobFlowBuilder</span>&#8203;(<span class="parameters">@NonNull
-org.springframework.batch.core.job.builder.JobBuilder&nbsp;jobBuilder,
-@NonNull
-<a href="../../dto/BatchStepCollections.html" title="org.thinkit.bot.instagram.batch.dto内のクラス">BatchStepCollections</a>&nbsp;batchStepCollections)</span></div>
-</section>
-</li>
 <li>
 <section class="detail" id="createJobFlowBuilder(org.springframework.batch.core.job.builder.JobBuilder,org.thinkit.bot.instagram.batch.dto.BatchStepCollections)">
 <h3>createJobFlowBuilder</h3>

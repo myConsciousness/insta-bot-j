@@ -15,7 +15,7 @@
 <script type="text/javascript" src="../../../../../../script-dir/jquery-ui.min.js"></script>
 </head>
 <body class="class-declaration-page">
-<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10};
+<script type="text/javascript">var data = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","\u3059\u3079\u3066\u306E\u30E1\u30BD\u30C3\u30C9"],2:["t2","\u30A4\u30F3\u30B9\u30BF\u30F3\u30B9\u30FB\u30E1\u30BD\u30C3\u30C9"],8:["t4","concrete\u30E1\u30BD\u30C3\u30C9"]};
 var altColor = "alt-color";
 var rowColor = "row-color";
@@ -142,7 +142,12 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 </tr>
 <tr class="alt-color" id="i2">
 <td class="col-first"><code>void</code></td>
-<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#performScheduledJob()">performScheduledJob</a></span>()</code></th>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#performScheduledInitializeSession()">performScheduledInitializeSession</a></span>()</code></th>
+<td class="col-last">&nbsp;</td>
+</tr>
+<tr class="row-color" id="i3">
+<td class="col-first"><code>void</code></td>
+<th class="col-second" scope="row"><code><span class="member-name-link"><a href="#performScheduledMainStream()">performScheduledMainStream</a></span>()</code></th>
 <td class="col-last">&nbsp;</td>
 </tr>
 </tbody>
@@ -185,12 +190,25 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 </section>
 </li>
 <li>
-<section class="detail" id="performScheduledJob()">
-<h3>performScheduledJob</h3>
-<div class="member-signature"><span class="annotations">@Scheduled(cron="${spring.batch.schedule.cron}",
+<section class="detail" id="performScheduledInitializeSession()">
+<h3>performScheduledInitializeSession</h3>
+<div class="member-signature"><span class="annotations">@Scheduled(cron="${spring.batch.schedule.cron.start}",
            zone="${spring.batch.schedule.timezone}")
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">performScheduledJob</span>()
-                         throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></span></div>
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">performScheduledInitializeSession</span>()
+                                       throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></span></div>
+<dl class="notes">
+<dt>例外:</dt>
+<dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="performScheduledMainStream()">
+<h3>performScheduledMainStream</h3>
+<div class="member-signature"><span class="annotations">@Scheduled(cron="${spring.batch.schedule.cron.mainstream}",
+           zone="${spring.batch.schedule.timezone}")
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">performScheduledMainStream</span>()
+                                throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></span></div>
 <dl class="notes">
 <dt>例外:</dt>
 <dd><code><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></code></dd>
@@ -200,7 +218,7 @@ extends <a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/ja
 <li>
 <section class="detail" id="performScheduledCloseSession()">
 <h3>performScheduledCloseSession</h3>
-<div class="member-signature"><span class="annotations">@Scheduled(cron="${spring.batch.schedule.session.cron}",
+<div class="member-signature"><span class="annotations">@Scheduled(cron="${spring.batch.schedule.cron.close}",
            zone="${spring.batch.schedule.timezone}")
 </span><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="member-name">performScheduledCloseSession</span>()
                                   throws <span class="exceptions"><a href="https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/Exception.html" title="java.lang内のクラスまたはインタフェース" class="external-link">Exception</a></span></div>

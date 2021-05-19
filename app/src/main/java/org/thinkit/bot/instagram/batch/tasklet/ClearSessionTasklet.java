@@ -14,10 +14,14 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.Date;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.UserAccount;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 
@@ -43,7 +47,23 @@ public final class ClearSessionTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
+        final UserAccountRepository userAccountRepository = super.getMongoCollections().getUserAccountRepository();
+        final UserAccount userAccount = userAccountRepository.findByUserName(super.getRunningUserName());
+
+        if (userAccount != null) {
+            userAccount.setLoggedIn(false);
+            userAccount.setUpdatedAt(new Date());
+
+            userAccountRepository.save(userAccount);
+            log.debug("Updated user account: {}", userAccount);
+        } else {
+            log.warn(
+                    "Could not find the user account information for the user name '{}' who is the charge of the running session. The application session will be closed successfully, but please make sure that the user account information has not been illegally deleted.",
+                    super.getRunningUserName());
+        }
+
         super.closeRunningSession();
+        log.info("The running session was closed successfully");
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
         batchTaskResultBuilder.actionCount(1);
