@@ -17,10 +17,10 @@ package org.thinkit.bot.instagram.batch.strategy.context;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.FlowJobBuilder;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
+import org.thinkit.bot.instagram.batch.catalog.BatchStartSessionFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
-import org.thinkit.bot.instagram.batch.strategy.flow.BatchMainStreamRestrictableFlowStrategy;
-import org.thinkit.bot.instagram.batch.strategy.flow.BatchMainStreamUnrestrictableFlowStrategy;
+import org.thinkit.bot.instagram.batch.strategy.flow.BatchStartSessionLoggedInFlowStrategy;
+import org.thinkit.bot.instagram.batch.strategy.flow.BatchStartSessionNotLoggedInFlowStrategy;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,12 +32,12 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class BatchMainStreamFlowContext implements Context<FlowBuilder<FlowJobBuilder>> {
+public final class BatchStartSessionFlowContext implements Context<FlowBuilder<FlowJobBuilder>> {
 
     /**
-     * The batch main stream flow strategy pattern
+     * The batch start session flow strategy pattern
      */
-    private BatchMainStreamFlowStrategyPattern batchMainStreamFlowStrategyPattern;
+    private BatchStartSessionFlowStrategyPattern batchStartSessionFlowStrategyPattern;
 
     /**
      * The job builder
@@ -51,11 +51,11 @@ public final class BatchMainStreamFlowContext implements Context<FlowBuilder<Flo
 
     @Override
     public FlowBuilder<FlowJobBuilder> evaluate() {
-        return switch (this.batchMainStreamFlowStrategyPattern) {
-            case RESTRICTABLE -> BatchMainStreamRestrictableFlowStrategy.newInstance().createJobFlowBuilder(jobBuilder,
-                    batchStepCollections);
-            case UNRESTRICTABLE -> BatchMainStreamUnrestrictableFlowStrategy.newInstance()
+        return switch (this.batchStartSessionFlowStrategyPattern) {
+            case NOT_LOGGED_IN -> BatchStartSessionNotLoggedInFlowStrategy.newInstance()
                     .createJobFlowBuilder(jobBuilder, batchStepCollections);
+            case LOGGED_IN -> BatchStartSessionLoggedInFlowStrategy.newInstance().createJobFlowBuilder(jobBuilder,
+                    batchStepCollections);
         };
     }
 }
