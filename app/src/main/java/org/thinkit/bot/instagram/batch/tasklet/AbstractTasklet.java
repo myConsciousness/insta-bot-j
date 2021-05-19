@@ -507,8 +507,9 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private BatchScheduleType getProcessingBatchSchedule() {
-        if (this.batchTask.isInitializeSessionTask()) {
-            return BatchScheduleType.INITIALIZE_SESSION;
+
+        if (this.batchTask.isStartSessionTask()) {
+            return BatchScheduleType.START_SESSION;
         } else if (this.batchTask.isMainStreamTask()) {
             return BatchScheduleType.MAIN_STREAM;
         }
@@ -518,7 +519,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private boolean isTaskActivated() {
 
-        if (this.batchTask.isInitialize()) {
+        if (this.batchTask.isStartSession()) {
             // Before the initialization process, the session of the running user has not
             // been created yet, so the process of judging the effectiveness of the task
             // cannot be performed. The initialization process must be performed.

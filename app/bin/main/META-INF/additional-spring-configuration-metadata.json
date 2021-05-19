@@ -1,7 +1,7 @@
 {
     "properties": [
         {
-            "name": "spring.batch.schedule.cron.initialize",
+            "name": "spring.batch.schedule.cron.start",
             "type": "java.lang.String",
             "description": ""
         },

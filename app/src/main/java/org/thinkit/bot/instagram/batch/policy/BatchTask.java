@@ -63,8 +63,8 @@ public final class BatchTask implements Serializable {
         return this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
 
-    public boolean isInitialize() {
-        return this.taskType == TaskType.INITIALIZE_SESSION;
+    public boolean isStartSession() {
+        return this.taskType == TaskType.START_SESSION;
     }
 
     public boolean isCommonSchedule() {
@@ -75,8 +75,8 @@ public final class BatchTask implements Serializable {
         return this.taskType == TaskType.CLOSE_SESSION;
     }
 
-    public boolean isInitializeSessionTask() {
-        return this.taskType == TaskType.INITIALIZE_SESSION || this.taskType == TaskType.AUTO_LOGIN
+    public boolean isStartSessionTask() {
+        return this.taskType == TaskType.START_SESSION || this.taskType == TaskType.AUTO_LOGIN
                 || this.taskType == TaskType.AUTO_SCRAPE_USER_PROFILE || this.taskType == TaskType.AUTO_DIAGNOSE_FOLLOW;
     }
 

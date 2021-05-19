@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public enum TaskType implements Catalog<TaskType> {
 
     /**
-     * The initialize session
+     * The start session
      */
-    INITIALIZE_SESSION(-1),
+    START_SESSION(-1),
 
     /**
      * The auto login task

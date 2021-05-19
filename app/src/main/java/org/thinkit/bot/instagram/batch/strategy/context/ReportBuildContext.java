@@ -17,8 +17,8 @@ package org.thinkit.bot.instagram.batch.strategy.context;
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
 import org.thinkit.bot.instagram.batch.strategy.report.CloseSessionReportBuildStrategy;
-import org.thinkit.bot.instagram.batch.strategy.report.InitializeSessionReportBuildStrategy;
 import org.thinkit.bot.instagram.batch.strategy.report.MainStreamReportBuildStrategy;
+import org.thinkit.bot.instagram.batch.strategy.report.StartSessionReportBuildStrategy;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -49,7 +49,7 @@ public final class ReportBuildContext implements Context<String> {
     @Override
     public String evaluate() {
         return switch (batchScheduleType) {
-            case INITIALIZE_SESSION -> InitializeSessionReportBuildStrategy
+            case START_SESSION -> StartSessionReportBuildStrategy
                     .from(this.runningUserName, mongoCollections.getSessionRepository()).buildReport();
             case MAIN_STREAM -> MainStreamReportBuildStrategy
                     .from(this.runningUserName, this.mongoCollections.getMessageMetaRepository()).buildReport();

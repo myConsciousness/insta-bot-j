@@ -56,9 +56,9 @@ import org.thinkit.bot.instagram.batch.strategy.context.BatchMainStreamFlowConte
 public class BatchJobConfiguration {
 
     /**
-     * The schedule cron of initialize session
+     * The schedule cron of start session
      */
-    private static final String SCHEDULE_CRON_INITIALIZE_SESSION = "${spring.batch.schedule.cron.initialize}";
+    private static final String SCHEDULE_CRON_START_SESSION = "${spring.batch.schedule.cron.start}";
 
     /**
      * The schedule cron of main stream
@@ -104,9 +104,9 @@ public class BatchJobConfiguration {
         return InstaBotJ.newInstance();
     }
 
-    @Scheduled(cron = SCHEDULE_CRON_INITIALIZE_SESSION, zone = TIME_ZONE)
+    @Scheduled(cron = SCHEDULE_CRON_START_SESSION, zone = TIME_ZONE)
     public void performScheduledInitializeSession() throws Exception {
-        this.runJobLauncher(BatchScheduleType.INITIALIZE_SESSION);
+        this.runJobLauncher(BatchScheduleType.START_SESSION);
     }
 
     @Scheduled(cron = SCHEDULE_CRON_MAIN_STREAM, zone = TIME_ZONE)
@@ -128,14 +128,14 @@ public class BatchJobConfiguration {
 
     private Job createInstaBotJob(@NonNull final BatchScheduleType batchScheduleType) {
         return switch (batchScheduleType) {
-            case INITIALIZE_SESSION -> this.createInitializeSessionJobFlowBuilder().end().build();
+            case START_SESSION -> this.createStartSessionJobFlowBuilder().end().build();
             case MAIN_STREAM -> this.createMainStreamJobFlowBuilder().end().build();
             case CLOSE_SESSION -> this.createCloseSessionJobFlowBuilder().end().build();
         };
     }
 
-    private FlowBuilder<FlowJobBuilder> createInitializeSessionJobFlowBuilder() {
-        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getInitializeSessionStep())
+    private FlowBuilder<FlowJobBuilder> createStartSessionJobFlowBuilder() {
+        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getStartSessionStep())
                 .next(this.batchStepCollections.getExecuteAutoLoginStep())
                 .next(this.batchStepCollections.getExecuteAutoScrapeUserProfileStep())
                 .next(this.batchStepCollections.getExecuteAutoDiagnoseFollowStep())

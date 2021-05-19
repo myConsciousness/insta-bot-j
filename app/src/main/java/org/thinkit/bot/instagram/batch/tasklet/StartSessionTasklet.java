@@ -30,14 +30,14 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 @EqualsAndHashCode(callSuper = false)
 @Component
-public final class InitializeSessionTasklet extends AbstractTasklet {
+public final class StartSessionTasklet extends AbstractTasklet {
 
-    private InitializeSessionTasklet() {
-        super(TaskType.INITIALIZE_SESSION);
+    private StartSessionTasklet() {
+        super(TaskType.START_SESSION);
     }
 
     public static Tasklet newInstance() {
-        return new InitializeSessionTasklet();
+        return new StartSessionTasklet();
     }
 
     @Override
@@ -45,6 +45,7 @@ public final class InitializeSessionTasklet extends AbstractTasklet {
         log.debug("START");
 
         super.createSession();
+        log.info("The session started successfully.");
 
         if (!super.hasRunningUser()) {
             throw new AvailableUserAccountNotFoundException("""
