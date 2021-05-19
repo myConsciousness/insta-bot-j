@@ -8,15 +8,13 @@ org.thinkit.bot.instagram.batch.data.mongo.entity
 org.thinkit.bot.instagram.batch.data.mongo.repository
 org.thinkit.bot.instagram.batch.dto
 org.thinkit.bot.instagram.batch.exception
-org.thinkit.bot.instagram.batch.exception.http
-org.thinkit.bot.instagram.batch.notification
-org.thinkit.bot.instagram.batch.notification.http
-org.thinkit.bot.instagram.batch.notification.message
 org.thinkit.bot.instagram.batch.policy
+org.thinkit.bot.instagram.batch.report
 org.thinkit.bot.instagram.batch.result
 org.thinkit.bot.instagram.batch.strategy.context
 org.thinkit.bot.instagram.batch.strategy.flow
 org.thinkit.bot.instagram.batch.strategy.hashtag
+org.thinkit.bot.instagram.batch.strategy.report
 org.thinkit.bot.instagram.batch.tasklet
 org.thinkit.bot.instagram.batch.util
 org.thinkit.bot.instagram.catalog

@@ -69,6 +69,11 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     BATCH_MAIN_STREAM_FLOW_STRATEGY(700, "BATCH_MAIN_STREAM_FLOW_STRATEGY"),
 
     /**
+     * {@code BATCH_SESSION_CLOSE_FLOW_STRATEGY}
+     */
+    BATCH_SESSION_CLOSE_FLOW_STRATEGY(701, "BATCH_SESSION_CLOSE_FLOW_STRATEGY"),
+
+    /**
      * {@code "HASHTAG_GROUP_COUNT"}
      */
     HASHTAG_GROUP_COUNT(800, "HASHTAG_GROUP_COUNT"),
@@ -101,17 +106,7 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     /**
      * {@code "LINE_NOTIFY_TOKEN"}
      */
-    LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN"),
-
-    /**
-     * {@code "LOGIN_STRATEGY"}
-     */
-    LOGIN_STRATEGY(901, "LOGIN_STRATEGY"),
-
-    /**
-     * {@code "LOGIN_TWO_FACTOR_TOKEN"}
-     */
-    LOGIN_TWO_FACTOR_TOKEN(902, "LOGIN_TWO_FACTOR_TOKEN");
+    LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN");
 
     /**
      * The code

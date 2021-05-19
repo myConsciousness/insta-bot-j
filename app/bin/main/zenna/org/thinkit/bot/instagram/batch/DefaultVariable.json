@@ -56,6 +56,12 @@
         },
         {
             "node": {
+                "conditionId": "701",
+                "value": "0"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "800",
                 "value": "4"
             }
@@ -198,6 +204,19 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "BATCH_MAIN_STREAM_FLOW_STRATEGY"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "701",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "BATCH_SESSION_CLOSE_FLOW_STRATEGY"
                     }
                 ]
             }

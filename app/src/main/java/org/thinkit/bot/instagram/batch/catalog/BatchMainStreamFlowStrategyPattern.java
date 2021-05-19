@@ -29,7 +29,7 @@ import lombok.RequiredArgsConstructor;
 public enum BatchMainStreamFlowStrategyPattern implements Catalog<BatchMainStreamFlowStrategyPattern> {
 
     /**
-     * The default
+     * The restictable
      */
     RESTRICTABLE(0),
 

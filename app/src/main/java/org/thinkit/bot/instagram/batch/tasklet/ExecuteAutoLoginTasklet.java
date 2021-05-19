@@ -14,10 +14,14 @@
 
 package org.thinkit.bot.instagram.batch.tasklet;
 
+import java.util.Date;
+
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.UserAccount;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.UserAccountRepository;
 import org.thinkit.bot.instagram.batch.result.BatchTaskResult;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.param.ActionUser;
@@ -44,10 +48,25 @@ public final class ExecuteAutoLoginTasklet extends AbstractTasklet {
     public BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        super.getInstaBot().executeLogin(ActionUser.from(super.getRunningUserName(), super.getRunningUserPassword()));
+        final String userName = super.getRunningUserName();
+
+        super.getInstaBot().executeLogin(ActionUser.from(userName, super.getRunningUserPassword()));
         log.info("The login to Instagram has been successfully completed.");
 
+        final UserAccountRepository userAccountRepository = super.getMongoCollections().getUserAccountRepository();
+        final UserAccount userAccount = userAccountRepository.findByUserName(userName);
+
+        userAccount.setLoggedIn(true);
+        userAccount.setUpdatedAt(new Date());
+
+        userAccountRepository.save(userAccount);
+        log.debug("Updated user account: {}", userAccount);
+
+        final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
+        batchTaskResultBuilder.actionCount(1);
+        batchTaskResultBuilder.resultCount(1);
+
         log.debug("END");
-        return BatchTaskResult.builder().actionCount(1).build();
+        return batchTaskResultBuilder.build();
     }
 }

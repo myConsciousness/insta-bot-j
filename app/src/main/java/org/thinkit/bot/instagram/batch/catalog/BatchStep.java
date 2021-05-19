@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public enum BatchStep implements BiCatalog<BatchStep, String> {
 
     /**
-     * The initialize session step
+     * The start session step
      */
-    INITIALIZE_SESSION(-1, "InitializeSessionStep"),
+    START_SESSION(-1, "StartSessionStep"),
 
     /**
      * The execute auto login step
@@ -87,6 +87,11 @@ public enum BatchStep implements BiCatalog<BatchStep, String> {
      * The notify result report
      */
     NOTIFY_RESULT_REPORT(900, "NotifyResultReport"),
+
+    /**
+     * The continue session
+     */
+    CONTINUE_SESSION(997, "ContinueSession"),
 
     /**
      * The clear session

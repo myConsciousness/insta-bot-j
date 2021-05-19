@@ -29,9 +29,9 @@ import lombok.RequiredArgsConstructor;
 public enum BatchScheduleType implements Catalog<BatchScheduleType> {
 
     /**
-     * The initialize session
+     * The start session
      */
-    INITIALIZE_SESSION(0),
+    START_SESSION(0),
 
     /**
      * The main stream
