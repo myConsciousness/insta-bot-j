@@ -15,6 +15,7 @@
 package org.thinkit.bot.instagram.batch.data.mongo.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
@@ -51,4 +52,19 @@ public final class UserAccount implements Serializable {
      */
     @ToString.Exclude
     private String password;
+
+    /**
+     * The logged in
+     */
+    private boolean loggedIn;
+
+    /**
+     * The created datetime
+     */
+    private Date createdAt = new Date();
+
+    /**
+     * The updated datetime
+     */
+    private Date updatedAt = new Date();
 }

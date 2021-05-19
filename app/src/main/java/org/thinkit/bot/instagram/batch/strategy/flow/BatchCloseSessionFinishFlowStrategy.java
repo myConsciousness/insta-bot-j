@@ -27,17 +27,13 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor(staticName = "newInstance")
-public final class RestrictableBatchMainStreamFlowStrategy implements BatchFlowStrategy {
+public final class BatchCloseSessionFinishFlowStrategy implements BatchFlowStrategy {
 
     @Override
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
-        return jobBuilder.flow(batchStepCollections.getUpdateAutoLikeConfigStep())
-                .next(batchStepCollections.getExecuteAutoLikeStep())
-                .next(batchStepCollections.getUpdateAutoForecastFollowBackUserConfigStep())
-                .next(batchStepCollections.getExecuteAutoForecastFollowBackUserStep())
-                .next(batchStepCollections.getExecuteAutoFollowStep())
-                .next(batchStepCollections.getExecuteAutoUnfollowStep())
-                .next(batchStepCollections.getNotifyResultReportStep());
+        return jobBuilder.flow(batchStepCollections.getClearSessionStep())
+                .next(batchStepCollections.getNotifyResultReportStep())
+                .next(batchStepCollections.getCloseSessionStep());
     }
 }

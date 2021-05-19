@@ -269,6 +269,7 @@ public abstract class AbstractTasklet implements Tasklet {
         this.updateEndAction();
 
         if (this.batchTask.isClosable()) {
+            log.debug("END");
             this.closeBatchSession();
         }
 
@@ -543,6 +544,7 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private void closeBatchSession() {
+        log.info("Close web browser and application context.");
         this.instaBot.closeWebBrowser();
         this.context.close();
     }

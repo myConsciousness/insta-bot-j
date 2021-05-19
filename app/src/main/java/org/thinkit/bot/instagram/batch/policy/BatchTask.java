@@ -89,6 +89,7 @@ public final class BatchTask implements Serializable {
     }
 
     public boolean isCloseSessionTask() {
-        return this.taskType == TaskType.CLOSE_SESSION;
+        return this.taskType == TaskType.CONTINUE_SESSION || this.taskType == TaskType.CLEAR_SESSION
+                || this.taskType == TaskType.CLOSE_SESSION;
     }
 }

@@ -20,23 +20,23 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
- * The catalog that manages batch main stream flow strategy pattern.
+ * The catalog that manages batch close session flow strategy pattern.
  *
  * @author Kato Shinya
  * @since 1.0.0
  */
 @RequiredArgsConstructor
-public enum BatchMainStreamFlowStrategyPattern implements Catalog<BatchMainStreamFlowStrategyPattern> {
+public enum BatchCloseSessionFlowStrategyPattern implements Catalog<BatchCloseSessionFlowStrategyPattern> {
 
     /**
-     * The restictable
+     * The continue
      */
-    RESTRICTABLE(0),
+    CONTINUE(0),
 
     /**
-     * The unrestrictable
+     * The finish
      */
-    UNRESTRICTABLE(1);
+    FINISH(1);
 
     /**
      * The code

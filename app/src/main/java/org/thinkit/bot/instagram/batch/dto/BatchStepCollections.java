@@ -76,6 +76,9 @@ public final class BatchStepCollections implements Serializable {
     private Step notifyResultReportStep;
 
     @Getter
+    private Step continueSessionStep;
+
+    @Getter
     private Step clearSessionStep;
 
     @Getter
