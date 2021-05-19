@@ -36,15 +36,20 @@ import org.thinkit.bot.instagram.batch.catalog.BatchCloseSessionFlowStrategyPatt
 import org.thinkit.bot.instagram.batch.catalog.BatchJob;
 import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
+import org.thinkit.bot.instagram.batch.catalog.BatchStartSessionFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.content.entity.DefaultVariable;
 import org.thinkit.bot.instagram.batch.data.content.mapper.DefaultVariableMapper;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.UserAccount;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import org.thinkit.bot.instagram.batch.exception.SessionInconsistencyFoundException;
+import org.thinkit.bot.instagram.batch.policy.RunningUser;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchCloseSessionFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchMainStreamFlowContext;
+import org.thinkit.bot.instagram.batch.strategy.context.BatchStartSessionFlowContext;
 
 /**
  *
@@ -94,6 +99,12 @@ public class BatchJobConfiguration {
     private BatchStepCollections batchStepCollections;
 
     /**
+     * The running user
+     */
+    @Autowired
+    private RunningUser runningUser;
+
+    /**
      * The mongo collections
      */
     @Autowired
@@ -135,11 +146,8 @@ public class BatchJobConfiguration {
     }
 
     private FlowBuilder<FlowJobBuilder> createStartSessionJobFlowBuilder() {
-        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getStartSessionStep())
-                .next(this.batchStepCollections.getExecuteAutoLoginStep())
-                .next(this.batchStepCollections.getExecuteAutoScrapeUserProfileStep())
-                .next(this.batchStepCollections.getExecuteAutoDiagnoseFollowStep())
-                .next(this.batchStepCollections.getNotifyResultReportStep());
+        return BatchStartSessionFlowContext.from(this.deduceBatchStartSessionFlowStrategyPattern(),
+                this.getInstaBotJobBuilder(), this.batchStepCollections).evaluate();
     }
 
     private FlowBuilder<FlowJobBuilder> createMainStreamJobFlowBuilder() {
@@ -154,6 +162,27 @@ public class BatchJobConfiguration {
 
     private JobBuilder getInstaBotJobBuilder() {
         return this.jobBuilderFactory.get(BatchJob.INSTA_BOT.getTag());
+    }
+
+    private BatchStartSessionFlowStrategyPattern deduceBatchStartSessionFlowStrategyPattern() {
+
+        if (!runningUser.isAvailable()) {
+            // When the session has not been created
+            return BatchStartSessionFlowStrategyPattern.NOT_LOGGED_IN;
+        }
+
+        final UserAccount userAccount = this.mongoCollections.getUserAccountRepository()
+                .findByUserName(runningUser.getUserName());
+
+        if (userAccount == null) {
+            throw new SessionInconsistencyFoundException("""
+                    Could not find the running user information of "%s" from the user account.
+                    The user account information may have been deleted after the session started.
+                    """.formatted(runningUser.getUserName()));
+        }
+
+        return userAccount.isLoggedIn() ? BatchStartSessionFlowStrategyPattern.LOGGED_IN
+                : BatchStartSessionFlowStrategyPattern.NOT_LOGGED_IN;
     }
 
     private BatchMainStreamFlowStrategyPattern getBatchMainStreamFlowStrategyPattern() {

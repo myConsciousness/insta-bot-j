@@ -118,10 +118,13 @@ public final class RunningUser implements Serializable {
                     String.format("Could not find the session linked to the user [%s].", this.userAccount));
         }
 
-        this.clearSession(session);
+        this.clearSession(this.session);
 
-        this.mongoCollections.getSessionRepository().save(session);
-        log.debug("Updated session: {}", session);
+        this.mongoCollections.getSessionRepository().save(this.session);
+        log.debug("Updated session: {}", this.session);
+
+        this.session = null;
+        this.userAccount = null;
 
         log.info("The session was closed successfully.");
         log.debug("END");
