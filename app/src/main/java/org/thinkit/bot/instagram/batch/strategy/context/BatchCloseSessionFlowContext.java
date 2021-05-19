@@ -17,10 +17,10 @@ package org.thinkit.bot.instagram.batch.strategy.context;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.builder.FlowJobBuilder;
 import org.springframework.batch.core.job.builder.JobBuilder;
-import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
+import org.thinkit.bot.instagram.batch.catalog.BatchCloseSessionFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
-import org.thinkit.bot.instagram.batch.strategy.flow.BatchMainStreamRestrictableFlowStrategy;
-import org.thinkit.bot.instagram.batch.strategy.flow.BatchMainStreamUnrestrictableFlowStrategy;
+import org.thinkit.bot.instagram.batch.strategy.flow.BatchCloseSessionContinueFlowStrategy;
+import org.thinkit.bot.instagram.batch.strategy.flow.BatchCloseSessionFinishFlowStrategy;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -32,12 +32,12 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class BatchMainStreamFlowContext implements Context<FlowBuilder<FlowJobBuilder>> {
+public final class BatchCloseSessionFlowContext implements Context<FlowBuilder<FlowJobBuilder>> {
 
     /**
      * The batch flow strategy pattern
      */
-    private BatchMainStreamFlowStrategyPattern batchMainStreamFlowStrategyPattern;
+    private BatchCloseSessionFlowStrategyPattern batchCloseSessionFlowStrategyPattern;
 
     /**
      * The job builder
@@ -51,11 +51,11 @@ public final class BatchMainStreamFlowContext implements Context<FlowBuilder<Flo
 
     @Override
     public FlowBuilder<FlowJobBuilder> evaluate() {
-        return switch (this.batchMainStreamFlowStrategyPattern) {
-            case RESTRICTABLE -> BatchMainStreamRestrictableFlowStrategy.newInstance().createJobFlowBuilder(jobBuilder,
+        return switch (this.batchCloseSessionFlowStrategyPattern) {
+            case CONTINUE -> BatchCloseSessionContinueFlowStrategy.newInstance().createJobFlowBuilder(jobBuilder,
                     batchStepCollections);
-            case UNRESTRICTABLE -> BatchMainStreamUnrestrictableFlowStrategy.newInstance()
-                    .createJobFlowBuilder(jobBuilder, batchStepCollections);
+            case FINISH -> BatchCloseSessionFinishFlowStrategy.newInstance().createJobFlowBuilder(jobBuilder,
+                    batchStepCollections);
         };
     }
 }

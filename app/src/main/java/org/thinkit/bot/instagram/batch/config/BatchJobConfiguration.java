@@ -32,6 +32,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.thinkit.api.catalog.Catalog;
 import org.thinkit.bot.instagram.InstaBot;
 import org.thinkit.bot.instagram.InstaBotJ;
+import org.thinkit.bot.instagram.batch.catalog.BatchCloseSessionFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.BatchJob;
 import org.thinkit.bot.instagram.batch.catalog.BatchMainStreamFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
@@ -41,6 +42,7 @@ import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.BatchStepCollections;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import org.thinkit.bot.instagram.batch.strategy.context.BatchCloseSessionFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchMainStreamFlowContext;
 
 /**
@@ -145,9 +147,8 @@ public class BatchJobConfiguration {
     }
 
     private FlowBuilder<FlowJobBuilder> createCloseSessionJobFlowBuilder() {
-        return this.getInstaBotJobBuilder().flow(this.batchStepCollections.getClearSessionStep())
-                .next(this.batchStepCollections.getNotifyResultReportStep())
-                .next(this.batchStepCollections.getCloseSessionStep());
+        return BatchCloseSessionFlowContext.from(this.getBatchCloseSessionFlowStrategyPattern(),
+                this.getInstaBotJobBuilder(), this.batchStepCollections).evaluate();
     }
 
     private JobBuilder getInstaBotJobBuilder() {
@@ -172,8 +173,31 @@ public class BatchJobConfiguration {
         return batchFlowStrategyPattern;
     }
 
+    private BatchCloseSessionFlowStrategyPattern getBatchCloseSessionFlowStrategyPattern() {
+
+        final VariableRepository variableRepository = mongoCollections.getVariableRepository();
+        Variable variable = variableRepository.findByName(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY.getTag());
+
+        if (variable == null) {
+            variable = new Variable();
+            variable.setName(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY.getTag());
+            variable.setValue(this.getDefaultBatchCloseSessionFlowStrategy());
+            variable = variableRepository.insert(variable);
+        }
+
+        final BatchCloseSessionFlowStrategyPattern batchCloseSessionFlowStrategyPattern = Catalog
+                .getEnum(BatchCloseSessionFlowStrategyPattern.class, Integer.parseInt(variable.getValue()));
+
+        return batchCloseSessionFlowStrategyPattern;
+    }
+
     private String getDefaultBatchMainStreamFlowStrategy() {
         return DefaultVariableMapper.from(VariableName.BATCH_MAIN_STREAM_FLOW_STRATEGY.getTag()).scan().get(0)
+                .getValue();
+    }
+
+    private String getDefaultBatchCloseSessionFlowStrategy() {
+        return DefaultVariableMapper.from(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY.getTag()).scan().get(0)
                 .getValue();
     }
 }
