@@ -166,19 +166,19 @@ public class BatchJobConfiguration {
 
     private BatchStartSessionFlowStrategyPattern deduceBatchStartSessionFlowStrategyPattern() {
 
-        if (!runningUser.isAvailable()) {
+        if (!this.runningUser.isAvailable()) {
             // When the session has not been created
             return BatchStartSessionFlowStrategyPattern.NOT_LOGGED_IN;
         }
 
         final UserAccount userAccount = this.mongoCollections.getUserAccountRepository()
-                .findByUserName(runningUser.getUserName());
+                .findByUserName(this.runningUser.getUserName());
 
         if (userAccount == null) {
             throw new SessionInconsistencyFoundException("""
-                    Could not find the running user information of "%s" from the user account.
+                    Could not find the running user information of '%s' from the user account.
                     The user account information may have been deleted after the session started.
-                    """.formatted(runningUser.getUserName()));
+                    """.formatted(this.runningUser.getUserName()));
         }
 
         return userAccount.isLoggedIn() ? BatchStartSessionFlowStrategyPattern.LOGGED_IN
