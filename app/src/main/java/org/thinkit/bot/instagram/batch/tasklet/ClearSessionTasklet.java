@@ -47,23 +47,28 @@ public final class ClearSessionTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        final UserAccountRepository userAccountRepository = super.getMongoCollections().getUserAccountRepository();
-        final UserAccount userAccount = userAccountRepository.findByUserName(super.getRunningUserName());
+        if (super.hasRunningUser()) {
+            final UserAccountRepository userAccountRepository = super.getMongoCollections().getUserAccountRepository();
+            final UserAccount userAccount = userAccountRepository.findByUserName(super.getRunningUserName());
 
-        if (userAccount != null) {
-            userAccount.setLoggedIn(false);
-            userAccount.setUpdatedAt(new Date());
+            if (userAccount != null) {
+                userAccount.setLoggedIn(false);
+                userAccount.setUpdatedAt(new Date());
 
-            userAccountRepository.save(userAccount);
-            log.debug("Updated user account: {}", userAccount);
+                userAccountRepository.save(userAccount);
+                log.debug("Updated user account: {}", userAccount);
+            } else {
+                log.warn(
+                        "Could not find the user account information for the user name '{}' who is the charge of the running session. The application session will be closed successfully, but please make sure that the user account information has not been illegally deleted.",
+                        super.getRunningUserName());
+            }
         } else {
             log.warn(
-                    "Could not find the user account information for the user name '{}' who is the charge of the running session. The application session will be closed successfully, but please make sure that the user account information has not been illegally deleted.",
-                    super.getRunningUserName());
+                    "The session for the startup user does not exist. Ignore this message if this is the first time you are processing a task after starting the batch process. The session will be created before login.");
         }
 
         super.closeRunningSession();
-        log.info("The running session was closed successfully");
+        log.info("The running session was cleared successfully");
 
         final BatchTaskResult.BatchTaskResultBuilder batchTaskResultBuilder = BatchTaskResult.builder();
         batchTaskResultBuilder.actionCount(1);

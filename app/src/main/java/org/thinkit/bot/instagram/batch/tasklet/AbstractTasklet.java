@@ -217,7 +217,7 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     protected boolean hasRunningUser() {
-        return this.runningUser.isAvailable();
+        return this.runningUser != null && this.runningUser.isAvailable();
     }
 
     protected String getRunningUserName() {
