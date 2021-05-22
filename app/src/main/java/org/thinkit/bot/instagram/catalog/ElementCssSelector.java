@@ -37,7 +37,7 @@ public enum ElementCssSelector implements BiCatalog<ElementCssSelector, String> 
      * The user name on explore
      */
     USER_NAME_ON_EXPLORE(1,
-            "body > div._2dDPU.CkGkG > div.zZYga > div > article > header > div.o-MQd.z8cbW > div.PQo_0.RqtMr > div.e1e1d > span > a"),
+            "body > div._2dDPU.CkGkG > div.zZYga > div > article > header > div.o-MQd.z8cbW > div.RqtMr > div > span > a"),
 
     /**
      * The post count on profile
