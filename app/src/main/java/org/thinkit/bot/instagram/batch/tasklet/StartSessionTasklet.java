@@ -44,13 +44,14 @@ public final class StartSessionTasklet extends AbstractTasklet {
     protected BatchTaskResult executeTask(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
 
-        super.createSession();
-        log.info("The session started successfully.");
-
         if (!super.hasRunningUser()) {
-            throw new AvailableUserAccountNotFoundException("""
-                    There are no available users to run the process.
-                    All users are already running or no valid user information has been defined.""");
+            super.createSession();
+
+            if (!super.hasRunningUser()) {
+                throw new AvailableUserAccountNotFoundException("""
+                        There are no available users to run the process.
+                        All users are already running or no valid user information has been defined.""");
+            }
         }
 
         log.debug("END");
