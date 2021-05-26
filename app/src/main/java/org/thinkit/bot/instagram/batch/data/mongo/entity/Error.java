@@ -68,5 +68,4 @@ public final class Error implements Serializable {
      * The updated datetime
      */
     private Date updatedAt = new Date();
-
 }
