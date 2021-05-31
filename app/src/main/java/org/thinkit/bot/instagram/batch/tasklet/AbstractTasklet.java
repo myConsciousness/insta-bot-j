@@ -148,7 +148,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
         if (this.batchTask.isRestrictable() && this.isActionRestricted()) {
             log.debug("END");
-            return this.executeRestrictedProcess();
+            return this.executeRestrictedProcess(contribution, chunkContext);
         }
 
         if (this.batchTask.canSkip() && this.isSkipMood()) {
@@ -277,22 +277,22 @@ public abstract class AbstractTasklet implements Tasklet {
         return batchTaskResult.getRepeatStatus();
     }
 
-    private RepeatStatus executeRestrictedProcess() {
+    private RepeatStatus executeRestrictedProcess(StepContribution contribution, ChunkContext chunkContext) {
         log.debug("START");
-
-        this.updateStartAction();
 
         final ActionRestrictionRepository actionRestrictionRepository = this.mongoCollections
                 .getActionRestrictionRepository();
         final ActionRestriction actionRestriction = actionRestrictionRepository.findAll().get(0);
 
-        final Date restrictedDate = actionRestriction.getCreatedAt();
-        final int actionRestrictionWaitHour = this.getActionRestrictionWaitHour();
-
-        if (DateUtils.isHourElapsed(restrictedDate, actionRestrictionWaitHour)) {
+        if (DateUtils.isHourElapsed(actionRestriction.getCreatedAt(), this.getActionRestrictionWaitHour())) {
             actionRestrictionRepository.deleteAll();
             log.info("The waiting time for the action restriction has passed.");
+
+            // Perform task processing when user-defined time limit has elapsed.
+            return this.executeTaskProcess(contribution, chunkContext);
         }
+
+        this.updateStartAction();
 
         if (this.batchTask.canSendResultMessage()) {
             this.saveMessageMeta(0, ActionStatus.SKIP);
