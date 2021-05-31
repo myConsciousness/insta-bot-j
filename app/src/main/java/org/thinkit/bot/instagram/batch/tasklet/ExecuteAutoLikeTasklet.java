@@ -131,7 +131,8 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
         final AutoLikeConfig autoLikeConfig = AutoLikeConfig.builder()
                 .maxLikePerHashtag(this.getMaxLikePerHashtag(targetHashtags.size())).interval(this.getLikeInterval())
-                .completedLikeState(this.getCompletedLikeState()).build();
+                .completedLikeState(this.getCompletedLikeState())
+                .likeSkipMoodOccurrenceProbability(this.getLikeSkipMoodOccurrenceProbability()).build();
         log.debug("The auto like config: {}", autoLikeConfig);
 
         log.debug("END");
@@ -152,6 +153,10 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
 
     private int getGroupCount() {
         return Integer.parseInt(super.getVariable(VariableName.HASHTAG_GROUP_COUNT).getValue());
+    }
+
+    private int getLikeSkipMoodOccurrenceProbability() {
+        return super.getIntVariableValue(VariableName.LIKE_SKIP_MOOD_OCCURRENCE_PROBABILITY);
     }
 
     private int getSkippedCount() {

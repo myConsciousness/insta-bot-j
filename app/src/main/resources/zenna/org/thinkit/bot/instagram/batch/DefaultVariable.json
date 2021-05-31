@@ -98,6 +98,12 @@
         },
         {
             "node": {
+                "conditionId": "806",
+                "value": "2"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "900",
                 "value": ""
             }
@@ -295,6 +301,19 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "PROCESSING_BATCH_SCHEDULE"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "806",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "LIKE_SKIP_MOOD_OCCURRENCE_PROBABILITY"
                     }
                 ]
             }
