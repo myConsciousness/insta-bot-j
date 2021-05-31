@@ -39,11 +39,11 @@ public final class DateUtils {
         baseDate.setTime(date);
         baseDate.add(Calendar.HOUR, elapsedHour);
 
-        return baseDate.getTime().before(getNow().getTime());
+        return baseDate.getTime().before(now().getTime());
     }
 
     public static String getDateAfter(final int days) {
-        final Calendar now = getNow();
+        final Calendar now = now();
         now.add(Calendar.DATE, days);
         return toString(now.getTime());
     }
@@ -53,7 +53,7 @@ public final class DateUtils {
         return dateFormat.format(date);
     }
 
-    private static Calendar getNow() {
+    private static Calendar now() {
         final Calendar now = Calendar.getInstance();
         now.add(Calendar.HOUR, UTC_TIMEZONE);
         return now;
