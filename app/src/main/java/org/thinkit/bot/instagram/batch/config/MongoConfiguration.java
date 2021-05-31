@@ -22,6 +22,7 @@ import org.thinkit.bot.instagram.batch.catalog.MongoDatabase;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.DailyActionTotalRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackPossibilityIndicatorRepository;
@@ -184,6 +185,12 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
     @Autowired
     private FollowUnmutualUserRepository followUnmutualUserRepository;
 
+    /**
+     * The daily action total repository
+     */
+    @Autowired
+    private DailyActionTotalRepository dailyActionTotalRepository;
+
     @Override
     protected String getDatabaseName() {
         return MongoDatabase.INSTAGRAM.getTag();
@@ -219,6 +226,7 @@ public class MongoConfiguration extends AbstractMongoClientConfiguration {
         mongoCollectionsBuilder.taskExecutionControlRepository(this.taskExecutionControlRepository);
         mongoCollectionsBuilder.followMutualUserRepository(this.followMutualUserRepository);
         mongoCollectionsBuilder.followUnmutualUserRepository(this.followUnmutualUserRepository);
+        mongoCollectionsBuilder.dailyActionTotalRepository(this.dailyActionTotalRepository);
 
         return mongoCollectionsBuilder.build();
     }
