@@ -109,6 +109,11 @@ public enum VariableName implements BiCatalog<VariableName, String> {
     LIKE_SKIP_MOOD_OCCURRENCE_PROBABILITY(806, "LIKE_SKIP_MOOD_OCCURRENCE_PROBABILITY"),
 
     /**
+     * {@code "MAX_LIKE_BIAS_RANGE"}
+     */
+    MAX_LIKE_BIAS_RANGE(807, "MAX_LIKE_BIAS_RANGE"),
+
+    /**
      * {@code "LINE_NOTIFY_TOKEN"}
      */
     LINE_NOTIFY_TOKEN(900, "LINE_NOTIFY_TOKEN");

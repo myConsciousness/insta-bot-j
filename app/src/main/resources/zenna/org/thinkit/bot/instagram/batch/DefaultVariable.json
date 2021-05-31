@@ -104,6 +104,12 @@
         },
         {
             "node": {
+                "conditionId": "807",
+                "value": "3"
+            }
+        },
+        {
+            "node": {
                 "conditionId": "900",
                 "value": ""
             }
@@ -314,6 +320,19 @@
                         "keyName": "variableName",
                         "operator": "=",
                         "operand": "LIKE_SKIP_MOOD_OCCURRENCE_PROBABILITY"
+                    }
+                ]
+            }
+        },
+        {
+            "node": {
+                "conditionId": "807",
+                "exclude": false,
+                "conditions": [
+                    {
+                        "keyName": "variableName",
+                        "operator": "=",
+                        "operand": "MAX_LIKE_BIAS_RANGE"
                     }
                 ]
             }
