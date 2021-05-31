@@ -17,6 +17,8 @@ package org.thinkit.bot.instagram.command;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mongodb.lang.NonNull;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.thinkit.bot.instagram.catalog.ActionStatus;
@@ -32,6 +34,7 @@ import org.thinkit.bot.instagram.param.TargetHashtag;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.result.ActionLikedPhoto;
 import org.thinkit.bot.instagram.result.AutoLikeResult;
+import org.thinkit.bot.instagram.util.RandomUtils;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -86,25 +89,22 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
         final int maxLike = this.autoLikeConfig.getMaxLikePerHashtag();
         final int interval = this.autoLikeConfig.getInterval();
         final String completedLikeState = this.autoLikeConfig.getCompletedLikeState().getState();
+        final int likeSkipMoodOccurrenceProbability = this.autoLikeConfig.getLikeSkipMoodOccurrenceProbability();
 
         int countLikes = 0;
-        boolean likedPhoto = false;
         while (countLikes < maxLike) {
             try {
                 if (countLikes != 0 && countLikes % interval == 0) {
                     super.wait(WaitType.LIKE);
-                } else {
-                    if (likedPhoto) {
-                        super.wait(WaitType.HUMAN_LIKE_INTERVAL);
-                    }
+                }
+
+                if (this.isSkipMood(likeSkipMoodOccurrenceProbability)) {
+                    this.clickNextArrorw();
+                    continue;
                 }
 
                 final WebElement likeButton = this.findLikeButton();
-                final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
-                        .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
-
-                if (likeState.contains(completedLikeState)) {
-                    likedPhoto = false;
+                if (this.isAlreadyLiked(likeButton, completedLikeState)) {
                     this.clickNextArrorw();
                     continue;
                 }
@@ -117,7 +117,8 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
                 actionedLikedPhotos.add(actionedLikedPhotoBuilder.build());
 
                 likeButton.click();
-                likedPhoto = true;
+                super.wait(WaitType.HUMAN_LIKE_INTERVAL);
+
                 this.clickNextArrorw();
                 countLikes++;
             } catch (Exception recoverableException) {
@@ -139,8 +140,6 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
 
                     return autolikeResultBuilder.build();
                 }
-
-                likedPhoto = false;
             }
         }
 
@@ -179,5 +178,15 @@ public final class AutoLikeCommand extends AbstractBotCommand<AutoLikeResult> {
     private void clickNextArrorw() {
         super.findByCssSelector(ElementCssSelector.NEXT_ARROW).click();
         ;
+    }
+
+    private boolean isAlreadyLiked(@NonNull final WebElement likeButton, @NonNull final String completedLikeState) {
+        final String likeState = likeButton.findElement(By.tagName(ElementTag.SVG.getTag()))
+                .getAttribute(ElementAttribute.ARIA_LABEL.getTag());
+        return likeState.contains(completedLikeState);
+    }
+
+    private boolean isSkipMood(final int likeSkipMoodOccurrenceProbability) {
+        return RandomUtils.nextInt(likeSkipMoodOccurrenceProbability, 1) % likeSkipMoodOccurrenceProbability == 0;
     }
 }
