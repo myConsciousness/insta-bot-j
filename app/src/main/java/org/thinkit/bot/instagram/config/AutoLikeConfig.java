@@ -56,4 +56,10 @@ public final class AutoLikeConfig implements Serializable {
      */
     @Getter
     private CompletedLikeState completedLikeState;
+
+    /**
+     * The like skip mood occurrence probability
+     */
+    @Getter
+    private int likeSkipMoodOccurrenceProbability;
 }
