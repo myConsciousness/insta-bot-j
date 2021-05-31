@@ -159,6 +159,14 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
         return super.getIntVariableValue(VariableName.LIKE_SKIP_MOOD_OCCURRENCE_PROBABILITY);
     }
 
+    private int getMaxLikeBiasRange() {
+        return super.getIntVariableValue(VariableName.MAX_LIKE_BIAS_RANGE);
+    }
+
+    private int getMaxLikeBias() {
+        return RandomUtils.nextInt(this.getMaxLikeBiasRange());
+    }
+
     private int getSkippedCount() {
         log.debug("START");
 
@@ -174,8 +182,13 @@ public final class ExecuteAutoLikeTasklet extends AbstractTasklet {
     }
 
     private int getMaxLikePerHashtag(final int hashtagCount) {
+        log.debug("START");
+
         final int maxLike = this.getMaxLike();
+        final int maxLikeBias = this.getMaxLikeBias();
         final int skippedCount = this.getSkippedCount();
-        return (skippedCount > 0 ? maxLike * (skippedCount + 1) : maxLike) / hashtagCount;
+
+        log.debug("END");
+        return (skippedCount > 0 ? (maxLike + maxLikeBias) * (skippedCount + 1) : maxLike + maxLikeBias) / hashtagCount;
     }
 }
