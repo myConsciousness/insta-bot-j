@@ -39,7 +39,7 @@ public final class DateUtils {
         baseDate.setTime(date);
         baseDate.add(Calendar.HOUR, elapsedHour);
 
-        return baseDate.before(getNow().getTime());
+        return baseDate.getTime().before(getNow().getTime());
     }
 
     public static String getDateAfter(final int days) {
