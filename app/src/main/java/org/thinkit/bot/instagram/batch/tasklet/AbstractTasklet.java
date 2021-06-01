@@ -36,6 +36,7 @@ import org.thinkit.bot.instagram.batch.data.content.mapper.ExecutionControlledVa
 import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionRecord;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionRestriction;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.ActionSkip;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.DailyActionTotal;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Error;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.LastAction;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
@@ -43,6 +44,7 @@ import org.thinkit.bot.instagram.batch.data.mongo.entity.TaskExecutionControl;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.DailyActionTotalRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.LastActionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.TaskExecutionControlRepository;
@@ -55,6 +57,7 @@ import org.thinkit.bot.instagram.catalog.ActionStatus;
 import org.thinkit.bot.instagram.catalog.TaskType;
 import org.thinkit.bot.instagram.result.ActionError;
 import org.thinkit.bot.instagram.util.DateUtils;
+import org.thinkit.bot.instagram.util.PresentDateSet;
 import org.thinkit.bot.instagram.util.RandomUtils;
 import org.thinkit.common.base.precondition.Preconditions;
 
@@ -244,6 +247,10 @@ public abstract class AbstractTasklet implements Tasklet {
         final ActionStatus actionStatus = batchTaskResult.getActionStatus();
         final List<ActionError> actionErrors = batchTaskResult.getActionErrors();
 
+        if (this.batchTask.isActionTotalable()) {
+            this.saveActionTotal(actionCount);
+        }
+
         if (this.batchTask.isExecutionControlled()) {
             this.saveExecutionControlledVariable();
         }
@@ -374,6 +381,37 @@ public abstract class AbstractTasklet implements Tasklet {
 
         actionSkipRepository.save(actionSkip);
         log.debug("Updated action skip: {}", actionSkip);
+
+        log.debug("END");
+    }
+
+    private void saveActionTotal(final int actionCount) {
+        log.debug("START");
+
+        final PresentDateSet presentDateSet = PresentDateSet.newInstance();
+
+        final DailyActionTotalRepository dailyActionTotalRepository = this.mongoCollections
+                .getDailyActionTotalRepository();
+        DailyActionTotal dailyActionTotal = dailyActionTotalRepository.findByTaskTypeCodeAndYearAndMonthAndDay(
+                this.batchTask.getTypeCode(), presentDateSet.getYear(), presentDateSet.getMonth(),
+                presentDateSet.getDay());
+
+        if (dailyActionTotal == null) {
+            dailyActionTotal = new DailyActionTotal();
+            dailyActionTotal.setTaskTypeCode(this.batchTask.getTypeCode());
+            dailyActionTotal.setYear(presentDateSet.getYear());
+            dailyActionTotal.setMonth(presentDateSet.getMonth());
+            dailyActionTotal.setDay(presentDateSet.getDay());
+
+            dailyActionTotal = dailyActionTotalRepository.insert(dailyActionTotal);
+            log.debug("Inserted daily action total: {}", dailyActionTotal);
+        }
+
+        dailyActionTotal.setTotal(dailyActionTotal.getTotal() + actionCount);
+        dailyActionTotal.setUpdatedAt(new Date());
+
+        dailyActionTotalRepository.save(dailyActionTotal);
+        log.debug("Updated daily action total: {}", dailyActionTotal);
 
         log.debug("END");
     }

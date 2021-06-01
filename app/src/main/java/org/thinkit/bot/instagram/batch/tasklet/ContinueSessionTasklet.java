@@ -31,10 +31,18 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public final class ContinueSessionTasklet extends AbstractTasklet {
 
+    /**
+     * The default constructor.
+     */
     private ContinueSessionTasklet() {
         super(TaskType.CONTINUE_SESSION);
     }
 
+    /**
+     * Returns the new instance of {@link ContinueSessionTasklet} .
+     *
+     * @return The new instance of {@link ContinueSessionTasklet}
+     */
     public static Tasklet newInstance() {
         return new ContinueSessionTasklet();
     }
