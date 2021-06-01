@@ -16,7 +16,7 @@ package org.thinkit.bot.instagram.batch.report;
 
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.batch.strategy.context.ReportBuildContext;
+import org.thinkit.bot.instagram.batch.strategy.context.ReportContext;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -47,6 +47,6 @@ public final class LineMessageBuilder implements MessageBuilder {
 
     @Override
     public String build() {
-        return ReportBuildContext.from(this.batchScheduleType, this.runningUserName, this.mongoCollections).evaluate();
+        return ReportContext.from(this.batchScheduleType, this.runningUserName, this.mongoCollections).evaluate();
     }
 }
