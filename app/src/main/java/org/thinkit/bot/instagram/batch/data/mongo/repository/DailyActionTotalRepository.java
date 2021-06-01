@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.data.mongo.repository;
 
+import java.util.List;
+
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.DailyActionTotal;
@@ -38,4 +40,15 @@ public interface DailyActionTotalRepository extends MongoRepository<DailyActionT
      * @return The daily action total
      */
     public DailyActionTotal findByTaskTypeCodeAndYearAndMonthAndDay(int taskTypeCode, int year, int month, int day);
+
+    /**
+     * Returns the daily action total linked to the {@code year} , {@code month} and
+     * {@code day} passed as arguments.
+     *
+     * @param year  The year
+     * @param month The month
+     * @param day   The day
+     * @return The daily action total
+     */
+    public List<DailyActionTotal> findByYearAndMonthAndDay(int year, int month, int day);
 }

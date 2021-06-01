@@ -48,9 +48,10 @@ public final class ReportCloseSessionBuildContext implements Context<String> {
     @Override
     public String evaluate() {
         return switch (this.getBatchCloseSessionFlowStrategyPattern()) {
-            case CONTINUE -> ReportContinueSessionBuildStrategy.from(this.runningUserName, this.mongoCollections)
-                    .build();
-            case FINISH -> ReportCloseSessionBuildStrategy.from(this.runningUserName, this.mongoCollections).build();
+            case CONTINUE -> ReportContinueSessionBuildStrategy
+                    .from(this.runningUserName, this.mongoCollections.getDailyActionTotalRepository()).build();
+            case FINISH -> ReportCloseSessionBuildStrategy
+                    .from(this.runningUserName, this.mongoCollections.getDailyActionTotalRepository()).build();
         };
     }
 

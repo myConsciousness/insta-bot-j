@@ -14,7 +14,15 @@
 
 package org.thinkit.bot.instagram.batch.strategy.report;
 
-import org.thinkit.bot.instagram.batch.dto.MongoCollections;
+import java.util.Date;
+import java.util.List;
+
+import org.thinkit.bot.instagram.batch.data.content.mapper.TaskNameMapper;
+import org.thinkit.bot.instagram.batch.data.mongo.entity.DailyActionTotal;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.DailyActionTotalRepository;
+import org.thinkit.bot.instagram.util.DateUtils;
+import org.thinkit.bot.instagram.util.IndentUtils;
+import org.thinkit.bot.instagram.util.PresentDateSet;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,12 +42,36 @@ public final class ReportCloseSessionBuildStrategy implements ReportBuildStrateg
     private String runningUserName;
 
     /**
-     * The mongo collections
+     * The daily action total repository
      */
-    private MongoCollections mongoCollections;
+    private DailyActionTotalRepository dailyActionTotalRepository;
 
     @Override
     public String build() {
-        return null;
+
+        final PresentDateSet presentDateSet = PresentDateSet.newInstance();
+        final List<DailyActionTotal> dailyActionTotals = this.dailyActionTotalRepository
+                .findByYearAndMonthAndDay(presentDateSet.getYear(), presentDateSet.getMonth(), presentDateSet.getDay());
+
+        final StringBuilder report = new StringBuilder();
+        report.append(IndentUtils.newline());
+        report.append(IndentUtils.newline("Close Session"));
+        report.append(IndentUtils.newline("-------------------"));
+        report.append(IndentUtils.newline(String.format("Daily Action Total (%s)", DateUtils.toString(new Date()))));
+        report.append(IndentUtils.newline(String.format("Running User: %s", this.runningUserName)));
+        report.append(IndentUtils.newline("-------------------"));
+
+        for (final DailyActionTotal dailyActionTotal : dailyActionTotals) {
+            report.append(IndentUtils.newline(String.format("%s: %s",
+                    this.getTaskName(dailyActionTotal.getTaskTypeCode()), dailyActionTotal.getTotal())));
+        }
+
+        report.setLength(report.length() - IndentUtils.newline().length());
+
+        return report.toString();
+    }
+
+    private String getTaskName(final int taskTypeCode) {
+        return TaskNameMapper.from(taskTypeCode).scan().get(0).getName();
     }
 }
