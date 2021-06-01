@@ -16,10 +16,11 @@ package org.thinkit.bot.instagram.batch.strategy.context;
 
 import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.batch.strategy.report.CloseSessionReportBuildStrategy;
-import org.thinkit.bot.instagram.batch.strategy.report.MainStreamReportBuildStrategy;
-import org.thinkit.bot.instagram.batch.strategy.report.StartSessionReportBuildStrategy;
+import org.thinkit.bot.instagram.batch.strategy.report.ReportCloseSessionStrategy;
+import org.thinkit.bot.instagram.batch.strategy.report.ReportMainStreamStrategy;
+import org.thinkit.bot.instagram.batch.strategy.report.ReportStartSessionStrategy;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -27,9 +28,9 @@ import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class ReportBuildContext implements Context<String> {
+public final class ReportContext implements Context<String> {
 
     /**
      * The batch schedule type
@@ -49,11 +50,11 @@ public final class ReportBuildContext implements Context<String> {
     @Override
     public String evaluate() {
         return switch (batchScheduleType) {
-            case START_SESSION -> StartSessionReportBuildStrategy
+            case START_SESSION -> ReportStartSessionStrategy
                     .from(this.runningUserName, mongoCollections.getSessionRepository()).buildReport();
-            case MAIN_STREAM -> MainStreamReportBuildStrategy
+            case MAIN_STREAM -> ReportMainStreamStrategy
                     .from(this.runningUserName, this.mongoCollections.getMessageMetaRepository()).buildReport();
-            case CLOSE_SESSION -> CloseSessionReportBuildStrategy.from(this.runningUserName, this.mongoCollections)
+            case CLOSE_SESSION -> ReportCloseSessionStrategy.from(this.runningUserName, this.mongoCollections)
                     .buildReport();
         };
     }

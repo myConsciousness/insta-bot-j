@@ -42,10 +42,18 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public final class NotifyResultReportTasklet extends AbstractTasklet {
 
+    /**
+     * The default constructor.
+     */
     private NotifyResultReportTasklet() {
         super(TaskType.NOTIFY_RESULT_REPORT);
     }
 
+    /**
+     * Returns the new instance of {@link NotifyResultReportTasklet} .
+     *
+     * @return The new instance of {@link NotifyResultReportTasklet}
+     */
     public static Tasklet newInstance() {
         return new NotifyResultReportTasklet();
     }

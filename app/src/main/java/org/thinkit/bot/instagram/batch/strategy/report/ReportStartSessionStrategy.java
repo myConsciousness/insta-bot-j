@@ -31,7 +31,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class StartSessionReportBuildStrategy implements ReportBuildStrategy, Serializable {
+public final class ReportStartSessionStrategy implements ReportStrategy, Serializable {
 
     /**
      * The running user name
