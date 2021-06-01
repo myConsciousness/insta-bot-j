@@ -14,10 +14,7 @@
 
 package org.thinkit.bot.instagram.batch.strategy.report;
 
-import java.io.Serializable;
-
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.batch.strategy.context.ReportCloseSessionBuildContext;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,7 +26,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class ReportCloseSessionStrategy implements ReportStrategy, Serializable {
+public final class ReportCloseSessionBuildStrategy implements ReportBuildStrategy {
 
     /**
      * The running user name
@@ -42,7 +39,7 @@ public final class ReportCloseSessionStrategy implements ReportStrategy, Seriali
     private MongoCollections mongoCollections;
 
     @Override
-    public String buildReport() {
-        return ReportCloseSessionBuildContext.from(this.runningUserName, this.mongoCollections).evaluate();
+    public String build() {
+        return null;
     }
 }

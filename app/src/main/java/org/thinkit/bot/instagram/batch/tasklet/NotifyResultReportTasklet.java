@@ -21,9 +21,7 @@ import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.stereotype.Component;
-import org.thinkit.api.catalog.Catalog;
 import org.thinkit.api.line.factory.LineApiJFactory;
-import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.MessageMeta;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.MessageMetaRepository;
@@ -69,8 +67,8 @@ public final class NotifyResultReportTasklet extends AbstractTasklet {
         final List<MessageMeta> messageMetas = messageMetaRepository
                 .findByChargeUserNameAndAlreadySentFalse(runningUserName);
 
-        LineApiJFactory.getInstance().createLineNotify(this.getLineNotifyToken()).sendMessage(LineMessageBuilder
-                .from(this.getProcessingBatchScheduleType(), runningUserName, mongoCollections).build());
+        LineApiJFactory.getInstance().createLineNotify(this.getLineNotifyToken())
+                .sendMessage(LineMessageBuilder.from(runningUserName, mongoCollections).build());
         log.info("The message has been sent.");
 
         for (final MessageMeta messageMeta : messageMetas) {
@@ -87,10 +85,5 @@ public final class NotifyResultReportTasklet extends AbstractTasklet {
     private String getLineNotifyToken() {
         return super.getMongoCollections().getVariableRepository().findByName(VariableName.LINE_NOTIFY_TOKEN.getTag())
                 .getValue();
-    }
-
-    private BatchScheduleType getProcessingBatchScheduleType() {
-        return Catalog.getEnum(BatchScheduleType.class,
-                super.getIntVariableValue(VariableName.PROCESSING_BATCH_SCHEDULE));
     }
 }

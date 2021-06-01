@@ -15,14 +15,13 @@
 package org.thinkit.bot.instagram.batch.strategy.context;
 
 import org.thinkit.api.catalog.Catalog;
-import org.thinkit.bot.instagram.batch.catalog.BatchScheduleType;
+import org.thinkit.bot.instagram.batch.catalog.BatchCloseSessionFlowStrategyPattern;
 import org.thinkit.bot.instagram.batch.catalog.VariableName;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.Variable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.VariableRepository;
 import org.thinkit.bot.instagram.batch.dto.MongoCollections;
-import org.thinkit.bot.instagram.batch.strategy.report.ReportCloseSessionStrategy;
-import org.thinkit.bot.instagram.batch.strategy.report.ReportMainStreamStrategy;
-import org.thinkit.bot.instagram.batch.strategy.report.ReportStartSessionStrategy;
+import org.thinkit.bot.instagram.batch.strategy.report.ReportCloseSessionBuildStrategy;
+import org.thinkit.bot.instagram.batch.strategy.report.ReportContinueSessionBuildStrategy;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -34,7 +33,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(staticName = "from")
-public final class ReportContext implements Context<String> {
+public final class ReportCloseSessionBuildContext implements Context<String> {
 
     /**
      * The running user name
@@ -48,25 +47,23 @@ public final class ReportContext implements Context<String> {
 
     @Override
     public String evaluate() {
-        return switch (this.getBatchScheduleType()) {
-            case START_SESSION -> ReportStartSessionStrategy
-                    .from(this.runningUserName, this.mongoCollections.getSessionRepository()).buildReport();
-            case MAIN_STREAM -> ReportMainStreamStrategy
-                    .from(this.runningUserName, this.mongoCollections.getMessageMetaRepository()).buildReport();
-            case CLOSE_SESSION -> ReportCloseSessionStrategy.from(this.runningUserName, this.mongoCollections)
-                    .buildReport();
+        return switch (this.getBatchCloseSessionFlowStrategyPattern()) {
+            case CONTINUE -> ReportContinueSessionBuildStrategy.from(this.runningUserName, this.mongoCollections)
+                    .build();
+            case FINISH -> ReportCloseSessionBuildStrategy.from(this.runningUserName, this.mongoCollections).build();
         };
     }
 
-    private BatchScheduleType getBatchScheduleType() {
+    private BatchCloseSessionFlowStrategyPattern getBatchCloseSessionFlowStrategyPattern() {
 
         final VariableRepository variableRepository = this.mongoCollections.getVariableRepository();
-        final Variable variable = variableRepository.findByName(VariableName.PROCESSING_BATCH_SCHEDULE.getTag());
+        final Variable variable = variableRepository
+                .findByName(VariableName.BATCH_SESSION_CLOSE_FLOW_STRATEGY.getTag());
 
         if (variable == null) {
-            throw new IllegalStateException("Could not detect the processing schedule type.");
+            throw new IllegalStateException("Could not detect the batch session close flow strategy.");
         }
 
-        return Catalog.getEnum(BatchScheduleType.class, Integer.parseInt(variable.getValue()));
+        return Catalog.getEnum(BatchCloseSessionFlowStrategyPattern.class, Integer.parseInt(variable.getValue()));
     }
 }
