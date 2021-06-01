@@ -14,7 +14,7 @@
 
 package org.thinkit.bot.instagram.batch.strategy.report;
 
-public interface ReportBuildStrategy {
+public interface ReportStrategy {
 
-    public String build();
+    public String buildReport();
 }

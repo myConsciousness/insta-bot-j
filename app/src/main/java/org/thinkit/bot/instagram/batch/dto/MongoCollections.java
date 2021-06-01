@@ -19,6 +19,7 @@ import java.io.Serializable;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRecordRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionRestrictionRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ActionSkipRepository;
+import org.thinkit.bot.instagram.batch.data.mongo.repository.DailyActionTotalRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.ErrorRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackExpectableUserRepository;
 import org.thinkit.bot.instagram.batch.data.mongo.repository.FollowBackPossibilityIndicatorRepository;
@@ -191,4 +192,10 @@ public final class MongoCollections implements Serializable {
      */
     @Getter
     private FollowUnmutualUserRepository followUnmutualUserRepository;
+
+    /**
+     * The daily action total repository
+     */
+    @Getter
+    private DailyActionTotalRepository dailyActionTotalRepository;
 }
