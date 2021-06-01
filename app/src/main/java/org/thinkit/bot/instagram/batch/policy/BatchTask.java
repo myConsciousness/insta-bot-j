@@ -94,7 +94,7 @@ public final class BatchTask implements Serializable {
     }
 
     public boolean isActionTotalable() {
-        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.AUTO_FOLLOW
-                || this.taskType == TaskType.AUTO_UNFOLLOW;
+        return this.taskType == TaskType.AUTO_LIKE || this.taskType == TaskType.AUTO_FORECAST_FOLLOW_BACK_USER
+                || this.taskType == TaskType.AUTO_FOLLOW || this.taskType == TaskType.AUTO_UNFOLLOW;
     }
 }
