@@ -69,7 +69,6 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- *
  * @author Kato Shinya
  * @since 1.0.0
  */
@@ -567,7 +566,7 @@ public abstract class AbstractTasklet implements Tasklet {
         final TaskExecutionControlRepository taskExecutionControlRepository = this.mongoCollections
                 .getTaskExecutionControlRepository();
         TaskExecutionControl taskExecutionControl = taskExecutionControlRepository
-                .findByChargeUserNameAndTaskTypeCode(this.batchTask.getTypeCode(), this.getRunningUserName());
+                .findByChargeUserNameAndTaskTypeCode(this.getRunningUserName(), this.batchTask.getTypeCode());
 
         if (taskExecutionControl == null) {
             taskExecutionControl = new TaskExecutionControl();
