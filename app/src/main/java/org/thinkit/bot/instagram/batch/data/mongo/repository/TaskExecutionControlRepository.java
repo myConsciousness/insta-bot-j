@@ -18,8 +18,20 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 import org.thinkit.bot.instagram.batch.data.mongo.entity.TaskExecutionControl;
 
+/**
+ * @author Kato Shinya
+ * @since 1.0.0
+ */
 @Repository
 public interface TaskExecutionControlRepository extends MongoRepository<TaskExecutionControl, String> {
 
-    public TaskExecutionControl findByChargeUserNameAndTaskTypeCode(int taskTypeCode, String chargeUserName);
+    /**
+     * Returns the task execution control based on charge user name and task type
+     * code passed as argument.
+     *
+     * @param chargeUserName The charge user name
+     * @param taskTypeCode   The task type code
+     * @return The task execution control
+     */
+    public TaskExecutionControl findByChargeUserNameAndTaskTypeCode(String chargeUserName, int taskTypeCode);
 }
