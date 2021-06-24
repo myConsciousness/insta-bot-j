@@ -14,6 +14,8 @@
 
 package org.thinkit.bot.instagram.batch.config;
 
+import java.util.concurrent.TimeUnit;
+
 import com.mongodb.lang.NonNull;
 
 import org.springframework.batch.core.Job;
@@ -50,6 +52,7 @@ import org.thinkit.bot.instagram.batch.policy.RunningUser;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchCloseSessionFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchMainStreamFlowContext;
 import org.thinkit.bot.instagram.batch.strategy.context.BatchStartSessionFlowContext;
+import org.thinkit.bot.instagram.util.RandomUtils;
 
 /**
  *
@@ -122,6 +125,7 @@ public class BatchJobConfiguration {
 
     @Scheduled(cron = SCHEDULE_CRON_MAIN_STREAM, zone = TIME_ZONE)
     public void performScheduledMainStream() throws Exception {
+        TimeUnit.MINUTES.sleep(RandomUtils.nextInt(15));
         this.runJobLauncher(BatchScheduleType.MAIN_STREAM);
     }
 
