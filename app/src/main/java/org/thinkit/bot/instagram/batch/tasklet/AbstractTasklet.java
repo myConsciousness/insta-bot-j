@@ -24,6 +24,7 @@ import org.springframework.batch.core.scope.context.ChunkContext;
 import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Component;
 import org.thinkit.api.catalog.BiCatalog;
@@ -582,9 +583,9 @@ public abstract class AbstractTasklet implements Tasklet {
     }
 
     private void closeBatchSession() {
-        log.info("Close web browser and application context.");
-        this.instaBot.closeWebBrowser();
-        this.context.close();
+        log.info("Close web browser and application.");
+        final int exitCode = SpringApplication.exit(this.context, () -> 0);
+        System.exit(exitCode);
     }
 
     private String getDefaultVariableValue(@NonNull final VariableName variableName) {
