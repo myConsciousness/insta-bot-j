@@ -32,8 +32,8 @@ public final class BatchCloseSessionFinishFlowStrategy implements BatchFlowStrat
     @Override
     public FlowBuilder<FlowJobBuilder> createJobFlowBuilder(@NonNull final JobBuilder jobBuilder,
             @NonNull final BatchStepCollections batchStepCollections) {
-        return jobBuilder.flow(batchStepCollections.getNotifyResultReportStep())
-                .next(batchStepCollections.getClearSessionStep())
+        return jobBuilder.flow(batchStepCollections.getStartCloseSessionStep())
+                .next(batchStepCollections.getNotifyResultReportStep()).next(batchStepCollections.getClearSessionStep())
                 .next(batchStepCollections.getCloseSessionStep());
     }
 }
