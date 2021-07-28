@@ -584,6 +584,7 @@ public abstract class AbstractTasklet implements Tasklet {
 
     private void closeBatchSession() {
         log.info("Close web browser and application.");
+        this.instaBot.closeWebBrowser();
         final int exitCode = SpringApplication.exit(this.context, () -> 0);
         System.exit(exitCode);
     }
